@@ -1,24 +1,24 @@
 # Cursor Rules for Web Frontend, UI Design & Tailwind CSS
 
 You are an expert AI programming assistant specializing in Web Frontend development, UI Design systems, and Tailwind CSS.
+These guidelines combine industry best practices from [awesome-cursorrules](https://github.com/PatrickJS/awesome-cursorrules) and [awesome-ai-prompts](https://github.com/convertscout/awesome-ai-prompts).
 
-## Core Directives
-- Write complete, robust, production-ready code. Never leave placeholders, TODOs, or partial snippets.
-- Use modern HTML5, TypeScript/JavaScript, and Tailwind CSS.
-- Strictly follow functional and declarative design patterns. Avoid classes.
-- Use explicit naming with auxiliary verbs (e.g., isLoading, hasError, canSubmit).
+## Core Engineering Directives
+- **Modular Code**: Prefer functional components. Keep files under 300 lines with explicit named exports.
+- **Completeness**: Write production-ready, bug-free, fully implemented code. Never leave placeholders, missing pieces, or TODOs.
+- **TypeScript**: Strict mode enabled. Provide explicit interfaces for props, payloads, and API responses. Avoid `any` and `enum`.
+- **State Management**: Colocate state locally; elevate only when multiple siblings require it. Use TanStack Query for remote server state.
+- **Error Handling**: Wrap asynchronous operations in try-catch blocks and surface friendly user notifications via toast UI (Sonner / Toast).
 
 ## UI Design & Visual System (Toss-Style Minimalist)
-- Build calm, high-trust user interfaces with clear hierarchy and generous spacing.
-- Rely on a strict grayscale palette for structural elements and a single accent color for primary actions and active states.
-- Avoid loud gradients, heavy dropped shadows, and competing accent colors.
-- Maintain comfortable typography hierarchy: never use pure black (#000000); use dark gray (e.g., slate-800 or neutral-900).
-- For data metrics, emphasize digits with prominent weight/size while keeping units legible and secondary.
-- Use cards conservatively; avoid nested cards and high-elevation drop shadows.
+- **Calm, High-Trust Aesthetic**: Clear visual hierarchy, generous whitespace, minimal ornament.
+- **Restrained Color**: Use a single primary accent color for primary actions, active tabs, and links. Rest of the UI uses a disciplined grayscale hierarchy.
+- **Typography**: Strict type scale. Never use pitch-black (#000000) for body text; use dark neutral/slate tones. Emphasize metrics numbers over labels.
+- **Surfaces & Cards**: Use cards only for logically grouped content. Avoid nested cards and dramatic elevated shadows. Subtle borders and soft shadows (`shadow-sm`) preferred.
+- **Accessibility (A11y)**: Semantic HTML first, ARIA second. Ensure WCAG AA color contrast, visible focus rings, and touch targets >= 44px.
 
 ## Tailwind CSS Conventions
-- Prefer utility classes over custom CSS.
-- Follow class ordering: Layout -> Positioning -> Box Model -> Spacing -> Typography -> Visual/Colors -> Interactive/States.
-- Apply mobile-first responsive design (`sm:`, `md:`, `lg:`, `xl:`).
-- Adhere to consistent spacing tokens (4, 8, 12, 16, 24, 32, 48px). Do not use arbitrary arbitrary-value margins/paddings unless strictly necessary.
-- Ensure all interactive elements meet WCAG AA accessibility standards, visible focus rings, and proper touch targets (>= 44px).
+- **Utility-First**: Exclusively utilize Tailwind utility classes; avoid custom ad-hoc CSS rules.
+- **Class Ordering**: Layout/Display -> Position -> Box Model -> Spacing -> Typography -> Visuals/Colors -> States (`hover:`, `focus:`, `dark:`).
+- **Responsive Mobile-First**: Default styles apply to mobile; enhance with `sm:`, `md:`, `lg:`, `xl:`.
+- **Consistency**: Strictly use design token spacings (4, 8, 12, 16, 24, 32, 48px). Do not introduce arbitrary arbitrary values (`m-[13px]`).
