@@ -6,13 +6,12 @@ import {
   Home, 
   GraduationCap, 
   Building, 
-  Sparkles, 
   ShieldCheck, 
   CheckCircle2, 
   Receipt, 
   PhoneCall, 
   ArrowRight,
-  Zap
+  Sparkles
 } from 'lucide-react';
 import { WARDS_BY_DISTRICT } from '../../data/locations';
 import { useRooms } from '../../context/RoomContext';
@@ -83,7 +82,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
       setWard('P. Tân Thịnh');
       setRoomType('all');
     } else if (cat === 'samsung') {
-      setKeyword('Samsung Phổ Yên');
+      setKeyword('Samsung');
       setWard('TX. Phổ Yên');
       setRoomType('all');
     } else if (cat === 'cheap') {
@@ -98,45 +97,40 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
   const wards = WARDS_BY_DISTRICT['TP. Thái Nguyên'] || [];
 
   return (
-    <div className="relative overflow-hidden bg-gradient-to-b from-brand-50/60 via-white to-stone-50/80 pt-10 pb-16 lg:pt-14 lg:pb-20 border-b border-stone-200/80">
-      {/* Background Architectural Accent Lines */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.035] [background-image:linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:4rem_4rem]" />
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Editorial Hero Typography */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
+    <div className="relative bg-gradient-to-b from-emerald-50/40 via-white to-stone-50/60 pt-8 pb-12 sm:pt-14 sm:pb-20 border-b border-stone-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main Title Section */}
+        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-10">
           {/* Eyebrow Trust Badge */}
-          <div className="inline-flex items-center gap-2 bg-white border border-brand-200/90 text-brand-800 text-xs font-semibold px-3.5 py-1.5 rounded-full mb-4 shadow-subtle hover:border-brand-300 transition">
-            <span className="flex h-2 w-2 rounded-full bg-emerald-500 ring-4 ring-emerald-100" />
-            <span>Nền tảng phòng trọ chính chủ số 1 Thái Nguyên</span>
-            <span className="text-stone-300">|</span>
-            <span className="text-brand-600 font-bold">Xác thực 100%</span>
+          <div className="inline-flex items-center gap-2 bg-white border border-stone-300 text-stone-800 text-xs font-semibold px-3.5 py-1.5 rounded-full mb-3 sm:mb-4 shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
+            <span>Hệ thống phòng trọ chính chủ số 1 Thái Nguyên</span>
+            <span className="text-stone-300">•</span>
+            <span className="text-emerald-700 font-bold">Xác thực 100%</span>
           </div>
 
-          {/* Hero Headline */}
-          <h1 className="font-display text-3xl sm:text-5xl font-extrabold text-stone-900 tracking-tight leading-[1.18] mb-4">
+          {/* Hero Headline with crisp, solid high-contrast font colors */}
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-stone-900 tracking-tight leading-tight sm:leading-tight mb-3">
             Tìm phòng trọ Thái Nguyên{' '}
-            <span className="bg-gradient-to-r from-brand-700 via-brand-600 to-teal-600 bg-clip-text text-transparent">
-              đúng giá thực tế
-            </span>
+            <span className="text-brand-700">đúng giá thực tế</span>
           </h1>
 
-          {/* Subtitle */}
-          <p className="text-sm sm:text-base text-stone-600 max-w-2xl mx-auto leading-relaxed">
-            Khảo sát thực tế hơn 450+ phòng trọ gần Đại học Thái Nguyên (Y Dược, Sư Phạm, Kỹ Thuật, CNTT...) và KCN Samsung Phổ Yên. Minh bạch 100% tiền điện nước, điều hòa và hợp đồng thuê.
+          {/* Subtitle with high-contrast slate text */}
+          <p className="text-xs sm:text-base text-stone-600 max-w-2xl mx-auto leading-relaxed">
+            Hơn 450+ phòng trọ khảo sát thực tế gần Đại học Thái Nguyên (Y Dược, Sư Phạm, Kỹ Thuật, CNTT...) và KCN Samsung Phổ Yên. Minh bạch tiền điện nước, điều hòa và hợp đồng thuê.
           </p>
         </div>
 
-        {/* Master Search Dock */}
-        <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-[0_16px_40px_-10px_rgba(27,79,58,0.08)] border border-stone-200/90 p-3 sm:p-5 transition-all">
-          {/* Top Quick Categories */}
+        {/* Master Search Card */}
+        <div className="max-w-4xl mx-auto bg-white rounded-2xl sm:rounded-3xl shadow-card border border-stone-200 p-3.5 sm:p-5">
+          {/* Top Categories Scroll Bar */}
           <div className="flex items-center gap-1.5 overflow-x-auto pb-3 mb-3 border-b border-stone-100 no-scrollbar">
             {[
               { id: 'all', label: 'Tất cả phòng', icon: Home },
-              { id: 'uni', label: 'Gần trường ĐH', icon: GraduationCap },
+              { id: 'uni', label: 'Gần các trường ĐH', icon: GraduationCap },
               { id: 'samsung', label: 'Gần KCN Samsung', icon: Building },
               { id: 'cheap', label: 'Giá rẻ (< 1.5 triệu)', icon: DollarSign },
-              { id: 'studio', label: 'Studio & Căn hộ mini', icon: Sparkles },
+              { id: 'studio', label: 'Studio tiện nghi', icon: Sparkles },
             ].map((tab) => {
               const Icon = tab.icon;
               const isActive = activeCategory === tab.id;
@@ -145,110 +139,112 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                   key={tab.id}
                   type="button"
                   onClick={() => handleCategoryTab(tab.id as any)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition ${
                     isActive
-                      ? 'bg-brand-600 text-white shadow-xs'
-                      : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100/80 bg-stone-50'
+                      ? 'bg-brand-700 text-white shadow-xs'
+                      : 'text-stone-700 hover:text-stone-900 hover:bg-stone-100 bg-stone-50'
                   }`}
                 >
-                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-stone-400'}`} />
+                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-stone-500'}`} />
                   <span>{tab.label}</span>
                 </button>
               );
             })}
           </div>
 
-          {/* Unified Search Input Grid */}
-          <form onSubmit={handleSearch} className="grid grid-cols-1 md:grid-cols-12 gap-2 sm:gap-2.5 items-center">
-            {/* Input 1: Keyword */}
-            <div className="md:col-span-4 bg-stone-50/80 hover:bg-stone-50 rounded-2xl p-2.5 px-3.5 border border-stone-200/70 focus-within:border-brand-500 focus-within:bg-white focus-within:ring-2 focus-within:ring-brand-100 transition-all">
-              <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-0.5">
-                Địa điểm / Trường học
+          {/* Search Inputs: Responsive Form */}
+          <form onSubmit={handleSearch} className="space-y-2.5 sm:space-y-0 sm:grid sm:grid-cols-12 sm:gap-2.5 items-center">
+            {/* Field 1: Keyword (Wider on desktop, full on mobile) */}
+            <div className="sm:col-span-5 bg-stone-50 rounded-xl p-2.5 px-3.5 border border-stone-200 focus-within:border-brand-600 focus-within:bg-white focus-within:ring-2 focus-within:ring-brand-100 transition">
+              <label className="block text-[11px] font-bold text-stone-500 uppercase tracking-wide mb-0.5">
+                Địa điểm / Tên trường ĐH
               </label>
               <div className="flex items-center gap-2">
-                <Search className="w-4 h-4 text-brand-600 shrink-0" />
+                <Search className="w-4 h-4 text-brand-700 shrink-0" />
                 <input
                   type="text"
                   value={keyword}
                   onChange={(e) => setKeyword(e.target.value)}
-                  placeholder="Y Dược, Sư Phạm, Tân Thịnh..."
-                  className="w-full bg-transparent text-xs sm:text-sm font-semibold text-stone-800 placeholder-stone-400 focus:outline-none"
+                  placeholder="Y Dược, Sư Phạm, Tân Thịnh, Z115..."
+                  className="w-full bg-transparent text-sm font-semibold text-stone-900 placeholder-stone-400 focus:outline-none"
                 />
               </div>
             </div>
 
-            {/* Input 2: Ward */}
-            <div className="md:col-span-3 bg-stone-50/80 hover:bg-stone-50 rounded-2xl p-2.5 px-3.5 border border-stone-200/70 focus-within:border-brand-500 focus-within:bg-white focus-within:ring-2 focus-within:ring-brand-100 transition-all">
-              <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-0.5">
-                Khu vực Phường / Xã
-              </label>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-brand-600 shrink-0" />
-                <select
-                  value={ward}
-                  onChange={(e) => setWard(e.target.value)}
-                  className="w-full bg-transparent text-xs sm:text-sm font-semibold text-stone-800 focus:outline-none cursor-pointer truncate"
-                >
-                  <option value="Tất cả">Toàn Thái Nguyên</option>
-                  {wards.filter(w => w !== 'Tất cả').map((w) => (
-                    <option key={w} value={w}>{w}</option>
-                  ))}
-                </select>
+            {/* Field 2 & 3: Ward and Price in a 2-col row on mobile, split on desktop */}
+            <div className="grid grid-cols-2 gap-2 sm:contents">
+              {/* Field 2: Ward */}
+              <div className="sm:col-span-3 bg-stone-50 rounded-xl p-2.5 px-3.5 border border-stone-200 focus-within:border-brand-600 focus-within:bg-white focus-within:ring-2 focus-within:ring-brand-100 transition">
+                <label className="block text-[11px] font-bold text-stone-500 uppercase tracking-wide mb-0.5 truncate">
+                  Khu vực Phường / Xã
+                </label>
+                <div className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-brand-700 shrink-0" />
+                  <select
+                    value={ward}
+                    onChange={(e) => setWard(e.target.value)}
+                    className="w-full bg-transparent text-xs sm:text-sm font-semibold text-stone-900 focus:outline-none cursor-pointer truncate"
+                  >
+                    <option value="Tất cả">Toàn Thái Nguyên</option>
+                    {wards.filter(w => w !== 'Tất cả').map((w) => (
+                      <option key={w} value={w}>{w}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Field 3: Price */}
+              <div className="sm:col-span-2 bg-stone-50 rounded-xl p-2.5 px-3.5 border border-stone-200 focus-within:border-brand-600 focus-within:bg-white focus-within:ring-2 focus-within:ring-brand-100 transition">
+                <label className="block text-[11px] font-bold text-stone-500 uppercase tracking-wide mb-0.5 truncate">
+                  Khoảng giá
+                </label>
+                <div className="flex items-center gap-2">
+                  <DollarSign className="w-4 h-4 text-brand-700 shrink-0" />
+                  <select
+                    value={priceTier}
+                    onChange={(e) => setPriceTier(e.target.value)}
+                    className="w-full bg-transparent text-xs sm:text-sm font-semibold text-stone-900 focus:outline-none cursor-pointer truncate"
+                  >
+                    <option value="all">Tất cả giá</option>
+                    <option value="under_1_5m">&lt; 1.5 triệu</option>
+                    <option value="1_5m_2_5m">1.5 - 2.5 triệu</option>
+                    <option value="above_2_5m">&gt; 2.5 triệu</option>
+                  </select>
+                </div>
               </div>
             </div>
 
-            {/* Input 3: Price Tier */}
-            <div className="md:col-span-3 bg-stone-50/80 hover:bg-stone-50 rounded-2xl p-2.5 px-3.5 border border-stone-200/70 focus-within:border-brand-500 focus-within:bg-white focus-within:ring-2 focus-within:ring-brand-100 transition-all">
-              <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-0.5">
-                Khoảng giá thuê
-              </label>
-              <div className="flex items-center gap-2">
-                <DollarSign className="w-4 h-4 text-brand-600 shrink-0" />
-                <select
-                  value={priceTier}
-                  onChange={(e) => setPriceTier(e.target.value)}
-                  className="w-full bg-transparent text-xs sm:text-sm font-semibold text-stone-800 focus:outline-none cursor-pointer truncate"
-                >
-                  <option value="all">Tất cả mức giá</option>
-                  <option value="under_1_5m">Dưới 1.5 tr/tháng</option>
-                  <option value="1_5m_2_5m">1.5 - 2.5 tr/tháng</option>
-                  <option value="above_2_5m">Trên 2.5 tr/tháng</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Submit Button */}
-            <div className="md:col-span-2">
+            {/* Field 4: Search Button */}
+            <div className="sm:col-span-2">
               <button
                 type="submit"
-                className="w-full py-3.5 bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-700 hover:to-brand-800 active:scale-95 text-white font-bold text-xs sm:text-sm rounded-2xl shadow-md shadow-brand-900/15 transition-all flex items-center justify-center gap-2"
+                className="w-full py-3 sm:py-3.5 bg-brand-700 hover:bg-brand-800 active:scale-98 text-white font-bold text-sm rounded-xl shadow-sm transition flex items-center justify-center gap-1.5"
               >
-                <span>Tìm phòng</span>
+                <span>Tìm kiếm</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </form>
 
-          {/* Quick Filter Tags Row */}
-          <div className="mt-3 pt-3 border-t border-stone-100 flex flex-wrap items-center gap-1.5 text-xs text-stone-500">
-            <span className="text-[11px] font-semibold text-stone-400 mr-1 flex items-center gap-1">
-              <Zap className="w-3 h-3 text-amber-500" />
+          {/* Quick Suggestion Pills */}
+          <div className="mt-3 pt-3 border-t border-stone-100 flex items-center gap-1.5 overflow-x-auto no-scrollbar text-xs">
+            <span className="text-[11px] font-bold text-stone-500 whitespace-nowrap">
               Gợi ý nhanh:
             </span>
 
             {[
               { label: 'ĐH Y Dược', keyword: 'Y Dược', ward: 'P. Quang Trung' },
-              { label: 'Làng SV Tân Thịnh', keyword: '', ward: 'P. Tân Thịnh' },
+              { label: 'Làng ĐH Tân Thịnh', keyword: '', ward: 'P. Tân Thịnh' },
               { label: 'Đường Z115', keyword: 'Z115', ward: 'P. Quyết Thắng' },
               { label: 'Samsung Phổ Yên', keyword: 'Samsung', ward: 'TX. Phổ Yên' },
-              { label: 'Phòng < 1.5 triệu', keyword: '', ward: 'Tất cả', price: 'under_1_5m' },
+              { label: 'Phòng < 1.5tr', keyword: '', ward: 'Tất cả', price: 'under_1_5m' },
               { label: 'Chung cư mini', keyword: '', ward: 'Tất cả', roomType: 'mini_apartment' },
             ].map((tag, idx) => (
               <button
                 key={idx}
                 type="button"
                 onClick={() => handleQuickTagClick(tag.keyword, tag.ward, tag.roomType, tag.price)}
-                className="px-2.5 py-1 rounded-lg bg-stone-100 hover:bg-brand-50 hover:text-brand-800 text-stone-600 text-[11px] font-medium transition border border-stone-200/60"
+                className="px-2.5 py-1 rounded-md bg-stone-100 hover:bg-brand-50 hover:text-brand-900 text-stone-700 text-xs font-semibold whitespace-nowrap transition border border-stone-200"
               >
                 {tag.label}
               </button>
@@ -256,45 +252,45 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
           </div>
         </div>
 
-        {/* 4 Architectural Trust Pillars */}
-        <div className="mt-10 max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-          <div className="bg-white/80 backdrop-blur-xs rounded-2xl p-3.5 border border-stone-200/70 shadow-subtle flex items-start gap-3">
-            <div className="w-8 h-8 rounded-xl bg-brand-50 text-brand-700 flex items-center justify-center shrink-0">
+        {/* 4 Trust Highlights: Clean & Balanced on both Mobile and Desktop */}
+        <div className="mt-8 sm:mt-10 max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4">
+          <div className="bg-white rounded-xl p-3 sm:p-3.5 border border-stone-200 shadow-xs flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
               <CheckCircle2 className="w-4 h-4" />
             </div>
             <div>
-              <div className="text-xs font-bold text-stone-900">450+ Khảo sát thực tế</div>
-              <div className="text-[11px] text-stone-500 mt-0.5 leading-snug">Ảnh thật 100%, có tọa độ bản đồ cụ thể</div>
+              <div className="text-xs font-bold text-stone-900">450+ Khảo sát</div>
+              <div className="text-[11px] text-stone-500 font-medium">Ảnh chụp thực tế 100%</div>
             </div>
           </div>
 
-          <div className="bg-white/80 backdrop-blur-xs rounded-2xl p-3.5 border border-stone-200/70 shadow-subtle flex items-start gap-3">
-            <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center shrink-0">
+          <div className="bg-white rounded-xl p-3 sm:p-3.5 border border-stone-200 shadow-xs flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center shrink-0">
               <Receipt className="w-4 h-4" />
             </div>
             <div>
               <div className="text-xs font-bold text-stone-900">Minh bạch điện nước</div>
-              <div className="text-[11px] text-stone-500 mt-0.5 leading-snug">Rõ ràng theo công tơ, không phí ẩn</div>
+              <div className="text-[11px] text-stone-500 font-medium">Theo công tơ chuẩn</div>
             </div>
           </div>
 
-          <div className="bg-white/80 backdrop-blur-xs rounded-2xl p-3.5 border border-stone-200/70 shadow-subtle flex items-start gap-3">
-            <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
+          <div className="bg-white rounded-xl p-3 sm:p-3.5 border border-stone-200 shadow-xs flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
               <PhoneCall className="w-4 h-4" />
             </div>
             <div>
               <div className="text-xs font-bold text-stone-900">0đ Phí môi giới</div>
-              <div className="text-[11px] text-stone-500 mt-0.5 leading-snug">Liên hệ trực tiếp chủ trọ qua Zalo/SĐT</div>
+              <div className="text-[11px] text-stone-500 font-medium">Liên hệ thẳng chủ trọ</div>
             </div>
           </div>
 
-          <div className="bg-white/80 backdrop-blur-xs rounded-2xl p-3.5 border border-stone-200/70 shadow-subtle flex items-start gap-3">
-            <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center shrink-0">
+          <div className="bg-white rounded-xl p-3 sm:p-3.5 border border-stone-200 shadow-xs flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center shrink-0">
               <ShieldCheck className="w-4 h-4" />
             </div>
             <div>
               <div className="text-xs font-bold text-stone-900">Hợp đồng mẫu chuẩn</div>
-              <div className="text-[11px] text-stone-500 mt-0.5 leading-snug">Bảo vệ quyền lợi cọc & sinh viên</div>
+              <div className="text-[11px] text-stone-500 font-medium">Bảo vệ quyền lợi cọc</div>
             </div>
           </div>
         </div>

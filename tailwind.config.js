@@ -9,16 +9,16 @@ export default {
     extend: {
       colors: {
         brand: {
-          50: '#F3F8F5',
-          100: '#E4EFE8',
-          200: '#C5DCCF',
-          300: '#99C1AD',
-          400: '#6CA389',
-          500: '#44866A',
-          600: '#23654B', // Tân Cương Evergreen
-          700: '#1B4F3A',
-          800: '#153C2D',
-          900: '#102C21',
+          50: '#F0FDF4',
+          100: '#DCFCE7',
+          200: '#BBF7D0',
+          300: '#86EFAC',
+          400: '#4ADE80',
+          500: '#22C55E',
+          600: '#16A34A', // Vibrant Emerald Green
+          700: '#15803D',
+          800: '#166534',
+          900: '#14532D',
         },
         clay: {
           50: '#FFF7ED',
@@ -29,33 +29,34 @@ export default {
           600: '#EA580C', // Warm terracotta
           700: '#C2410C',
         },
+        // High-contrast clean Slate neutral palette replacing muddy stone
         stone: {
-          50: '#FAFAF8',
-          100: '#F4F4F0',
-          200: '#E6E6DF',
-          300: '#D5D5CC',
-          400: '#A3A399',
-          500: '#737368',
-          600: '#52524A',
-          700: '#3F3F38',
-          800: '#262622',
-          900: '#181816',
+          50: '#F8FAFC',
+          100: '#F1F5F9',
+          200: '#E2E8F0',
+          300: '#CBD5E1',
+          400: '#94A3B8',
+          500: '#64748B',
+          600: '#475569',
+          700: '#334155',
+          800: '#1E293B',
+          900: '#0F172A',
         }
       },
       fontFamily: {
-        sans: ['"Be Vietnam Pro"', '"Plus Jakarta Sans"', 'sans-serif'],
-        display: ['"Plus Jakarta Sans"', '"Be Vietnam Pro"', 'sans-serif'],
+        sans: ['"Inter"', '"Be Vietnam Pro"', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['"Inter"', '"Be Vietnam Pro"', 'system-ui', '-apple-system', 'sans-serif'],
       },
       boxShadow: {
-        'card': '0 2px 10px -2px rgba(27, 79, 58, 0.05), 0 1px 3px 0 rgba(0, 0, 0, 0.03)',
-        'card-hover': '0 16px 32px -8px rgba(27, 79, 58, 0.11), 0 4px 10px -2px rgba(0, 0, 0, 0.04)',
-        'elevated': '0 20px 45px -12px rgba(16, 44, 33, 0.18)',
-        'subtle': '0 1px 2px 0 rgba(0, 0, 0, 0.04)',
+        'card': '0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.04)',
+        'card-hover': '0 12px 24px -6px rgba(15, 23, 42, 0.12), 0 4px 8px -2px rgba(15, 23, 42, 0.05)',
+        'elevated': '0 20px 35px -8px rgba(15, 23, 42, 0.15)',
+        'subtle': '0 1px 2px 0 rgba(15, 23, 42, 0.05)',
       },
       borderRadius: {
         'xl': '12px',
         '2xl': '16px',
-        '3xl': '22px',
+        '3xl': '24px',
       }
     },
   },
