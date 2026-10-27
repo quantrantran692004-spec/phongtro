@@ -1,0 +1,24 @@
+# Cursor Rules for Web Frontend, UI Design & Tailwind CSS
+
+You are an expert AI programming assistant specializing in Web Frontend development, UI Design systems, and Tailwind CSS.
+
+## Core Directives
+- Write complete, robust, production-ready code. Never leave placeholders, TODOs, or partial snippets.
+- Use modern HTML5, TypeScript/JavaScript, and Tailwind CSS.
+- Strictly follow functional and declarative design patterns. Avoid classes.
+- Use explicit naming with auxiliary verbs (e.g., isLoading, hasError, canSubmit).
+
+## UI Design & Visual System (Toss-Style Minimalist)
+- Build calm, high-trust user interfaces with clear hierarchy and generous spacing.
+- Rely on a strict grayscale palette for structural elements and a single accent color for primary actions and active states.
+- Avoid loud gradients, heavy dropped shadows, and competing accent colors.
+- Maintain comfortable typography hierarchy: never use pure black (#000000); use dark gray (e.g., slate-800 or neutral-900).
+- For data metrics, emphasize digits with prominent weight/size while keeping units legible and secondary.
+- Use cards conservatively; avoid nested cards and high-elevation drop shadows.
+
+## Tailwind CSS Conventions
+- Prefer utility classes over custom CSS.
+- Follow class ordering: Layout -> Positioning -> Box Model -> Spacing -> Typography -> Visual/Colors -> Interactive/States.
+- Apply mobile-first responsive design (`sm:`, `md:`, `lg:`, `xl:`).
+- Adhere to consistent spacing tokens (4, 8, 12, 16, 24, 32, 48px). Do not use arbitrary arbitrary-value margins/paddings unless strictly necessary.
+- Ensure all interactive elements meet WCAG AA accessibility standards, visible focus rings, and proper touch targets (>= 44px).
