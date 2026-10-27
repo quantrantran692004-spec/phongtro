@@ -9,32 +9,36 @@
   }
   
   body {
-    @apply text-stone-900 bg-stone-50 antialiased font-sans;
+    @apply text-charcoal-900 bg-[#F7F6F2] antialiased font-sans;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Custom input styles */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight text-charcoal-900;
+  }
+
+  /* Custom range accent matching BARNES forest green */
   input[type="range"] {
-    accent-color: #15803D;
+    accent-color: #23483D;
   }
 }
 
-/* Custom Scrollbar */
+/* Restrained European Architectural Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #F1F5F9;
+  background: #F7F6F2;
 }
 ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
+  background: #DAD8D0;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
+  background: #9A9C97;
 }
 
 /* Hide scrollbar for category tabs */
@@ -46,17 +50,21 @@
   scrollbar-width: none;
 }
 
-/* Leaflet Map overrides */
+/* Leaflet Map overrides for luxury architectural feel */
 .leaflet-container {
   font-family: inherit;
-  border-radius: 16px;
+  border-radius: 12px;
+  border: 1px solid #E6E4DE;
   z-index: 10;
 }
 .leaflet-popup-content-wrapper {
-  border-radius: 14px;
-  box-shadow: 0 14px 30px -6px rgba(15, 23, 42, 0.18);
+  border-radius: 10px;
+  box-shadow: 0 10px 25px -4px rgba(37, 39, 37, 0.12);
   padding: 4px;
+  background: #FFFFFF;
+  border: 1px solid #E6E4DE;
 }
 .leaflet-popup-tip {
-  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.1);
+  box-shadow: 0 4px 10px rgba(37, 39, 37, 0.08);
+  background: #FFFFFF;
 }

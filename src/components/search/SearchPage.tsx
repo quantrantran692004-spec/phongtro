@@ -31,19 +31,19 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
     filters.amenities.length > 0;
 
   return (
-    <div className="bg-stone-50 min-h-screen py-6 sm:py-8">
+    <div className="bg-[#F7F6F2] min-h-screen py-7 sm:py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Top Control Bar */}
-        <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-4 mb-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        {/* Top Control Bar: Architectural Poise */}
+        <div className="bg-white rounded-md border border-[#E6E4DE] shadow-whisper p-4 sm:p-5 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-lg sm:text-xl font-extrabold text-stone-900 tracking-tight flex items-center gap-2">
-              <span>Phòng trọ cho thuê tại Thái Nguyên</span>
-              <span className="text-xs font-bold bg-brand-50 text-brand-800 px-2.5 py-0.5 rounded-full border border-brand-200">
+            <h1 className="text-xl sm:text-2xl font-serif text-charcoal-900 tracking-tight flex items-center gap-3">
+              <span>Danh Mục Không Gian Cho Thuê</span>
+              <span className="text-xs font-bold bg-[#F7F6F2] text-brand-900 px-2.5 py-0.5 rounded-sm border border-[#E6E4DE]">
                 {filteredRooms.length} kết quả
               </span>
             </h1>
-            <p className="text-xs text-stone-700 mt-0.5 font-medium">
-              Khảo sát thực địa, chuẩn giá từ các chủ trọ và sinh viên
+            <p className="text-xs text-charcoal-600 mt-1 font-normal">
+              Thẩm định thực tế 100%, bảo đảm minh bạch điện nước và quyền lợi người thuê
             </p>
           </div>
 
@@ -51,22 +51,22 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
             {/* Mobile Filter Drawer Button */}
             <button
               onClick={() => setMobileFilterOpen(true)}
-              className="md:hidden flex items-center gap-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 px-3 py-1.5 rounded-xl text-xs font-bold transition"
+              className="md:hidden flex items-center gap-1.5 bg-[#F7F6F2] hover:bg-stone-200 text-charcoal-900 px-3.5 py-2 rounded-sm text-xs font-bold border border-[#E6E4DE] transition"
             >
               <SlidersHorizontal className="w-3.5 h-3.5 text-brand-700" />
               <span>Bộ lọc</span>
               {hasActiveFilters && (
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-700 inline-block"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#23483D] inline-block"></span>
               )}
             </button>
 
             {/* Sort Dropdown */}
-            <div className="flex items-center gap-1.5 bg-stone-100 rounded-xl px-2.5 py-1.5 text-xs">
-              <ArrowUpDown className="w-3.5 h-3.5 text-stone-500" />
+            <div className="flex items-center gap-1.5 bg-[#F7F6F2] rounded-sm px-3 py-2 text-xs border border-[#E6E4DE]">
+              <ArrowUpDown className="w-3.5 h-3.5 text-charcoal-400" />
               <select
                 value={filters.sortBy}
                 onChange={(e) => updateFilters({ sortBy: e.target.value as any })}
-                className="bg-transparent font-bold text-stone-800 focus:outline-none cursor-pointer"
+                className="bg-transparent font-bold text-charcoal-900 focus:outline-none cursor-pointer"
               >
                 <option value="newest">Mới cập nhật</option>
                 <option value="price_asc">Giá: Thấp đến Cao</option>
@@ -77,13 +77,13 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
             </div>
 
             {/* View Mode Toggle */}
-            <div className="flex items-center bg-stone-100 p-1 rounded-xl text-xs font-bold">
+            <div className="flex items-center bg-[#F7F6F2] p-1 rounded-sm text-xs font-bold border border-[#E6E4DE]">
               <button
                 onClick={() => setViewMode('grid')}
-                className={`flex items-center gap-1 px-3 py-1 rounded-lg transition ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-sm transition ${
                   viewMode === 'grid'
-                    ? 'bg-white text-stone-900 shadow-sm'
-                    : 'text-stone-600 hover:text-stone-900'
+                    ? 'bg-white text-charcoal-900 shadow-whisper border border-[#E6E4DE]'
+                    : 'text-charcoal-600 hover:text-charcoal-900'
                 }`}
               >
                 <Grid className="w-3.5 h-3.5" />
@@ -92,10 +92,10 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
 
               <button
                 onClick={() => setViewMode('map')}
-                className={`flex items-center gap-1 px-3 py-1 rounded-lg transition ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-sm transition ${
                   viewMode === 'map'
-                    ? 'bg-white text-stone-900 shadow-sm'
-                    : 'text-stone-600 hover:text-stone-900'
+                    ? 'bg-white text-charcoal-900 shadow-whisper border border-[#E6E4DE]'
+                    : 'text-charcoal-600 hover:text-charcoal-900'
                 }`}
               >
                 <MapIcon className="w-3.5 h-3.5" />
@@ -107,11 +107,11 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
 
         {/* Active Filter Tags */}
         {hasActiveFilters && (
-          <div className="flex items-center gap-2 flex-wrap mb-4 bg-brand-50/70 p-2.5 rounded-xl border border-brand-200 text-xs">
-            <span className="font-bold text-brand-900">Đang lọc:</span>
+          <div className="flex items-center gap-2 flex-wrap mb-5 bg-white p-3 rounded-sm border border-[#E6E4DE] text-xs shadow-whisper">
+            <span className="font-bold text-charcoal-900">Đang lọc theo:</span>
 
             {filters.keyword && (
-              <span className="inline-flex items-center gap-1 bg-white border border-brand-200 text-brand-900 px-2 py-0.5 rounded-lg shadow-xs font-medium">
+              <span className="inline-flex items-center gap-1.5 bg-[#F7F6F2] border border-[#E6E4DE] text-charcoal-900 px-2.5 py-1 rounded-sm font-medium">
                 "{filters.keyword}"
                 <button onClick={() => updateFilters({ keyword: '' })} className="hover:text-rose-600">
                   <X className="w-3 h-3" />
@@ -120,7 +120,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
             )}
 
             {filters.ward && filters.ward !== 'Tất cả' && filters.ward !== 'Tất cả phường/xã' && (
-              <span className="inline-flex items-center gap-1 bg-white border border-brand-200 text-brand-900 px-2 py-0.5 rounded-lg shadow-xs font-medium">
+              <span className="inline-flex items-center gap-1.5 bg-[#F7F6F2] border border-[#E6E4DE] text-charcoal-900 px-2.5 py-1 rounded-sm font-medium">
                 Khu vực: {filters.ward}
                 <button onClick={() => updateFilters({ ward: 'Tất cả' })} className="hover:text-rose-600">
                   <X className="w-3 h-3" />
@@ -129,7 +129,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
             )}
 
             {filters.university && filters.university !== 'Tất cả' && (
-              <span className="inline-flex items-center gap-1 bg-white border border-brand-200 text-brand-900 px-2 py-0.5 rounded-lg shadow-xs font-medium">
+              <span className="inline-flex items-center gap-1.5 bg-[#F7F6F2] border border-[#E6E4DE] text-charcoal-900 px-2.5 py-1 rounded-sm font-medium">
                 Gần: {filters.university}
                 <button onClick={() => updateFilters({ university: 'Tất cả' })} className="hover:text-rose-600">
                   <X className="w-3 h-3" />
@@ -139,44 +139,44 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
 
             <button
               onClick={resetFilters}
-              className="text-stone-500 hover:text-rose-600 font-bold ml-auto flex items-center gap-1 transition"
+              className="text-charcoal-500 hover:text-charcoal-900 font-bold ml-auto flex items-center gap-1 transition"
             >
-              <RotateCcw className="w-3 h-3" />
+              <RotateCcw className="w-3.5 h-3.5" />
               <span>Xóa bộ lọc</span>
             </button>
           </div>
         )}
 
         {/* Layout: Sidebar + Results */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
           {/* Filter Sidebar */}
-          <div className="hidden md:block md:col-span-4 lg:col-span-3 sticky top-20">
+          <div className="hidden md:block md:col-span-4 lg:col-span-3 sticky top-22">
             <FilterSidebar />
           </div>
 
           {/* Results Grid */}
           <div className="col-span-1 md:col-span-8 lg:col-span-9">
             {filteredRooms.length === 0 ? (
-              <div className="bg-white rounded-3xl border border-stone-200 p-12 text-center max-w-md mx-auto shadow-sm">
-                <div className="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mx-auto mb-3 text-2xl">
+              <div className="bg-white rounded-md border border-[#E6E4DE] p-12 text-center max-w-md mx-auto shadow-whisper">
+                <div className="w-14 h-14 rounded-full bg-[#F7F6F2] border border-[#E6E4DE] text-brand-700 flex items-center justify-center mx-auto mb-4 text-2xl">
                   🔍
                 </div>
-                <h3 className="text-base font-bold text-stone-900 mb-1">
-                  Không tìm thấy phòng trọ phù hợp
+                <h3 className="text-base font-bold text-charcoal-900 mb-1.5">
+                  Không tìm thấy không gian phù hợp
                 </h3>
-                <p className="text-xs text-stone-600 mb-5 leading-relaxed font-medium">
-                  Hiện chưa có phòng nào đáp ứng đủ các tiêu chí lọc. Bạn hãy thử nới rộng khoảng giá hoặc xóa bớt tiêu chí lọc nhé.
+                <p className="text-xs text-charcoal-600 mb-6 leading-relaxed font-normal">
+                  Hiện chưa có phòng nào đáp ứng đủ toàn bộ các tiêu chí lọc. Bạn hãy thử nới rộng khoảng giá hoặc xóa bớt tiêu chí lọc nhé.
                 </p>
                 <button
                   onClick={resetFilters}
-                  className="inline-flex items-center gap-1.5 bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-sm transition"
+                  className="inline-flex items-center gap-1.5 bg-[#23483D] hover:bg-[#1A372E] text-white font-bold text-xs px-5 py-2.5 rounded-sm shadow-whisper transition tracking-wider uppercase"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>Xóa bộ lọc & xem lại tất cả</span>
                 </button>
               </div>
             ) : viewMode === 'grid' ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredRooms.map((room) => (
                   <RoomCard key={room.id} room={room} onSelect={onSelectRoom} />
                 ))}
@@ -193,12 +193,12 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
       {/* Mobile Filter Drawer */}
       {mobileFilterOpen && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-end">
-          <div className="bg-white w-full max-w-sm h-full overflow-y-auto p-4 shadow-2xl animate-in slide-in-from-right duration-200">
+          <div className="bg-[#F7F6F2] w-full max-w-sm h-full overflow-y-auto p-4 shadow-elevated animate-in slide-in-from-right duration-200">
             <FilterSidebar onCloseMobile={() => setMobileFilterOpen(false)} />
-            <div className="sticky bottom-0 pt-3 pb-2 bg-white border-t border-stone-200 mt-4">
+            <div className="sticky bottom-0 pt-3 pb-2 bg-[#F7F6F2] border-t border-[#E6E4DE] mt-4">
               <button
                 onClick={() => setMobileFilterOpen(false)}
-                className="w-full py-2.5 bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs rounded-xl shadow-sm"
+                className="w-full py-2.5 bg-[#23483D] hover:bg-[#1A372E] text-white font-bold text-xs rounded-sm shadow-whisper tracking-wider uppercase"
               >
                 Áp dụng bộ lọc ({filteredRooms.length} phòng)
               </button>

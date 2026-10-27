@@ -27,27 +27,27 @@ export const CostCalculator: React.FC<CostCalculatorProps> = ({ costs }) => {
   const firstMonthTotal = deposit + monthlyRecurring;
 
   return (
-    <div className="bg-gradient-to-br from-emerald-50/50 to-stone-50 rounded-2xl border border-brand-200 p-5 sm:p-6 shadow-xs">
-      <div className="flex items-center justify-between mb-4 pb-3 border-b border-brand-200">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-brand-700 text-white flex items-center justify-center">
+    <div className="bg-white rounded-md border border-[#E6E4DE] p-5 sm:p-6 shadow-whisper">
+      <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#E6E4DE]">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-sm bg-[#23483D] text-white flex items-center justify-center shadow-whisper">
             <Calculator className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="font-bold text-sm text-stone-900">Bảng dự toán chi phí minh bạch</h3>
-            <p className="text-[11px] text-stone-600 font-medium">Ước tính thực tế trước khi thuê, tránh chi phí phát sinh</p>
+            <h3 className="font-serif font-bold text-sm sm:text-base text-charcoal-900">Bảng Dự Toán Chi Phí Minh Bạch</h3>
+            <p className="text-[11px] text-charcoal-500 font-normal">Ước tính thực tế trước khi thuê, hoàn toàn không phát sinh chi phí ẩn</p>
           </div>
         </div>
 
-        <span className="text-[10px] font-bold text-brand-900 bg-brand-100 px-2 py-0.5 rounded-md">
+        <span className="text-[10px] font-mono uppercase tracking-wider text-brand-900 bg-[#F7F6F2] border border-[#E6E4DE] px-2.5 py-0.5 rounded-sm">
           Tùy chỉnh số người
         </span>
       </div>
 
       {/* Slider Controls */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 bg-white p-3.5 rounded-xl border border-stone-200">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 bg-[#F7F6F2] p-4 rounded-sm border border-[#E6E4DE]">
         <div>
-          <div className="flex items-center justify-between text-xs font-semibold text-stone-800 mb-1">
+          <div className="flex items-center justify-between text-xs font-semibold text-charcoal-800 mb-1.5">
             <span>Số người ở cùng:</span>
             <span className="font-bold text-brand-800">{peopleCount} người</span>
           </div>
@@ -57,14 +57,14 @@ export const CostCalculator: React.FC<CostCalculatorProps> = ({ costs }) => {
             max="4"
             value={peopleCount}
             onChange={(e) => setPeopleCount(Number(e.target.value))}
-            className="w-full accent-brand-700 cursor-pointer"
+            className="w-full accent-[#23483D] cursor-pointer"
           />
         </div>
 
         <div>
-          <div className="flex items-center justify-between text-xs font-semibold text-stone-800 mb-1">
+          <div className="flex items-center justify-between text-xs font-semibold text-charcoal-800 mb-1.5">
             <span>Ước tính số điện/tháng:</span>
-            <span className="font-bold text-clay-700">{estimatedKwh} kWh</span>
+            <span className="font-bold text-amber-800">{estimatedKwh} kWh</span>
           </div>
           <input
             type="range"
@@ -73,75 +73,75 @@ export const CostCalculator: React.FC<CostCalculatorProps> = ({ costs }) => {
             step="10"
             value={estimatedKwh}
             onChange={(e) => setEstimatedKwh(Number(e.target.value))}
-            className="w-full accent-clay-600 cursor-pointer"
+            className="w-full accent-[#23483D] cursor-pointer"
           />
         </div>
       </div>
 
       {/* Detailed Lines */}
-      <div className="space-y-1.5 text-xs text-stone-700 mb-4">
-        <div className="flex items-center justify-between py-1 border-b border-dashed border-stone-200">
-          <span className="text-stone-600">Tiền phòng:</span>
-          <span className="font-bold text-stone-900">{formatCurrency(costs.rent)}/tháng</span>
+      <div className="space-y-2 text-xs text-charcoal-700 mb-5">
+        <div className="flex items-center justify-between py-1 border-b border-dashed border-[#E6E4DE]">
+          <span className="text-charcoal-600 font-medium">Tiền phòng cơ bản:</span>
+          <span className="font-bold text-charcoal-900">{formatCurrency(costs.rent)}/tháng</span>
         </div>
 
-        <div className="flex items-center justify-between py-1 border-b border-dashed border-stone-200">
-          <span className="flex items-center gap-1 text-stone-600">
+        <div className="flex items-center justify-between py-1 border-b border-dashed border-[#E6E4DE]">
+          <span className="flex items-center gap-1.5 text-charcoal-600 font-medium">
             <Shield className="w-3.5 h-3.5 text-brand-700" />
-            <span>Tiền đặt cọc (hoàn lại khi hết hạn hợp đồng):</span>
+            <span>Tiền đặt cọc (hoàn lại khi thanh lý hợp đồng):</span>
           </span>
-          <span className="font-bold text-stone-900">{formatCurrency(costs.deposit)}</span>
+          <span className="font-bold text-charcoal-900">{formatCurrency(costs.deposit)}</span>
         </div>
 
-        <div className="flex items-center justify-between py-1 border-b border-dashed border-stone-200">
-          <span className="flex items-center gap-1 text-stone-600">
-            <Zap className="w-3.5 h-3.5 text-clay-600" />
+        <div className="flex items-center justify-between py-1 border-b border-dashed border-[#E6E4DE]">
+          <span className="flex items-center gap-1.5 text-charcoal-600 font-medium">
+            <Zap className="w-3.5 h-3.5 text-amber-700" />
             <span>Tiền điện ({costs.electricity}đ × {estimatedKwh} kWh):</span>
           </span>
-          <span className="font-bold text-stone-900">{formatCurrency(electricityTotal)}</span>
+          <span className="font-bold text-charcoal-900">{formatCurrency(electricityTotal)}</span>
         </div>
 
-        <div className="flex items-center justify-between py-1 border-b border-dashed border-stone-200">
-          <span className="flex items-center gap-1 text-stone-600">
-            <Droplet className="w-3.5 h-3.5 text-blue-600" />
+        <div className="flex items-center justify-between py-1 border-b border-dashed border-[#E6E4DE]">
+          <span className="flex items-center gap-1.5 text-charcoal-600 font-medium">
+            <Droplet className="w-3.5 h-3.5 text-blue-700" />
             <span>Tiền nước:</span>
           </span>
-          <span className="font-bold text-stone-900">{formatCurrency(waterTotal)}</span>
+          <span className="font-bold text-charcoal-900">{formatCurrency(waterTotal)}</span>
         </div>
 
-        <div className="flex items-center justify-between py-1 border-b border-dashed border-stone-200">
-          <span className="flex items-center gap-1 text-stone-600">
-            <Wifi className="w-3.5 h-3.5 text-teal-700" />
-            <span>Mạng Wifi:</span>
+        <div className="flex items-center justify-between py-1 border-b border-dashed border-[#E6E4DE]">
+          <span className="flex items-center gap-1.5 text-charcoal-600 font-medium">
+            <Wifi className="w-3.5 h-3.5 text-brand-700" />
+            <span>Mạng Internet / Wifi:</span>
           </span>
-          <span className="font-bold text-stone-900">
+          <span className="font-bold text-charcoal-900">
             {costs.internet > 0 ? `${formatCurrency(costs.internet)}` : 'Miễn phí'}
           </span>
         </div>
       </div>
 
       {/* Result Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div className="bg-white rounded-xl p-3 border border-stone-200 shadow-xs">
-          <div className="text-[10px] font-bold text-stone-500 uppercase tracking-wider">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+        <div className="bg-[#F7F6F2] rounded-sm p-3.5 border border-[#E6E4DE] shadow-whisper">
+          <div className="text-[10px] font-mono font-bold text-charcoal-500 uppercase tracking-wider">
             Chi phí cố định hàng tháng
           </div>
-          <div className="text-base font-extrabold text-brand-800 mt-0.5">
+          <div className="text-lg font-display font-extrabold text-brand-800 mt-0.5">
             ~{formatCurrency(monthlyRecurring)}
           </div>
-          <p className="text-[10px] text-stone-500 font-medium">
+          <p className="text-[11px] text-charcoal-500 font-medium">
             (~{formatCurrency(Math.round(monthlyRecurring / peopleCount))}/người)
           </p>
         </div>
 
-        <div className="bg-white rounded-xl p-3 border border-clay-200 shadow-xs">
-          <div className="text-[10px] font-bold text-clay-800 uppercase tracking-wider">
+        <div className="bg-white rounded-sm p-3.5 border border-[#E6E4DE] shadow-whisper">
+          <div className="text-[10px] font-mono font-bold text-charcoal-700 uppercase tracking-wider">
             Tổng tiền chuẩn bị tháng đầu
           </div>
-          <div className="text-base font-extrabold text-clay-700 mt-0.5">
+          <div className="text-lg font-display font-extrabold text-charcoal-900 mt-0.5">
             ~{formatCurrency(firstMonthTotal)}
           </div>
-          <p className="text-[10px] text-stone-500 font-medium">
+          <p className="text-[11px] text-charcoal-500 font-medium">
             (Đã bao gồm 1 tháng cọc + tháng đầu)
           </p>
         </div>

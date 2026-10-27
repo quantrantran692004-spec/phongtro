@@ -38,92 +38,98 @@ export const ReportModal: React.FC<ReportModalProps> = ({ room, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 relative animate-in zoom-in-95 duration-200">
+      <div className="bg-white rounded-md max-w-md w-full p-6 shadow-elevated border border-[#E6E4DE] relative animate-in zoom-in-95 duration-200">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition"
+          className="absolute top-4 right-4 p-1.5 text-charcoal-400 hover:text-charcoal-800 rounded transition"
         >
           <X className="w-5 h-5" />
         </button>
 
         {isDone ? (
           <div className="py-8 text-center space-y-3">
-            <div className="w-14 h-14 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto">
+            <div className="w-14 h-14 rounded-full bg-emerald-50 border border-emerald-200 text-brand-700 flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-8 h-8" />
             </div>
-            <h3 className="text-xl font-bold text-slate-900">Đã tiếp nhận phản ánh</h3>
-            <p className="text-xs text-slate-600">
-              Cảm ơn bạn đã hỗ trợ xây dựng cộng đồng trọ Thái Nguyên an toàn và minh bạch!
+            <h3 className="text-xl font-serif font-bold text-charcoal-900">Đã Tiếp Nhận Phản Ánh</h3>
+            <p className="text-xs text-charcoal-600 font-light">
+              Cảm ơn bạn đã đồng hành hỗ trợ xây dựng cộng đồng lưu trú Thái Nguyên an toàn và minh bạch!
             </p>
           </div>
         ) : (
           <>
-            <div className="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
-              <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center font-bold">
+            <div className="flex items-center gap-3 mb-5 pb-3.5 border-b border-[#E6E4DE]">
+              <div className="w-9 h-9 rounded-sm bg-rose-50 border border-rose-200 text-rose-700 flex items-center justify-center font-bold">
                 <ShieldAlert className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-extrabold text-slate-900 text-base">Báo cáo tin đăng có vấn đề</h3>
-                <p className="text-xs text-slate-500 line-clamp-1">{room.title}</p>
+                <h3 className="font-serif font-bold text-charcoal-900 text-base">Báo Cáo Vi Phạm Tin Đăng</h3>
+                <p className="text-xs text-charcoal-500 line-clamp-1">{room.title}</p>
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4 text-xs">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Lý do báo cáo:
-                </label>
-                <div className="space-y-2 text-xs">
-                  {[
-                    { id: 'fake_info', label: 'Thông tin hoặc hình ảnh phòng không đúng thực tế' },
-                    { id: 'scam_deposit', label: 'Có dấu hiệu lừa đảo / ép chuyển khoản cọc trước' },
-                    { id: 'wrong_price', label: 'Giá thuê thực tế khi hỏi khác giá bài đăng' },
-                    { id: 'already_rented', label: 'Phòng đã cho thuê nhưng chủ nhà chưa gỡ' },
-                    { id: 'other', label: 'Lý do khác' },
-                  ].map((item) => (
-                    <label
-                      key={item.id}
-                      onClick={() => setReason(item.id)}
-                      className={`flex items-center gap-2.5 p-2 rounded-xl border cursor-pointer transition ${
-                        reason === item.id
-                          ? 'bg-rose-50 border-rose-300 text-rose-900 font-semibold'
-                          : 'hover:bg-slate-50 text-slate-700 border-slate-200'
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="reason"
-                        checked={reason === item.id}
-                        onChange={() => setReason(item.id)}
-                        className="accent-rose-600"
-                      />
-                      <span>{item.label}</span>
-                    </label>
-                  ))}
-                </div>
+                <label className="block text-[10px] font-mono font-bold text-charcoal-600 uppercase tracking-wider mb-1.5">Lý do báo cáo:</label>
+                <select
+                  value={reason}
+                  onChange={(e) => setReason(e.target.value)}
+                  className="w-full p-2.5 bg-[#F7F6F2] border border-[#E6E4DE] rounded-sm text-xs font-bold text-charcoal-900 focus:outline-none focus:ring-1 focus:ring-brand-700 focus:bg-white"
+                >
+                  <option value="fake_info">Thông tin, hình ảnh không đúng thực tế</option>
+                  <option value="price_mismatch">Giá thuê báo khác so với tin đăng</option>
+                  <option value="fraud">Có dấu hiệu lừa đảo, bắt cọc online</option>
+                  <option value="rented_already">Phòng đã cho thuê từ lâu</option>
+                  <option value="bad_landlord">Thái độ chủ trọ thiếu tôn trọng</option>
+                  <option value="other">Lý do khác</option>
+                </select>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Mô tả chi tiết vi phạm:
-                </label>
+                <label className="block text-[10px] font-mono font-bold text-charcoal-600 uppercase tracking-wider mb-1.5">Mô tả chi tiết sự việc:</label>
                 <textarea
                   required
+                  rows={3}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Vui lòng mô tả cụ thể tình huống bạn gặp phải..."
-                  rows={3}
-                  className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 resize-none"
+                  placeholder="Mô tả cụ thể trải nghiệm của bạn khi liên hệ hoặc xem phòng..."
+                  className="w-full p-2.5 bg-[#F7F6F2] border border-[#E6E4DE] rounded-sm text-xs font-medium text-charcoal-900 focus:outline-none focus:ring-1 focus:ring-brand-700 focus:bg-white resize-none"
                 />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[10px] font-mono font-bold text-charcoal-600 uppercase tracking-wider mb-1">Họ tên bạn:</label>
+                  <input
+                    type="text"
+                    value={reporterName}
+                    onChange={(e) => setReporterName(e.target.value)}
+                    placeholder="Nguyễn Văn A"
+                    className="w-full p-2 bg-[#F7F6F2] border border-[#E6E4DE] rounded-sm text-xs font-medium text-charcoal-900 focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-mono font-bold text-charcoal-600 uppercase tracking-wider mb-1">Số điện thoại:</label>
+                  <input
+                    type="tel"
+                    value={reporterPhone}
+                    onChange={(e) => setReporterPhone(e.target.value)}
+                    placeholder="0988..."
+                    className="w-full p-2 bg-[#F7F6F2] border border-[#E6E4DE] rounded-sm text-xs font-medium text-charcoal-900 focus:outline-none"
+                  />
+                </div>
               </div>
 
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm rounded-xl shadow-md transition"
+                  className="w-full py-2.5 bg-rose-700 hover:bg-rose-800 text-white font-bold text-xs rounded-sm shadow-whisper transition tracking-wider uppercase"
                 >
-                  Gửi báo cáo tới Ban quản trị
+                  Gửi báo cáo vi phạm
                 </button>
+                <p className="text-[11px] text-charcoal-500 text-center mt-2 font-light">
+                  Thông tin phản ánh của bạn sẽ được ban quản trị xác minh bảo mật
+                </p>
               </div>
             </form>
           </>

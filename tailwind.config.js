@@ -8,54 +8,81 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Luxury European Architectural Palette (BARNES International Realty Standard)
         brand: {
-          50: '#F0FDF4',
-          100: '#DCFCE7',
-          200: '#BBF7D0',
-          300: '#86EFAC',
-          400: '#4ADE80',
-          500: '#16A34A',
-          600: '#059669', // High-contrast Emerald
-          700: '#047857',
-          800: '#065F46',
-          900: '#064E3B',
+          50: '#F2F6F4',
+          100: '#E4EDE8',
+          200: '#C9DCD3',
+          300: '#9EBFAFD',
+          400: '#5F9382',
+          500: '#396E5F',
+          600: '#2A574A',
+          700: '#23483D', // Signature BARNES Deep Forest Green
+          800: '#1A372E',
+          900: '#11241E',
+        },
+        ivory: {
+          DEFAULT: '#F7F6F2',
+          50: '#FAF9F6',
+          100: '#F7F6F2', // Primary warm architectural background
+          200: '#EFECE5',
+          300: '#E6E4DE', // Subtle border
+          400: '#DAD8D0', // Secondary stone accent
+        },
+        charcoal: {
+          50: '#F6F6F6',
+          100: '#ECECEC',
+          200: '#D5D5D5',
+          300: '#B0B2AF',
+          400: '#8E918E',
+          500: '#777B78', // Muted slate gray
+          600: '#555955',
+          700: '#3E413E',
+          800: '#2D302D',
+          900: '#252725', // Deep primary charcoal text
+          950: '#181918',
         },
         clay: {
-          50: '#FFF7ED',
-          100: '#FFEDD5',
-          200: '#FED7AA',
-          400: '#FB923C',
-          500: '#F97316',
-          600: '#EA580C', // Warm terracotta
-          700: '#C2410C',
+          50: '#FAF5F3',
+          100: '#F4E9E6',
+          500: '#A85A48',
+          600: '#944735', // Restrained terracotta
+          700: '#7E3626',
         },
-        // Ultra High-Contrast Text Palette (Batdongsan & Airbnb Standard)
+        // Mapped Stone Palette matching European architectural luxury
         stone: {
-          50: '#FAFAF9',
-          100: '#F5F5F4',
-          200: '#E7E5E4',
-          300: '#D6D3D1',
-          400: '#78716C', // Darkened significantly so stone-400 is crisp and readable!
-          500: '#57534E', // High contrast secondary
-          600: '#44403C', // Deep readable body
-          700: '#292524', // Heavy contrast
-          800: '#1C1917', // Rich deep black
-          900: '#0C0A09', // Absolute solid black
+          50: '#FAF9F7',
+          100: '#F7F6F2', // Warm Ivory background
+          200: '#E6E4DE', // Architectural hairline divider
+          300: '#DAD8D0', // Stone gray accent
+          400: '#9A9C97',
+          500: '#777B78', // Muted secondary text
+          600: '#555855', // Intermediate body text
+          700: '#3D403D', // Strong body text
+          800: '#2A2C2A', // Dark headline
+          900: '#252725', // Primary charcoal
         }
       },
       fontFamily: {
-        sans: ['"Inter"', '"Be Vietnam Pro"', 'system-ui', '-apple-system', 'sans-serif'],
-        display: ['"Inter"', '"Be Vietnam Pro"', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['"Be Vietnam Pro"', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['"Manrope"', '"Be Vietnam Pro"', 'system-ui', 'sans-serif'],
+        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
       },
       boxShadow: {
-        'card': '0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.04)',
-        'card-hover': '0 12px 24px -6px rgba(0, 0, 0, 0.12), 0 4px 8px -2px rgba(0, 0, 0, 0.05)',
-        'elevated': '0 20px 35px -8px rgba(0, 0, 0, 0.18)',
-        'subtle': '0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+        'whisper': '0 1px 2px 0 rgba(37, 39, 37, 0.04)',
+        'card': '0 2px 6px -1px rgba(37, 39, 37, 0.06), 0 1px 3px -1px rgba(37, 39, 37, 0.03)',
+        'card-hover': '0 12px 28px -6px rgba(37, 39, 37, 0.09), 0 4px 10px -2px rgba(37, 39, 37, 0.03)',
+        'elevated': '0 20px 40px -10px rgba(37, 39, 37, 0.12)',
+        'subtle': '0 1px 2px 0 rgba(37, 39, 37, 0.04)',
       },
       borderRadius: {
-        'xl': '12px',
-        '2xl': '16px',
+        'none': '0px',
+        'sm': '4px',
+        'DEFAULT': '6px',
+        'md': '8px',
+        'lg': '10px',
+        'xl': '14px',
+        '2xl': '18px',
         '3xl': '24px',
       }
     },
