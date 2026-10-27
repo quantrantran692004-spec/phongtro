@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Heart, 
   Scale, 
@@ -8,7 +9,8 @@ import {
   Droplet, 
   ChevronLeft, 
   ChevronRight, 
-  Clock 
+  Clock,
+  Sparkles
 } from 'lucide-react';
 import { Room } from '../../types';
 import { formatCurrency, formatArea, getRoomTypeLabel, formatRelativeTime } from '../../utils/formatters';
@@ -38,20 +40,26 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
   const nearestUni = room.location.nearUniversities[0];
 
   return (
-    <div
+    <motion.div
       onClick={() => onSelect(room.id)}
-      className="group bg-white rounded-2xl border border-stone-200 hover:border-brand-600 shadow-sm hover:shadow-card-hover transition-all duration-300 flex flex-col overflow-hidden cursor-pointer relative"
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      className="group bg-white rounded-2xl border border-stone-200 hover:border-brand-600 shadow-sm hover:shadow-card-hover transition-colors flex flex-col overflow-hidden cursor-pointer relative"
     >
       {/* Top Image Section */}
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-stone-100">
-        <img
+        <motion.img
+          key={currentImgIndex}
+          initial={{ opacity: 0.9 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.25 }}
           src={room.images[currentImgIndex] || 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800'}
           alt={room.title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           loading="lazy"
         />
 
-        {/* Subtle Gradient */}
+        {/* Ambient Gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
 
         {/* Badges on Top */}
@@ -68,9 +76,10 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
             </span>
           </div>
 
-          <div className="flex items-center gap-1 pointer-events-auto">
+          <div className="flex items-center gap-1.5 pointer-events-auto">
             {/* Compare Toggle */}
-            <button
+            <motion.button
+              whileTap={{ scale: 0.85 }}
               onClick={(e) => {
                 e.stopPropagation();
                 toggleCompare(room.id);
@@ -83,10 +92,11 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
               title={isCompared ? 'Bỏ so sánh' : 'So sánh'}
             >
               <Scale className="w-3.5 h-3.5" />
-            </button>
+            </motion.button>
 
-            {/* Favorite Toggle */}
-            <button
+            {/* Favorite Toggle with Spring Pulse */}
+            <motion.button
+              whileTap={{ scale: 0.8 }}
               onClick={(e) => {
                 e.stopPropagation();
                 toggleFavorite(room.id);
@@ -99,11 +109,11 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
               title={isFav ? 'Bỏ lưu' : 'Lưu tin'}
             >
               <Heart className={`w-3.5 h-3.5 ${isFav ? 'fill-current' : ''}`} />
-            </button>
+            </motion.button>
           </div>
         </div>
 
-        {/* Slider Controls */}
+        {/* Image Slider Arrows */}
         {room.images.length > 1 && (
           <>
             <button
@@ -124,8 +134,8 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
               {room.images.map((_, idx) => (
                 <span
                   key={idx}
-                  className={`w-1 h-1 rounded-full transition-all ${
-                    idx === currentImgIndex ? 'bg-white w-3' : 'bg-white/60'
+                  className={`h-1 rounded-full transition-all duration-300 ${
+                    idx === currentImgIndex ? 'bg-white w-4' : 'bg-white/60 w-1'
                   }`}
                 />
               ))}
@@ -135,7 +145,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
 
         {/* Rented Label */}
         {room.status === 'rented' && (
-          <div className="absolute bottom-2 left-2.5 bg-stone-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">
+          <div className="absolute bottom-2 left-2.5 bg-stone-900 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow">
             ĐÃ CHO THUÊ
           </div>
         )}
@@ -178,7 +188,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
           </div>
         </div>
 
-        {/* Card Footer */}
+        {/* Card Footer with specs */}
         <div className="pt-2.5 border-t border-stone-200 flex items-center justify-between text-xs text-stone-600 font-medium">
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-0.5 font-semibold" title={`Điện: ${room.costs.electricity} đ/kWh`}>
@@ -198,6 +208,6 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

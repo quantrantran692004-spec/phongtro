@@ -27,6 +27,7 @@ interface HeaderProps {
   onOpenCompare: () => void;
   onOpenPostRoom: () => void;
   onOpenGuide: () => void;
+  onOpenCommandPalette?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -37,6 +38,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenCompare,
   onOpenPostRoom,
   onOpenGuide,
+  onOpenCommandPalette,
 }) => {
   const { currentUser, logout, isAuthenticated, isAdmin, isLandlord, switchDemoRole } = useAuth();
   const { favorites, compareList } = useRooms();
@@ -233,6 +235,19 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Right Action Icons & Buttons */}
           <div className="hidden sm:flex items-center gap-2.5">
+            {/* Quick Command Palette Trigger (Cmd+K) */}
+            {onOpenCommandPalette && (
+              <button
+                onClick={onOpenCommandPalette}
+                className="hidden xl:flex items-center gap-2 bg-stone-100 hover:bg-stone-200 text-stone-600 hover:text-stone-900 px-3 py-1.5 rounded-lg text-xs font-semibold border border-stone-200 transition"
+                title="Mở thanh tìm kiếm nhanh (Ctrl+K)"
+              >
+                <Search className="w-3.5 h-3.5 text-stone-500" />
+                <span>Tìm nhanh...</span>
+                <kbd className="text-[10px] bg-white border border-stone-200 rounded px-1.5 py-0.5 font-mono text-stone-500">⌘K</kbd>
+              </button>
+            )}
+
             {/* Compare Tool */}
             <button
               onClick={onOpenCompare}
@@ -350,6 +365,16 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Mobile Right Icons & Hamburger */}
           <div className="flex sm:hidden items-center gap-1.5">
+            {onOpenCommandPalette && (
+              <button
+                onClick={onOpenCommandPalette}
+                className="p-2 text-stone-700 rounded-lg hover:bg-stone-100"
+                title="Tìm nhanh"
+              >
+                <Search className="w-5 h-5 text-stone-700" />
+              </button>
+            )}
+
             <button
               onClick={() => onOpenProfile('saved')}
               className="relative p-2 text-stone-700 rounded-lg hover:bg-stone-100"

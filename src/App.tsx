@@ -20,6 +20,7 @@ import { AdminPortal } from './components/admin/AdminPortal';
 import { AuthModal } from './components/user/AuthModal';
 import { UserProfileModal } from './components/user/UserProfileModal';
 import { GuideModal } from './components/info/GuideModal';
+import { CommandPalette } from './components/common/CommandPalette';
 
 const MainApp: React.FC = () => {
   const [currentTab, setCurrentTab] = useState<'home' | 'search' | 'landlord' | 'admin'>('home');
@@ -32,6 +33,19 @@ const MainApp: React.FC = () => {
   const [compareModalOpen, setCompareModalOpen] = useState(false);
   const [postRoomModalOpen, setPostRoomModalOpen] = useState(false);
   const [guideModalOpen, setGuideModalOpen] = useState(false);
+  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+
+  // Keyboard shortcut Ctrl+K / Cmd+K listener
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setCommandPaletteOpen(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const handleSelectRoom = (roomId: string) => {
     addToHistory(roomId);
@@ -65,6 +79,7 @@ const MainApp: React.FC = () => {
         onOpenCompare={() => setCompareModalOpen(true)}
         onOpenPostRoom={() => setPostRoomModalOpen(true)}
         onOpenGuide={() => setGuideModalOpen(true)}
+        onOpenCommandPalette={() => setCommandPaletteOpen(true)}
       />
 
       {/* Main Body */}
@@ -137,6 +152,17 @@ const MainApp: React.FC = () => {
       {guideModalOpen && (
         <GuideModal onClose={() => setGuideModalOpen(false)} />
       )}
+
+      {/* Global Command Palette */}
+      <CommandPalette
+        isOpen={commandPaletteOpen}
+        onClose={() => setCommandPaletteOpen(false)}
+        onSelectRoom={handleSelectRoom}
+        onNavigate={handleNavigate}
+        onOpenCompare={() => setCompareModalOpen(true)}
+        onOpenPostRoom={() => setPostRoomModalOpen(true)}
+        onOpenGuide={() => setGuideModalOpen(true)}
+      />
     </div>
   );
 };
