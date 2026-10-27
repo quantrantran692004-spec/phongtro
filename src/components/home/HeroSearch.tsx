@@ -3,20 +3,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, 
   MapPin, 
-  DollarSign, 
-  Home, 
-  GraduationCap, 
-  Building, 
-  ShieldCheck, 
+  SlidersHorizontal, 
+  ArrowRight, 
+  Sparkles, 
+  X, 
+  Check, 
   CheckCircle2, 
-  Receipt, 
-  PhoneCall, 
-  ArrowRight,
-  Sparkles,
-  X
+  RotateCcw,
+  Zap
 } from 'lucide-react';
 import { WARDS_BY_DISTRICT, THAI_NGUYEN_UNIVERSITIES } from '../../data/locations';
 import { useRooms } from '../../context/RoomContext';
+import { ALL_AMENITIES } from '../../data/amenities';
 
 interface HeroSearchProps {
   onSearchSubmit: () => void;
@@ -28,8 +26,11 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
   const [ward, setWard] = useState(filters.ward);
   const [roomType, setRoomType] = useState(filters.roomType);
   const [priceTier, setPriceTier] = useState<string>('all');
-  const [activeCategory, setActiveCategory] = useState<'all' | 'uni' | 'samsung' | 'cheap' | 'studio'>('all');
+  const [selectedAmenities, setSelectedAmenities] = useState<string[]>(filters.amenities || []);
   
+  // Progressive Disclosure: Advanced filters panel toggle
+  const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
+
   // Real-time suggestions state
   const [showSuggestions, setShowSuggestions] = useState(false);
   const suggestionRef = useRef<HTMLDivElement>(null);
@@ -47,28 +48,29 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     setShowSuggestions(false);
-    applySearchWithParams(keyword, ward, roomType, priceTier);
+    applySearch();
   };
 
-  const applySearchWithParams = (k: string, w: string, rt: string, pt: string) => {
+  const applySearch = () => {
     let minPrice = 0;
     let maxPrice = 10000000;
 
-    if (pt === 'under_1_5m') {
+    if (priceTier === 'under_1_5m') {
       maxPrice = 1500000;
-    } else if (pt === '1_5m_2_5m') {
+    } else if (priceTier === '1_5m_2_5m') {
       minPrice = 1500000;
       maxPrice = 2500000;
-    } else if (pt === 'above_2_5m') {
+    } else if (priceTier === 'above_2_5m') {
       minPrice = 2500000;
     }
 
     updateFilters({
-      keyword: k,
-      ward: w === 'Tất cả' ? '' : w,
-      roomType: rt,
+      keyword,
+      ward: ward === 'Tất cả' ? '' : ward,
+      roomType,
       minPrice,
       maxPrice,
+      amenities: selectedAmenities,
     });
     onSearchSubmit();
   };
@@ -79,39 +81,39 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
     if (tagRoomType !== undefined) setRoomType(tagRoomType);
     if (tagPrice !== undefined) setPriceTier(tagPrice);
     
-    applySearchWithParams(
-      tagKeyword, 
-      tagWard !== undefined ? tagWard : ward, 
-      tagRoomType !== undefined ? tagRoomType : roomType, 
-      tagPrice !== undefined ? tagPrice : priceTier
+    let minPrice = 0;
+    let maxPrice = 10000000;
+    const pt = tagPrice !== undefined ? tagPrice : priceTier;
+    if (pt === 'under_1_5m') maxPrice = 1500000;
+    else if (pt === '1_5m_2_5m') { minPrice = 1500000; maxPrice = 2500000; }
+    else if (pt === 'above_2_5m') minPrice = 2500000;
+
+    updateFilters({
+      keyword: tagKeyword,
+      ward: (tagWard !== undefined ? tagWard : ward) === 'Tất cả' ? '' : (tagWard !== undefined ? tagWard : ward),
+      roomType: tagRoomType !== undefined ? tagRoomType : roomType,
+      minPrice,
+      maxPrice,
+      amenities: selectedAmenities,
+    });
+    onSearchSubmit();
+  };
+
+  const handleToggleAmenity = (id: string) => {
+    setSelectedAmenities(prev => 
+      prev.includes(id) ? prev.filter(a => a !== id) : [...prev, id]
     );
   };
 
-  const handleCategoryTab = (cat: 'all' | 'uni' | 'samsung' | 'cheap' | 'studio') => {
-    setActiveCategory(cat);
-    if (cat === 'all') {
-      setKeyword('');
-      setWard('Tất cả');
-      setRoomType('all');
-      setPriceTier('all');
-    } else if (cat === 'uni') {
-      setKeyword('Đại học');
-      setWard('P. Tân Thịnh');
-      setRoomType('all');
-    } else if (cat === 'samsung') {
-      setKeyword('Samsung');
-      setWard('TX. Phổ Yên');
-      setRoomType('all');
-    } else if (cat === 'cheap') {
-      setPriceTier('under_1_5m');
-      setRoomType('single');
-    } else if (cat === 'studio') {
-      setRoomType('studio');
-      setPriceTier('1_5m_2_5m');
-    }
+  const resetAdvanced = () => {
+    setPriceTier('all');
+    setRoomType('all');
+    setSelectedAmenities([]);
   };
 
-  // Filter dynamic suggestions based on typed keyword
+  const activeAdvancedCount = (priceTier !== 'all' ? 1 : 0) + (roomType !== 'all' ? 1 : 0) + selectedAmenities.length;
+
+  // Filter dynamic suggestions
   const suggestions = React.useMemo(() => {
     const q = keyword.toLowerCase().trim();
     if (!q) return [];
@@ -129,89 +131,41 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
       .slice(0, 3)
       .map(r => ({ label: r.title, type: 'Phòng trọ', ward: r.location.ward }));
 
-    return [...uniMatches, ...wardMatches, ...roomMatches].slice(0, 6);
+    return [...uniMatches, ...wardMatches, ...roomMatches].slice(0, 5);
   }, [keyword, rooms]);
 
   const wards = WARDS_BY_DISTRICT['TP. Thái Nguyên'] || [];
 
   return (
-    <div className="relative bg-gradient-to-b from-emerald-50/50 via-white to-stone-50/70 pt-8 pb-12 sm:pt-14 sm:pb-20 border-b border-stone-200 overflow-hidden">
-      {/* Background Architectural Grid Pattern */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none [background-image:linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:3.5rem_3.5rem]" />
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Title Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="text-center max-w-3xl mx-auto mb-6 sm:mb-10"
-        >
-          {/* Eyebrow Trust Badge */}
-          <div className="inline-flex items-center gap-2 bg-white border border-stone-300 text-stone-800 text-xs font-semibold px-3.5 py-1.5 rounded-full mb-3 sm:mb-4 shadow-xs">
+    <div className="relative bg-gradient-to-b from-emerald-50/40 via-white to-stone-50/60 pt-8 pb-10 sm:pt-12 sm:pb-16 border-b border-stone-200">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main Title Section - Focused & Uncluttered */}
+        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
+          <div className="inline-flex items-center gap-1.5 bg-white border border-stone-300 text-stone-800 text-xs font-semibold px-3 py-1 rounded-full mb-3 shadow-xs">
             <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
-            <span>Hệ thống phòng trọ chính chủ số 1 Thái Nguyên</span>
-            <span className="text-stone-300">•</span>
-            <span className="text-emerald-700 font-bold">Xác thực 100%</span>
+            <span>Cổng tra cứu phòng trọ chính chủ tỉnh Thái Nguyên</span>
           </div>
 
-          {/* Hero Headline */}
-          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-stone-900 tracking-tight leading-tight sm:leading-tight mb-3">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-stone-900 tracking-tight leading-tight mb-2.5">
             Tìm phòng trọ Thái Nguyên{' '}
-            <span className="text-brand-700">đúng giá thực tế</span>
+            <span className="text-brand-700">chuẩn giá & minh bạch</span>
           </h1>
 
-          {/* Subtitle */}
-          <p className="text-xs sm:text-base text-stone-600 max-w-2xl mx-auto leading-relaxed font-normal">
-            Hơn 450+ phòng trọ khảo sát thực tế gần Đại học Thái Nguyên (Y Dược, Sư Phạm, Kỹ Thuật, CNTT...) và KCN Samsung Phổ Yên. Minh bạch tiền điện nước, điều hòa và hợp đồng thuê.
+          <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-normal">
+            Khảo sát thực tế hơn 450+ phòng gần ĐH Thái Nguyên (Y Dược, Sư Phạm, CNTT...) & KCN Samsung Phổ Yên.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Master Search Dock with layout transition */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.35, delay: 0.1 }}
-          className="max-w-4xl mx-auto bg-white rounded-2xl sm:rounded-3xl shadow-card border border-stone-200 p-3.5 sm:p-5"
-        >
-          {/* Top Categories Scroll Bar */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-3 mb-3 border-b border-stone-100 no-scrollbar">
-            {[
-              { id: 'all', label: 'Tất cả phòng', icon: Home },
-              { id: 'uni', label: 'Gần các trường ĐH', icon: GraduationCap },
-              { id: 'samsung', label: 'Gần KCN Samsung', icon: Building },
-              { id: 'cheap', label: 'Giá rẻ (< 1.5 triệu)', icon: DollarSign },
-              { id: 'studio', label: 'Studio tiện nghi', icon: Sparkles },
-            ].map((tab) => {
-              const Icon = tab.icon;
-              const isActive = activeCategory === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  type="button"
-                  onClick={() => handleCategoryTab(tab.id as any)}
-                  className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition ${
-                    isActive
-                      ? 'bg-brand-700 text-white shadow-xs'
-                      : 'text-stone-700 hover:text-stone-900 hover:bg-stone-100 bg-stone-50'
-                  }`}
-                >
-                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-stone-500'}`} />
-                  <span>{tab.label}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Search Inputs: Responsive Form with Autocomplete */}
-          <form onSubmit={handleSearch} className="space-y-2.5 sm:space-y-0 sm:grid sm:grid-cols-12 sm:gap-2.5 items-center relative">
-            {/* Field 1: Keyword with real-time suggestion dropdown */}
+        {/* Master Search Capsule with Progressive Disclosure */}
+        <div className="bg-white rounded-2xl sm:rounded-3xl shadow-card border border-stone-200 p-3 sm:p-4">
+          <form onSubmit={handleSearch} className="space-y-2 sm:space-y-0 sm:flex sm:items-center sm:gap-2">
+            {/* Field 1: Keyword with Autocomplete */}
             <div 
-              ref={suggestionRef} 
-              className="sm:col-span-5 bg-stone-50 rounded-xl p-2.5 px-3.5 border border-stone-200 focus-within:border-brand-600 focus-within:bg-white focus-within:ring-2 focus-within:ring-brand-100 transition relative"
+              ref={suggestionRef}
+              className="flex-1 bg-stone-50 rounded-xl p-2.5 px-3.5 border border-stone-200 focus-within:border-brand-700 focus-within:bg-white focus-within:ring-2 focus-within:ring-brand-100 transition relative"
             >
-              <label className="block text-[11px] font-bold text-stone-500 uppercase tracking-wide mb-0.5">
-                Địa điểm / Tên trường ĐH
+              <label className="block text-[10px] font-bold text-stone-500 uppercase tracking-wide mb-0.5">
+                Địa điểm / Trường ĐH
               </label>
               <div className="flex items-center gap-2">
                 <Search className="w-4 h-4 text-brand-700 shrink-0" />
@@ -237,14 +191,14 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                 )}
               </div>
 
-              {/* Dynamic Suggestion Dropdown */}
+              {/* Dynamic Suggestions */}
               <AnimatePresence>
                 {showSuggestions && suggestions.length > 0 && (
                   <motion.div
                     initial={{ opacity: 0, y: 5 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 5 }}
-                    className="absolute left-0 right-0 top-full mt-1 bg-white rounded-xl shadow-elevated border border-stone-200 overflow-hidden z-30 max-h-60 overflow-y-auto"
+                    className="absolute left-0 right-0 top-full mt-1.5 bg-white rounded-xl shadow-elevated border border-stone-200 overflow-hidden z-30 max-h-56 overflow-y-auto"
                   >
                     <div className="p-1 space-y-0.5">
                       {suggestions.map((s, idx) => (
@@ -255,7 +209,6 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                             setKeyword(s.label);
                             if (s.ward) setWard(s.ward);
                             setShowSuggestions(false);
-                            applySearchWithParams(s.label, s.ward || ward, roomType, priceTier);
                           }}
                           className="w-full text-left px-3 py-2 rounded-lg hover:bg-brand-50 flex items-center justify-between text-xs transition"
                         >
@@ -274,128 +227,221 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
               </AnimatePresence>
             </div>
 
-            {/* Field 2 & 3: Ward and Price */}
-            <div className="grid grid-cols-2 gap-2 sm:contents">
-              {/* Field 2: Ward */}
-              <div className="sm:col-span-3 bg-stone-50 rounded-xl p-2.5 px-3.5 border border-stone-200 focus-within:border-brand-600 focus-within:bg-white focus-within:ring-2 focus-within:ring-brand-100 transition">
-                <label className="block text-[11px] font-bold text-stone-500 uppercase tracking-wide mb-0.5 truncate">
-                  Khu vực Phường / Xã
-                </label>
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-brand-700 shrink-0" />
-                  <select
-                    value={ward}
-                    onChange={(e) => setWard(e.target.value)}
-                    className="w-full bg-transparent text-xs sm:text-sm font-semibold text-stone-900 focus:outline-none cursor-pointer truncate"
-                  >
-                    <option value="Tất cả">Toàn Thái Nguyên</option>
-                    {wards.filter(w => w !== 'Tất cả').map((w) => (
-                      <option key={w} value={w}>{w}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              {/* Field 3: Price */}
-              <div className="sm:col-span-2 bg-stone-50 rounded-xl p-2.5 px-3.5 border border-stone-200 focus-within:border-brand-600 focus-within:bg-white focus-within:ring-2 focus-within:ring-brand-100 transition">
-                <label className="block text-[11px] font-bold text-stone-500 uppercase tracking-wide mb-0.5 truncate">
-                  Khoảng giá
-                </label>
-                <div className="flex items-center gap-2">
-                  <DollarSign className="w-4 h-4 text-brand-700 shrink-0" />
-                  <select
-                    value={priceTier}
-                    onChange={(e) => setPriceTier(e.target.value)}
-                    className="w-full bg-transparent text-xs sm:text-sm font-semibold text-stone-900 focus:outline-none cursor-pointer truncate"
-                  >
-                    <option value="all">Tất cả giá</option>
-                    <option value="under_1_5m">&lt; 1.5 triệu</option>
-                    <option value="1_5m_2_5m">1.5 - 2.5 triệu</option>
-                    <option value="above_2_5m">&gt; 2.5 triệu</option>
-                  </select>
-                </div>
+            {/* Field 2: Ward Select */}
+            <div className="sm:w-56 bg-stone-50 rounded-xl p-2.5 px-3.5 border border-stone-200 focus-within:border-brand-700 focus-within:bg-white focus-within:ring-2 focus-within:ring-brand-100 transition">
+              <label className="block text-[10px] font-bold text-stone-500 uppercase tracking-wide mb-0.5 truncate">
+                Khu vực Phường / Xã
+              </label>
+              <div className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-brand-700 shrink-0" />
+                <select
+                  value={ward}
+                  onChange={(e) => setWard(e.target.value)}
+                  className="w-full bg-transparent text-xs sm:text-sm font-semibold text-stone-900 focus:outline-none cursor-pointer truncate"
+                >
+                  <option value="Tất cả">Toàn Thái Nguyên</option>
+                  {wards.filter(w => w !== 'Tất cả').map((w) => (
+                    <option key={w} value={w}>{w}</option>
+                  ))}
+                </select>
               </div>
             </div>
 
-            {/* Field 4: Search Button */}
-            <div className="sm:col-span-2">
-              <motion.button
-                whileTap={{ scale: 0.97 }}
-                type="submit"
-                className="w-full py-3 sm:py-3.5 bg-brand-700 hover:bg-brand-800 text-white font-bold text-sm rounded-xl shadow-sm transition flex items-center justify-center gap-1.5"
-              >
-                <span>Tìm kiếm</span>
-                <ArrowRight className="w-4 h-4" />
-              </motion.button>
-            </div>
+            {/* Secondary Action: Progressive Disclosure Filter Button */}
+            <button
+              type="button"
+              onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
+              className={`py-3 px-3.5 rounded-xl border font-bold text-xs flex items-center justify-center gap-1.5 transition shrink-0 ${
+                isAdvancedOpen || activeAdvancedCount > 0
+                  ? 'bg-brand-50 border-brand-300 text-brand-800'
+                  : 'bg-stone-50 border-stone-200 text-stone-700 hover:bg-stone-100'
+              }`}
+            >
+              <SlidersHorizontal className="w-4 h-4" />
+              <span>Bộ lọc</span>
+              {activeAdvancedCount > 0 && (
+                <span className="w-5 h-5 rounded-full bg-brand-700 text-white text-[10px] font-bold flex items-center justify-center">
+                  {activeAdvancedCount}
+                </span>
+              )}
+            </button>
+
+            {/* Primary Search Button */}
+            <button
+              type="submit"
+              className="w-full sm:w-auto py-3 sm:py-3.5 px-6 bg-brand-700 hover:bg-brand-800 text-white font-bold text-sm rounded-xl shadow-xs transition flex items-center justify-center gap-1.5 shrink-0"
+            >
+              <span>Tìm kiếm</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </form>
 
-          {/* Quick Suggestion Pills */}
-          <div className="mt-3 pt-3 border-t border-stone-100 flex items-center gap-1.5 overflow-x-auto no-scrollbar text-xs">
+          {/* Progressive Disclosure: Expandable Advanced Filters Drawer */}
+          <AnimatePresence>
+            {isAdvancedOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="overflow-hidden border-t border-stone-200 mt-3 pt-3"
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pb-2">
+                  {/* Filter 1: Khoảng giá */}
+                  <div>
+                    <label className="block text-xs font-bold text-stone-700 mb-1.5">
+                      Khoảng giá thuê
+                    </label>
+                    <div className="grid grid-cols-2 gap-1.5 text-xs">
+                      {[
+                        { id: 'all', label: 'Tất cả giá' },
+                        { id: 'under_1_5m', label: '< 1.5 triệu' },
+                        { id: '1_5m_2_5m', label: '1.5 - 2.5 tr' },
+                        { id: 'above_2_5m', label: '> 2.5 triệu' },
+                      ].map((p) => (
+                        <button
+                          key={p.id}
+                          type="button"
+                          onClick={() => setPriceTier(p.id)}
+                          className={`py-1.5 px-2 rounded-lg border font-medium transition text-center ${
+                            priceTier === p.id
+                              ? 'bg-brand-50 border-brand-600 text-brand-900 font-bold'
+                              : 'bg-stone-50 border-stone-200 text-stone-700 hover:bg-stone-100'
+                          }`}
+                        >
+                          {p.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Filter 2: Loại phòng */}
+                  <div>
+                    <label className="block text-xs font-bold text-stone-700 mb-1.5">
+                      Loại hình phòng
+                    </label>
+                    <select
+                      value={roomType}
+                      onChange={(e) => setRoomType(e.target.value)}
+                      className="w-full bg-stone-50 border border-stone-200 rounded-lg p-2 text-xs font-semibold text-stone-800 focus:outline-none"
+                    >
+                      <option value="all">Tất cả loại phòng</option>
+                      <option value="single">Phòng trọ khép kín</option>
+                      <option value="studio">Studio tiện nghi</option>
+                      <option value="mini_apartment">Chung cư mini</option>
+                      <option value="whole_house">Nhà nguyên căn</option>
+                      <option value="dormitory">Ký túc xá / Box</option>
+                    </select>
+                  </div>
+
+                  {/* Filter 3: Tiện ích ưu tiên */}
+                  <div>
+                    <label className="block text-xs font-bold text-stone-700 mb-1.5">
+                      Tiện ích quan trọng
+                    </label>
+                    <div className="flex flex-wrap gap-1.5">
+                      {[
+                        { id: 'air_conditioner', label: 'Điều hòa' },
+                        { id: 'water_heater', label: 'Nóng lạnh' },
+                        { id: 'private_bathroom', label: 'Khép kín' },
+                        { id: 'free_hours', label: 'Tự do 24/7' },
+                      ].map((am) => {
+                        const isSelected = selectedAmenities.includes(am.id);
+                        return (
+                          <button
+                            key={am.id}
+                            type="button"
+                            onClick={() => handleToggleAmenity(am.id)}
+                            className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold border transition ${
+                              isSelected
+                                ? 'bg-brand-700 border-brand-700 text-white'
+                                : 'bg-stone-50 border-stone-200 text-stone-700 hover:bg-stone-100'
+                            }`}
+                          >
+                            {isSelected && '✓ '}
+                            {am.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer Controls in Advanced Drawer */}
+                <div className="flex items-center justify-between pt-2.5 border-t border-stone-100 text-xs">
+                  <button
+                    type="button"
+                    onClick={resetAdvanced}
+                    className="text-stone-500 hover:text-rose-600 flex items-center gap-1 font-semibold transition"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    <span>Đặt lại bộ lọc</span>
+                  </button>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setIsAdvancedOpen(false)}
+                      className="px-3 py-1.5 text-stone-600 hover:text-stone-900 font-semibold"
+                    >
+                      Thu gọn
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => { setIsAdvancedOpen(false); applySearch(); }}
+                      className="px-4 py-1.5 bg-brand-700 text-white rounded-lg font-bold shadow-xs hover:bg-brand-800"
+                    >
+                      Áp dụng lọc
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Quick Popular Tags (Progressive - Only 4 clean items) */}
+          <div className="mt-2.5 pt-2.5 border-t border-stone-100 flex items-center gap-1.5 overflow-x-auto no-scrollbar text-xs">
             <span className="text-[11px] font-bold text-stone-500 whitespace-nowrap">
-              Gợi ý nhanh:
+              Tìm nhanh:
             </span>
 
             {[
               { label: 'ĐH Y Dược', keyword: 'Y Dược', ward: 'P. Quang Trung' },
               { label: 'Làng ĐH Tân Thịnh', keyword: '', ward: 'P. Tân Thịnh' },
-              { label: 'Đường Z115', keyword: 'Z115', ward: 'P. Quyết Thắng' },
               { label: 'Samsung Phổ Yên', keyword: 'Samsung', ward: 'TX. Phổ Yên' },
-              { label: 'Phòng < 1.5tr', keyword: '', ward: 'Tất cả', price: 'under_1_5m' },
-              { label: 'Chung cư mini', keyword: '', ward: 'Tất cả', roomType: 'mini_apartment' },
+              { label: 'Dưới 1.5 triệu', keyword: '', ward: 'Tất cả', price: 'under_1_5m' },
             ].map((tag, idx) => (
               <button
                 key={idx}
                 type="button"
-                onClick={() => handleQuickTagClick(tag.keyword, tag.ward, tag.roomType, tag.price)}
-                className="px-2.5 py-1 rounded-md bg-stone-100 hover:bg-brand-50 hover:text-brand-900 text-stone-700 text-xs font-semibold whitespace-nowrap transition border border-stone-200"
+                onClick={() => handleQuickTagClick(tag.keyword, tag.ward, undefined, tag.price)}
+                className="px-2.5 py-0.5 rounded-md bg-stone-100 hover:bg-brand-50 hover:text-brand-900 text-stone-700 text-xs font-semibold whitespace-nowrap transition border border-stone-200"
               >
                 {tag.label}
               </button>
             ))}
           </div>
-        </motion.div>
+        </div>
 
-        {/* 4 Trust Highlights: Clean & Balanced on both Mobile and Desktop */}
-        <div className="mt-8 sm:mt-10 max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4">
-          <div className="bg-white rounded-xl p-3 sm:p-3.5 border border-stone-200 shadow-xs flex items-center gap-2.5 hover:border-emerald-500 transition">
-            <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
-              <CheckCircle2 className="w-4 h-4" />
-            </div>
-            <div>
-              <div className="text-xs font-bold text-stone-900">450+ Khảo sát</div>
-              <div className="text-[11px] text-stone-500 font-medium">Ảnh chụp thực tế 100%</div>
-            </div>
+        {/* Integrated Proof Ribbon (Replaces 4 bulky cards to save 180px of vertical space) */}
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs font-semibold text-stone-600">
+          <div className="flex items-center gap-1.5">
+            <CheckCircle2 className="w-4 h-4 text-brand-700" />
+            <span>450+ Phòng khảo sát thực tế</span>
           </div>
 
-          <div className="bg-white rounded-xl p-3 sm:p-3.5 border border-stone-200 shadow-xs flex items-center gap-2.5 hover:border-amber-500 transition">
-            <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center shrink-0">
-              <Receipt className="w-4 h-4" />
-            </div>
-            <div>
-              <div className="text-xs font-bold text-stone-900">Minh bạch điện nước</div>
-              <div className="text-[11px] text-stone-500 font-medium">Theo công tơ chuẩn</div>
-            </div>
+          <div className="flex items-center gap-1.5">
+            <CheckCircle2 className="w-4 h-4 text-brand-700" />
+            <span>Minh bạch số điện nước</span>
           </div>
 
-          <div className="bg-white rounded-xl p-3 sm:p-3.5 border border-stone-200 shadow-xs flex items-center gap-2.5 hover:border-emerald-500 transition">
-            <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
-              <PhoneCall className="w-4 h-4" />
-            </div>
-            <div>
-              <div className="text-xs font-bold text-stone-900">0đ Phí môi giới</div>
-              <div className="text-[11px] text-stone-500 font-medium">Liên hệ thẳng chủ trọ</div>
-            </div>
+          <div className="flex items-center gap-1.5">
+            <CheckCircle2 className="w-4 h-4 text-brand-700" />
+            <span>0đ Phí môi giới / Không trung gian</span>
           </div>
 
-          <div className="bg-white rounded-xl p-3 sm:p-3.5 border border-stone-200 shadow-xs flex items-center gap-2.5 hover:border-blue-500 transition">
-            <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center shrink-0">
-              <ShieldCheck className="w-4 h-4" />
-            </div>
-            <div>
-              <div className="text-xs font-bold text-stone-900">Hợp đồng mẫu chuẩn</div>
-              <div className="text-[11px] text-stone-500 font-medium">Bảo vệ quyền lợi cọc</div>
-            </div>
+          <div className="flex items-center gap-1.5">
+            <CheckCircle2 className="w-4 h-4 text-brand-700" />
+            <span>Hợp đồng mẫu bảo vệ tiền cọc</span>
           </div>
         </div>
       </div>

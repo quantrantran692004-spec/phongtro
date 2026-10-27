@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, 
   Heart, 
@@ -8,13 +9,16 @@ import {
   X, 
   ShieldCheck, 
   Building2, 
-  LogOut,
-  ChevronDown,
-  BookOpen,
-  GraduationCap,
-  Sparkles,
-  CheckCircle2,
-  User as UserIcon
+  LogOut, 
+  ChevronDown, 
+  BookOpen, 
+  GraduationCap, 
+  Sparkles, 
+  CheckCircle2, 
+  User as UserIcon,
+  MapPin,
+  FileText,
+  Compass
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useRooms } from '../../context/RoomContext';
@@ -41,140 +45,80 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenCommandPalette,
 }) => {
   const { currentUser, logout, isAuthenticated, isAdmin, isLandlord, switchDemoRole } = useAuth();
-  const { favorites, compareList } = useRooms();
+  const { favorites, compareList, updateFilters } = useRooms();
+
+  // Progressive Disclosure: Dropdown states
+  const [exploreMenuOpen, setExploreMenuOpen] = useState(false);
+  const [guideMenuOpen, setGuideMenuOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
-  const [roleMenuOpen, setRoleMenuOpen] = useState(false);
+
+  const exploreTimeout = useRef<any>(null);
+  const guideTimeout = useRef<any>(null);
+  const userTimeout = useRef<any>(null);
+
+  const handleExploreEnter = () => {
+    clearTimeout(exploreTimeout.current);
+    setExploreMenuOpen(true);
+  };
+  const handleExploreLeave = () => {
+    exploreTimeout.current = setTimeout(() => setExploreMenuOpen(false), 150);
+  };
+
+  const handleGuideEnter = () => {
+    clearTimeout(guideTimeout.current);
+    setGuideMenuOpen(true);
+  };
+  const handleGuideLeave = () => {
+    guideTimeout.current = setTimeout(() => setGuideMenuOpen(false), 150);
+  };
+
+  const handleUserEnter = () => {
+    clearTimeout(userTimeout.current);
+    setUserMenuOpen(true);
+  };
+  const handleUserLeave = () => {
+    userTimeout.current = setTimeout(() => setUserMenuOpen(false), 150);
+  };
+
+  const handleSelectArea = (ward: string, keyword: string = '') => {
+    updateFilters({ ward, keyword });
+    onNavigate('search');
+    setExploreMenuOpen(false);
+  };
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-stone-200 shadow-xs">
-      {/* Top micro announcement bar */}
-      <div className="bg-stone-900 text-stone-200 text-xs py-1.5 px-4 sm:px-8 border-b border-stone-800">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2 truncate">
-            <span className="inline-flex items-center gap-1.5 bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded text-[11px] border border-emerald-500/30">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-              Thái Nguyên
-            </span>
-            <span className="text-stone-300 truncate font-normal text-[11px] sm:text-xs">
-              Cổng phòng trọ chính chủ cho SV Đại học Thái Nguyên & KCN Samsung Phổ Yên
-            </span>
-          </div>
-
-          {/* Quick Demo Switcher */}
-          <div className="relative shrink-0 flex items-center ml-2">
-            <button
-              onClick={() => setRoleMenuOpen(!roleMenuOpen)}
-              className="flex items-center gap-1.5 bg-stone-800 hover:bg-stone-700 text-stone-200 px-2.5 py-0.5 rounded-full text-[11px] font-medium transition border border-stone-700"
-              title="Đổi vai trò trải nghiệm"
-            >
-              <Sparkles className="w-3 h-3 text-amber-400" />
-              <span className="hidden sm:inline">Thử vai trò: </span>
-              <span className="font-semibold text-white">
-                {currentUser?.role === 'admin'
-                  ? 'Admin'
-                  : currentUser?.role === 'landlord'
-                  ? 'Chủ trọ'
-                  : 'Sinh viên'}
-              </span>
-              <ChevronDown className="w-3 h-3 text-stone-400" />
-            </button>
-
-            {roleMenuOpen && (
-              <div 
-                className="absolute right-0 top-full mt-2 w-64 bg-white text-stone-900 rounded-xl shadow-elevated border border-stone-200 p-2 z-50 text-xs animate-in fade-in slide-in-from-top-2 duration-150"
-                onClick={() => setRoleMenuOpen(false)}
-              >
-                <div className="font-bold text-stone-400 px-3 py-1.5 text-[10px] uppercase tracking-wider">
-                  Chuyển nhanh tài khoản:
-                </div>
-                <button
-                  onClick={() => switchDemoRole('tenant')}
-                  className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between transition ${
-                    currentUser?.role === 'tenant' ? 'bg-brand-50 text-brand-800 font-bold' : 'hover:bg-stone-100'
-                  }`}
-                >
-                  <div className="flex items-center gap-2.5">
-                    <span className="text-base">🎓</span>
-                    <div>
-                      <div className="font-bold text-stone-900">Sinh viên (An - ĐH Y Dược)</div>
-                      <div className="text-[11px] text-stone-500 font-normal">Tìm phòng, so sánh, đặt lịch hẹn</div>
-                    </div>
-                  </div>
-                  {currentUser?.role === 'tenant' && <CheckCircle2 className="w-4 h-4 text-brand-600" />}
-                </button>
-
-                <button
-                  onClick={() => switchDemoRole('landlord')}
-                  className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between transition ${
-                    currentUser?.role === 'landlord' ? 'bg-brand-50 text-brand-800 font-bold' : 'hover:bg-stone-100'
-                  }`}
-                >
-                  <div className="flex items-center gap-2.5">
-                    <span className="text-base">🏡</span>
-                    <div>
-                      <div className="font-bold text-stone-900">Chủ trọ (Cô Lan - Tân Thịnh)</div>
-                      <div className="text-[11px] text-stone-500 font-normal">Đăng tin trọ, bật/tắt phòng trống</div>
-                    </div>
-                  </div>
-                  {currentUser?.role === 'landlord' && <CheckCircle2 className="w-4 h-4 text-brand-600" />}
-                </button>
-
-                <button
-                  onClick={() => switchDemoRole('admin')}
-                  className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between transition ${
-                    currentUser?.role === 'admin' ? 'bg-brand-50 text-brand-800 font-bold' : 'hover:bg-stone-100'
-                  }`}
-                >
-                  <div className="flex items-center gap-2.5">
-                    <span className="text-base">🛡️</span>
-                    <div>
-                      <div className="font-bold text-stone-900">Ban Quản Trị (Admin)</div>
-                      <div className="text-[11px] text-stone-500 font-normal">Duyệt tin, cấp tích xanh, nhập CSV</div>
-                    </div>
-                  </div>
-                  {currentUser?.role === 'admin' && <CheckCircle2 className="w-4 h-4 text-brand-600" />}
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Main Navbar */}
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-stone-200/80 shadow-xs transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-[68px]">
-          {/* Brand Logo & Desktop Nav */}
-          <div className="flex items-center gap-6 lg:gap-8">
+        <div className="flex items-center justify-between h-16 sm:h-[66px]">
+          {/* Brand Logo & Progressive Navigation */}
+          <div className="flex items-center gap-7 lg:gap-9">
             <button
               onClick={() => onNavigate('home')}
-              className="flex items-center gap-2.5 sm:gap-3 text-left group focus:outline-none"
+              className="flex items-center gap-2.5 text-left group focus:outline-none shrink-0"
             >
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-brand-700 flex items-center justify-center text-white shadow-sm group-hover:bg-brand-800 transition">
+              <div className="w-9 h-9 rounded-xl bg-brand-700 flex items-center justify-center text-white shadow-xs group-hover:bg-brand-800 transition">
                 <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                   <path d="M12 2L2 9.5V20C2 20.5523 2.44772 21 3 21H9V14H15V21H21C21.5523 21 22 20.5523 22 20V9.5L12 2ZM10.5 7H13.5V9.5H10.5V7Z" />
                 </svg>
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
-                  <span className="font-bold text-base sm:text-lg text-stone-900 tracking-tight leading-none">
+                  <span className="font-extrabold text-[17px] sm:text-lg text-stone-900 tracking-tight leading-none group-hover:text-brand-800 transition">
                     TRỌ THÁI NGUYÊN
                   </span>
-                  <span className="bg-brand-100 text-brand-800 text-[10px] font-bold px-1.5 py-0.5 rounded">
+                  <span className="bg-brand-100 text-brand-800 text-[10px] font-bold px-1.5 py-0.5 rounded tracking-wide">
                     CHÍNH CHỦ
                   </span>
                 </div>
-                <p className="hidden sm:block text-[11px] text-stone-500 font-medium mt-0.5">
-                  Minh bạch chi phí • Làng ĐH & KCN Samsung
-                </p>
               </div>
             </button>
 
-            {/* Desktop Navigation */}
+            {/* Desktop Progressive Navigation with Hover Mega-Menus */}
             <nav className="hidden lg:flex items-center gap-1 text-[13px] font-semibold text-stone-700">
               <button
                 onClick={() => onNavigate('home')}
-                className={`px-3 py-2 rounded-lg transition ${
+                className={`px-3 py-1.5 rounded-lg transition ${
                   currentTab === 'home'
                     ? 'text-brand-800 bg-brand-50 font-bold'
                     : 'hover:text-stone-900 hover:bg-stone-100'
@@ -183,36 +127,152 @@ export const Header: React.FC<HeaderProps> = ({
                 Trang chủ
               </button>
 
-              <button
-                onClick={() => onNavigate('search')}
-                className={`px-3 py-2 rounded-lg transition flex items-center gap-1.5 ${
-                  currentTab === 'search'
-                    ? 'text-brand-800 bg-brand-50 font-bold'
-                    : 'hover:text-stone-900 hover:bg-stone-100'
-                }`}
+              {/* 1. Khám phá Dropdown (Progressive Disclosure) */}
+              <div 
+                className="relative"
+                onMouseEnter={handleExploreEnter}
+                onMouseLeave={handleExploreLeave}
               >
-                <Search className="w-3.5 h-3.5 text-stone-500" />
-                <span>Tìm phòng trọ</span>
-              </button>
+                <button
+                  onClick={() => onNavigate('search')}
+                  className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1 ${
+                    currentTab === 'search' || exploreMenuOpen
+                      ? 'text-brand-800 bg-brand-50 font-bold'
+                      : 'hover:text-stone-900 hover:bg-stone-100'
+                  }`}
+                >
+                  <Compass className="w-3.5 h-3.5 text-brand-700" />
+                  <span>Khám phá trọ</span>
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${exploreMenuOpen ? 'rotate-180 text-brand-700' : 'text-stone-400'}`} />
+                </button>
 
-              <button
-                onClick={onOpenGuide}
-                className="px-3 py-2 rounded-lg hover:text-stone-900 hover:bg-stone-100 transition flex items-center gap-1.5"
+                <AnimatePresence>
+                  {exploreMenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute left-0 top-full mt-1.5 w-72 bg-white rounded-2xl shadow-elevated border border-stone-200 p-2 z-50 text-xs"
+                    >
+                      <div className="font-bold text-stone-400 px-3 py-1 text-[10px] uppercase tracking-wider">
+                        Khu vực sinh viên & KCN
+                      </div>
+                      
+                      <button
+                        onClick={() => { onNavigate('search'); setExploreMenuOpen(false); }}
+                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-brand-50 flex items-center justify-between text-stone-800 transition"
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <Search className="w-4 h-4 text-brand-700" />
+                          <div>
+                            <div className="font-bold">Tất cả phòng trọ Thái Nguyên</div>
+                            <div className="text-[11px] text-stone-500 font-normal">Hơn 450+ phòng có sẵn</div>
+                          </div>
+                        </div>
+                      </button>
+
+                      <button
+                        onClick={() => handleSelectArea('P. Tân Thịnh')}
+                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-brand-50 flex items-center gap-2.5 text-stone-800 transition"
+                      >
+                        <GraduationCap className="w-4 h-4 text-emerald-700" />
+                        <div>
+                          <div className="font-bold">Làng SV Tân Thịnh</div>
+                          <div className="text-[11px] text-stone-500 font-normal">ĐH CNTT, Sư Phạm, Kinh Tế</div>
+                        </div>
+                      </button>
+
+                      <button
+                        onClick={() => handleSelectArea('P. Quang Trung', 'Y Dược')}
+                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-brand-50 flex items-center gap-2.5 text-stone-800 transition"
+                      >
+                        <MapPin className="w-4 h-4 text-rose-600" />
+                        <div>
+                          <div className="font-bold">Khu vực ĐH Y Dược</div>
+                          <div className="text-[11px] text-stone-500 font-normal">Ngõ 284 Lương Ngọc Quyến</div>
+                        </div>
+                      </button>
+
+                      <button
+                        onClick={() => handleSelectArea('TX. Phổ Yên', 'Samsung')}
+                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-brand-50 flex items-center gap-2.5 text-stone-800 transition"
+                      >
+                        <Building2 className="w-4 h-4 text-blue-600" />
+                        <div>
+                          <div className="font-bold">KCN Samsung Phổ Yên</div>
+                          <div className="text-[11px] text-stone-500 font-normal">Ba Hàng, Yên Bình SEVT</div>
+                        </div>
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* 2. Cẩm nang Dropdown (Progressive Disclosure) */}
+              <div 
+                className="relative"
+                onMouseEnter={handleGuideEnter}
+                onMouseLeave={handleGuideLeave}
               >
-                <BookOpen className="w-3.5 h-3.5 text-stone-400" />
-                <span>Cẩm nang thuê trọ</span>
-              </button>
+                <button
+                  onClick={onOpenGuide}
+                  className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1 ${
+                    guideMenuOpen
+                      ? 'text-brand-800 bg-brand-50 font-bold'
+                      : 'hover:text-stone-900 hover:bg-stone-100'
+                  }`}
+                >
+                  <BookOpen className="w-3.5 h-3.5 text-stone-500" />
+                  <span>Cẩm nang thuê</span>
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${guideMenuOpen ? 'rotate-180 text-brand-700' : 'text-stone-400'}`} />
+                </button>
+
+                <AnimatePresence>
+                  {guideMenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute left-0 top-full mt-1.5 w-64 bg-white rounded-2xl shadow-elevated border border-stone-200 p-2 z-50 text-xs"
+                    >
+                      <button
+                        onClick={() => { onOpenGuide(); setGuideMenuOpen(false); }}
+                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-brand-50 flex items-center gap-2.5 text-stone-800 transition"
+                      >
+                        <FileText className="w-4 h-4 text-brand-700" />
+                        <div>
+                          <div className="font-bold">4 Nguyên tắc tránh lừa cọc</div>
+                          <div className="text-[11px] text-stone-500 font-normal">Kinh nghiệm bỏ túi cho tân sinh viên</div>
+                        </div>
+                      </button>
+
+                      <button
+                        onClick={() => { onOpenGuide(); setGuideMenuOpen(false); }}
+                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-brand-50 flex items-center gap-2.5 text-stone-800 transition"
+                      >
+                        <ShieldCheck className="w-4 h-4 text-emerald-700" />
+                        <div>
+                          <div className="font-bold">Hợp đồng thuê mẫu</div>
+                          <div className="text-[11px] text-stone-500 font-normal">Điều khoản cọc & trả phòng rõ ràng</div>
+                        </div>
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
 
               {isLandlord && (
                 <button
                   onClick={() => onNavigate('landlord')}
-                  className={`px-3 py-2 rounded-lg transition flex items-center gap-1.5 ${
+                  className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
                     currentTab === 'landlord'
                       ? 'text-brand-800 bg-brand-50 font-bold'
                       : 'hover:text-stone-900 hover:bg-stone-100'
                   }`}
                 >
-                  <Building2 className="w-3.5 h-3.5 text-brand-600" />
+                  <Building2 className="w-3.5 h-3.5 text-brand-700" />
                   <span>Kênh Chủ Trọ</span>
                 </button>
               )}
@@ -220,7 +280,7 @@ export const Header: React.FC<HeaderProps> = ({
               {isAdmin && (
                 <button
                   onClick={() => onNavigate('admin')}
-                  className={`px-3 py-2 rounded-lg transition flex items-center gap-1.5 ${
+                  className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
                     currentTab === 'admin'
                       ? 'text-stone-900 bg-stone-200 font-bold'
                       : 'hover:text-stone-900 hover:bg-stone-100'
@@ -233,39 +293,42 @@ export const Header: React.FC<HeaderProps> = ({
             </nav>
           </div>
 
-          {/* Right Action Icons & Buttons */}
-          <div className="hidden sm:flex items-center gap-2.5">
-            {/* Quick Command Palette Trigger (Cmd+K) */}
+          {/* Right Action Bar (Progressive & Context-Aware) */}
+          <div className="flex items-center gap-2 sm:gap-2.5">
+            {/* Quick Command Trigger Pill */}
             {onOpenCommandPalette && (
               <button
                 onClick={onOpenCommandPalette}
-                className="hidden xl:flex items-center gap-2 bg-stone-100 hover:bg-stone-200 text-stone-600 hover:text-stone-900 px-3 py-1.5 rounded-lg text-xs font-semibold border border-stone-200 transition"
-                title="Mở thanh tìm kiếm nhanh (Ctrl+K)"
+                className="hidden md:flex items-center gap-2 bg-stone-100 hover:bg-stone-200 text-stone-600 hover:text-stone-900 px-3 py-1.5 rounded-xl text-xs font-semibold border border-stone-200 transition"
+                title="Tìm kiếm nhanh (Ctrl+K)"
               >
                 <Search className="w-3.5 h-3.5 text-stone-500" />
                 <span>Tìm nhanh...</span>
-                <kbd className="text-[10px] bg-white border border-stone-200 rounded px-1.5 py-0.5 font-mono text-stone-500">⌘K</kbd>
+                <kbd className="text-[10px] bg-white border border-stone-200 rounded px-1.5 py-0.5 font-mono text-stone-500 shadow-2xs">⌘K</kbd>
               </button>
             )}
 
-            {/* Compare Tool */}
-            <button
-              onClick={onOpenCompare}
-              className="relative p-2 text-stone-700 hover:text-brand-800 hover:bg-stone-100 rounded-lg transition border border-stone-200"
-              title="So sánh phòng đã chọn"
-            >
-              <Scale className="w-4 h-4" />
-              {compareList.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-clay-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+            {/* Compare Tool: Only reveals prominently when items are in compareList */}
+            {compareList.length > 0 && (
+              <motion.button
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                onClick={onOpenCompare}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 bg-clay-50 hover:bg-clay-100 text-clay-800 border border-clay-200 rounded-xl text-xs font-bold transition"
+                title="Xem danh sách so sánh"
+              >
+                <Scale className="w-3.5 h-3.5 text-clay-600" />
+                <span className="hidden sm:inline">So sánh</span>
+                <span className="bg-clay-500 text-white text-[10px] font-bold px-1.5 py-0.2 rounded-full">
                   {compareList.length}
                 </span>
-              )}
-            </button>
+              </motion.button>
+            )}
 
-            {/* Saved Favorites */}
+            {/* Favorites Icon */}
             <button
               onClick={() => onOpenProfile('saved')}
-              className="relative p-2 text-stone-700 hover:text-rose-600 hover:bg-stone-100 rounded-lg transition border border-stone-200"
+              className="relative p-2 text-stone-700 hover:text-rose-600 hover:bg-stone-100 rounded-xl transition border border-stone-200"
               title="Phòng đã lưu"
             >
               <Heart className="w-4 h-4" />
@@ -279,220 +342,238 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Post Room Primary CTA */}
             <button
               onClick={onOpenPostRoom}
-              className="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold text-brand-800 bg-brand-50 hover:bg-brand-100 border border-brand-200 transition"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-brand-700 hover:bg-brand-800 shadow-xs transition active:scale-98"
             >
-              <Plus className="w-3.5 h-3.5 text-brand-700" />
-              <span>Đăng tin cho thuê</span>
+              <Plus className="w-3.5 h-3.5" />
+              <span>Đăng tin</span>
             </button>
 
-            {/* User Profile / Auth Button */}
+            {/* Unified User & Role Switcher Capsule */}
             {isAuthenticated ? (
-              <div className="relative">
+              <div 
+                className="relative"
+                onMouseEnter={handleUserEnter}
+                onMouseLeave={handleUserLeave}
+              >
                 <button
-                  onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                  onClick={() => setUserMenuOpen(!userMenuOpen)}
                   className="flex items-center gap-2 p-1.5 pl-2.5 bg-stone-100 hover:bg-stone-200 rounded-full transition border border-stone-200"
                 >
-                  <span className="text-xs font-bold text-stone-900 max-w-[120px] truncate">
+                  <span className="text-xs font-bold text-stone-900 max-w-[110px] truncate">
                     {currentUser?.name}
+                  </span>
+                  <span className="text-[10px] font-semibold bg-white text-stone-600 px-1.5 py-0.5 rounded-full border border-stone-200 hidden sm:inline">
+                    {currentUser?.role === 'admin' ? 'Admin' : currentUser?.role === 'landlord' ? 'Chủ trọ' : 'SV'}
                   </span>
                   <img
                     src={currentUser?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80'}
                     alt={currentUser?.name}
-                    className="w-7 h-7 rounded-full object-cover ring-2 ring-brand-600"
+                    className="w-7 h-7 rounded-full object-cover ring-2 ring-brand-700 shrink-0"
                   />
                 </button>
 
-                {userDropdownOpen && (
-                  <div 
-                    className="absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-elevated border border-stone-200 p-2 z-50 text-xs animate-in fade-in slide-in-from-top-2 duration-150"
-                    onClick={() => setUserDropdownOpen(false)}
-                  >
-                    <div className="px-3 py-2 border-b border-stone-100">
-                      <div className="font-bold text-stone-900">{currentUser?.name}</div>
-                      <div className="text-[11px] text-stone-500 truncate">{currentUser?.email}</div>
-                    </div>
-
-                    <button
-                      onClick={() => onOpenProfile('profile')}
-                      className="w-full text-left px-3 py-2 rounded-lg hover:bg-stone-100 transition flex items-center gap-2 text-stone-700 font-medium"
+                {/* Progressive User & Role Switcher Popover */}
+                <AnimatePresence>
+                  {userMenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute right-0 top-full mt-1.5 w-72 bg-white rounded-2xl shadow-elevated border border-stone-200 p-2 z-50 text-xs"
                     >
-                      <UserIcon className="w-3.5 h-3.5 text-stone-400" />
-                      <span>Thông tin tài khoản</span>
-                    </button>
-
-                    <button
-                      onClick={() => onOpenProfile('saved')}
-                      className="w-full text-left px-3 py-2 rounded-lg hover:bg-stone-100 transition flex items-center justify-between text-stone-700 font-medium"
-                    >
-                      <div className="flex items-center gap-2">
-                        <Heart className="w-3.5 h-3.5 text-stone-400" />
-                        <span>Phòng đã lưu</span>
+                      {/* User Info Header */}
+                      <div className="px-3 py-2.5 bg-stone-50 rounded-xl mb-2">
+                        <div className="font-bold text-stone-900 text-sm">{currentUser?.name}</div>
+                        <div className="text-[11px] text-stone-500 truncate">{currentUser?.email}</div>
                       </div>
-                      <span className="text-[10px] font-bold text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded-full">
-                        {favorites.length}
-                      </span>
-                    </button>
 
-                    <button
-                      onClick={() => onOpenProfile('appointments')}
-                      className="w-full text-left px-3 py-2 rounded-lg hover:bg-stone-100 transition flex items-center gap-2 text-stone-700 font-medium"
-                    >
-                      <GraduationCap className="w-3.5 h-3.5 text-stone-400" />
-                      <span>Lịch hẹn xem phòng</span>
-                    </button>
+                      {/* Demo Role Switcher Section (Unified) */}
+                      <div className="font-bold text-stone-400 px-2.5 py-1 text-[10px] uppercase tracking-wider flex items-center justify-between">
+                        <span>Chuyển vai trò thử nghiệm:</span>
+                        <Sparkles className="w-3 h-3 text-amber-500" />
+                      </div>
 
-                    <div className="border-t border-stone-100 my-1"></div>
+                      <div className="space-y-0.5 mb-2">
+                        <button
+                          onClick={() => { switchDemoRole('tenant'); setUserMenuOpen(false); }}
+                          className={`w-full text-left px-2.5 py-1.5 rounded-lg flex items-center justify-between transition ${
+                            currentUser?.role === 'tenant' ? 'bg-brand-50 text-brand-900 font-bold' : 'hover:bg-stone-50 text-stone-700'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            <span>🎓</span>
+                            <span>Sinh viên (An - ĐH Y Dược)</span>
+                          </div>
+                          {currentUser?.role === 'tenant' && <CheckCircle2 className="w-3.5 h-3.5 text-brand-700" />}
+                        </button>
 
-                    <button
-                      onClick={logout}
-                      className="w-full text-left px-3 py-2 rounded-lg hover:bg-rose-50 text-rose-600 transition flex items-center gap-2 font-semibold"
-                    >
-                      <LogOut className="w-3.5 h-3.5" />
-                      <span>Đăng xuất</span>
-                    </button>
-                  </div>
-                )}
+                        <button
+                          onClick={() => { switchDemoRole('landlord'); setUserMenuOpen(false); }}
+                          className={`w-full text-left px-2.5 py-1.5 rounded-lg flex items-center justify-between transition ${
+                            currentUser?.role === 'landlord' ? 'bg-brand-50 text-brand-900 font-bold' : 'hover:bg-stone-50 text-stone-700'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            <span>🏡</span>
+                            <span>Chủ trọ (Cô Lan Tân Thịnh)</span>
+                          </div>
+                          {currentUser?.role === 'landlord' && <CheckCircle2 className="w-3.5 h-3.5 text-brand-700" />}
+                        </button>
+
+                        <button
+                          onClick={() => { switchDemoRole('admin'); setUserMenuOpen(false); }}
+                          className={`w-full text-left px-2.5 py-1.5 rounded-lg flex items-center justify-between transition ${
+                            currentUser?.role === 'admin' ? 'bg-brand-50 text-brand-900 font-bold' : 'hover:bg-stone-50 text-stone-700'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            <span>🛡️</span>
+                            <span>Quản trị viên (Admin)</span>
+                          </div>
+                          {currentUser?.role === 'admin' && <CheckCircle2 className="w-3.5 h-3.5 text-brand-700" />}
+                        </button>
+                      </div>
+
+                      <div className="border-t border-stone-100 my-1"></div>
+
+                      {/* Navigation links */}
+                      <button
+                        onClick={() => { onOpenProfile('profile'); setUserMenuOpen(false); }}
+                        className="w-full text-left px-3 py-2 rounded-lg hover:bg-stone-100 transition flex items-center gap-2 text-stone-800 font-medium"
+                      >
+                        <UserIcon className="w-3.5 h-3.5 text-stone-400" />
+                        <span>Hồ sơ tài khoản</span>
+                      </button>
+
+                      <button
+                        onClick={() => { onOpenProfile('appointments'); setUserMenuOpen(false); }}
+                        className="w-full text-left px-3 py-2 rounded-lg hover:bg-stone-100 transition flex items-center gap-2 text-stone-800 font-medium"
+                      >
+                        <GraduationCap className="w-3.5 h-3.5 text-stone-400" />
+                        <span>Lịch hẹn xem phòng</span>
+                      </button>
+
+                      <div className="border-t border-stone-100 my-1"></div>
+
+                      <button
+                        onClick={() => { logout(); setUserMenuOpen(false); }}
+                        className="w-full text-left px-3 py-2 rounded-lg hover:bg-rose-50 text-rose-600 transition flex items-center gap-2 font-bold"
+                      >
+                        <LogOut className="w-3.5 h-3.5" />
+                        <span>Đăng xuất</span>
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             ) : (
               <button
                 onClick={onOpenAuth}
-                className="px-4 py-2 bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs rounded-lg shadow-sm transition"
+                className="px-4 py-2 bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs rounded-xl shadow-xs transition"
               >
                 Đăng nhập
               </button>
             )}
-          </div>
 
-          {/* Mobile Right Icons & Hamburger */}
-          <div className="flex sm:hidden items-center gap-1.5">
-            {onOpenCommandPalette && (
+            {/* Mobile Drawer Toggle */}
+            <div className="flex lg:hidden items-center">
               <button
-                onClick={onOpenCommandPalette}
-                className="p-2 text-stone-700 rounded-lg hover:bg-stone-100"
-                title="Tìm nhanh"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 text-stone-800 hover:bg-stone-100 rounded-xl transition"
               >
-                <Search className="w-5 h-5 text-stone-700" />
+                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
-            )}
-
-            <button
-              onClick={() => onOpenProfile('saved')}
-              className="relative p-2 text-stone-700 rounded-lg hover:bg-stone-100"
-              title="Phòng đã lưu"
-            >
-              <Heart className="w-5 h-5 text-rose-600" />
-              {favorites.length > 0 && (
-                <span className="absolute top-1 right-1 bg-rose-500 text-white text-[9px] font-bold w-3.5 h-3.5 rounded-full flex items-center justify-center">
-                  {favorites.length}
-                </span>
-              )}
-            </button>
-
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-stone-800 hover:bg-stone-100 rounded-lg transition"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
-      {mobileMenuOpen && (
-        <div className="sm:hidden border-t border-stone-200 bg-white px-4 pt-3 pb-6 space-y-3 animate-in slide-in-from-top-4 duration-200">
-          <div className="grid grid-cols-2 gap-2 text-xs font-bold">
-            <button
-              onClick={() => { onNavigate('home'); setMobileMenuOpen(false); }}
-              className={`p-2.5 rounded-lg text-center border ${
-                currentTab === 'home' ? 'bg-brand-50 border-brand-300 text-brand-900' : 'bg-stone-50 border-stone-200 text-stone-800'
-              }`}
-            >
-              Trang chủ
-            </button>
-            <button
-              onClick={() => { onNavigate('search'); setMobileMenuOpen(false); }}
-              className={`p-2.5 rounded-lg text-center border ${
-                currentTab === 'search' ? 'bg-brand-50 border-brand-300 text-brand-900' : 'bg-stone-50 border-stone-200 text-stone-800'
-              }`}
-            >
-              Tìm phòng trọ
-            </button>
-          </div>
-
-          <div className="space-y-1 text-sm font-medium">
-            <button
-              onClick={() => { onOpenGuide(); setMobileMenuOpen(false); }}
-              className="w-full text-left px-3 py-2 rounded-lg hover:bg-stone-100 flex items-center gap-2.5 text-stone-800"
-            >
-              <BookOpen className="w-4 h-4 text-stone-500" />
-              <span>Cẩm nang thuê trọ sinh viên</span>
-            </button>
-
-            <button
-              onClick={() => { onOpenCompare(); setMobileMenuOpen(false); }}
-              className="w-full text-left px-3 py-2 rounded-lg hover:bg-stone-100 flex items-center justify-between text-stone-800"
-            >
-              <div className="flex items-center gap-2.5">
-                <Scale className="w-4 h-4 text-stone-500" />
-                <span>So sánh phòng trọ</span>
-              </div>
-              {compareList.length > 0 && (
-                <span className="text-xs bg-clay-100 text-clay-800 px-2 py-0.5 rounded-full font-bold">
-                  {compareList.length} phòng
-                </span>
-              )}
-            </button>
-
-            <button
-              onClick={() => { onNavigate('landlord'); setMobileMenuOpen(false); }}
-              className="w-full text-left px-3 py-2 rounded-lg hover:bg-stone-100 flex items-center gap-2.5 text-stone-800"
-            >
-              <Building2 className="w-4 h-4 text-brand-700" />
-              <span>Kênh Quản lý Chủ Trọ</span>
-            </button>
-
-            {isAdmin && (
+      {/* Mobile Drawer Menu (Progressive Touch Interface) */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="lg:hidden border-t border-stone-200 bg-white px-4 pt-3 pb-6 space-y-3 overflow-hidden"
+          >
+            <div className="grid grid-cols-2 gap-2 text-xs font-bold">
               <button
-                onClick={() => { onNavigate('admin'); setMobileMenuOpen(false); }}
+                onClick={() => { onNavigate('home'); setMobileMenuOpen(false); }}
+                className={`p-2.5 rounded-xl text-center border ${
+                  currentTab === 'home' ? 'bg-brand-50 border-brand-300 text-brand-900' : 'bg-stone-50 border-stone-200 text-stone-800'
+                }`}
+              >
+                Trang chủ
+              </button>
+              <button
+                onClick={() => { onNavigate('search'); setMobileMenuOpen(false); }}
+                className={`p-2.5 rounded-xl text-center border ${
+                  currentTab === 'search' ? 'bg-brand-50 border-brand-300 text-brand-900' : 'bg-stone-50 border-stone-200 text-stone-800'
+                }`}
+              >
+                Tìm phòng trọ
+              </button>
+            </div>
+
+            <div className="space-y-1 text-sm font-medium">
+              <button
+                onClick={() => { onOpenGuide(); setMobileMenuOpen(false); }}
                 className="w-full text-left px-3 py-2 rounded-lg hover:bg-stone-100 flex items-center gap-2.5 text-stone-800"
               >
-                <ShieldCheck className="w-4 h-4 text-brand-700" />
-                <span>Bảng Quản Trị Hệ Thống (Admin)</span>
+                <BookOpen className="w-4 h-4 text-stone-500" />
+                <span>Cẩm nang thuê trọ sinh viên</span>
               </button>
-            )}
-          </div>
 
-          <div className="pt-2 border-t border-stone-200 space-y-2">
-            <button
-              onClick={() => { onOpenPostRoom(); setMobileMenuOpen(false); }}
-              className="w-full py-2.5 rounded-lg bg-brand-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm"
-            >
-              <Plus className="w-4 h-4" />
-              <span>Đăng tin cho thuê trọ</span>
-            </button>
-
-            {isAuthenticated ? (
-              <div className="flex items-center justify-between px-2 pt-2">
-                <span className="text-xs text-stone-700 font-bold">{currentUser?.name}</span>
-                <button
-                  onClick={() => { logout(); setMobileMenuOpen(false); }}
-                  className="text-xs text-rose-600 font-bold"
-                >
-                  Đăng xuất
-                </button>
-              </div>
-            ) : (
               <button
-                onClick={() => { onOpenAuth(); setMobileMenuOpen(false); }}
-                className="w-full py-2 rounded-lg bg-stone-100 text-stone-800 font-bold text-xs"
+                onClick={() => { onOpenCompare(); setMobileMenuOpen(false); }}
+                className="w-full text-left px-3 py-2 rounded-lg hover:bg-stone-100 flex items-center justify-between text-stone-800"
               >
-                Đăng nhập / Đăng ký
+                <div className="flex items-center gap-2.5">
+                  <Scale className="w-4 h-4 text-stone-500" />
+                  <span>So sánh phòng trọ</span>
+                </div>
+                {compareList.length > 0 && (
+                  <span className="text-xs bg-clay-100 text-clay-800 px-2 py-0.5 rounded-full font-bold">
+                    {compareList.length} phòng
+                  </span>
+                )}
               </button>
-            )}
-          </div>
-        </div>
-      )}
+
+              {isLandlord && (
+                <button
+                  onClick={() => { onNavigate('landlord'); setMobileMenuOpen(false); }}
+                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-stone-100 flex items-center gap-2.5 text-stone-800"
+                >
+                  <Building2 className="w-4 h-4 text-brand-700" />
+                  <span>Kênh Quản lý Chủ Trọ</span>
+                </button>
+              )}
+
+              {isAdmin && (
+                <button
+                  onClick={() => { onNavigate('admin'); setMobileMenuOpen(false); }}
+                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-stone-100 flex items-center gap-2.5 text-stone-800"
+                >
+                  <ShieldCheck className="w-4 h-4 text-brand-700" />
+                  <span>Bảng Quản Trị Hệ Thống (Admin)</span>
+                </button>
+              )}
+            </div>
+
+            <div className="pt-2 border-t border-stone-200 space-y-2">
+              <button
+                onClick={() => { onOpenPostRoom(); setMobileMenuOpen(false); }}
+                className="w-full py-2.5 rounded-xl bg-brand-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Đăng tin cho thuê trọ</span>
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };
