@@ -1,97 +1,174 @@
-# 🏡 Trọ Thái Nguyên - Nền tảng tìm kiếm phòng trọ thông minh & uy tín
+# 🏡 TRỌ THÁI NGUYÊN — HỆ THỐNG PHÒNG TRỌ CHÍNH CHỦ & MINH BẠCH SỐ 1 THÁI NGUYÊN
 
-> Nền tảng tìm kiếm, đối chiếu và quản lý phòng trọ chuyên biệt dành cho sinh viên các trường Đại học Thái Nguyên (ĐH Y Dược, ĐH Sư Phạm, ICTU, TNUT, TUEBA, Nông Lâm) và kỹ sư, người lao động tại KCN Samsung Phổ Yên (SEVT), KCN Điềm Thụy, Sông Công.
+> Nền tảng tra cứu, minh bạch hóa chi phí và kết nối trực tiếp chủ nhà trọ với sinh viên 8 trường Đại học, Cao đẳng tại Thái Nguyên và kỹ sư, người lao động tại KCN Samsung Phổ Yên (SEVT), KCN Sông Công, Điềm Thụy.
 
----
-
-## 🌟 1. Điểm nổi bật & Triết lý thiết kế
-
-1. **Bản sắc & Thẩm mỹ cao cấp**:
-   * Tone màu xanh đồi chè Thái Nguyên (`brand: emerald/teal`) kết hợp sắc cam ấm (`warm: amber`) tượng trưng cho mái ấm bình yên.
-   * Tuân thủ triết lý thiết kế tối giản, đáng tin cậy chuẩn **Toss Design System** kết hợp **Tailwind CSS**.
-   * Hoàn toàn sử dụng tiếng Việt tự nhiên, trực quan, không dùng văn bản mẫu placeholder sơ sài.
-
-2. **Chức năng 100% hoạt động thực tế (No Fake UI)**:
-   * **Bản đồ tương tác (Interactive Leaflet Map)**: Hiển thị pins phòng trọ và vị trí các trường ĐH Thái Nguyên kèm popup xem chi tiết.
-   * **Bảng tính minh bạch "Chi phí tháng đầu"**: Cho phép người thuê kéo thanh trượt điều chỉnh số người ở, ước tính số số điện dùng hàng tháng để biết trước chính xác tổng chi phí (tiền cọc + tiền phòng + điện nước + wifi).
-   * **So sánh phòng đa chiều (Comparison Tool)**: Đối chiếu song song 2 - 4 phòng về giá, diện tích, tiền cọc, chi phí dịch vụ và từng tiện nghi cụ thể.
-   * **Đặt lịch hẹn xem phòng trực tiếp (Viewing Appointments)**: Đăng ký lịch hẹn với ngày giờ cụ thể, chuyển tiếp thông tin tới chủ trọ qua Zalo / SĐT.
-   * **Báo cáo tin xấu & lừa đảo (Scam Reporting)**: Hệ thống tiếp nhận phản ánh về tin giả, sai giá, ép cọc online và chuyển tới Ban Quản Trị giải quyết.
-   * **Cổng quản lý Chủ trọ (Landlord Portal)**: Thống kê lượt xem, quản lý danh sách phòng, bật/tắt trạng thái Còn phòng / Đã cho thuê chỉ với 1 click, wizard đăng tin 4 bước.
-   * **Cổng Quản trị viên (Admin Console)**: Duyệt tin đăng, từ chối kèm lý do, cấp huy hiệu xác minh tích xanh, quản lý báo cáo vi phạm, **nhập dữ liệu hàng loạt từ file CSV với trình kiểm tra lỗi & xem trước**.
+[![Production Build](https://img.shields.io/badge/Build-Passing-brightgreen.svg)]()
+[![React](https://img.shields.io/badge/React-18.2.0-blue.svg)]()
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.2-blue.svg)]()
+[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4-38B2AC.svg)]()
+[![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL_/_Supabase-336791.svg)]()
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg)]()
 
 ---
 
-## 🚀 2. Hướng dẫn chạy dự án
+## 🌟 1. Tổng quan & Triết lý thiết kế
 
-### Yêu cầu môi trường
-* Node.js version 18+ (khuyên dùng Node 20+)
-* npm version 9+
+1. **Bản sắc nhận diện thương hiệu Tân Cương Evergreen**:
+   - Tông màu xanh đồi chè Tân Cương Thái Nguyên (`#23654B`) kết hợp sắc cam gốm ấm áp (`#F97316`) mang lại cảm giác an tâm, tin cậy và ấm cúng như ở nhà.
+   - Font chữ tối ưu hóa cho tiếng Việt có dấu: **Be Vietnam Pro** kết hợp **Plus Jakarta Sans** cho các thông số số liệu sắc nét.
+   - Bố cục theo phong cách **Editorial Real-Estate Discovery** hiện đại, khoảng cách cân đối, không dùng dark mode chủ đạo, tạo chiều sâu với các hiệu ứng kính mờ (backdrop-blur) và bóng đổ mềm tự nhiên.
 
-### Cài đặt & Khởi chạy
+2. **Chức năng 100% nghiệp vụ thực tế (No Placeholder UI)**:
+   - **Thanh tìm kiếm thông minh đa tiêu chí**: Tìm theo tên trường ĐH (Y Dược, Sư Phạm, CNTT...), phường/xã (Tân Thịnh, Quang Trung, Z115, Phổ Yên), khoảng giá và loại phòng.
+   - **Bản đồ tương tác Leaflet (Interactive Map)**: Định vị chính xác từng phòng trọ và vị trí 8 trường ĐH trọng điểm trên địa bàn tỉnh.
+   - **Bảng tính dự toán chi phí tháng đầu (Cost Calculator)**: Tính toán tự động tổng chi phí gồm: Tiền phòng + Tiền cọc + Tiền điện (theo số kWh) + Tiền nước + Wifi + Phí dịch vụ.
+   - **Bộ công cụ so sánh đa chiều (Comparison)**: Đặt 2 - 4 phòng lên bàn cân so sánh từng tiêu chí: diện tích, tiền phòng, điện nước, tiện nghi và khoảng cách đến trường.
+   - **Đặt lịch hẹn xem phòng trực tiếp (Appointments)**: Hẹn giờ cụ thể, gửi thông tin tức thời và mở kết nối Zalo/điện thoại tới chủ nhà trọ.
+   - **Báo cáo vi phạm & tin ảo (Scam Reporting)**: Người dùng có thể gắn cờ phòng đã cho thuê nhưng không hạ tin, phòng kê giá điện nước sai, hoặc cò mồi giả danh.
+   - **Kênh Quản lý Chủ Trọ (Landlord Portal)**: Thống kê số lượt xem, quản lý danh sách phòng, 1-click chuyển đổi trạng thái "Còn phòng" / "Đã thuê", bộ wizard đăng tin 4 bước có kiểm tra dữ liệu.
+   - **Bảng Quản Trị Hệ Thống (Admin Console)**: Duyệt duyệt/từ chối tin, cấp tích xanh xác minh thực địa, xử lý báo cáo vi phạm, **nhập dữ liệu hàng loạt từ tệp CSV với trình xem trước và kiểm tra lỗi**.
 
-```bash
-# 1. Cài đặt các thư viện phụ thuộc
-npm install
+---
 
-# 2. Khởi chạy máy chủ phát triển (Development Server)
-npm run dev
+## 🏛️ 2. Kiến trúc kỹ thuật (Technical Architecture)
 
-# Mở trình duyệt tại: http://localhost:3000
+Hệ thống được thiết kế theo mô hình **Decoupled 3-Tier Architecture**, sẵn sàng chuyển đổi từ chế độ xem trước (Offline Mock Store) sang hệ thống Production (PostgreSQL / Supabase / REST API) chỉ với **1 biến môi trường**:
+
+```
+[ Frontend: React 18 + TS + Tailwind ]
+                │
+         [ Service Layer ]
+  (src/services/roomService.ts, authService.ts, uploadService.ts)
+         │                         │
+  [ VITE_USE_MOCK_DATA=true ]   [ VITE_USE_MOCK_DATA=false ]
+         │                         │
+  ┌──────▼────────────┐     ┌──────▼────────────┐
+  │ LocalStorage      │     │ REST API Server   │
+  │ Offline Store     │     │ hoặc Supabase BaaS│
+  │ (Pre-seeded DB)   │     │ (PostgreSQL 15+)  │
+  └───────────────────┘     └───────────────────┘
 ```
 
-### Xây dựng bản phát hành (Production Build)
+### Cấu trúc mã nguồn:
+```
+phongtro/
+├── .env.example               # Mẫu cấu hình biến môi trường
+├── .env                       # Biến môi trường local development
+├── Dockerfile                 # Multi-stage Docker build (Node -> Nginx Alpine)
+├── docker-compose.yml         # Khởi chạy toàn bộ hệ thống bằng 1 lệnh
+├── nginx.conf                 # Cấu hình Nginx tối ưu: Gzip, Caching, SPA fallback
+├── database/                  # Thiết kế cơ sở dữ liệu
+│   ├── schema.sql             # SQL Schema hoàn chỉnh (Users, Rooms, Costs, Appointments, Reports, RLS)
+│   ├── migrations/            # Script Migration phiên bản
+│   │   └── 001_initial_schema.sql
+│   └── seeds/                 # Dữ liệu khởi tạo thực tế cho Thái Nguyên
+│       └── 001_thai_nguyen_seed.sql
+└── src/
+    ├── services/              # Tầng trừu tượng dữ liệu (Data Access Layer)
+    │   ├── apiClient.ts       # Axios/Fetch HTTP client có JWT Interceptor
+    │   ├── roomService.ts     # Nghiệp vụ phòng trọ, lọc, CRUD, đặt lịch, báo cáo
+    │   ├── authService.ts     # Nghiệp vụ xác thực người dùng, đổi quyền
+    │   └── uploadService.ts   # Xử lý upload ảnh (kiểm tra dung lượng, định dạng)
+    ├── context/               # Global state (RoomContext, AuthContext, ToastContext)
+    ├── components/
+    │   ├── home/              # HeroSearch, UniversityShortcuts, FeaturedRooms, AreaExplorer...
+    │   ├── search/            # SearchPage, FilterSidebar, Interactive Map
+    │   ├── detail/            # RoomDetailView, CostCalculator, BookingModal, ReportModal
+    │   ├── landlord/          # LandlordPortal, RoomFormModal
+    │   ├── admin/             # AdminPortal, CSV Import/Export Preview
+    │   └── common/            # Header, Footer, RoomCard...
+    └── types/                 # Domain Types & Interfaces
+```
+
+---
+
+## 🚀 3. Hướng dẫn chạy dự án
+
+### Cách 1: Khởi chạy trên máy cục bộ (Node.js)
+
+```bash
+# 1. Cài đặt các gói phụ thuộc
+npm install
+
+# 2. Khởi chạy Development Server
+npm run dev
+
+# Trình duyệt truy cập: http://localhost:3000
+```
+
+### Cách 2: Chạy bằng Docker & Docker Compose (Khuyên dùng cho Production)
+
+```bash
+# Khởi chạy container Nginx độc lập trên cổng 80:
+docker-compose up -d --build
+
+# Kiểm tra log:
+docker-compose logs -f web
+```
+
+### Cách 3: Kiểm tra Build Production thủ công
 
 ```bash
 npm run build
+# Bản build hoàn thiện sẽ nằm tại thư mục dist/
 ```
 
 ---
 
-## 👥 3. Tài khoản Demo (Chuyển đổi 1-chạm)
+## 👥 4. Tài khoản Demo kiểm thử tức thì (Demo Switcher)
 
-Hệ thống tích hợp sẵn nút chuyển đổi nhanh vai trò ngay trên thanh thông báo đầu trang (Top Banner) và trong modal Đăng nhập:
+Hệ thống tích hợp sẵn nút đổi vai trò nhanh trên thanh Menu Header hoặc trong hộp thoại Đăng nhập:
 
-| Vai trò | Người dùng | Email | Quyền hạn |
+| Vai trò | Tên người dùng | Email | Khả năng thao tác |
 |---|---|---|---|
-| 🎓 **Sinh viên / Người thuê** | Nguyễn Văn An (ĐH Y Dược) | `an.sinhvien@tump.edu.vn` | Tìm kiếm, lưu phòng yêu thích, đặt lịch xem phòng, so sánh phòng |
-| 🏡 **Chủ nhà trọ** | Cô Lan Tân Thịnh | `colan.tro@gmail.com` | Quản lý tin đăng, đổi trạng thái phòng trống, tạo phòng mới, xem lịch hẹn |
-| 🛡️ **Quản trị viên (Admin)** | Admin Trọ Thái Nguyên | `admin@trothainguyen.vn` | Duyệt tin, cấp tích xanh, xử lý báo cáo vi phạm, nhập/xuất CSV |
+| 🎓 **Sinh viên / Người thuê** | An (ĐH Y Dược Thái Nguyên) | `an.sinhvien@tump.edu.vn` | Tìm kiếm, xem bản đồ, dự toán chi phí, đặt lịch hẹn, lưu phòng, so sánh |
+| 🏡 **Chủ nhà trọ** | Cô Lan (Tân Thịnh) | `colan.tro@gmail.com` | Quản lý danh sách phòng, bật/tắt phòng trống, tạo phòng trọ mới, xem lịch hẹn |
+| 🛡️ **Quản trị viên (Admin)** | Ban Quản Trị Hệ Thống | `admin@trothainguyen.vn` | Duyệt tin, cấp tích xanh, giải quyết khiếu nại, nhập dữ liệu hàng loạt bằng file CSV |
 
 ---
 
-## 📁 4. Cấu trúc thư mục dự án
+## 🗄️ 5. Hướng dẫn kết nối Cơ sở dữ liệu thật (PostgreSQL / Supabase)
 
+Khi muốn đưa website vào vận hành thực tế:
+
+### Bước 1: Khởi tạo Database
+1. Tạo một cơ sở dữ liệu PostgreSQL (hoặc tạo project mới trên [Supabase](https://supabase.com)).
+2. Mở trình SQL Editor và chạy tệp:
+   `database/schema.sql`
+3. Chạy tiếp tệp dữ liệu mẫu khởi tạo:
+   `database/seeds/001_thai_nguyen_seed.sql`
+
+### Bước 2: Cấu hình biến môi trường
+Mở file `.env` và cập nhật:
+```env
+VITE_USE_MOCK_DATA=false
+VITE_API_BASE_URL=https://your-api-domain.com/api/v1
+# Hoặc nếu dùng Supabase:
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-public-key
 ```
-phongtro/
-├── .cursor/rules/             # Các bộ quy tắc cursorrules chuẩn
-├── .cursorrules               # File chỉ định AI sinh code chuẩn Frontend
-├── prompts.md                 # Hướng dẫn prompt engineering cho dự án
-├── rules.md                   # Tài liệu chuẩn thiết kế UI/UX & Tailwind
-├── index.html                 # File HTML chính với Google Fonts & Leaflet
-├── package.json               # Cấu hình dự án & dependencies
-├── tailwind.config.js         # Theme màu chè Thái Nguyên & Design tokens
-├── vite.config.ts             # Cấu hình Vite & path aliases
-└── src/
-    ├── types/                 # Định nghĩa TypeScript Domain Types
-    ├── data/                  # Dữ liệu phòng trọ, trường ĐH Thái Nguyên, tiện nghi
-    ├── context/               # Quản lý trạng thái: RoomContext, AuthContext, ToastContext
-    ├── utils/                 # Formatters tiền tệ, khoảng cách, ngày tháng
-    ├── components/
-    │   ├── common/            # Header, Footer, RoomCard, MapView, CompareBar
-    │   ├── home/              # Hero, UniversityShortcuts, Featured, SafeRentGuide
-    │   ├── search/            # FilterSidebar, SearchPage
-    │   ├── detail/            # RoomDetailView, CostCalculator, BookingModal, ReportModal
-    │   ├── compare/           # ComparisonModal
-    │   ├── landlord/          # LandlordPortal, RoomFormModal
-    │   ├── admin/             # AdminPortal (KPIs, Duyệt tin, Báo cáo, CSV Import)
-    │   ├── user/              # AuthModal, UserProfileModal
-    │   └── info/              # GuideModal (Cẩm nang an toàn)
-    ├── App.tsx                # Component điều phối chính
-    └── main.tsx               # Entry point
-```
+
+Chạy lại ứng dụng, giao diện sẽ tự động kết nối và gọi API thật mà không cần sửa bất kỳ dòng mã nguồn UI nào!
 
 ---
 
-## 📜 5. Bản quyền & Giấy phép
-Dự án được xây dựng phục vụ cộng đồng sinh viên và người lao động tại Thái Nguyên.
+## 🌐 6. Hướng dẫn cấu hình Tên miền & SSL Nginx trên VPS
+
+1. Trỏ bản ghi DNS:
+   - `A` `trothainguyen.vn` -> IP máy chủ VPS của bạn.
+   - `CNAME` `www.trothainguyen.vn` -> `trothainguyen.vn`.
+2. Cài đặt chứng chỉ SSL miễn phí bằng Certbot:
+   ```bash
+   sudo certbot --nginx -d trothainguyen.vn -d www.trothainguyen.vn
+   ```
+3. Cấu hình Nginx tự động gia hạn chứng chỉ HTTPS định kỳ.
+
+---
+
+## 📞 7. Liên hệ & Hỗ trợ kỹ thuật
+
+- **Trọ Thái Nguyên Platform**
+- Hotline: `0988.123.456`
+- Zalo Hỗ trợ: `0988.123.456`
+- Email: `hotro@trothainguyen.vn`
+- Địa chỉ: Đường Lương Thế Vinh, Phường Tân Thịnh, TP. Thái Nguyên.

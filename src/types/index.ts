@@ -2,6 +2,8 @@ export type RoomType = 'single' | 'studio' | 'mini_apartment' | 'whole_house' | 
 
 export type RoomStatus = 'available' | 'rented' | 'pending';
 
+export type UserRole = 'tenant' | 'landlord' | 'admin';
+
 export interface RoomCost {
   rent: number;              // VNĐ / tháng
   deposit: number;           // VNĐ
