@@ -32,7 +32,7 @@ export const FeaturedRooms: React.FC<FeaturedRoomsProps> = ({ onViewAll, onSelec
             <h2 className="text-xl sm:text-3xl font-extrabold text-stone-900 tracking-tight">
               Phòng trọ nổi bật & Đã xác minh thực địa
             </h2>
-            <p className="text-xs sm:text-sm text-stone-600 mt-1 font-medium">
+            <p className="text-xs sm:text-sm text-stone-700 mt-1 font-medium">
               Thông tin rõ ràng, hỗ trợ ký hợp đồng minh bạch và bảo đảm quyền lợi người thuê
             </p>
           </div>

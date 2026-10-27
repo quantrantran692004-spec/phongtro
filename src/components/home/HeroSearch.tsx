@@ -132,10 +132,10 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
   return (
     <div className="relative bg-[#FAFAF9] pt-10 pb-12 sm:pt-14 sm:pb-16 border-b border-stone-200">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Title Section: Harmonious, calm, high-contrast typography (NO jarring neon colors) */}
+        {/* Title Section: High-contrast, easy-to-read, professional typography */}
         <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-2 bg-white border border-stone-200 text-stone-700 text-xs font-semibold px-3 py-1 rounded-full mb-3 shadow-xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+          <div className="inline-flex items-center gap-2 bg-white border border-stone-300 text-stone-900 text-xs font-bold px-3.5 py-1.5 rounded-full mb-3.5 shadow-2xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
             <span>Cổng tra cứu phòng trọ chính chủ tỉnh Thái Nguyên</span>
           </div>
 
@@ -143,24 +143,24 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
             Tìm phòng trọ Thái Nguyên
           </h1>
 
-          <p className="text-sm sm:text-base text-stone-600 leading-relaxed font-normal">
+          <p className="text-sm sm:text-base text-stone-700 font-medium leading-relaxed">
             Minh bạch chi phí điện nước • Khảo sát thực tế 100% • Gần trường & KCN Samsung Phổ Yên
           </p>
         </div>
 
-        {/* Master Search Dock: Absolutely Uniform Heights (Every segment h-12 = 48px, zero thò thụt) */}
-        <div className="bg-white rounded-2xl sm:rounded-full border border-stone-200 shadow-md p-2">
+        {/* Master Search Dock: High-contrast text & uniform 48px height */}
+        <div className="bg-white rounded-2xl sm:rounded-full border border-stone-300 shadow-sm p-2">
           <form onSubmit={handleSearch} className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-0">
-            {/* Field 1: Keyword Input (Height exactly h-12) */}
+            {/* Field 1: Keyword Input */}
             <div 
               ref={suggestionRef}
               className="flex-1 h-12 px-4 flex flex-col justify-center rounded-xl sm:rounded-full hover:bg-stone-50 transition relative"
             >
-              <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wider leading-none mb-1">
+              <label className="block text-[11px] font-extrabold text-stone-700 uppercase tracking-wide leading-none mb-1">
                 Địa điểm / Tên trường
               </label>
               <div className="flex items-center gap-2">
-                <Search className="w-4 h-4 text-stone-400 shrink-0" />
+                <Search className="w-4 h-4 text-stone-600 shrink-0" />
                 <input
                   type="text"
                   value={keyword}
@@ -170,13 +170,13 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                     setShowSuggestions(true);
                   }}
                   placeholder="Y Dược, Sư Phạm, Tân Thịnh, Z115..."
-                  className="w-full bg-transparent text-sm font-semibold text-stone-900 placeholder-stone-400 focus:outline-none leading-none"
+                  className="w-full bg-transparent text-sm font-bold text-stone-900 placeholder-stone-500 focus:outline-none leading-none"
                 />
                 {keyword && (
                   <button 
                     type="button" 
                     onClick={() => { setKeyword(''); setShowSuggestions(false); }}
-                    className="p-0.5 text-stone-400 hover:text-stone-700"
+                    className="p-0.5 text-stone-500 hover:text-stone-900"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
@@ -202,13 +202,13 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                             if (s.ward) setWard(s.ward);
                             setShowSuggestions(false);
                           }}
-                          className="w-full text-left px-3.5 py-2 rounded-xl hover:bg-stone-50 flex items-center justify-between text-xs transition"
+                          className="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-stone-100 flex items-center justify-between text-xs transition"
                         >
                           <div className="truncate mr-2">
-                            <span className="font-bold text-stone-900">{s.label}</span>
-                            {s.ward && <span className="text-stone-400 ml-1.5 font-normal">({s.ward})</span>}
+                            <span className="font-extrabold text-stone-900">{s.label}</span>
+                            {s.ward && <span className="text-stone-600 ml-1.5 font-medium">({s.ward})</span>}
                           </div>
-                          <span className="text-[10px] bg-stone-100 text-stone-500 font-semibold px-2 py-0.5 rounded">
+                          <span className="text-[10px] bg-stone-100 text-stone-800 font-bold px-2 py-0.5 rounded border border-stone-200">
                             {s.type}
                           </span>
                         </button>
@@ -220,19 +220,19 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
             </div>
 
             {/* Hairline Divider */}
-            <div className="hidden sm:block h-6 w-[1px] bg-stone-200 shrink-0 my-auto" />
+            <div className="hidden sm:block h-6 w-[1px] bg-stone-300 shrink-0 my-auto" />
 
-            {/* Field 2: Ward Select (Height exactly h-12) */}
+            {/* Field 2: Ward Select */}
             <div className="sm:w-56 h-12 px-4 flex flex-col justify-center rounded-xl sm:rounded-full hover:bg-stone-50 transition cursor-pointer">
-              <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wider leading-none mb-1">
+              <label className="block text-[11px] font-extrabold text-stone-700 uppercase tracking-wide leading-none mb-1">
                 Khu vực Phường / Xã
               </label>
               <div className="flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-stone-400 shrink-0" />
+                <MapPin className="w-3.5 h-3.5 text-stone-600 shrink-0" />
                 <select
                   value={ward}
                   onChange={(e) => setWard(e.target.value)}
-                  className="w-full bg-transparent text-sm font-semibold text-stone-900 focus:outline-none cursor-pointer truncate leading-none"
+                  className="w-full bg-transparent text-sm font-bold text-stone-900 focus:outline-none cursor-pointer truncate leading-none"
                 >
                   <option value="Tất cả">Toàn Thái Nguyên</option>
                   {wards.filter(w => w !== 'Tất cả').map((w) => (
@@ -243,19 +243,19 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
             </div>
 
             {/* Hairline Divider */}
-            <div className="hidden sm:block h-6 w-[1px] bg-stone-200 shrink-0 my-auto" />
+            <div className="hidden sm:block h-6 w-[1px] bg-stone-300 shrink-0 my-auto" />
 
-            {/* Field 3: Filter Trigger (Height exactly h-12) */}
+            {/* Field 3: Filter Trigger */}
             <button
               type="button"
               onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
               className={`h-12 px-4 flex items-center justify-center gap-1.5 rounded-xl sm:rounded-full text-xs font-bold transition shrink-0 ${
                 isAdvancedOpen || activeAdvancedCount > 0
-                  ? 'bg-stone-100 text-stone-900'
-                  : 'text-stone-600 hover:bg-stone-50 hover:text-stone-900'
+                  ? 'bg-stone-200 text-stone-900'
+                  : 'text-stone-800 hover:bg-stone-100 hover:text-black'
               }`}
             >
-              <SlidersHorizontal className="w-3.5 h-3.5 text-stone-500" />
+              <SlidersHorizontal className="w-4 h-4 text-stone-700" />
               <span>Bộ lọc</span>
               {activeAdvancedCount > 0 && (
                 <span className="w-4 h-4 rounded-full bg-stone-900 text-white text-[10px] font-bold flex items-center justify-center">
@@ -264,7 +264,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
               )}
             </button>
 
-            {/* Field 4: Search Action Button (Height exactly h-12) */}
+            {/* Field 4: Search Action Button */}
             <button
               type="submit"
               className="h-12 px-6 bg-stone-900 hover:bg-black text-white font-bold text-sm rounded-xl sm:rounded-full shadow-xs transition flex items-center justify-center gap-2 shrink-0 active:scale-98"
@@ -274,18 +274,18 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
             </button>
           </form>
 
-          {/* Expandable Advanced Filters: Smooth Drawer */}
+          {/* Expandable Advanced Filters Drawer */}
           <AnimatePresence>
             {isAdvancedOpen && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="overflow-hidden border-t border-stone-100 mt-2 pt-3 px-2 sm:px-4"
+                className="overflow-hidden border-t border-stone-200 mt-2 pt-3 px-2 sm:px-4"
               >
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pb-2">
                   <div>
-                    <label className="block text-xs font-bold text-stone-700 mb-1.5">
+                    <label className="block text-xs font-extrabold text-stone-900 mb-1.5">
                       Khoảng giá thuê
                     </label>
                     <div className="grid grid-cols-2 gap-1.5 text-xs">
@@ -299,10 +299,10 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                           key={p.id}
                           type="button"
                           onClick={() => setPriceTier(p.id)}
-                          className={`py-1.5 px-2 rounded-lg border font-medium transition text-center ${
+                          className={`py-1.5 px-2 rounded-lg border font-bold transition text-center ${
                             priceTier === p.id
-                              ? 'bg-stone-900 border-stone-900 text-white font-bold'
-                              : 'bg-stone-50 border-stone-200 text-stone-700 hover:bg-stone-100'
+                              ? 'bg-stone-900 border-stone-900 text-white'
+                              : 'bg-stone-100 border-stone-300 text-stone-800 hover:bg-stone-200'
                           }`}
                         >
                           {p.label}
@@ -312,13 +312,13 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-stone-700 mb-1.5">
+                    <label className="block text-xs font-extrabold text-stone-900 mb-1.5">
                       Loại hình phòng
                     </label>
                     <select
                       value={roomType}
                       onChange={(e) => setRoomType(e.target.value)}
-                      className="w-full bg-stone-50 border border-stone-200 rounded-lg p-2 text-xs font-semibold text-stone-800 focus:outline-none"
+                      className="w-full bg-stone-100 border border-stone-300 rounded-lg p-2 text-xs font-bold text-stone-900 focus:outline-none"
                     >
                       <option value="all">Tất cả loại phòng</option>
                       <option value="single">Phòng trọ khép kín</option>
@@ -330,7 +330,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-stone-700 mb-1.5">
+                    <label className="block text-xs font-extrabold text-stone-900 mb-1.5">
                       Tiện ích ưu tiên
                     </label>
                     <div className="flex flex-wrap gap-1.5">
@@ -346,10 +346,10 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                             key={am.id}
                             type="button"
                             onClick={() => handleToggleAmenity(am.id)}
-                            className={`px-2.5 py-1 rounded-lg text-xs font-medium border transition ${
+                            className={`px-2.5 py-1 rounded-lg text-xs font-bold border transition ${
                               isSelected
-                                ? 'bg-stone-900 border-stone-900 text-white font-bold'
-                                : 'bg-stone-50 border-stone-200 text-stone-700 hover:bg-stone-100'
+                                ? 'bg-stone-900 border-stone-900 text-white'
+                                : 'bg-stone-100 border-stone-300 text-stone-800 hover:bg-stone-200'
                             }`}
                           >
                             {isSelected && '✓ '}
@@ -361,11 +361,11 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-2 border-t border-stone-100 text-xs">
+                <div className="flex items-center justify-between pt-2.5 border-t border-stone-200 text-xs">
                   <button
                     type="button"
                     onClick={resetAdvanced}
-                    className="text-stone-400 hover:text-stone-700 flex items-center gap-1 font-semibold transition"
+                    className="text-stone-600 hover:text-stone-900 flex items-center gap-1 font-bold transition"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
                     <span>Đặt lại</span>
@@ -375,7 +375,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                     <button
                       type="button"
                       onClick={() => setIsAdvancedOpen(false)}
-                      className="px-3 py-1.5 text-stone-500 hover:text-stone-800 font-semibold"
+                      className="px-3 py-1.5 text-stone-700 hover:text-stone-900 font-bold"
                     >
                       Thu gọn
                     </button>
@@ -392,9 +392,9 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
             )}
           </AnimatePresence>
 
-          {/* Quick Tags: 4 clean items */}
-          <div className="mt-2 pt-2 border-t border-stone-100 flex items-center gap-1.5 overflow-x-auto no-scrollbar text-xs px-2 sm:px-4">
-            <span className="text-[11px] font-bold text-stone-400 whitespace-nowrap">
+          {/* Quick Tags: High contrast text on white/stone-100 */}
+          <div className="mt-2 pt-2 border-t border-stone-200 flex items-center gap-1.5 overflow-x-auto no-scrollbar text-xs px-2 sm:px-4">
+            <span className="text-[11px] font-extrabold text-stone-700 whitespace-nowrap">
               Tìm nhanh:
             </span>
 
@@ -408,7 +408,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                 key={idx}
                 type="button"
                 onClick={() => handleQuickTagClick(tag.keyword, tag.ward, undefined, tag.price)}
-                className="px-2.5 py-0.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold whitespace-nowrap transition"
+                className="px-3 py-1 rounded-full bg-white hover:bg-stone-100 text-stone-900 text-xs font-bold whitespace-nowrap transition border border-stone-300 shadow-2xs"
               >
                 {tag.label}
               </button>
@@ -416,25 +416,25 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
           </div>
         </div>
 
-        {/* Clean Proof Bar: Calm, balanced text with subtle muted icons */}
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-5 sm:gap-8 text-xs font-medium text-stone-500">
+        {/* Clean Proof Bar: High contrast, dark text */}
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-5 sm:gap-8 text-xs font-bold text-stone-800">
           <div className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-3.5 h-3.5 text-stone-400" />
+            <CheckCircle2 className="w-4 h-4 text-emerald-700" />
             <span>450+ Phòng khảo sát thực tế</span>
           </div>
 
           <div className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-3.5 h-3.5 text-stone-400" />
+            <CheckCircle2 className="w-4 h-4 text-emerald-700" />
             <span>Minh bạch tiền điện nước</span>
           </div>
 
           <div className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-3.5 h-3.5 text-stone-400" />
+            <CheckCircle2 className="w-4 h-4 text-emerald-700" />
             <span>0đ Phí môi giới</span>
           </div>
 
           <div className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-3.5 h-3.5 text-stone-400" />
+            <CheckCircle2 className="w-4 h-4 text-emerald-700" />
             <span>Hợp đồng chuẩn pháp lý</span>
           </div>
         </div>

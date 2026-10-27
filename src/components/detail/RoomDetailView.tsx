@@ -123,8 +123,8 @@ export const RoomDetailView: React.FC<RoomDetailViewProps> = ({ room, onBack, on
             <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-md bg-stone-100 text-stone-800">
               {getRoomTypeLabel(room.roomType)}
             </span>
-            <span className="text-xs text-stone-500 font-medium flex items-center gap-1 ml-auto">
-              <Clock className="w-3 h-3" />
+            <span className="text-xs text-stone-700 font-semibold flex items-center gap-1 ml-auto">
+              <Clock className="w-3.5 h-3.5 text-stone-600" />
               <span>Cập nhật {formatRelativeTime(room.updatedAt)}</span>
             </span>
           </div>
@@ -318,10 +318,10 @@ export const RoomDetailView: React.FC<RoomDetailViewProps> = ({ room, onBack, on
                       <ShieldCheck className="w-3.5 h-3.5 text-brand-700" />
                     )}
                   </div>
-                  <p className="text-[11px] text-stone-500 font-medium">Phản hồi: {room.landlord.responseTime}</p>
-                  <div className="flex items-center gap-1 text-[11px] text-amber-700 font-bold mt-0.5">
+                  <p className="text-[11px] text-stone-700 font-medium">Phản hồi: {room.landlord.responseTime}</p>
+                  <div className="flex items-center gap-1 text-[11px] text-amber-800 font-bold mt-0.5">
                     <span>⭐ {room.landlord.rating}</span>
-                    <span className="text-stone-500 font-normal">({room.landlord.reviewCount} đánh giá)</span>
+                    <span className="text-stone-600 font-semibold">({room.landlord.reviewCount} đánh giá)</span>
                   </div>
                 </div>
               </div>
@@ -359,8 +359,8 @@ export const RoomDetailView: React.FC<RoomDetailViewProps> = ({ room, onBack, on
                 </button>
               </div>
 
-              <div className="pt-2.5 border-t border-stone-100 flex items-start gap-1.5 text-[11px] text-stone-500 font-medium">
-                <Info className="w-3.5 h-3.5 text-brand-700 shrink-0 mt-0.5" />
+              <div className="pt-2.5 border-t border-stone-100 flex items-start gap-1.5 text-[11px] text-stone-700 font-medium">
+                <Info className="w-3.5 h-3.5 text-brand-800 shrink-0 mt-0.5" />
                 <span>Trọ Thái Nguyên không thu phí sinh viên. Bạn hãy xem phòng trực tiếp trước khi quyết định nhé!</span>
               </div>
             </div>
@@ -371,7 +371,7 @@ export const RoomDetailView: React.FC<RoomDetailViewProps> = ({ room, onBack, on
                 <ShieldCheck className="w-4 h-4 text-brand-700" />
                 <span>Cam kết minh bạch từ Trọ Thái Nguyên</span>
               </div>
-              <p className="text-brand-900/80 text-[11px] leading-relaxed">
+              <p className="text-stone-800 text-[11px] leading-relaxed font-medium">
                 Phòng trọ này đã được rà soát số điện thoại chính chủ, không qua môi giới trung gian thu phí.
               </p>
             </div>

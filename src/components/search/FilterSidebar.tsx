@@ -35,12 +35,12 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-stone-200/80 shadow-card p-5 space-y-5">
+    <div className="bg-white rounded-2xl border border-stone-300 shadow-sm p-5 space-y-5">
       {/* Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-stone-100">
-        <div className="flex items-center gap-1.5">
-          <Filter className="w-4 h-4 text-brand-600" />
-          <h3 className="font-display font-bold text-xs uppercase tracking-wider text-stone-900">
+      <div className="flex items-center justify-between pb-3 border-b border-stone-200">
+        <div className="flex items-center gap-2">
+          <Filter className="w-4 h-4 text-brand-800" />
+          <h3 className="font-extrabold text-xs uppercase tracking-wider text-stone-900">
             Bộ lọc tìm kiếm
           </h3>
         </div>
@@ -48,7 +48,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
         <div className="flex items-center gap-2">
           <button
             onClick={resetFilters}
-            className="text-xs text-stone-400 hover:text-brand-700 flex items-center gap-1 transition"
+            className="text-xs font-bold text-stone-600 hover:text-stone-900 flex items-center gap-1 transition"
             title="Đặt lại bộ lọc"
           >
             <RotateCcw className="w-3.5 h-3.5" />
@@ -58,7 +58,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
           {onCloseMobile && (
             <button
               onClick={onCloseMobile}
-              className="md:hidden p-1 text-stone-400 hover:text-stone-600 rounded-lg"
+              className="md:hidden p-1 text-stone-600 hover:text-stone-900 rounded-lg"
             >
               <X className="w-4 h-4" />
             </button>
@@ -68,31 +68,31 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
 
       {/* Keyword */}
       <div>
-        <label className="block text-[11px] font-bold text-stone-600 mb-1">
+        <label className="block text-[11px] font-extrabold text-stone-700 uppercase tracking-wide mb-1.5">
           Từ khóa
         </label>
         <div className="relative">
-          <Search className="w-3.5 h-3.5 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-3.5 h-3.5 text-stone-600 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={filters.keyword}
             onChange={(e) => updateFilters({ keyword: e.target.value })}
             placeholder="Tên đường, địa chỉ, tên trọ..."
-            className="w-full pl-8 pr-3 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs text-stone-800 focus:outline-none focus:ring-1 focus:ring-brand-500 focus:bg-white transition"
+            className="w-full pl-8 pr-3 py-2 bg-stone-50 border border-stone-300 rounded-xl text-xs font-bold text-stone-900 placeholder-stone-500 focus:outline-none focus:ring-1 focus:ring-stone-900 focus:bg-white transition"
           />
         </div>
       </div>
 
       {/* Ward / Area */}
       <div>
-        <label className="block text-[11px] font-bold text-stone-600 mb-1 flex items-center gap-1">
-          <MapPin className="w-3.5 h-3.5 text-stone-400" />
+        <label className="block text-[11px] font-extrabold text-stone-700 uppercase tracking-wide mb-1.5 flex items-center gap-1.5">
+          <MapPin className="w-3.5 h-3.5 text-stone-600" />
           <span>Khu vực Phường / Xã</span>
         </label>
         <select
           value={filters.ward}
           onChange={(e) => updateFilters({ ward: e.target.value })}
-          className="w-full px-3 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs text-stone-800 focus:outline-none focus:ring-1 focus:ring-brand-500 focus:bg-white transition cursor-pointer"
+          className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-xl text-xs font-bold text-stone-900 focus:outline-none focus:ring-1 focus:ring-stone-900 focus:bg-white transition cursor-pointer"
         >
           {wards.map((w) => (
             <option key={w} value={w}>{w}</option>
@@ -102,14 +102,14 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
 
       {/* University */}
       <div>
-        <label className="block text-[11px] font-bold text-stone-600 mb-1 flex items-center gap-1">
-          <GraduationCap className="w-3.5 h-3.5 text-stone-400" />
+        <label className="block text-[11px] font-extrabold text-stone-700 uppercase tracking-wide mb-1.5 flex items-center gap-1.5">
+          <GraduationCap className="w-3.5 h-3.5 text-stone-600" />
           <span>Trường Đại Học / KCN</span>
         </label>
         <select
           value={filters.university}
           onChange={(e) => updateFilters({ university: e.target.value })}
-          className="w-full px-3 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs text-stone-800 focus:outline-none focus:ring-1 focus:ring-brand-500 focus:bg-white transition cursor-pointer"
+          className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-xl text-xs font-bold text-stone-900 focus:outline-none focus:ring-1 focus:ring-stone-900 focus:bg-white transition cursor-pointer"
         >
           <option value="Tất cả">Tất cả trường & KCN</option>
           {THAI_NGUYEN_UNIVERSITIES.map((u) => (
@@ -120,10 +120,10 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
 
       {/* Room Type */}
       <div>
-        <label className="block text-[11px] font-bold text-stone-600 mb-1">
+        <label className="block text-[11px] font-extrabold text-stone-700 uppercase tracking-wide mb-1.5">
           Loại hình phòng
         </label>
-        <div className="grid grid-cols-2 gap-1 text-[11px]">
+        <div className="grid grid-cols-2 gap-1.5 text-xs">
           {[
             { id: 'all', label: 'Tất cả' },
             { id: 'single', label: 'Phòng đơn' },
@@ -136,10 +136,10 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
               key={item.id}
               type="button"
               onClick={() => updateFilters({ roomType: item.id })}
-              className={`py-1.5 px-2 rounded-lg text-center border transition ${
+              className={`py-2 px-2 rounded-xl text-center border font-bold transition ${
                 filters.roomType === item.id
-                  ? 'bg-brand-50 border-brand-500 text-brand-800 font-bold'
-                  : 'bg-stone-50 border-stone-200 text-stone-600 hover:bg-stone-100'
+                  ? 'bg-stone-900 border-stone-900 text-white'
+                  : 'bg-stone-50 border-stone-200 text-stone-800 hover:bg-stone-100 hover:border-stone-300'
               }`}
             >
               {item.label}
@@ -150,12 +150,12 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
 
       {/* Price Presets */}
       <div>
-        <div className="flex items-center justify-between mb-1">
-          <label className="text-[11px] font-bold text-stone-600 flex items-center gap-1">
-            <DollarSign className="w-3.5 h-3.5 text-stone-400" />
+        <div className="flex items-center justify-between mb-1.5">
+          <label className="text-[11px] font-extrabold text-stone-700 uppercase tracking-wide flex items-center gap-1.5">
+            <DollarSign className="w-3.5 h-3.5 text-stone-600" />
             <span>Mức giá</span>
           </label>
-          <span className="text-[11px] font-bold text-brand-700">
+          <span className="text-xs font-extrabold text-brand-800">
             {formatCurrency(filters.minPrice, true)} - {filters.maxPrice >= 10000000 ? 'Tất cả' : formatCurrency(filters.maxPrice, true)}
           </span>
         </div>
@@ -172,15 +172,15 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
               key={idx}
               type="button"
               onClick={() => updateFilters({ minPrice: preset.min, maxPrice: preset.max })}
-              className={`w-full text-left px-2 py-1.5 rounded-lg text-xs transition flex items-center justify-between ${
+              className={`w-full text-left px-3 py-2 rounded-xl text-xs transition flex items-center justify-between ${
                 filters.minPrice === preset.min && filters.maxPrice === preset.max
-                  ? 'bg-brand-50 text-brand-800 font-bold'
-                  : 'text-stone-600 hover:bg-stone-50'
+                  ? 'bg-stone-900 text-white font-bold'
+                  : 'text-stone-800 font-semibold hover:bg-stone-100'
               }`}
             >
               <span>{preset.label}</span>
               {filters.minPrice === preset.min && filters.maxPrice === preset.max && (
-                <span className="text-brand-600 font-bold">✓</span>
+                <span className="text-white font-bold">✓</span>
               )}
             </button>
           ))}
@@ -189,11 +189,11 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
 
       {/* Area Presets */}
       <div>
-        <label className="block text-[11px] font-bold text-stone-600 mb-1 flex items-center gap-1">
-          <Layers className="w-3.5 h-3.5 text-stone-400" />
+        <label className="block text-[11px] font-extrabold text-stone-700 uppercase tracking-wide mb-1.5 flex items-center gap-1.5">
+          <Layers className="w-3.5 h-3.5 text-stone-600" />
           <span>Diện tích</span>
         </label>
-        <div className="grid grid-cols-3 gap-1 text-[11px]">
+        <div className="grid grid-cols-2 gap-1.5 text-xs">
           {[
             { label: 'Tất cả', min: 0, max: 100 },
             { label: '< 20 m²', min: 0, max: 20 },
@@ -204,10 +204,10 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
               key={idx}
               type="button"
               onClick={() => updateFilters({ minArea: a.min, maxArea: a.max })}
-              className={`py-1.5 px-1 rounded-lg text-center border transition ${
+              className={`py-2 px-2 rounded-xl text-center border font-bold transition ${
                 filters.minArea === a.min && filters.maxArea === a.max
-                  ? 'bg-brand-50 border-brand-500 text-brand-800 font-bold'
-                  : 'bg-stone-50 border-stone-200 text-stone-600 hover:bg-stone-100'
+                  ? 'bg-stone-900 border-stone-900 text-white'
+                  : 'bg-stone-50 border-stone-200 text-stone-800 hover:bg-stone-100 hover:border-stone-300'
               }`}
             >
               {a.label}
@@ -218,24 +218,24 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
 
       {/* Amenities Multi-check */}
       <div>
-        <label className="block text-[11px] font-bold text-stone-600 mb-1.5">
+        <label className="block text-[11px] font-extrabold text-stone-700 uppercase tracking-wide mb-1.5">
           Tiện nghi & Dịch vụ ({filters.amenities.length})
         </label>
-        <div className="space-y-1 max-h-44 overflow-y-auto pr-1">
+        <div className="space-y-1 max-h-48 overflow-y-auto pr-1">
           {ALL_AMENITIES.map((amenity) => {
             const isChecked = filters.amenities.includes(amenity.id);
             return (
               <label
                 key={amenity.id}
                 onClick={() => handleAmenityToggle(amenity.id)}
-                className={`flex items-center gap-2 p-1.5 rounded-lg text-xs cursor-pointer transition ${
-                  isChecked ? 'bg-brand-50 text-brand-900 font-semibold' : 'hover:bg-stone-50 text-stone-600'
+                className={`flex items-center gap-2 p-2 rounded-xl text-xs cursor-pointer transition ${
+                  isChecked ? 'bg-brand-50 text-stone-900 font-bold' : 'hover:bg-stone-50 text-stone-800 font-medium'
                 }`}
               >
                 {isChecked ? (
-                  <CheckSquare className="w-3.5 h-3.5 text-brand-600 shrink-0" />
+                  <CheckSquare className="w-4 h-4 text-brand-800 shrink-0" />
                 ) : (
-                  <Square className="w-3.5 h-3.5 text-stone-300 shrink-0" />
+                  <Square className="w-4 h-4 text-stone-400 shrink-0" />
                 )}
                 <span className="truncate">{amenity.name}</span>
               </label>
@@ -246,17 +246,17 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
 
       {/* Status Filter */}
       <div>
-        <label className="block text-[11px] font-bold text-stone-600 mb-1">
+        <label className="block text-[11px] font-extrabold text-stone-700 uppercase tracking-wide mb-1.5">
           Tình trạng phòng
         </label>
         <div className="flex items-center gap-1.5 text-xs">
           <button
             type="button"
             onClick={() => updateFilters({ status: 'all' })}
-            className={`flex-1 py-1.5 rounded-lg border font-medium transition ${
+            className={`flex-1 py-2 rounded-xl border font-bold transition ${
               filters.status === 'all'
-                ? 'bg-brand-50 border-brand-500 text-brand-800 font-bold'
-                : 'bg-stone-50 border-stone-200 text-stone-600'
+                ? 'bg-stone-900 border-stone-900 text-white'
+                : 'bg-stone-50 border-stone-200 text-stone-800 hover:bg-stone-100 hover:border-stone-300'
             }`}
           >
             Tất cả
@@ -264,10 +264,10 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
           <button
             type="button"
             onClick={() => updateFilters({ status: 'available' })}
-            className={`flex-1 py-1.5 rounded-lg border font-medium transition ${
+            className={`flex-1 py-2 rounded-xl border font-bold transition ${
               filters.status === 'available'
-                ? 'bg-brand-50 border-brand-500 text-brand-800 font-bold'
-                : 'bg-stone-50 border-stone-200 text-stone-600'
+                ? 'bg-stone-900 border-stone-900 text-white'
+                : 'bg-stone-50 border-stone-200 text-stone-800 hover:bg-stone-100 hover:border-stone-300'
             }`}
           >
             Còn trống

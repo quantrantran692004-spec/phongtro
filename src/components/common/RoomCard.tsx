@@ -160,7 +160,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
               {formatCurrency(room.costs.rent, true)}
             </span>
 
-            <div className="flex items-center gap-1.5 text-xs text-stone-600 font-semibold">
+            <div className="flex items-center gap-1.5 text-xs text-stone-700 font-bold">
               <span>{formatArea(room.area)}</span>
               <span>•</span>
               <span>{room.capacity} người</span>
@@ -173,23 +173,23 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
           </h3>
 
           {/* Location */}
-          <div className="space-y-1 text-xs text-stone-600 mb-3">
+          <div className="space-y-1 text-xs text-stone-700 mb-3 font-medium">
             <div className="flex items-center gap-1 truncate">
-              <MapPin className="w-3.5 h-3.5 text-stone-500 shrink-0" />
+              <MapPin className="w-3.5 h-3.5 text-stone-600 shrink-0" />
               <span className="truncate">{room.location.address}</span>
             </div>
 
             {nearestUni && (
-              <div className="inline-flex items-center gap-1 text-[11px] font-semibold text-brand-800 bg-brand-50 px-2 py-0.5 rounded border border-brand-200">
+              <div className="inline-flex items-center gap-1 text-[11px] font-bold text-brand-900 bg-brand-50 px-2 py-0.5 rounded border border-brand-200">
                 <span>Cách {nearestUni.name}:</span>
-                <span className="font-bold">{nearestUni.distanceKm} km</span>
+                <span className="font-extrabold">{nearestUni.distanceKm} km</span>
               </div>
             )}
           </div>
         </div>
 
         {/* Card Footer with specs */}
-        <div className="pt-2.5 border-t border-stone-200 flex items-center justify-between text-xs text-stone-600 font-medium">
+        <div className="pt-2.5 border-t border-stone-200 flex items-center justify-between text-xs text-stone-700 font-semibold">
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-0.5 font-semibold" title={`Điện: ${room.costs.electricity} đ/kWh`}>
               <Zap className="w-3 h-3 text-clay-600" />
@@ -202,7 +202,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
             </span>
           </div>
 
-          <div className="flex items-center gap-1 text-stone-500 text-[11px]">
+          <div className="flex items-center gap-1 text-stone-600 text-[11px] font-medium">
             <Clock className="w-3 h-3" />
             <span>{formatRelativeTime(room.updatedAt)}</span>
           </div>

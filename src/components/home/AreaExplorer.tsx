@@ -30,7 +30,7 @@ export const AreaExplorer: React.FC<AreaExplorerProps> = ({ onSelectArea }) => {
           <h2 className="text-xl sm:text-3xl font-extrabold text-stone-900 tracking-tight">
             Khám phá các điểm thuê trọ sôi động nhất
           </h2>
-          <p className="text-xs sm:text-sm text-stone-600 mt-1 font-medium">
+          <p className="text-xs sm:text-sm text-stone-700 mt-1 font-medium">
             Gợi ý các cung đường và phường có hạ tầng ăn uống, dịch vụ và an ninh thuận tiện
           </p>
         </div>

@@ -42,7 +42,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
                 {filteredRooms.length} kết quả
               </span>
             </h1>
-            <p className="text-xs text-stone-600 mt-0.5 font-medium">
+            <p className="text-xs text-stone-700 mt-0.5 font-medium">
               Khảo sát thực địa, chuẩn giá từ các chủ trọ và sinh viên
             </p>
           </div>
