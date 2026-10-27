@@ -10,10 +10,11 @@ import {
   Maximize2,
   ChevronLeft,
   ChevronRight,
-  Clock
+  Clock,
+  Check
 } from 'lucide-react';
 import { Room } from '../../types';
-import { formatCurrency, formatArea, getRoomTypeLabel, getRoomTypeBadgeColor, formatRelativeTime } from '../../utils/formatters';
+import { formatCurrency, formatArea, getRoomTypeLabel, formatRelativeTime } from '../../utils/formatters';
 import { useRooms } from '../../context/RoomContext';
 
 interface RoomCardProps {
@@ -42,92 +43,92 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
   return (
     <div
       onClick={() => onSelect(room.id)}
-      className="group bg-white rounded-2xl border border-slate-200/90 hover:border-emerald-500/40 shadow-soft hover:shadow-card-hover transition-all duration-300 flex flex-col overflow-hidden cursor-pointer relative"
+      className="group bg-white rounded-2xl border border-stone-200/80 hover:border-brand-500/50 shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col overflow-hidden cursor-pointer relative"
     >
-      {/* Top Media Section */}
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
+      {/* Top Image Section */}
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-stone-100">
         <img
           src={room.images[currentImgIndex] || 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800'}
           alt={room.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
           loading="lazy"
         />
 
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
+        {/* Subtle Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20 pointer-events-none" />
 
-        {/* Top Badges */}
-        <div className="absolute top-3 left-3 right-3 flex items-start justify-between pointer-events-none">
+        {/* Badges on Top */}
+        <div className="absolute top-2.5 left-2.5 right-2.5 flex items-start justify-between pointer-events-none">
           <div className="flex flex-wrap gap-1.5 pointer-events-auto">
             {room.isVerified && (
-              <span className="inline-flex items-center gap-1 bg-emerald-600/95 backdrop-blur-md text-white text-[11px] font-bold px-2.5 py-1 rounded-lg shadow-sm">
-                <ShieldCheck className="w-3.5 h-3.5" />
-                <span>ĐÃ XÁC MINH</span>
+              <span className="inline-flex items-center gap-1 bg-white/95 backdrop-blur-md text-brand-700 text-[10px] font-bold px-2 py-0.5 rounded-md shadow-xs border border-stone-200/60">
+                <ShieldCheck className="w-3 h-3 text-brand-600" />
+                <span>CHÍNH CHỦ</span>
               </span>
             )}
-            <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-lg border backdrop-blur-md bg-white/95 ${getRoomTypeBadgeColor(room.roomType)}`}>
+            <span className="text-[10px] font-medium px-2 py-0.5 rounded-md backdrop-blur-md bg-stone-900/75 text-stone-100">
               {getRoomTypeLabel(room.roomType)}
             </span>
           </div>
 
-          <div className="flex items-center gap-1.5 pointer-events-auto">
-            {/* Compare Button */}
+          <div className="flex items-center gap-1 pointer-events-auto">
+            {/* Compare Toggle */}
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 toggleCompare(room.id);
               }}
-              className={`p-2 rounded-xl backdrop-blur-md transition shadow-sm ${
+              className={`p-1.5 rounded-lg backdrop-blur-md transition shadow-xs ${
                 isCompared
-                  ? 'bg-amber-500 text-white'
-                  : 'bg-white/90 hover:bg-white text-slate-700 hover:text-amber-600'
+                  ? 'bg-clay-600 text-white'
+                  : 'bg-white/90 hover:bg-white text-stone-700 hover:text-clay-600'
               }`}
-              title={isCompared ? 'Bỏ so sánh' : 'Thêm vào so sánh'}
+              title={isCompared ? 'Bỏ so sánh' : 'So sánh'}
             >
-              <Scale className="w-4 h-4" />
+              <Scale className="w-3.5 h-3.5" />
             </button>
 
-            {/* Favorite Button */}
+            {/* Favorite Toggle */}
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 toggleFavorite(room.id);
               }}
-              className={`p-2 rounded-xl backdrop-blur-md transition shadow-sm ${
+              className={`p-1.5 rounded-lg backdrop-blur-md transition shadow-xs ${
                 isFav
                   ? 'bg-rose-500 text-white'
-                  : 'bg-white/90 hover:bg-white text-slate-700 hover:text-rose-500'
+                  : 'bg-white/90 hover:bg-white text-stone-700 hover:text-rose-500'
               }`}
               title={isFav ? 'Bỏ lưu' : 'Lưu tin'}
             >
-              <Heart className={`w-4 h-4 ${isFav ? 'fill-current' : ''}`} />
+              <Heart className={`w-3.5 h-3.5 ${isFav ? 'fill-current' : ''}`} />
             </button>
           </div>
         </div>
 
-        {/* Image Slider Controls (if multiple images) */}
+        {/* Slider Controls */}
         {room.images.length > 1 && (
           <>
             <button
               onClick={prevImg}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/80 hover:bg-white text-slate-700 flex items-center justify-center opacity-0 group-hover:opacity-100 transition shadow"
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/80 hover:bg-white text-stone-800 flex items-center justify-center opacity-0 group-hover:opacity-100 transition shadow"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={nextImg}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/80 hover:bg-white text-slate-700 flex items-center justify-center opacity-0 group-hover:opacity-100 transition shadow"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/80 hover:bg-white text-stone-800 flex items-center justify-center opacity-0 group-hover:opacity-100 transition shadow"
             >
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-3.5 h-3.5" />
             </button>
 
-            {/* Pagination Dots */}
-            <div className="absolute bottom-2.5 left-0 right-0 flex justify-center gap-1.5 pointer-events-none">
+            {/* Dots */}
+            <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1 pointer-events-none">
               {room.images.map((_, idx) => (
                 <span
                   key={idx}
-                  className={`w-1.5 h-1.5 rounded-full transition-all ${
-                    idx === currentImgIndex ? 'bg-white w-4' : 'bg-white/50'
+                  className={`w-1 h-1 rounded-full transition-all ${
+                    idx === currentImgIndex ? 'bg-white w-3' : 'bg-white/50'
                   }`}
                 />
               ))}
@@ -135,74 +136,68 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
           </>
         )}
 
-        {/* Status Tag (Bottom Left of Image) */}
+        {/* Rented Label */}
         {room.status === 'rented' && (
-          <div className="absolute bottom-2.5 left-3 bg-slate-900/90 text-slate-200 text-[11px] font-bold px-2.5 py-0.5 rounded-md">
+          <div className="absolute bottom-2 left-2.5 bg-stone-900/90 text-stone-200 text-[10px] font-bold px-2 py-0.5 rounded">
             ĐÃ CHO THUÊ
           </div>
         )}
       </div>
 
-      {/* Content Section */}
+      {/* Content Area */}
       <div className="p-4 flex-1 flex flex-col justify-between">
         <div>
-          {/* Price & Area Header */}
-          <div className="flex items-baseline justify-between gap-2 mb-2">
+          {/* Price Header */}
+          <div className="flex items-baseline justify-between mb-1.5">
             <div className="flex items-baseline gap-1">
-              <span className="text-xl font-extrabold text-emerald-700 tracking-tight">
+              <span className="font-display font-extrabold text-[18px] text-stone-900 tracking-tight">
                 {formatCurrency(room.costs.rent, true)}
               </span>
             </div>
 
-            <div className="flex items-center gap-2 text-xs font-semibold text-slate-500">
-              <span className="flex items-center gap-0.5">
-                <Maximize2 className="w-3.5 h-3.5" />
-                {formatArea(room.area)}
-              </span>
+            <div className="flex items-center gap-1.5 text-xs text-stone-500 font-medium">
+              <span>{formatArea(room.area)}</span>
               <span>•</span>
-              <span className="flex items-center gap-0.5">
-                <Users className="w-3.5 h-3.5" />
-                {room.capacity} người
-              </span>
+              <span>{room.capacity} người</span>
             </div>
           </div>
 
-          {/* Room Title */}
-          <h3 className="text-sm font-bold text-slate-900 line-clamp-2 leading-snug group-hover:text-emerald-700 transition mb-2">
+          {/* Title */}
+          <h3 className="text-[13px] font-semibold text-stone-900 line-clamp-2 leading-snug group-hover:text-brand-700 transition mb-2">
             {room.title}
           </h3>
 
-          {/* Location & University */}
-          <div className="space-y-1 text-xs text-slate-600 mb-3">
-            <div className="flex items-center gap-1.5 truncate">
-              <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+          {/* Location */}
+          <div className="space-y-1 text-xs text-stone-500 mb-3">
+            <div className="flex items-center gap-1 truncate">
+              <MapPin className="w-3.5 h-3.5 text-stone-400 shrink-0" />
               <span className="truncate">{room.location.address}</span>
             </div>
 
             {nearestUni && (
-              <div className="inline-flex items-center gap-1 text-[11px] font-medium text-tea-700 bg-tea-50 px-2 py-0.5 rounded-md">
-                <span>🎓 Cách {nearestUni.name}:</span>
+              <div className="inline-flex items-center gap-1 text-[11px] font-medium text-brand-700 bg-brand-50 px-2 py-0.5 rounded">
+                <span>Cách {nearestUni.name}:</span>
                 <span className="font-bold">{nearestUni.distanceKm} km</span>
               </div>
             )}
           </div>
         </div>
 
-        {/* Footer of Card: Quick Utility Cost & Landlord Info */}
-        <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-          <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1 text-slate-600" title={`Điện: ${room.costs.electricity} đ/kWh`}>
-              <Zap className="w-3.5 h-3.5 text-amber-500" />
-              <span>{room.costs.electricity ? `${room.costs.electricity / 1000}k` : 'Miễn phí'}</span>
+        {/* Card Footer */}
+        <div className="pt-2.5 border-t border-stone-100 flex items-center justify-between text-[11px] text-stone-500">
+          <div className="flex items-center gap-2.5">
+            <span className="flex items-center gap-0.5" title={`Điện: ${room.costs.electricity} đ/kWh`}>
+              <Zap className="w-3 h-3 text-clay-500" />
+              <span>{room.costs.electricity ? `${room.costs.electricity / 1000}k` : 'Free'}</span>
             </span>
 
-            <span className="flex items-center gap-1 text-slate-600" title={`Nước: ${room.costs.water} đ`}>
-              <Droplet className="w-3.5 h-3.5 text-blue-500" />
-              <span>{room.costs.water ? `${room.costs.water / 1000}k` : 'Miễn phí'}</span>
+            <span className="flex items-center gap-0.5" title={`Nước: ${room.costs.water} đ`}>
+              <Droplet className="w-3 h-3 text-blue-500" />
+              <span>{room.costs.water ? `${room.costs.water / 1000}k` : 'Free'}</span>
             </span>
           </div>
 
-          <div className="flex items-center gap-1 text-[11px] text-slate-400">
+          <div className="flex items-center gap-1 text-stone-400">
             <Clock className="w-3 h-3" />
             <span>{formatRelativeTime(room.updatedAt)}</span>
           </div>

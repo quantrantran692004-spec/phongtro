@@ -1,6 +1,5 @@
 import React from 'react';
-import { Home, Phone, Mail, MapPin, ShieldCheck, Heart } from 'lucide-react';
-import { THAI_NGUYEN_UNIVERSITIES } from '../../data/locations';
+import { Phone, Mail, MapPin, Heart } from 'lucide-react';
 
 interface FooterProps {
   onNavigateSearch: () => void;
@@ -9,153 +8,148 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onNavigateSearch, onOpenGuide }) => {
   return (
-    <footer className="bg-slate-900 text-slate-300 pt-14 pb-10 border-t border-slate-800">
+    <footer className="bg-stone-900 text-stone-300 pt-12 pb-8 border-t border-stone-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-12 border-b border-slate-800">
-          {/* Col 1: Brand & Bio (2 cols) */}
-          <div className="lg:col-span-2 space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-10 border-b border-stone-800 text-xs">
+          {/* Brand Info (2 cols) */}
+          <div className="lg:col-span-2 space-y-3.5">
             <div className="flex items-center gap-2.5">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-tea-600 to-emerald-500 flex items-center justify-center text-white shadow-md">
-                <Home className="w-5 h-5" />
+              <div className="w-9 h-9 rounded-xl bg-brand-600 flex items-center justify-center text-white shadow-xs">
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M12 3L2 12h3v8h6v-5h2v5h6v-8h3L12 3zm0 4.2l5 4.5V18h-2v-5H9v5H7v-6.3l5-4.5zM17 6.5V3h-2v1.7l2 1.8z"/>
+                </svg>
               </div>
               <div>
-                <span className="text-lg font-black text-white tracking-tight">TRỌ THÁI NGUYÊN</span>
-                <p className="text-[11px] text-emerald-400 font-semibold">Minh bạch • An tâm • Chuẩn giá</p>
+                <span className="font-display font-bold text-base text-white tracking-tight">TRỌ THÁI NGUYÊN</span>
+                <p className="text-[10px] text-emerald-400 font-medium">Kênh phòng trọ chính chủ cho sinh viên & kỹ sư</p>
               </div>
             </div>
 
-            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-sm">
-              Nền tảng công nghệ hỗ trợ sinh viên các trường Đại học Thái Nguyên và người lao động tại KCN Samsung Phổ Yên tìm kiếm phòng trọ chính chủ, không qua môi giới lừa đảo.
+            <p className="text-stone-400 leading-relaxed max-w-sm font-light">
+              Nền tảng hỗ trợ sinh viên các trường Đại học Thái Nguyên và người lao động tại KCN Samsung Phổ Yên tìm kiếm phòng trọ chuẩn giá, an toàn, không qua trung gian thu phí.
             </p>
 
-            <div className="space-y-1.5 text-xs text-slate-400">
+            <div className="space-y-1.5 text-stone-400">
               <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-emerald-400 shrink-0" />
+                <MapPin className="w-3.5 h-3.5 text-brand-400 shrink-0" />
                 <span>284 Đường Lương Ngọc Quyến, TP. Thái Nguyên</span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
+                <Phone className="w-3.5 h-3.5 text-brand-400 shrink-0" />
                 <span>Hotline hỗ trợ sinh viên: 0984.512.345</span>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-emerald-400 shrink-0" />
+                <Mail className="w-3.5 h-3.5 text-brand-400 shrink-0" />
                 <span>lienhe@trothainguyen.vn</span>
               </div>
             </div>
           </div>
 
-          {/* Col 2: Khu vực sinh viên */}
+          {/* Khu vực sinh viên */}
           <div>
-            <h4 className="font-bold text-white text-xs uppercase tracking-wider mb-3">
-              Khu Vực Sinh Viên
+            <h4 className="font-bold text-white uppercase tracking-wider text-[11px] mb-2.5">
+              Khu Vực Trọng Điểm
             </h4>
-            <ul className="space-y-2 text-xs text-slate-400">
+            <ul className="space-y-1.5 text-stone-400">
               <li>
-                <button onClick={onNavigateSearch} className="hover:text-emerald-400 transition">
+                <button onClick={onNavigateSearch} className="hover:text-white transition">
                   Làng ĐH Tân Thịnh
                 </button>
               </li>
               <li>
-                <button onClick={onNavigateSearch} className="hover:text-emerald-400 transition">
+                <button onClick={onNavigateSearch} className="hover:text-white transition">
                   Khu ĐH Y Dược & Sư Phạm
                 </button>
               </li>
               <li>
-                <button onClick={onNavigateSearch} className="hover:text-emerald-400 transition">
+                <button onClick={onNavigateSearch} className="hover:text-white transition">
                   Đường Z115 (ICTU & Nông Lâm)
                 </button>
               </li>
               <li>
-                <button onClick={onNavigateSearch} className="hover:text-emerald-400 transition">
+                <button onClick={onNavigateSearch} className="hover:text-white transition">
                   Phường Tích Lương (TNUT)
                 </button>
               </li>
               <li>
-                <button onClick={onNavigateSearch} className="hover:text-emerald-400 transition">
+                <button onClick={onNavigateSearch} className="hover:text-white transition">
                   Khu Phổ Yên (KCN Samsung SEVT)
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Loại hình phòng */}
+          {/* Loại phòng */}
           <div>
-            <h4 className="font-bold text-white text-xs uppercase tracking-wider mb-3">
+            <h4 className="font-bold text-white uppercase tracking-wider text-[11px] mb-2.5">
               Loại Hình Phòng
             </h4>
-            <ul className="space-y-2 text-xs text-slate-400">
+            <ul className="space-y-1.5 text-stone-400">
               <li>
-                <button onClick={onNavigateSearch} className="hover:text-emerald-400 transition">
+                <button onClick={onNavigateSearch} className="hover:text-white transition">
                   Phòng trọ đơn khép kín
                 </button>
               </li>
               <li>
-                <button onClick={onNavigateSearch} className="hover:text-emerald-400 transition">
+                <button onClick={onNavigateSearch} className="hover:text-white transition">
                   Studio full nội thất
                 </button>
               </li>
               <li>
-                <button onClick={onNavigateSearch} className="hover:text-emerald-400 transition">
+                <button onClick={onNavigateSearch} className="hover:text-white transition">
                   Chung cư mini cao cấp
                 </button>
               </li>
               <li>
-                <button onClick={onNavigateSearch} className="hover:text-emerald-400 transition">
+                <button onClick={onNavigateSearch} className="hover:text-white transition">
                   Nhà nguyên căn sinh viên
                 </button>
               </li>
               <li>
-                <button onClick={onNavigateSearch} className="hover:text-emerald-400 transition">
+                <button onClick={onNavigateSearch} className="hover:text-white transition">
                   Ký túc xá / Box bao điện nước
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Col 4: Hướng dẫn & Hỗ trợ */}
+          {/* An toàn */}
           <div>
-            <h4 className="font-bold text-white text-xs uppercase tracking-wider mb-3">
+            <h4 className="font-bold text-white uppercase tracking-wider text-[11px] mb-2.5">
               An Toàn & Pháp Lý
             </h4>
-            <ul className="space-y-2 text-xs text-slate-400">
+            <ul className="space-y-1.5 text-stone-400">
               <li>
-                <button onClick={onOpenGuide} className="hover:text-emerald-400 transition flex items-center gap-1">
-                  <span>Cẩm nang tránh bẫy cọc</span>
+                <button onClick={onOpenGuide} className="hover:text-white transition">
+                  Cẩm nang tránh bẫy cọc online
                 </button>
               </li>
               <li>
-                <button onClick={onOpenGuide} className="hover:text-emerald-400 transition">
+                <button onClick={onOpenGuide} className="hover:text-white transition">
                   Mẫu hợp đồng thuê phòng chuẩn
                 </button>
               </li>
               <li>
-                <button onClick={onOpenGuide} className="hover:text-emerald-400 transition">
-                  Quy định kiểm tra PCCC
+                <button onClick={onOpenGuide} className="hover:text-white transition">
+                  Kiểm tra PCCC & lối thoát hiểm
                 </button>
               </li>
               <li>
-                <button onClick={onOpenGuide} className="hover:text-emerald-400 transition">
+                <button onClick={onOpenGuide} className="hover:text-white transition">
                   Báo cáo tin đăng lừa đảo
-                </button>
-              </li>
-              <li>
-                <button onClick={onOpenGuide} className="hover:text-emerald-400 transition">
-                  Chính sách bảo vệ thông tin
                 </button>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom copyright */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+        {/* Copyright */}
+        <div className="pt-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-stone-500">
           <div>
-            © {new Date().getFullYear()} <strong>Trọ Thái Nguyên</strong>. Xây dựng vì cộng đồng sinh viên Thái Nguyên.
+            © {new Date().getFullYear()} <strong>Trọ Thái Nguyên</strong>. Hệ thống phi lợi nhuận cho sinh viên Thái Nguyên.
           </div>
           <div className="flex items-center gap-1">
-            <span>Dự án được xây dựng chuẩn mực với</span>
-            <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500 inline" />
-            <span>và công nghệ hiện đại</span>
+            <span>Thiết kế vì cộng đồng sinh viên & người lao động Thái Nguyên</span>
           </div>
         </div>
       </div>

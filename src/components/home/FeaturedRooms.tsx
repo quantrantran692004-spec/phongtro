@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, ArrowRight, Flame } from 'lucide-react';
+import { ArrowRight, Flame } from 'lucide-react';
 import { useRooms } from '../../context/RoomContext';
 import { RoomCard } from '../common/RoomCard';
 
@@ -12,7 +12,6 @@ export const FeaturedRooms: React.FC<FeaturedRoomsProps> = ({ onViewAll, onSelec
   const { rooms } = useRooms();
   const [tab, setTab] = useState<'all' | 'budget' | 'studio' | 'samsung'>('all');
 
-  // Filter based on tab
   const featured = rooms.filter((r) => {
     if (r.approvalStatus !== 'approved') return false;
     if (tab === 'budget') return r.costs.rent <= 1500000;
@@ -22,28 +21,28 @@ export const FeaturedRooms: React.FC<FeaturedRoomsProps> = ({ onViewAll, onSelec
   }).slice(0, 6);
 
   return (
-    <section className="py-14 bg-slate-50 border-b border-slate-200/80">
+    <section className="py-14 bg-stone-50/60 border-b border-stone-200/70">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-700 bg-amber-50 px-3 py-1 rounded-full mb-2 border border-amber-200">
-              <Flame className="w-3.5 h-3.5 text-amber-600 fill-amber-500" />
-              <span>Được thuê nhiều nhất tuần này</span>
+            <div className="inline-flex items-center gap-1.5 text-[11px] font-bold text-clay-700 bg-clay-50 px-2.5 py-0.5 rounded-md mb-1.5 border border-clay-200">
+              <Flame className="w-3.5 h-3.5 text-clay-600 fill-clay-500" />
+              <span>Phòng tuyển chọn tuần này</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              Phòng trọ nổi bật & đã xác minh
+            <h2 className="font-display text-xl sm:text-3xl font-extrabold text-stone-900 tracking-tight">
+              Phòng trọ nổi bật & Đã xác minh thực địa
             </h2>
-            <p className="text-sm text-slate-500 mt-1">
-              Thông tin minh bạch, có kiểm tra phòng thực tế và hỗ trợ hợp đồng chuẩn
+            <p className="text-xs sm:text-sm text-stone-500 mt-0.5">
+              Thông tin rõ ràng, hỗ trợ ký hợp đồng minh bạch và bảo đảm quyền lợi người thuê
             </p>
           </div>
 
-          {/* Filter Tabs */}
-          <div className="flex items-center gap-1.5 bg-slate-200/70 p-1 rounded-xl text-xs font-bold overflow-x-auto">
+          {/* Segmented Filter Buttons */}
+          <div className="flex items-center gap-1 bg-stone-200/60 p-1 rounded-xl text-xs font-semibold overflow-x-auto">
             <button
               onClick={() => setTab('all')}
               className={`px-3 py-1.5 rounded-lg transition whitespace-nowrap ${
-                tab === 'all' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+                tab === 'all' ? 'bg-white text-stone-900 font-bold shadow-subtle' : 'text-stone-600 hover:text-stone-900'
               }`}
             >
               Nổi bật
@@ -51,7 +50,7 @@ export const FeaturedRooms: React.FC<FeaturedRoomsProps> = ({ onViewAll, onSelec
             <button
               onClick={() => setTab('budget')}
               className={`px-3 py-1.5 rounded-lg transition whitespace-nowrap ${
-                tab === 'budget' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+                tab === 'budget' ? 'bg-white text-stone-900 font-bold shadow-subtle' : 'text-stone-600 hover:text-stone-900'
               }`}
             >
               Dưới 1.5 triệu
@@ -59,7 +58,7 @@ export const FeaturedRooms: React.FC<FeaturedRoomsProps> = ({ onViewAll, onSelec
             <button
               onClick={() => setTab('studio')}
               className={`px-3 py-1.5 rounded-lg transition whitespace-nowrap ${
-                tab === 'studio' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+                tab === 'studio' ? 'bg-white text-stone-900 font-bold shadow-subtle' : 'text-stone-600 hover:text-stone-900'
               }`}
             >
               Studio & Căn hộ
@@ -67,10 +66,10 @@ export const FeaturedRooms: React.FC<FeaturedRoomsProps> = ({ onViewAll, onSelec
             <button
               onClick={() => setTab('samsung')}
               className={`px-3 py-1.5 rounded-lg transition whitespace-nowrap ${
-                tab === 'samsung' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+                tab === 'samsung' ? 'bg-white text-stone-900 font-bold shadow-subtle' : 'text-stone-600 hover:text-stone-900'
               }`}
             >
-              Khu Phổ Yên - Samsung
+              Khu Samsung Phổ Yên
             </button>
           </div>
         </div>
@@ -86,10 +85,10 @@ export const FeaturedRooms: React.FC<FeaturedRoomsProps> = ({ onViewAll, onSelec
         <div className="mt-10 text-center">
           <button
             onClick={onViewAll}
-            className="inline-flex items-center gap-2 bg-white hover:bg-slate-100 text-slate-800 font-bold text-sm px-6 py-3 rounded-xl border border-slate-300 shadow-sm transition hover:shadow"
+            className="inline-flex items-center gap-2 bg-white hover:bg-stone-100 text-stone-800 font-bold text-xs sm:text-sm px-6 py-3 rounded-xl border border-stone-300 shadow-subtle transition hover:shadow"
           >
-            <span>Khám phá thêm 450+ phòng trọ tại Thái Nguyên</span>
-            <ArrowRight className="w-4 h-4 text-emerald-600" />
+            <span>Khám phá thêm các phòng trọ khác tại Thái Nguyên</span>
+            <ArrowRight className="w-4 h-4 text-brand-600" />
           </button>
         </div>
       </div>

@@ -5,9 +5,7 @@ import {
   SlidersHorizontal, 
   ArrowUpDown, 
   X, 
-  Home, 
-  RotateCcw,
-  Sparkles
+  RotateCcw
 } from 'lucide-react';
 import { useRooms } from '../../context/RoomContext';
 import { RoomCard } from '../common/RoomCard';
@@ -24,7 +22,6 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
   const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
-  // Active filter tags
   const hasActiveFilters = 
     filters.keyword ||
     (filters.ward && filters.ward !== 'Tất cả' && filters.ward !== 'Tất cả phường/xã') ||
@@ -35,42 +32,42 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
     filters.amenities.length > 0;
 
   return (
-    <div className="bg-slate-50 min-h-screen py-6 sm:py-8">
+    <div className="bg-stone-50 min-h-screen py-6 sm:py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Control Bar */}
-        <div className="bg-white rounded-2xl border border-slate-200/90 shadow-soft p-4 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="bg-white rounded-2xl border border-stone-200/80 shadow-card p-4 mb-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+            <h1 className="font-display text-lg sm:text-xl font-extrabold text-stone-900 tracking-tight flex items-center gap-2">
               <span>Phòng trọ cho thuê tại Thái Nguyên</span>
-              <span className="text-xs font-bold bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full">
+              <span className="text-[11px] font-bold bg-brand-50 text-brand-700 px-2.5 py-0.5 rounded-full border border-brand-200">
                 {filteredRooms.length} kết quả
               </span>
             </h1>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Cập nhật liên tục từ các chủ trọ và sinh viên khu vực Thái Nguyên
+            <p className="text-xs text-stone-500 mt-0.5">
+              Khảo sát thực địa, chuẩn giá từ các chủ trọ và sinh viên
             </p>
           </div>
 
-          <div className="flex items-center gap-2.5 flex-wrap">
-            {/* Mobile Filter Button */}
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* Mobile Filter Drawer Button */}
             <button
               onClick={() => setMobileFilterOpen(true)}
-              className="md:hidden flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-xl text-xs font-bold transition"
+              className="md:hidden flex items-center gap-1.5 bg-stone-100 hover:bg-stone-200 text-stone-700 px-3 py-1.5 rounded-xl text-xs font-bold transition"
             >
-              <SlidersHorizontal className="w-4 h-4 text-emerald-600" />
+              <SlidersHorizontal className="w-3.5 h-3.5 text-brand-600" />
               <span>Bộ lọc</span>
               {hasActiveFilters && (
-                <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-600 inline-block"></span>
               )}
             </button>
 
             {/* Sort Dropdown */}
-            <div className="flex items-center gap-1.5 bg-slate-100 rounded-xl px-2.5 py-1.5 text-xs">
-              <ArrowUpDown className="w-3.5 h-3.5 text-slate-500" />
+            <div className="flex items-center gap-1.5 bg-stone-100 rounded-xl px-2.5 py-1.5 text-xs">
+              <ArrowUpDown className="w-3.5 h-3.5 text-stone-500" />
               <select
                 value={filters.sortBy}
                 onChange={(e) => updateFilters({ sortBy: e.target.value as any })}
-                className="bg-transparent font-semibold text-slate-700 focus:outline-none cursor-pointer"
+                className="bg-transparent font-medium text-stone-700 focus:outline-none cursor-pointer"
               >
                 <option value="newest">Mới cập nhật</option>
                 <option value="price_asc">Giá: Thấp đến Cao</option>
@@ -81,13 +78,13 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
             </div>
 
             {/* View Mode Toggle */}
-            <div className="flex items-center bg-slate-100 p-1 rounded-xl text-xs font-bold">
+            <div className="flex items-center bg-stone-100 p-1 rounded-xl text-xs font-semibold">
               <button
                 onClick={() => setViewMode('grid')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition ${
+                className={`flex items-center gap-1 px-3 py-1 rounded-lg transition ${
                   viewMode === 'grid'
-                    ? 'bg-white text-emerald-800 shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-white text-stone-900 font-bold shadow-subtle'
+                    : 'text-stone-500 hover:text-stone-900'
                 }`}
               >
                 <Grid className="w-3.5 h-3.5" />
@@ -96,10 +93,10 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
 
               <button
                 onClick={() => setViewMode('map')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition ${
+                className={`flex items-center gap-1 px-3 py-1 rounded-lg transition ${
                   viewMode === 'map'
-                    ? 'bg-white text-emerald-800 shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-white text-stone-900 font-bold shadow-subtle'
+                    : 'text-stone-500 hover:text-stone-900'
                 }`}
               >
                 <MapIcon className="w-3.5 h-3.5" />
@@ -109,14 +106,14 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
           </div>
         </div>
 
-        {/* Active Filter Pills Bar */}
+        {/* Active Filter Tags */}
         {hasActiveFilters && (
-          <div className="flex items-center gap-2 flex-wrap mb-4 bg-emerald-50/60 p-3 rounded-xl border border-emerald-100">
-            <span className="text-xs font-bold text-emerald-900">Đang lọc theo:</span>
+          <div className="flex items-center gap-2 flex-wrap mb-4 bg-brand-50/50 p-2.5 rounded-xl border border-brand-100 text-xs">
+            <span className="font-bold text-brand-900">Đang lọc:</span>
 
             {filters.keyword && (
-              <span className="inline-flex items-center gap-1 bg-white border border-emerald-200 text-emerald-800 text-xs px-2.5 py-1 rounded-lg font-medium shadow-2xs">
-                Từ khóa: "{filters.keyword}"
+              <span className="inline-flex items-center gap-1 bg-white border border-brand-200 text-brand-800 px-2 py-0.5 rounded-lg shadow-subtle">
+                "{filters.keyword}"
                 <button onClick={() => updateFilters({ keyword: '' })} className="hover:text-rose-600">
                   <X className="w-3 h-3" />
                 </button>
@@ -124,7 +121,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
             )}
 
             {filters.ward && filters.ward !== 'Tất cả' && filters.ward !== 'Tất cả phường/xã' && (
-              <span className="inline-flex items-center gap-1 bg-white border border-emerald-200 text-emerald-800 text-xs px-2.5 py-1 rounded-lg font-medium shadow-2xs">
+              <span className="inline-flex items-center gap-1 bg-white border border-brand-200 text-brand-800 px-2 py-0.5 rounded-lg shadow-subtle">
                 Khu vực: {filters.ward}
                 <button onClick={() => updateFilters({ ward: 'Tất cả' })} className="hover:text-rose-600">
                   <X className="w-3 h-3" />
@@ -133,7 +130,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
             )}
 
             {filters.university && filters.university !== 'Tất cả' && (
-              <span className="inline-flex items-center gap-1 bg-white border border-emerald-200 text-emerald-800 text-xs px-2.5 py-1 rounded-lg font-medium shadow-2xs">
+              <span className="inline-flex items-center gap-1 bg-white border border-brand-200 text-brand-800 px-2 py-0.5 rounded-lg shadow-subtle">
                 Gần: {filters.university}
                 <button onClick={() => updateFilters({ university: 'Tất cả' })} className="hover:text-rose-600">
                   <X className="w-3 h-3" />
@@ -141,50 +138,41 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
               </span>
             )}
 
-            {(filters.minPrice > 0 || filters.maxPrice < 10000000) && (
-              <span className="inline-flex items-center gap-1 bg-white border border-emerald-200 text-emerald-800 text-xs px-2.5 py-1 rounded-lg font-medium shadow-2xs">
-                Giá: {formatCurrency(filters.minPrice, true)} - {formatCurrency(filters.maxPrice, true)}
-                <button onClick={() => updateFilters({ minPrice: 0, maxPrice: 10000000 })} className="hover:text-rose-600">
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            )}
-
             <button
               onClick={resetFilters}
-              className="text-xs text-rose-600 hover:text-rose-700 font-semibold ml-auto flex items-center gap-1"
+              className="text-stone-400 hover:text-rose-600 font-medium ml-auto flex items-center gap-1 transition"
             >
               <RotateCcw className="w-3 h-3" />
-              <span>Xóa toàn bộ bộ lọc</span>
+              <span>Xóa bộ lọc</span>
             </button>
           </div>
         )}
 
-        {/* Main Content Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
-          {/* Desktop Filter Sidebar (4 cols) */}
+        {/* Layout: Sidebar + Results */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start">
+          {/* Filter Sidebar (3.5 cols) */}
           <div className="hidden md:block md:col-span-4 lg:col-span-3 sticky top-20">
             <FilterSidebar />
           </div>
 
-          {/* Results Area (8 or 9 cols) */}
+          {/* Results Grid (8.5 cols) */}
           <div className="col-span-1 md:col-span-8 lg:col-span-9">
             {filteredRooms.length === 0 ? (
-              <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center max-w-lg mx-auto shadow-sm">
-                <div className="w-16 h-16 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mx-auto mb-4 text-2xl">
+              <div className="bg-white rounded-3xl border border-stone-200 p-12 text-center max-w-md mx-auto shadow-subtle">
+                <div className="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mx-auto mb-3 text-2xl">
                   🔍
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2">
+                <h3 className="font-display text-base font-bold text-stone-900 mb-1">
                   Không tìm thấy phòng trọ phù hợp
                 </h3>
-                <p className="text-sm text-slate-500 mb-6 leading-relaxed">
-                  Rất tiếc, hiện chưa có phòng nào đáp ứng tất cả các tiêu chí lọc của bạn. Bạn hãy thử mở rộng khoảng giá hoặc xóa bớt tiêu chí lọc nhé.
+                <p className="text-xs text-stone-500 mb-5 leading-relaxed">
+                  Hiện chưa có phòng nào đáp ứng đủ các tiêu chí lọc. Bạn hãy thử nới rộng khoảng giá hoặc xóa bớt tiêu chí lọc nhé.
                 </p>
                 <button
                   onClick={resetFilters}
-                  className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm px-5 py-2.5 rounded-xl shadow transition"
+                  className="inline-flex items-center gap-1.5 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-subtle transition"
                 >
-                  <RotateCcw className="w-4 h-4" />
+                  <RotateCcw className="w-3.5 h-3.5" />
                   <span>Xóa bộ lọc & xem lại tất cả</span>
                 </button>
               </div>
@@ -195,26 +183,23 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
                 ))}
               </div>
             ) : (
-              <div className="h-[650px] w-full">
-                <MapView
-                  rooms={filteredRooms}
-                  onSelectRoom={onSelectRoom}
-                />
+              <div className="h-[620px] w-full">
+                <MapView rooms={filteredRooms} onSelectRoom={onSelectRoom} />
               </div>
             )}
           </div>
         </div>
       </div>
 
-      {/* Mobile Filter Drawer Modal */}
+      {/* Mobile Filter Drawer */}
       {mobileFilterOpen && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-end">
-          <div className="bg-white w-full max-w-sm h-full overflow-y-auto p-4 shadow-2xl animate-in slide-in-from-right duration-300">
+          <div className="bg-white w-full max-w-sm h-full overflow-y-auto p-4 shadow-2xl animate-in slide-in-from-right duration-250">
             <FilterSidebar onCloseMobile={() => setMobileFilterOpen(false)} />
-            <div className="sticky bottom-0 pt-3 pb-2 bg-white border-t border-slate-100 mt-4">
+            <div className="sticky bottom-0 pt-3 pb-2 bg-white border-t border-stone-100 mt-4">
               <button
                 onClick={() => setMobileFilterOpen(false)}
-                className="w-full py-3 bg-emerald-600 text-white font-bold text-sm rounded-xl shadow"
+                className="w-full py-2.5 bg-brand-600 text-white font-bold text-xs rounded-xl shadow"
               >
                 Áp dụng bộ lọc ({filteredRooms.length} phòng)
               </button>

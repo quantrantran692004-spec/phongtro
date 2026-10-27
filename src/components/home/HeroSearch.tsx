@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, MapPin, DollarSign, Home as HomeIcon, Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Search, MapPin, DollarSign, ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { WARDS_BY_DISTRICT } from '../../data/locations';
 import { useRooms } from '../../context/RoomContext';
 
@@ -41,42 +41,41 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
   const wards = WARDS_BY_DISTRICT['TP. Thái Nguyên'] || [];
 
   return (
-    <div className="relative overflow-hidden bg-gradient-to-b from-tea-50 via-white to-slate-50 pt-8 pb-16 lg:pt-14 lg:pb-24 border-b border-slate-200/60">
-      {/* Background Decorative Blobs */}
+    <div className="relative overflow-hidden bg-gradient-to-b from-brand-50/40 via-white to-stone-50 pt-10 pb-16 lg:pt-16 lg:pb-24 border-b border-stone-200/70">
+      {/* Subtle organic light behind */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full overflow-hidden pointer-events-none -z-10">
-        <div className="absolute -top-24 -left-20 w-96 h-96 rounded-full bg-emerald-200/40 blur-3xl" />
-        <div className="absolute top-1/3 -right-20 w-96 h-96 rounded-full bg-amber-200/30 blur-3xl" />
+        <div className="absolute top-10 left-1/4 w-80 h-80 rounded-full bg-brand-200/30 blur-3xl" />
+        <div className="absolute top-20 right-1/4 w-72 h-72 rounded-full bg-clay-200/20 blur-3xl" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header Text */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-800 text-xs sm:text-sm font-bold px-3.5 py-1.5 rounded-full mb-4 shadow-sm border border-emerald-200">
-            <Sparkles className="w-4 h-4 text-emerald-600" />
-            <span>Nền tảng tìm phòng trọ thông minh số 1 tại Thái Nguyên</span>
+        {/* Editorial Title */}
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+          <div className="inline-flex items-center gap-1.5 bg-brand-50 border border-brand-200/80 text-brand-800 text-xs font-semibold px-3 py-1 rounded-full mb-3.5 shadow-subtle">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-600"></span>
+            <span>Nền tảng phòng trọ chính chủ cho sinh viên & người đi làm</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-[1.18] mb-4">
+          <h1 className="font-display text-3xl sm:text-5xl font-extrabold text-stone-900 tracking-tight leading-[1.18] mb-3.5">
             Tìm phòng trọ Thái Nguyên{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-700">
-              chuẩn giá, uy tín
-            </span>{' '}
-            và an tâm ở
+            <span className="text-brand-600 underline decoration-brand-200 underline-offset-4">
+              chuẩn giá & minh bạch
+            </span>
           </h1>
 
-          <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
-            Kết nối trực tiếp với hơn 450+ chủ trọ chính chủ tại các làng đại học Tân Thịnh, Quang Trung, Z115 và KCN Samsung Phổ Yên.
+          <p className="text-sm sm:text-base text-stone-500 max-w-xl mx-auto leading-relaxed">
+            Hơn 450+ phòng trọ khảo sát thực tế tại các làng ĐH Tân Thịnh, Quang Trung, Z115 và KCN Samsung Phổ Yên.
           </p>
         </div>
 
-        {/* Search Box Form */}
-        <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-card border border-slate-200 p-3 sm:p-5">
-          {/* Quick Room Type Tabs */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-3 mb-3 border-b border-slate-100 text-xs sm:text-sm font-semibold">
+        {/* Integrated Floating Search Console */}
+        <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-card border border-stone-200/80 p-2 sm:p-4">
+          {/* Segmented Room Type Bar */}
+          <div className="flex items-center gap-1 overflow-x-auto pb-2.5 mb-2.5 border-b border-stone-100 text-xs font-semibold px-2">
             {[
               { id: 'all', label: 'Tất cả loại phòng' },
               { id: 'single', label: 'Phòng đơn khép kín' },
-              { id: 'studio', label: 'Studio cao cấp' },
+              { id: 'studio', label: 'Studio tiện nghi' },
               { id: 'mini_apartment', label: 'Chung cư mini' },
               { id: 'whole_house', label: 'Nhà nguyên căn' },
               { id: 'dormitory', label: 'Ký túc xá / Box' },
@@ -85,10 +84,10 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                 key={tab.id}
                 type="button"
                 onClick={() => setRoomType(tab.id)}
-                className={`px-3.5 py-1.5 rounded-xl whitespace-nowrap transition ${
+                className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition ${
                   roomType === tab.id
-                    ? 'bg-emerald-600 text-white shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                    ? 'bg-brand-600 text-white font-bold shadow-xs'
+                    : 'text-stone-500 hover:text-stone-900 hover:bg-stone-100'
                 }`}
               >
                 {tab.label}
@@ -96,98 +95,96 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
             ))}
           </div>
 
-          <form onSubmit={handleSearch} className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
-            {/* Keyword Input */}
-            <div className="sm:col-span-4 relative">
-              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">
-                Từ khóa / Đường / Trường ĐH
+          <form onSubmit={handleSearch} className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-0 items-center bg-stone-50/80 sm:bg-white rounded-2xl p-2 sm:p-0">
+            {/* Field 1: Keyword */}
+            <div className="sm:col-span-4 p-2 sm:px-4 sm:py-2.5 sm:border-r sm:border-stone-200">
+              <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-0.5">
+                Địa điểm / Trường ĐH
               </label>
               <div className="relative">
-                <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Search className="w-4 h-4 text-stone-400 absolute left-0 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
                   value={keyword}
                   onChange={(e) => setKeyword(e.target.value)}
-                  placeholder="VD: Y Dược, Z115, Tân Thịnh..."
-                  className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition"
+                  placeholder="Y Dược, Sư Phạm, Z115..."
+                  className="w-full pl-6 pr-2 py-1 bg-transparent text-xs sm:text-sm font-semibold text-stone-800 placeholder-stone-400 focus:outline-none"
                 />
               </div>
             </div>
 
-            {/* Ward Select */}
-            <div className="sm:col-span-3">
-              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">
+            {/* Field 2: Ward */}
+            <div className="sm:col-span-3 p-2 sm:px-4 sm:py-2.5 sm:border-r sm:border-stone-200">
+              <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-0.5">
                 Khu vực Phường / Xã
               </label>
               <div className="relative">
-                <MapPin className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <MapPin className="w-3.5 h-3.5 text-stone-400 absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <select
                   value={ward}
                   onChange={(e) => setWard(e.target.value)}
-                  className="w-full pl-9 pr-8 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition appearance-none cursor-pointer"
+                  className="w-full pl-5 pr-4 py-1 bg-transparent text-xs sm:text-sm font-semibold text-stone-800 focus:outline-none cursor-pointer truncate"
                 >
                   {wards.map((w) => (
-                    <option key={w} value={w}>
-                      {w}
-                    </option>
+                    <option key={w} value={w}>{w}</option>
                   ))}
                 </select>
               </div>
             </div>
 
-            {/* Price Range */}
-            <div className="sm:col-span-3">
-              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">
-                Khoảng giá mong muốn
+            {/* Field 3: Price */}
+            <div className="sm:col-span-3 p-2 sm:px-4 sm:py-2.5">
+              <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-0.5">
+                Khoảng giá
               </label>
               <div className="relative">
-                <DollarSign className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <DollarSign className="w-3.5 h-3.5 text-stone-400 absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <select
                   value={priceTier}
                   onChange={(e) => setPriceTier(e.target.value)}
-                  className="w-full pl-9 pr-8 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition appearance-none cursor-pointer"
+                  className="w-full pl-5 pr-4 py-1 bg-transparent text-xs sm:text-sm font-semibold text-stone-800 focus:outline-none cursor-pointer truncate"
                 >
                   <option value="all">Tất cả mức giá</option>
-                  <option value="under_1_5m">Dưới 1.5 triệu/tháng</option>
-                  <option value="1_5m_2_5m">Từ 1.5 - 2.5 triệu/tháng</option>
-                  <option value="above_2_5m">Trên 2.5 triệu/tháng</option>
+                  <option value="under_1_5m">Dưới 1.5 tr/tháng</option>
+                  <option value="1_5m_2_5m">1.5 - 2.5 tr/tháng</option>
+                  <option value="above_2_5m">Trên 2.5 tr/tháng</option>
                 </select>
               </div>
             </div>
 
             {/* Submit Button */}
-            <div className="sm:col-span-2 sm:self-end">
+            <div className="sm:col-span-2 p-1">
               <button
                 type="submit"
-                className="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold text-sm rounded-xl shadow-md shadow-emerald-600/20 flex items-center justify-center gap-1.5 transition"
+                className="w-full py-3 bg-brand-600 hover:bg-brand-700 active:scale-98 text-white font-bold text-xs sm:text-sm rounded-xl shadow-subtle hover:shadow transition flex items-center justify-center gap-1.5"
               >
-                <span>Tìm kiếm</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>Tìm phòng</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
           </form>
         </div>
 
-        {/* Trust Badges Counter */}
-        <div className="mt-8 max-w-3xl mx-auto flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm text-slate-600 font-medium">
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-            <span><strong>450+</strong> phòng trọ có sẵn</span>
+        {/* Minimalist Trust Indicator Row */}
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-5 sm:gap-8 text-xs text-stone-500 font-medium">
+          <div className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-600"></span>
+            <span>450+ phòng có sẵn tại Thái Nguyên</span>
           </div>
 
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-            <span><strong>8+</strong> Trường ĐH & KCN Thái Nguyên</span>
+          <div className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-600"></span>
+            <span>Bán kính 8 trường ĐH & KCN</span>
           </div>
 
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-            <span><strong>100%</strong> Đã xác minh thực địa</span>
+          <div className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-600"></span>
+            <span>100% khảo sát chính chủ</span>
           </div>
 
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-            <span>Miễn phí liên hệ chủ nhà</span>
+          <div className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-600"></span>
+            <span>Không thu phí sinh viên</span>
           </div>
         </div>
       </div>
