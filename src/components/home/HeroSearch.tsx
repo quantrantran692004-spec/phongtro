@@ -148,38 +148,38 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
   const wards = WARDS_BY_DISTRICT['TP. Thái Nguyên'] || [];
 
   return (
-    <div className="relative bg-[#202925] overflow-hidden border-b border-[#E5E2D9]">
-      {/* Modern High-End Architectural Villa Backdrop - Luminous, Bright & Contemporary */}
+    <div className="relative bg-[#F7F6F2] overflow-hidden border-b border-[#E5E2D9]">
+      {/* Modern High-End Architectural Villa - Bright, Sunlit & Pure (Trong Trẻo) */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=2400&q=90"
-          alt="Biệt thự cao cấp - Trọ Thái Nguyên"
-          className="w-full h-full object-cover object-center filter brightness-[0.92] saturate-[1.08] scale-[1.01]"
+          src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=2400&q=90"
+          alt="Không gian sống cao cấp hiện đại Thái Nguyên"
+          className="w-full h-full object-cover object-center filter saturate-[1.05] brightness-[1.0] scale-[1.01]"
         />
-        {/* Modern Airy Scrim - Keeps daylight photo vibrant and open while guaranteeing effortless readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-stone-950/45 via-stone-950/20 to-stone-950/50" />
+        {/* Luminous, Pure Daylight Scrim - Airy & Crystal Clear (Không chói, không tối) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F7F6F2]/75 via-[#F7F6F2]/40 to-[#F7F6F2]/90" />
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-16 sm:pt-20 sm:pb-24">
-        {/* Editorial Heading: European Architectural Poise */}
+        {/* Editorial Heading: Pure Modern Luxury Poise */}
         <div className="text-center max-w-3xl mx-auto mb-9 sm:mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/35 backdrop-blur-md border border-white/25 text-white text-xs font-semibold uppercase tracking-[0.2em] mb-4 shadow-md">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#A8D5BA] shadow-[0_0_8px_#A8D5BA]"></span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-[#E5E2D9] text-[#23483D] text-xs font-semibold uppercase tracking-[0.18em] mb-4 shadow-whisper">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#23483D]"></span>
             <span>Bất Động Sản & Phòng Trọ Thái Nguyên</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-[60px] font-light text-white tracking-tight leading-[1.14] mb-3.5 drop-shadow-[0_2px_14px_rgba(0,0,0,0.85)] font-sans">
+          <h1 className="text-3xl sm:text-5xl lg:text-[58px] font-light text-[#1F2421] tracking-tight leading-[1.14] mb-3.5 font-sans">
             Không Gian Sống Chuẩn Mực <br className="hidden sm:inline" />
-            <span className="font-serif italic font-normal text-[#E8F3EE] drop-shadow-[0_2px_14px_rgba(0,0,0,0.85)]">Minh Bạch & An Tâm</span>
+            <span className="font-serif italic font-normal text-[#23483D]">Minh Bạch & An Tâm</span>
           </h1>
 
-          <p className="text-sm sm:text-base text-white/95 font-medium max-w-2xl mx-auto leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">
+          <p className="text-sm sm:text-base text-[#4E5450] font-normal max-w-2xl mx-auto leading-relaxed">
             Khảo sát thực tế 100% • Hợp đồng chính chủ • Minh bạch tiền điện nước
           </p>
         </div>
 
         {/* Master Architectural Search Dock - Floating Crisp Console */}
-        <div className="bg-white rounded-xl border border-white/80 shadow-[0_20px_50px_rgba(0,0,0,0.25)] p-4 sm:p-5 text-[#252725]">
+        <div className="bg-white/95 backdrop-blur-xl rounded-xl border border-[#E5E2D9] shadow-card-hover p-4 sm:p-5 text-[#252725]">
           {/* 1. Refined Category Segment */}
           <div className="flex items-center gap-2 pb-3.5 border-b border-[#E5E2D9] overflow-x-auto no-scrollbar">
             {[
@@ -467,18 +467,18 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
 
         {/* 5. Minimal, Understated Proof Strip */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm font-medium">
-          <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/35 backdrop-blur-md border border-white/20 text-white shadow-sm">
-            <CheckCircle2 className="w-4 h-4 text-[#A8D5BA]" />
+          <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-[#E5E2D9] text-[#252725] shadow-whisper">
+            <CheckCircle2 className="w-4 h-4 text-[#23483D]" />
             <span>100% Khảo sát thực tế</span>
           </div>
 
-          <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/35 backdrop-blur-md border border-white/20 text-white shadow-sm">
-            <CheckCircle2 className="w-4 h-4 text-[#A8D5BA]" />
+          <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-[#E5E2D9] text-[#252725] shadow-whisper">
+            <CheckCircle2 className="w-4 h-4 text-[#23483D]" />
             <span>Minh bạch tiền điện nước</span>
           </div>
 
-          <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/35 backdrop-blur-md border border-white/20 text-white shadow-sm">
-            <CheckCircle2 className="w-4 h-4 text-[#A8D5BA]" />
+          <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-[#E5E2D9] text-[#252725] shadow-whisper">
+            <CheckCircle2 className="w-4 h-4 text-[#23483D]" />
             <span>Ký trực tiếp chủ trọ – 0đ môi giới</span>
           </div>
         </div>
