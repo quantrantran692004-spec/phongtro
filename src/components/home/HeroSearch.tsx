@@ -7,7 +7,6 @@ import {
   ArrowRight, 
   X, 
   RotateCcw,
-  CheckCircle2,
   GraduationCap
 } from 'lucide-react';
 import { WARDS_BY_DISTRICT, THAI_NGUYEN_UNIVERSITIES } from '../../data/locations';
@@ -153,403 +152,329 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
   const wards = WARDS_BY_DISTRICT['TP. Thái Nguyên'] || [];
 
   return (
-    <div className="relative min-h-screen flex flex-col justify-between overflow-hidden bg-[#F7F6F2]">
-      {/* Original High-End Mediterranean Villa Photograph - 100% Unaltered Photographic Quality */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
+    <section className="relative h-screen min-h-[760px] max-h-[1080px] w-full overflow-hidden flex flex-col justify-between select-none">
+      
+      {/* 1. ẢNH NỀN SẮC NÉT 100% - KHÔNG PHỦ TRẮNG ĐỤC */}
+      <div className="absolute inset-0 z-0">
         <img
           src={heroSunsetVilla}
-          alt="Không gian sống cao cấp hiện đại Thái Nguyên"
-          className="w-full h-full object-cover object-center"
+          alt="Không gian sống đẳng cấp"
+          className="w-full h-full object-cover object-center contrast-[1.03] saturate-[1.05] scale-100 transition-transform duration-[10000ms] ease-out hover:scale-105"
         />
-
-        {/* Delicate subtle ambient fill on the left for crisp typography contrast without altering the scene */}
-        <div className="absolute inset-y-0 left-0 w-full lg:w-2/3 bg-gradient-to-r from-white/30 via-white/10 to-transparent pointer-events-none" />
+        {/* Chỉ phủ tối nhẹ ở sát mép trên (cho Header) và sát mép dưới (cho số liệu thống kê) */}
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-slate-950/55 via-slate-950/20 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-slate-950/85 via-slate-950/40 to-transparent pointer-events-none" />
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 flex-1 flex flex-col justify-between pb-6 sm:pb-8">
-        <div>
-        {/* Left-Aligned Editorial Composition - Styled after The Horizon Luxury Architecture */}
-        <div className="max-w-3xl mb-6 sm:mb-8 text-left">
-          {/* Kicker Line with Thin Dash */}
-          <div className="flex items-center gap-3 mb-3 sm:mb-4">
-            <span className="w-10 h-[1.5px] bg-[#9C7A3C]"></span>
-            <span className="text-[11px] sm:text-xs uppercase tracking-[0.25em] font-bold text-[#1C2826] drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">
-              Bất Động Sản & Phòng Trọ Chuẩn Mực Thái Nguyên
+      {/* Khoảng đệm cho Header */}
+      <div className="h-24 shrink-0" />
+
+      {/* 2. NỘI DUNG CHÍNH (ĐẶT TRÊN NỀN TRỜI SÁNG BÊN TRÁI GIỐNG HỆT BẢN GỐC LUMIÈRE) */}
+      <div className="relative z-10 container mx-auto px-6 lg:px-12 my-auto">
+        <div className="max-w-2xl">
+          
+          {/* Dòng Eyebrow nhỏ */}
+          <div className="flex items-center gap-3 mb-4">
+            <span className="w-8 h-[1.5px] bg-slate-700"></span>
+            <span className="text-[11px] sm:text-xs font-bold tracking-[0.28em] uppercase text-slate-700">
+              Bất động sản & Phòng trọ chuẩn mực Thái Nguyên
             </span>
           </div>
 
-          {/* Majestic High-Fashion Serif Headline */}
-          <h1 className="text-3xl sm:text-5xl lg:text-[64px] font-normal tracking-tight leading-[1.1] mb-3 sm:mb-4 font-luxury">
-            <span className="block text-[#14221D] drop-shadow-[0_2px_12px_rgba(255,255,255,0.95)]">
-              Không Gian Sống Chuẩn Mực
+          {/* ĐẠI TIÊU ĐỀ IN HOA SANG TRỌNG (Chữ màu Đen Than & Vàng Đồng trên nền trời sáng) */}
+          <h1 className="font-luxury uppercase tracking-wide leading-[1.06] mb-5">
+            <span className="block text-5xl sm:text-6xl lg:text-[68px] font-bold text-slate-800 drop-shadow-[0_2px_10px_rgba(255,255,255,0.6)]">
+              KIẾN TẠO
             </span>
-            <span className="block font-luxury italic text-[#9C7A3C] drop-shadow-[0_2px_10px_rgba(255,255,255,0.9)] mt-1">
-              Minh Bạch & An Tâm
+            <span className="block text-5xl sm:text-6xl lg:text-[68px] font-bold bg-gradient-to-r from-[#8C6239] via-[#A67C52] to-[#734F2C] bg-clip-text text-transparent">
+              TƯƠNG LAI SỐNG
             </span>
           </h1>
 
-          {/* Elegant Subtitle */}
-          <p className="text-xs sm:text-sm md:text-base text-[#2D3A35] font-medium max-w-xl leading-relaxed mb-6 drop-shadow-[0_1px_4px_rgba(255,255,255,0.9)]">
-            Khảo sát thực tế 100% • Hợp đồng ký trực tiếp chủ trọ • Minh bạch tiền điện nước và cam kết 0đ môi giới.
+          {/* Mô tả ngắn gọn, rõ nét */}
+          <p className="text-slate-700 font-medium text-sm sm:text-base max-w-md leading-relaxed mb-7 drop-shadow-[0_1px_4px_rgba(255,255,255,0.8)]">
+            Những không gian sống đẳng cấp, khảo sát thực tế 100%, hợp đồng trực tiếp chủ trọ và minh bạch tuyệt đối chi phí điện nước.
           </p>
 
-          {/* Action Button Pills */}
-          <div className="flex items-center gap-3.5 mb-6 flex-wrap">
+          {/* Cụm 2 nút bấm chuẩn mẫu */}
+          <div className="flex flex-wrap items-center gap-4 mb-9">
             <button
               type="button"
               onClick={() => {
-                const el = document.getElementById('search-console-card');
+                const el = document.getElementById('search-dock');
                 el?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-[#182B24] hover:bg-[#23483D] text-white text-xs uppercase tracking-[0.18em] font-semibold transition-all duration-200 shadow-xl border border-white/20 group"
+              className="group flex items-center gap-4 bg-[#233539] hover:bg-[#182629] text-white px-7 py-3.5 rounded-full text-xs font-semibold tracking-[0.18em] uppercase transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
             >
-              <span>Khám phá phòng ngay</span>
-              <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
-                <ArrowRight className="w-3 h-3 text-white" />
-              </span>
+              <span>Khám phá dự án</span>
+              <span className="group-hover:translate-x-1 transition-transform">→</span>
             </button>
 
             <button
               type="button"
               onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-xs uppercase tracking-[0.18em] font-semibold text-[#182B24] bg-white/80 hover:bg-white backdrop-blur-md border border-white/90 transition shadow-md"
+              className="group flex items-center gap-3 text-slate-800 hover:text-[#8C6239] text-xs font-bold tracking-[0.15em] uppercase transition-colors"
             >
-              <SlidersHorizontal className="w-3.5 h-3.5 text-[#8F6627]" />
-              <span>{isAdvancedOpen ? 'Đóng bộ lọc' : 'Bộ lọc nâng cao'}</span>
+              <span className="w-10 h-10 rounded-full border border-slate-700/40 bg-white/50 backdrop-blur-md flex items-center justify-center group-hover:scale-105 group-hover:bg-white transition-all shadow-sm">
+                ▸
+              </span>
+              <span>Bộ lọc nâng cao</span>
               {activeAdvancedCount > 0 && (
-                <span className="w-4 h-4 rounded-full bg-[#182B24] text-white text-[10px] font-bold flex items-center justify-center">
+                <span className="w-4 h-4 rounded-full bg-amber-600 text-white text-[10px] font-bold flex items-center justify-center">
                   {activeAdvancedCount}
                 </span>
               )}
             </button>
           </div>
-        </div>
 
-        {/* Master Architectural Search Console - Floating Refined Frosted Glass Console */}
-        <div id="search-console-card" className="bg-white/80 backdrop-blur-2xl rounded-2xl border border-white/95 shadow-[0_24px_60px_rgba(20,40,30,0.14)] p-4 sm:p-5 text-[#252725] max-w-3xl">
-          {/* 1. Category Segmented Navigation */}
-          <div className="flex items-center gap-2 pb-3.5 border-b border-[#E5E2D9]/60 overflow-x-auto no-scrollbar">
-            {[
-              { id: 'all', label: 'Tất cả phòng' },
-              { id: 'studio', label: 'Studio & Căn hộ' },
-              { id: 'university', label: 'Gần trường ĐH' },
-              { id: 'samsung', label: 'KCN Samsung Phổ Yên' },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => handleCategoryTabSelect(tab.id as any)}
-                className={`px-4 py-2 rounded-lg text-xs font-semibold transition whitespace-nowrap ${
-                  activeCategoryTab === tab.id
-                    ? 'bg-[#182B24] text-white shadow-sm'
-                    : 'bg-white/70 text-[#2D3A34] hover:text-[#182B24] hover:bg-white border border-white/80 shadow-2xs'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+          {/* 3. THANH TÌM KIẾM SIÊU GỌN (1 DÒNG DUY NHẤT - KHÔNG CHE CẢNH BIỂN) */}
+          <div id="search-dock" className="max-w-2xl relative">
+            {/* Các pill chọn nhanh nhỏ gọn phía trên */}
+            <div className="flex flex-wrap items-center gap-1.5 mb-2">
+              {[
+                { id: 'all', label: 'Tất cả phòng' },
+                { id: 'studio', label: 'Studio & Căn hộ' },
+                { id: 'university', label: 'Gần trường ĐH' },
+                { id: 'samsung', label: 'KCN Samsung' },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => handleCategoryTabSelect(tab.id as any)}
+                  className={`px-3.5 py-1 rounded-full text-xs font-semibold transition-all backdrop-blur-md ${
+                    activeCategoryTab === tab.id
+                      ? 'bg-[#233539] text-white shadow-sm'
+                      : 'bg-white/65 hover:bg-white/90 text-slate-800 border border-white/50'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
 
-          {/* 2. Primary Search Controls */}
-          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row sm:items-center gap-2.5 pt-3.5">
-            {/* Input: Keyword */}
-            <div 
-              ref={suggestionRef}
-              className="flex-1 h-13 px-3.5 flex flex-col justify-center rounded-xl bg-white border border-[#E5E2D9] hover:border-[#182B24] focus-within:border-[#182B24] focus-within:bg-white focus-within:shadow-[0_0_0_3px_rgba(24,43,36,0.08)] transition relative shadow-xs"
+            {/* Thanh Input chính mỏng gọn, trong suốt tinh tế */}
+            <form
+              onSubmit={handleSearch}
+              className="flex flex-col sm:flex-row items-center gap-2 bg-white/80 backdrop-blur-xl border border-white/80 rounded-2xl p-2 shadow-[0_15px_35px_rgba(0,0,0,0.12)]"
             >
-              <label className="block text-[10px] font-bold text-[#777B78] uppercase tracking-wider leading-none mb-1">
-                Từ khóa / Địa điểm
-              </label>
-              <div className="flex items-center gap-2">
-                <Search className="w-3.5 h-3.5 text-[#777B78] shrink-0" />
-                <input
-                  type="text"
-                  value={keyword}
-                  onFocus={() => setShowSuggestions(true)}
-                  onChange={(e) => {
-                    setKeyword(e.target.value);
-                    setShowSuggestions(true);
-                  }}
-                  placeholder="VD: Y Dược, Sư Phạm, Tân Thịnh, Z115..."
-                  className="w-full bg-transparent text-xs sm:text-sm font-semibold text-[#1F2421] placeholder-[#B0B2AF] focus:outline-none leading-none"
-                />
+              <div 
+                ref={suggestionRef}
+                className="flex-1 flex items-center gap-2.5 px-3 py-1.5 w-full border-b sm:border-b-0 sm:border-r border-slate-300/60 relative"
+              >
+                <span className="text-slate-400">🔍</span>
+                <div className="w-full">
+                  <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                    Từ khóa / Trường ĐH
+                  </span>
+                  <input
+                    type="text"
+                    value={keyword}
+                    onFocus={() => setShowSuggestions(true)}
+                    onChange={(e) => {
+                      setKeyword(e.target.value);
+                      setShowSuggestions(true);
+                    }}
+                    placeholder="VD: ĐH Y Dược, CNTT, Tân Thịnh..."
+                    className="w-full bg-transparent text-xs sm:text-sm font-medium text-slate-800 placeholder-slate-400 focus:outline-none"
+                  />
+                </div>
                 {keyword && (
                   <button 
                     type="button" 
                     onClick={() => { setKeyword(''); setShowSuggestions(false); }}
-                    className="p-1 text-[#777B78] hover:text-[#1F2421]"
+                    className="p-1 text-slate-400 hover:text-slate-700"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
                 )}
-              </div>
 
-              {/* Suggestions Dropdown */}
-              <AnimatePresence>
-                {showSuggestions && suggestions.length > 0 && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 6 }}
-                    className="absolute left-0 right-0 top-full mt-2 bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-[#E5E2D9] overflow-hidden z-30 max-h-60 overflow-y-auto"
-                  >
-                    <div className="p-2 space-y-1">
-                      {suggestions.map((s, idx) => (
-                        <button
-                          key={idx}
-                          type="button"
-                          onClick={() => {
-                            setKeyword(s.label);
-                            if (s.ward) setWard(s.ward);
-                            setShowSuggestions(false);
-                          }}
-                          className="w-full text-left px-3.5 py-2.5 rounded-lg hover:bg-[#E8EEE9] flex items-center justify-between text-xs sm:text-sm transition"
-                        >
-                          <div className="truncate mr-2">
-                            <span className="font-semibold text-[#252725]">{s.label}</span>
-                            {s.ward && <span className="text-[#777B78] ml-2 font-normal">({s.ward})</span>}
-                          </div>
-                          <span className="text-[11px] bg-[#EFEEE8] text-[#23483D] font-semibold px-2.5 py-0.5 rounded border border-[#E5E2D9]">
-                            {s.type}
-                          </span>
-                        </button>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {/* Select: Ward */}
-            <div className="sm:w-56 h-13 px-3.5 flex flex-col justify-center rounded-xl bg-white border border-[#E5E2D9] hover:border-[#182B24] focus-within:border-[#182B24] focus-within:bg-white focus-within:shadow-[0_0_0_3px_rgba(24,43,36,0.08)] transition cursor-pointer shadow-xs">
-              <label className="block text-[10px] font-bold text-[#777B78] uppercase tracking-wider leading-none mb-1">
-                Khu vực Phường / Xã
-              </label>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-[#182B24] shrink-0" />
-                <select
-                  value={ward}
-                  onChange={(e) => setWard(e.target.value)}
-                  className="w-full bg-transparent text-xs sm:text-sm font-semibold text-[#1F2421] focus:outline-none cursor-pointer truncate leading-none"
-                >
-                  <option value="Tất cả">Toàn Thái Nguyên</option>
-                  {wards.filter(w => w !== 'Tất cả').map((w) => (
-                    <option key={w} value={w}>{w}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            {/* Button: Submit */}
-            <button
-              type="submit"
-              className="h-13 px-7 bg-[#182B24] hover:bg-[#23483D] text-white font-semibold text-xs sm:text-sm rounded-xl shadow-[0_8px_20px_rgba(24,43,36,0.28)] hover:shadow-[0_12px_28px_rgba(24,43,36,0.38)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 shrink-0 tracking-wide"
-            >
-              <span>Tìm kiếm</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </form>
-
-          {/* 3. Expandable Advanced Filter Options */}
-          <AnimatePresence>
-            {isAdvancedOpen && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.2, ease: "easeInOut" }}
-                className="overflow-hidden border-t border-[#E5E2D9] mt-3.5 pt-3.5 px-1 text-[#252725]"
-              >
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pb-2 text-xs">
-                  <div>
-                    <label className="block text-xs font-semibold text-[#252725] mb-2">
-                      Mức giá thuê:
-                    </label>
-                    <div className="grid grid-cols-2 gap-1.5">
-                      {[
-                        { id: 'all', label: 'Tất cả giá' },
-                        { id: 'under_1_5m', label: '< 1.5 triệu' },
-                        { id: '1_5m_2_5m', label: '1.5 - 2.5 triệu' },
-                        { id: 'above_2_5m', label: '> 2.5 triệu' },
-                      ].map((p) => (
-                        <button
-                          key={p.id}
-                          type="button"
-                          onClick={() => setPriceTier(p.id)}
-                          className={`py-2 px-2.5 rounded border text-xs font-medium transition text-center ${
-                            priceTier === p.id
-                              ? 'bg-[#182B24] border-[#182B24] text-white'
-                              : 'bg-white border-[#E5E2D9] text-[#252725] hover:bg-[#E8EEE9]'
-                          }`}
-                        >
-                          {p.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-[#252725] mb-2">
-                      Loại hình phòng:
-                    </label>
-                    <div className="grid grid-cols-2 gap-1.5">
-                      {[
-                        { id: 'all', label: 'Tất cả loại' },
-                        { id: 'single', label: 'Phòng đơn' },
-                        { id: 'studio', label: 'Studio' },
-                        { id: 'mini_apartment', label: 'CC mini' },
-                      ].map((t) => (
-                        <button
-                          key={t.id}
-                          type="button"
-                          onClick={() => setRoomType(t.id)}
-                          className={`py-2 px-2.5 rounded border text-xs font-medium transition text-center ${
-                            roomType === t.id
-                              ? 'bg-[#182B24] border-[#182B24] text-white'
-                              : 'bg-white border-[#E5E2D9] text-[#252725] hover:bg-[#E8EEE9]'
-                          }`}
-                        >
-                          {t.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-[#252725] mb-2">
-                      Tiện nghi cơ bản:
-                    </label>
-                    <div className="grid grid-cols-2 gap-1.5">
-                      {[
-                        { id: 'air_conditioner', label: 'Điều hòa' },
-                        { id: 'water_heater', label: 'Nóng lạnh' },
-                        { id: 'wifi', label: 'Wifi' },
-                        { id: 'mezzanine', label: 'Gác xép' },
-                      ].map((am) => {
-                        const isSelected = selectedAmenities.includes(am.id);
-                        return (
+                {/* Suggestions Dropdown */}
+                <AnimatePresence>
+                  {showSuggestions && suggestions.length > 0 && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 6 }}
+                      className="absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-float border border-slate-200 overflow-hidden z-30 max-h-60 overflow-y-auto"
+                    >
+                      <div className="p-2 space-y-1">
+                        {suggestions.map((s, idx) => (
                           <button
-                            key={am.id}
+                            key={idx}
                             type="button"
-                            onClick={() => handleToggleAmenity(am.id)}
-                            className={`py-2 px-2.5 rounded border text-xs font-medium transition text-center ${
-                              isSelected
-                                ? 'bg-[#182B24] border-[#182B24] text-white'
-                                : 'bg-white border-[#E5E2D9] text-[#252725] hover:bg-[#E8EEE9]'
+                            onClick={() => {
+                              setKeyword(s.label);
+                              if (s.ward) setWard(s.ward);
+                              setShowSuggestions(false);
+                            }}
+                            className="w-full text-left px-3.5 py-2.5 rounded-lg hover:bg-slate-50 flex items-center justify-between text-xs sm:text-sm transition"
+                          >
+                            <div className="truncate mr-2">
+                              <span className="font-semibold text-slate-900">{s.label}</span>
+                              {s.ward && <span className="text-slate-500 ml-2 font-normal">({s.ward})</span>}
+                            </div>
+                            <span className="text-[11px] bg-slate-100 text-slate-700 font-semibold px-2.5 py-0.5 rounded-full border border-slate-200">
+                              {s.type}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              <div className="sm:w-48 flex items-center gap-2 px-3 py-1.5 w-full">
+                <span className="text-slate-400">📍</span>
+                <div className="w-full">
+                  <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                    Khu vực
+                  </span>
+                  <select 
+                    value={ward}
+                    onChange={(e) => setWard(e.target.value)}
+                    className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer"
+                  >
+                    <option value="Tất cả">Toàn Thái Nguyên</option>
+                    {wards.filter(w => w !== 'Tất cả').map((w) => (
+                      <option key={w} value={w}>{w}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full sm:w-auto bg-[#233539] hover:bg-[#182629] text-white text-xs font-bold uppercase tracking-wider px-6 py-3.5 rounded-xl transition-all shrink-0 shadow-md"
+              >
+                Tìm kiếm →
+              </button>
+            </form>
+
+            {/* Advanced filter toggle panel */}
+            <AnimatePresence>
+              {isAdvancedOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -6, height: 0 }}
+                  animate={{ opacity: 1, y: 0, height: 'auto' }}
+                  exit={{ opacity: 0, y: -6, height: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="mt-2.5 bg-white/95 backdrop-blur-xl border border-white/80 rounded-2xl p-4 shadow-xl overflow-hidden text-slate-800 text-xs"
+                >
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-2">
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wider">
+                        Mức giá thuê:
+                      </label>
+                      <div className="grid grid-cols-2 gap-1.5">
+                        {[
+                          { id: 'all', label: 'Tất cả giá' },
+                          { id: 'under_1_5m', label: '< 1.5 triệu' },
+                          { id: '1_5m_2_5m', label: '1.5 - 2.5 triệu' },
+                          { id: 'above_2_5m', label: '> 2.5 triệu' },
+                        ].map((p) => (
+                          <button
+                            key={p.id}
+                            type="button"
+                            onClick={() => setPriceTier(p.id)}
+                            className={`py-1.5 px-2 rounded-lg border text-xs font-medium transition text-center ${
+                              priceTier === p.id
+                                ? 'bg-[#233539] border-[#233539] text-white shadow-sm'
+                                : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                             }`}
                           >
-                            {isSelected && '✓ '}
-                            {am.label}
+                            {p.label}
                           </button>
-                        );
-                      })}
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wider">
+                        Loại hình phòng:
+                      </label>
+                      <div className="grid grid-cols-2 gap-1.5">
+                        {[
+                          { id: 'all', label: 'Tất cả loại' },
+                          { id: 'single', label: 'Phòng đơn' },
+                          { id: 'studio', label: 'Studio' },
+                          { id: 'mini_apartment', label: 'CC mini' },
+                        ].map((t) => (
+                          <button
+                            key={t.id}
+                            type="button"
+                            onClick={() => setRoomType(t.id)}
+                            className={`py-1.5 px-2 rounded-lg border text-xs font-medium transition text-center ${
+                              roomType === t.id
+                                ? 'bg-[#233539] border-[#233539] text-white shadow-sm'
+                                : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                            }`}
+                          >
+                            {t.label}
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="flex items-center justify-between pt-3 border-t border-[#E5E2D9] text-xs">
-                  <button
-                    type="button"
-                    onClick={resetAdvanced}
-                    className="text-[#777B78] hover:text-[#1F2421] flex items-center gap-1 font-medium transition"
-                  >
-                    <RotateCcw className="w-3.5 h-3.5" />
-                    <span>Đặt lại bộ lọc</span>
-                  </button>
-
-                  <div className="flex items-center gap-2">
+                  <div className="pt-2.5 flex items-center justify-between border-t border-slate-200">
                     <button
                       type="button"
-                      onClick={() => setIsAdvancedOpen(false)}
-                      className="px-3.5 py-1.5 text-[#777B78] hover:text-[#1F2421] font-medium"
+                      onClick={resetAdvanced}
+                      className="text-slate-500 hover:text-slate-800 flex items-center gap-1 font-medium"
                     >
-                      Thu gọn
+                      <RotateCcw className="w-3 h-3" />
+                      <span>Đặt lại</span>
                     </button>
                     <button
                       type="button"
                       onClick={() => { setIsAdvancedOpen(false); applySearch(); }}
-                      className="px-4 py-1.5 bg-[#182B24] text-white rounded font-medium shadow-whisper hover:bg-[#23483D]"
+                      className="px-4 py-1.5 rounded-lg bg-[#233539] text-white font-medium hover:bg-[#182629] transition"
                     >
-                      Áp dụng
+                      Áp dụng bộ lọc
                     </button>
                   </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* 4. Campus Recommendations */}
-          <div className="mt-3 pt-3 border-t border-[#E5E2D9]/60">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-xs">
-              <span className="text-[#3E4A44] font-semibold shrink-0 flex items-center gap-1.5">
-                <GraduationCap className="w-4 h-4 text-[#182B24]" />
-                <span>Gợi ý theo trường:</span>
-              </span>
-
-              <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
-                {THAI_NGUYEN_UNIVERSITIES.slice(0, 6).map((uni) => (
-                  <button
-                    key={uni.id}
-                    type="button"
-                    onClick={() => handleQuickSelect(uni.shortName, uni.ward)}
-                    className="px-3 py-1 rounded-full bg-white hover:bg-[#182B24] hover:text-white border border-[#E5E2D9] text-[#252725] text-xs font-semibold whitespace-nowrap transition-all shadow-2xs"
-                  >
-                    {uni.shortName}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-        </div>
-
-        {/* 5. Bottom Architectural Metrics Bar - Exactly as in Reference Image */}
-        <div className="mt-8 sm:mt-12 pt-6 border-t border-white/30 flex flex-col md:flex-row md:items-center justify-between gap-6 text-xs text-white">
-          {/* Left: Slide counter */}
-          <div className="flex items-center gap-3 font-serif">
-            <span className="text-white/60 cursor-pointer hover:text-white transition text-lg select-none">‹</span>
-            <span className="font-semibold tracking-widest text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]">01 / 03</span>
-            <span className="text-white/60 cursor-pointer hover:text-white transition text-lg select-none">›</span>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
-          {/* Center: 3 metric columns with vertical dividers */}
-          <div className="flex items-center gap-6 sm:gap-10">
-            <div>
-              <span className="text-2xl sm:text-3xl font-light font-serif text-white block leading-none mb-1 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-                450+
-              </span>
-              <span className="text-[10px] uppercase tracking-wider text-white/95 font-medium drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">
-                Phòng trọ đã khảo sát
-              </span>
-            </div>
-            <div className="w-[1px] h-8 bg-white/40"></div>
-            <div>
-              <span className="text-2xl sm:text-3xl font-light font-serif text-white block leading-none mb-1 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-                100%
-              </span>
-              <span className="text-[10px] uppercase tracking-wider text-white/95 font-medium drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">
-                Hợp đồng ký chính chủ
-              </span>
-            </div>
-            <div className="w-[1px] h-8 bg-white/40"></div>
-            <div>
-              <span className="text-2xl sm:text-3xl font-light font-serif text-white block leading-none mb-1 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-                0đ
-              </span>
-              <span className="text-[10px] uppercase tracking-wider text-white/95 font-medium drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">
-                Phí môi giới trung gian
-              </span>
-            </div>
-          </div>
-
-          {/* Right: Scroll down indicator with pulsing dot */}
-          <div className="flex items-center gap-3 uppercase tracking-[0.2em] text-[11px] font-medium text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">
-            <span className="w-6 h-[1.5px] bg-white/70"></span>
-            <span className="w-2 h-2 rounded-full bg-[#FBD38D] animate-ping"></span>
-            <span>Cuộn xuống</span>
-          </div>
         </div>
       </div>
-    </div>
+
+      {/* 4. THANH THỐNG KÊ Ở ĐÁY (NỔI BẬT TRÊN NỀN GRADIENT TỐI MẶT HỒ BƠI) */}
+      <div className="relative z-10 container mx-auto px-6 lg:px-12 pb-6 pt-4 flex flex-wrap items-end justify-between gap-6 text-white">
+        <div className="flex items-center gap-3 text-xs font-mono tracking-widest text-white/80">
+          <span>‹</span>
+          <span className="text-white font-bold">01</span>
+          <span>/</span>
+          <span>04</span>
+          <span>›</span>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-8 sm:gap-12">
+          <div>
+            <div className="text-2xl sm:text-3xl font-luxury font-bold text-amber-200 drop-shadow">450+</div>
+            <div className="text-[10px] uppercase tracking-widest text-white/80 font-medium">Phòng trọ đã khảo sát</div>
+          </div>
+          <div>
+            <div className="text-2xl sm:text-3xl font-luxury font-bold text-amber-200 drop-shadow">100%</div>
+            <div className="text-[10px] uppercase tracking-widest text-white/80 font-medium">Hợp đồng chính chủ</div>
+          </div>
+          <div>
+            <div className="text-2xl sm:text-3xl font-luxury font-bold text-amber-200 drop-shadow">0đ</div>
+            <div className="text-[10px] uppercase tracking-widest text-white/80 font-medium">Phí môi giới trung gian</div>
+          </div>
+        </div>
+
+        <div className="hidden md:flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-white/80">
+          <span className="w-5 h-8 rounded-full border border-white/40 flex items-start justify-center p-1">
+            <span className="w-1 h-2 bg-white rounded-full animate-bounce" />
+          </span>
+          <span>Cuộn xuống</span>
+        </div>
+      </div>
+
+    </section>
   );
 };

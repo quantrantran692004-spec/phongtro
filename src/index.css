@@ -6,10 +6,12 @@
   html {
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   }
   
   body {
-    @apply text-charcoal-900 bg-[#F7F6F2] antialiased font-sans;
+    @apply text-charcoal-900 bg-[#F8FAFC] antialiased;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -23,6 +25,10 @@
   input[type="range"] {
     accent-color: #23483D;
   }
+}
+
+.font-luxury {
+  font-family: 'Cormorant Garamond', Georgia, serif;
 }
 
 /* Restrained European Architectural Scrollbar */
