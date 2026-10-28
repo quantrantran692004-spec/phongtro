@@ -148,38 +148,38 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
   const wards = WARDS_BY_DISTRICT['TP. Thái Nguyên'] || [];
 
   return (
-    <div className="relative bg-[#F7F6F2] overflow-hidden border-b border-[#E5E2D9]">
-      {/* Luminous, Warm European Editorial Backdrop */}
-      <div className="absolute inset-0 z-0">
+    <div className="relative bg-[#11241E] overflow-hidden border-b border-[#E5E2D9]">
+      {/* Prominent Architectural Backdrop with Rich Atmospheric Contrast */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2000&q=85"
-          alt="Không gian phòng trọ Thái Nguyên"
-          className="w-full h-full object-cover object-center filter saturate-[0.9] opacity-35"
+          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=90"
+          alt="Không gian phòng trọ Thái Nguyên cao cấp"
+          className="w-full h-full object-cover object-center filter brightness-[0.75] saturate-[1.1] scale-[1.02]"
         />
-        {/* Soft, Daylight Scrim for Flawless Readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#F7F6F2]/95 via-[#F7F6F2]/80 to-[#F7F6F2]" />
+        {/* Deep European Forest & Warm Charcoal Scrim - perfectly balances photo clarity with reading comfort */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#11241E]/80 via-[#11241E]/60 to-[#11241E]/90" />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-14 sm:pt-16 sm:pb-20">
-        {/* Editorial Heading: 48-64px desktop, disciplined, luxury architectural hierarchy */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFEEE8] border border-[#E5E2D9] text-[#23483D] text-xs font-semibold uppercase tracking-[0.18em] mb-4 shadow-whisper">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#23483D]"></span>
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-16 sm:pt-20 sm:pb-24">
+        {/* Editorial Heading: European Architectural Poise */}
+        <div className="text-center max-w-3xl mx-auto mb-9 sm:mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[#C9DCD3] text-xs font-semibold uppercase tracking-[0.2em] mb-4 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#A8D5BA] shadow-[0_0_8px_#A8D5BA]"></span>
             <span>Bất Động Sản & Phòng Trọ Thái Nguyên</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-[62px] font-light text-[#252725] tracking-tight leading-[1.12] mb-3 font-sans">
+          <h1 className="text-3xl sm:text-5xl lg:text-[60px] font-light text-white tracking-tight leading-[1.14] mb-3.5 drop-shadow-md font-sans">
             Không Gian Sống Chuẩn Mực <br className="hidden sm:inline" />
-            <span className="font-serif italic font-normal text-[#23483D]">Minh Bạch & An Tâm</span>
+            <span className="font-serif italic font-normal text-[#C9DCD3]">Minh Bạch & An Tâm</span>
           </h1>
 
-          <p className="text-sm sm:text-base text-[#555955] font-normal max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-white/85 font-normal max-w-2xl mx-auto leading-relaxed drop-shadow">
             Khảo sát thực tế 100% • Hợp đồng chính chủ • Minh bạch tiền điện nước
           </p>
         </div>
 
-        {/* Master Architectural Search Dock */}
-        <div className="bg-white rounded-xl border border-[#E5E2D9] shadow-card p-4 sm:p-5 text-[#252725]">
+        {/* Master Architectural Search Dock - Floating Crisp Console */}
+        <div className="bg-white rounded-xl border border-white/80 shadow-[0_20px_50px_rgba(0,0,0,0.3)] p-4 sm:p-5 text-[#252725]">
           {/* 1. Refined Category Segment */}
           <div className="flex items-center gap-2 pb-3.5 border-b border-[#E5E2D9] overflow-x-auto no-scrollbar">
             {[
@@ -195,7 +195,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                 className={`px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition whitespace-nowrap ${
                   activeCategoryTab === tab.id
                     ? 'bg-[#23483D] text-white shadow-whisper'
-                    : 'bg-[#EFEEE8] text-[#777B78] hover:text-[#252725] hover:bg-[#E8EEE9]'
+                    : 'bg-[#FAF9F7] text-[#555955] hover:text-[#252725] hover:bg-[#E8EEE9] border border-[#E5E2D9]'
                 }`}
               >
                 {tab.label}
@@ -466,19 +466,19 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
         </div>
 
         {/* 5. Minimal, Understated Proof Strip */}
-        <div className="mt-7 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm font-normal text-[#777B78]">
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-[#23483D]" />
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm font-medium text-white/90">
+          <div className="flex items-center gap-2 drop-shadow">
+            <CheckCircle2 className="w-4 h-4 text-[#A8D5BA]" />
             <span>100% Khảo sát thực tế</span>
           </div>
 
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-[#23483D]" />
+          <div className="flex items-center gap-2 drop-shadow">
+            <CheckCircle2 className="w-4 h-4 text-[#A8D5BA]" />
             <span>Minh bạch tiền điện nước</span>
           </div>
 
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-[#23483D]" />
+          <div className="flex items-center gap-2 drop-shadow">
+            <CheckCircle2 className="w-4 h-4 text-[#A8D5BA]" />
             <span>Ký trực tiếp chủ trọ – 0đ môi giới</span>
           </div>
         </div>
