@@ -70,7 +70,7 @@ export default {
       fontFamily: {
         sans: ['"Be Vietnam Pro"', 'system-ui', '-apple-system', 'sans-serif'],
         display: ['"Manrope"', '"Be Vietnam Pro"', 'system-ui', 'sans-serif'],
-        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        serif: ['"Playfair Display"', '"Cormorant Garamond"', 'Georgia', 'serif'],
       },
       boxShadow: {
         'whisper': '0 1px 2px 0 rgba(37, 39, 37, 0.04)',

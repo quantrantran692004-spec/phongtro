@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, 
@@ -50,6 +50,15 @@ export const Header: React.FC<HeaderProps> = ({
   const [guideMenuOpen, setGuideMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 30);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const exploreTimeout = useRef<any>(null);
   const guideTimeout = useRef<any>(null);
@@ -85,8 +94,16 @@ export const Header: React.FC<HeaderProps> = ({
     setExploreMenuOpen(false);
   };
 
+  const isHomeTransparent = currentTab === 'home';
+
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#E5E2D9] transition-colors">
+    <header className={`${
+      isHomeTransparent
+        ? isScrolled
+          ? 'fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#E5E2D9] shadow-sm transition-all duration-300'
+          : 'fixed top-0 left-0 right-0 z-50 bg-white/40 backdrop-blur-md border-b border-white/20 shadow-xs transition-all duration-300'
+        : 'sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#E5E2D9] transition-colors'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* 1. Logo: Refined Architectural Identity */}

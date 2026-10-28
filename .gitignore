@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .env
+
+.chrome_temp/
+proxy3000.cjs
