@@ -153,37 +153,37 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
   const wards = WARDS_BY_DISTRICT['TP. Thái Nguyên'] || [];
 
   return (
-    <div className="relative overflow-hidden bg-[#F7F6F2]">
-      {/* Modern High-End Mediterranean Villa with Infinity Pool Background */}
+    <div className="relative min-h-screen flex flex-col justify-between overflow-hidden bg-[#F7F6F2]">
+      {/* Original High-End Mediterranean Villa Photograph - 100% Unaltered Photographic Quality */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img
           src={heroSunsetVilla}
           alt="Không gian sống cao cấp hiện đại Thái Nguyên"
-          className="w-full h-full object-cover object-center filter saturate-[1.05] brightness-[1.0]"
+          className="w-full h-full object-cover object-center"
         />
 
-        {/* Soft, Transparent Vignette - Keeps Luminous Sky, Turquoise Pool & Villa 100% Crisp */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white/40 via-white/10 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-white/20 pointer-events-none" />
+        {/* Delicate subtle ambient fill on the left for crisp typography contrast without altering the scene */}
+        <div className="absolute inset-y-0 left-0 w-full lg:w-2/3 bg-gradient-to-r from-white/30 via-white/10 to-transparent pointer-events-none" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 sm:pt-28 sm:pb-14">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 flex-1 flex flex-col justify-between pb-6 sm:pb-8">
+        <div>
         {/* Left-Aligned Editorial Composition - Styled after The Horizon Luxury Architecture */}
-        <div className="max-w-3xl mb-7 sm:mb-9 text-left">
+        <div className="max-w-3xl mb-6 sm:mb-8 text-left">
           {/* Kicker Line with Thin Dash */}
           <div className="flex items-center gap-3 mb-3 sm:mb-4">
-            <span className="w-10 h-[1.5px] bg-[#8F6627]"></span>
+            <span className="w-10 h-[1.5px] bg-[#9C7A3C]"></span>
             <span className="text-[11px] sm:text-xs uppercase tracking-[0.25em] font-bold text-[#1C2826] drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">
               Bất Động Sản & Phòng Trọ Chuẩn Mực Thái Nguyên
             </span>
           </div>
 
           {/* Majestic High-Fashion Serif Headline */}
-          <h1 className="text-3xl sm:text-5xl lg:text-[60px] font-normal tracking-tight leading-[1.12] mb-3 sm:mb-4 font-serif">
+          <h1 className="text-3xl sm:text-5xl lg:text-[64px] font-normal tracking-tight leading-[1.1] mb-3 sm:mb-4 font-luxury">
             <span className="block text-[#14221D] drop-shadow-[0_2px_12px_rgba(255,255,255,0.95)]">
               Không Gian Sống Chuẩn Mực
             </span>
-            <span className="block font-serif italic text-[#8F6627] drop-shadow-[0_2px_10px_rgba(255,255,255,0.9)] mt-1">
+            <span className="block font-luxury italic text-[#9C7A3C] drop-shadow-[0_2px_10px_rgba(255,255,255,0.9)] mt-1">
               Minh Bạch & An Tâm
             </span>
           </h1>
@@ -500,6 +500,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
               </div>
             </div>
           </div>
+        </div>
         </div>
 
         {/* 5. Bottom Architectural Metrics Bar - Exactly as in Reference Image */}
