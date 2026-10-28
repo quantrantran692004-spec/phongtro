@@ -45,26 +45,26 @@ export const LandlordPortal: React.FC<LandlordPortalProps> = ({ onSelectRoom }) 
   };
 
   return (
-    <div className="bg-stone-50 min-h-screen py-8">
+    <div className="bg-[#F7F6F2] min-h-screen py-8 sm:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-7">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-[11px] font-bold text-brand-700 bg-brand-50 px-2.5 py-0.5 rounded-md mb-1 border border-brand-200/60">
-              <Building2 className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#23483D] bg-[#E8EEE9] px-3 py-1 rounded-full mb-2 border border-[#C9DCD3]">
+              <Building2 className="w-3.5 h-3.5 text-[#23483D]" />
               <span>Kênh Quản Trị Dành Cho Chủ Trọ</span>
             </div>
-            <h1 className="font-display text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight">
-              Quản lý danh sách phòng cho thuê
+            <h1 className="text-2xl sm:text-3xl font-light text-[#252725] tracking-tight">
+              Quản Lý Danh Sách Phòng Cho Thuê
             </h1>
-            <p className="text-xs text-stone-500 mt-0.5">
-              Chủ trọ: <strong>{currentUser?.name || 'Cô Lan Tân Thịnh'}</strong> • SĐT: {currentUser?.phone || '0984512345'}
+            <p className="text-xs sm:text-sm text-[#777B78] mt-1 font-normal">
+              Chủ trọ: <strong className="text-[#252725] font-semibold">{currentUser?.name || 'Cô Lan Tân Thịnh'}</strong> • SĐT: {currentUser?.phone || '0984512345'}
             </p>
           </div>
 
           <button
             onClick={handleCreateNew}
-            className="inline-flex items-center gap-1.5 bg-brand-600 hover:bg-brand-700 active:scale-98 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-subtle transition"
+            className="inline-flex items-center gap-2 bg-[#23483D] hover:bg-[#1A372E] text-white font-medium text-xs sm:text-sm px-5 py-3 rounded-md shadow-whisper transition"
           >
             <Plus className="w-4 h-4" />
             <span>Đăng phòng trọ mới</span>
@@ -72,42 +72,42 @@ export const LandlordPortal: React.FC<LandlordPortalProps> = ({ onSelectRoom }) 
         </div>
 
         {/* Overview Stats */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-7">
-          <div className="bg-white p-4 sm:p-5 rounded-2xl border border-stone-200/80 shadow-subtle">
-            <span className="text-[11px] font-bold text-stone-400 uppercase">Tổng số phòng</span>
-            <div className="font-display text-2xl sm:text-3xl font-extrabold text-stone-900 mt-1">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+          <div className="bg-white p-5 rounded-lg border border-[#E5E2D9] shadow-whisper">
+            <span className="text-[11px] font-semibold text-[#777B78] uppercase tracking-wider">Tổng số phòng</span>
+            <div className="text-2xl sm:text-3xl font-semibold text-[#252725] mt-1">
               {myRooms.length}
             </div>
-            <span className="text-[11px] text-stone-400">Đang lưu trên hệ thống</span>
+            <span className="text-[11px] text-[#777B78]">Đang lưu trên hệ thống</span>
           </div>
 
-          <div className="bg-white p-4 sm:p-5 rounded-2xl border border-stone-200/80 shadow-subtle">
-            <span className="text-[11px] font-bold text-stone-400 uppercase">Phòng còn trống</span>
-            <div className="font-display text-2xl sm:text-3xl font-extrabold text-brand-700 mt-1">
+          <div className="bg-white p-5 rounded-lg border border-[#E5E2D9] shadow-whisper">
+            <span className="text-[11px] font-semibold text-[#777B78] uppercase tracking-wider">Phòng còn trống</span>
+            <div className="text-2xl sm:text-3xl font-semibold text-[#23483D] mt-1">
               {availableCount}
             </div>
-            <span className="text-[11px] text-brand-600 font-semibold">Sẵn sàng đón khách</span>
+            <span className="text-[11px] text-[#23483D] font-medium">Sẵn sàng đón khách</span>
           </div>
 
-          <div className="bg-white p-4 sm:p-5 rounded-2xl border border-stone-200/80 shadow-subtle">
-            <span className="text-[11px] font-bold text-stone-400 uppercase">Lượt xem tin</span>
-            <div className="font-display text-2xl sm:text-3xl font-extrabold text-stone-900 mt-1">
+          <div className="bg-white p-5 rounded-lg border border-[#E5E2D9] shadow-whisper">
+            <span className="text-[11px] font-semibold text-[#777B78] uppercase tracking-wider">Lượt xem tin</span>
+            <div className="text-2xl sm:text-3xl font-semibold text-[#252725] mt-1">
               {totalViews}
             </div>
-            <span className="text-[11px] text-stone-400">Từ sinh viên Thái Nguyên</span>
+            <span className="text-[11px] text-[#777B78]">Từ sinh viên Thái Nguyên</span>
           </div>
 
-          <div className="bg-white p-4 sm:p-5 rounded-2xl border border-stone-200/80 shadow-subtle">
-            <span className="text-[11px] font-bold text-stone-400 uppercase">Lịch hẹn xem phòng</span>
-            <div className="font-display text-2xl sm:text-3xl font-extrabold text-clay-600 mt-1">
+          <div className="bg-white p-5 rounded-lg border border-[#E5E2D9] shadow-whisper">
+            <span className="text-[11px] font-semibold text-[#777B78] uppercase tracking-wider">Lịch hẹn xem phòng</span>
+            <div className="text-2xl sm:text-3xl font-semibold text-[#23483D] mt-1">
               {appointments.length}
             </div>
-            <span className="text-[11px] text-stone-400">Cần liên hệ xác nhận</span>
+            <span className="text-[11px] text-[#777B78]">Cần liên hệ xác nhận</span>
           </div>
         </div>
 
         {/* Listings Section */}
-        <div className="bg-white rounded-3xl border border-stone-200/80 shadow-card p-5 sm:p-6 mb-7">
+        <div className="bg-white rounded-lg border border-[#E5E2D9] shadow-whisper p-5 sm:p-6 mb-7">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-display text-base sm:text-lg font-bold text-stone-900">
               Danh sách phòng của bạn ({myRooms.length})

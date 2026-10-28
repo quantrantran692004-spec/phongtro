@@ -200,11 +200,11 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: -10 }}
             transition={{ type: "spring", damping: 25, stiffness: 350 }}
-            className="relative w-full max-w-2xl bg-white rounded-2xl shadow-elevated border border-stone-200 overflow-hidden z-10 flex flex-col max-h-[80vh]"
+            className="relative w-full max-w-2xl bg-white rounded-lg shadow-card-hover border border-[#E5E2D9] overflow-hidden z-10 flex flex-col max-h-[80vh]"
           >
             {/* Search Input Bar */}
-            <div className="relative flex items-center px-4 border-b border-stone-200">
-              <Search className="w-5 h-5 text-brand-700 shrink-0" />
+            <div className="relative flex items-center px-4 border-b border-[#E5E2D9]">
+              <Search className="w-5 h-5 text-[#23483D] shrink-0" />
               <input
                 ref={inputRef}
                 type="text"
@@ -212,11 +212,11 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                 onChange={e => { setQuery(e.target.value); setSelectedIndex(0); }}
                 onKeyDown={handleKeyDown}
                 placeholder="Tìm nhanh trường học, phòng trọ, phường xã (VD: Y Dược, Tân Thịnh, Z115...)"
-                className="w-full py-4 px-3 text-sm sm:text-base font-semibold text-stone-900 placeholder-stone-400 focus:outline-none bg-transparent"
+                className="w-full py-4 px-3 text-sm sm:text-base font-medium text-[#252725] placeholder-[#B0B2AF] focus:outline-none bg-transparent"
               />
               <button
                 onClick={onClose}
-                className="p-1.5 rounded-lg text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition"
+                className="p-1.5 rounded text-[#777B78] hover:text-[#252725] hover:bg-[#FAF9F7] transition"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -225,7 +225,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             {/* Results List */}
             <div className="overflow-y-auto p-2 space-y-1">
               {results.length === 0 ? (
-                <div className="py-12 text-center text-sm text-stone-500 font-medium">
+                <div className="py-12 text-center text-sm text-[#777B78] font-normal">
                   Không tìm thấy kết quả nào khớp với "{query}"
                 </div>
               ) : (
@@ -237,24 +237,24 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                       key={item.id}
                       onClick={item.action}
                       onMouseEnter={() => setSelectedIndex(index)}
-                      className={`w-full text-left px-3.5 py-3 rounded-xl flex items-center justify-between transition-all ${
+                      className={`w-full text-left px-3.5 py-3 rounded-md flex items-center justify-between transition-all ${
                         isSelected 
-                          ? 'bg-brand-50 text-brand-900 font-bold' 
-                          : 'hover:bg-stone-50 text-stone-800'
+                          ? 'bg-[#E8EEE9] text-[#23483D] font-semibold' 
+                          : 'hover:bg-[#FAF9F7] text-[#252725]'
                       }`}
                     >
                       <div className="flex items-center gap-3 truncate">
-                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
-                          isSelected ? 'bg-brand-700 text-white' : 'bg-stone-100 text-stone-600'
+                        <div className={`w-8 h-8 rounded-md flex items-center justify-center shrink-0 ${
+                          isSelected ? 'bg-[#23483D] text-white' : 'bg-[#EFEEE8] text-[#777B78]'
                         }`}>
                           <Icon className="w-4 h-4" />
                         </div>
                         <div className="truncate">
-                          <div className="text-sm font-semibold truncate leading-snug">
+                          <div className="text-sm font-medium truncate leading-snug">
                             {item.title}
                           </div>
                           {(item as any).subtitle && (
-                            <div className="text-xs text-stone-500 font-medium truncate mt-0.5">
+                            <div className="text-xs text-[#777B78] font-normal truncate mt-0.5">
                               {(item as any).subtitle}
                             </div>
                           )}

@@ -137,39 +137,39 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onSelectRoom }) => {
   };
 
   return (
-    <div className="bg-stone-50 min-h-screen py-8">
+    <div className="bg-[#F7F6F2] min-h-screen py-8 sm:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
-            <div className="inline-flex items-center gap-1 text-[11px] font-bold text-stone-700 bg-stone-200/80 px-2.5 py-0.5 rounded-md mb-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-brand-600" />
+            <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#23483D] bg-[#E8EEE9] px-3 py-1 rounded-full mb-2 border border-[#C9DCD3]">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#23483D]" />
               <span>Cổng Quản Trị Hệ Thống (Admin)</span>
             </div>
-            <h1 className="font-display text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight">
-              Bảng điều khiển vận hành Trọ Thái Nguyên
+            <h1 className="text-2xl sm:text-3xl font-light text-[#252725] tracking-tight">
+              Bảng Điều Khiển Vận Hành Trọ Thái Nguyên
             </h1>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               onClick={handleExportCsv}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white hover:bg-stone-100 border border-stone-200 text-stone-700 rounded-xl text-xs font-bold transition shadow-subtle"
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-[#FAF9F7] border border-[#E5E2D9] hover:border-[#23483D] text-[#252725] rounded-md text-xs font-medium transition shadow-whisper"
             >
-              <Download className="w-3.5 h-3.5 text-brand-600" />
+              <Download className="w-3.5 h-3.5 text-[#23483D]" />
               <span>Xuất dữ liệu CSV</span>
             </button>
           </div>
         </div>
 
         {/* Tab Buttons */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-2 mb-6 border-b border-stone-200 text-xs sm:text-sm font-bold">
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-2 mb-6 border-b border-[#E5E2D9] text-xs sm:text-sm font-medium">
           <button
             onClick={() => setActiveTab('overview')}
-            className={`px-3.5 py-2 rounded-xl transition whitespace-nowrap flex items-center gap-1.5 ${
+            className={`px-4 py-2 rounded-md transition whitespace-nowrap flex items-center gap-1.5 ${
               activeTab === 'overview'
-                ? 'bg-stone-900 text-white shadow-xs'
-                : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100'
+                ? 'bg-[#23483D] text-white shadow-whisper font-semibold'
+                : 'text-[#777B78] hover:text-[#252725] hover:bg-[#E8EEE9]'
             }`}
           >
             <BarChart3 className="w-4 h-4" />
@@ -178,16 +178,16 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onSelectRoom }) => {
 
           <button
             onClick={() => setActiveTab('approval')}
-            className={`px-3.5 py-2 rounded-xl transition whitespace-nowrap flex items-center gap-1.5 relative ${
+            className={`px-4 py-2 rounded-md transition whitespace-nowrap flex items-center gap-1.5 relative ${
               activeTab === 'approval'
-                ? 'bg-stone-900 text-white shadow-xs'
-                : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100'
+                ? 'bg-[#23483D] text-white shadow-whisper font-semibold'
+                : 'text-[#777B78] hover:text-[#252725] hover:bg-[#E8EEE9]'
             }`}
           >
             <FileText className="w-4 h-4" />
             <span>Duyệt tin đăng</span>
             {pendingRooms.length > 0 && (
-              <span className="bg-clay-500 text-white text-[10px] px-1.5 py-0.2 rounded-full font-black">
+              <span className="bg-[#23483D] text-white text-[10px] px-1.5 py-0.2 rounded-full font-bold ml-1">
                 {pendingRooms.length}
               </span>
             )}
@@ -195,16 +195,16 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onSelectRoom }) => {
 
           <button
             onClick={() => setActiveTab('reports')}
-            className={`px-3.5 py-2 rounded-xl transition whitespace-nowrap flex items-center gap-1.5 ${
+            className={`px-4 py-2 rounded-md transition whitespace-nowrap flex items-center gap-1.5 ${
               activeTab === 'reports'
-                ? 'bg-stone-900 text-white shadow-xs'
-                : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100'
+                ? 'bg-[#23483D] text-white shadow-whisper font-semibold'
+                : 'text-[#777B78] hover:text-[#252725] hover:bg-[#E8EEE9]'
             }`}
           >
             <AlertTriangle className="w-4 h-4" />
             <span>Báo cáo vi phạm</span>
             {pendingReports.length > 0 && (
-              <span className="bg-rose-500 text-white text-[10px] px-1.5 py-0.2 rounded-full font-black">
+              <span className="bg-rose-600 text-white text-[10px] px-1.5 py-0.2 rounded-full font-bold ml-1">
                 {pendingReports.length}
               </span>
             )}
@@ -212,10 +212,10 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onSelectRoom }) => {
 
           <button
             onClick={() => setActiveTab('import')}
-            className={`px-3.5 py-2 rounded-xl transition whitespace-nowrap flex items-center gap-1.5 ${
+            className={`px-4 py-2 rounded-md transition whitespace-nowrap flex items-center gap-1.5 ${
               activeTab === 'import'
-                ? 'bg-stone-900 text-white shadow-xs'
-                : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100'
+                ? 'bg-[#23483D] text-white shadow-whisper font-semibold'
+                : 'text-[#777B78] hover:text-[#252725] hover:bg-[#E8EEE9]'
             }`}
           >
             <Upload className="w-4 h-4" />
@@ -235,7 +235,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onSelectRoom }) => {
 
               <div className="bg-white p-4 sm:p-5 rounded-2xl border border-stone-200/80 shadow-subtle">
                 <span className="text-[11px] font-bold text-stone-400 uppercase">Chờ duyệt tin</span>
-                <div className="font-display text-2xl sm:text-3xl font-extrabold text-clay-600 mt-1">{pendingRooms.length}</div>
+                <div className="font-display text-2xl sm:text-3xl font-extrabold text-amber-600 mt-1">{pendingRooms.length}</div>
                 <span className="text-xs text-stone-400">Cần xử lý kịp thời</span>
               </div>
 

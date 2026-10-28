@@ -20,49 +20,49 @@ export const AreaExplorer: React.FC<AreaExplorerProps> = ({ onSelectArea }) => {
   };
 
   return (
-    <section className="py-12 sm:py-16 bg-white border-b border-stone-200">
+    <section className="py-14 sm:py-20 bg-white border-b border-[#E5E2D9]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-1.5 text-xs font-black text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md mb-2 border border-emerald-200">
-            <MapPin className="w-3.5 h-3.5 text-emerald-700" />
-            <span>Khu vực trọng điểm</span>
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFEEE8] border border-[#E5E2D9] text-[#23483D] text-xs font-semibold uppercase tracking-[0.18em] mb-3 shadow-whisper">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#23483D]"></span>
+            <span>Khu Vực Trọng Điểm</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-stone-900 tracking-tight">
-            Khu Vực Thuê Trọ Sôi Động Nhất
+          <h2 className="text-2xl sm:text-4xl font-light text-[#252725] tracking-tight">
+            Khu Vực Thuê Trọ <span className="font-serif italic font-normal text-[#23483D]">Sôi Động Nhất</span>
           </h2>
-          <p className="text-xs sm:text-sm text-stone-600 mt-1 font-semibold">
-            Tập trung đông sinh viên, tiện chợ và tuyến xe buýt
+          <p className="text-sm sm:text-base text-[#777B78] mt-1.5 font-normal">
+            Tập trung đông sinh viên các trường đại học, tiện đường lớn và chợ dân sinh
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
           {POPULAR_AREAS.map((area, idx) => (
             <div
               key={idx}
               onClick={() => handleClickArea(area.ward)}
-              className="group relative rounded-2xl overflow-hidden cursor-pointer shadow-xs hover:shadow-lg transition-all duration-300 border border-stone-200 aspect-[4/3] flex flex-col justify-end p-5"
+              className="group relative rounded-lg overflow-hidden cursor-pointer shadow-whisper hover:shadow-card-hover transition-all duration-300 border border-[#E5E2D9] hover:border-[#23483D] aspect-[4/3] flex flex-col justify-end p-5"
             >
               <img
                 src={area.image}
                 alt={area.name}
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent" />
 
               <div className="relative z-10 text-white">
-                <span className="text-[10px] font-extrabold uppercase tracking-wide bg-emerald-700 text-white px-2 py-0.5 rounded inline-block mb-1.5 shadow-sm">
+                <span className="text-[10px] font-semibold uppercase tracking-wider bg-white/95 text-[#23483D] px-2.5 py-0.5 rounded-sm inline-block mb-2 shadow-whisper border border-[#E5E2D9]">
                   {area.tag}
                 </span>
-                <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-emerald-300 transition leading-snug">
+                <h3 className="text-lg sm:text-xl font-medium text-white group-hover:text-[#C9DCD3] transition leading-snug">
                   {area.name}
                 </h3>
-                <p className="text-xs text-stone-200 line-clamp-1 mt-0.5 font-normal">
+                <p className="text-xs text-stone-200 line-clamp-1 mt-1 font-normal opacity-90">
                   {area.description}
                 </p>
 
-                <div className="mt-2.5 flex items-center justify-between text-xs font-bold text-emerald-300">
+                <div className="mt-3 flex items-center justify-between text-xs font-medium text-[#FAF9F7] pt-2 border-t border-white/20">
                   <span>{area.count} phòng có sẵn</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-white" />
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-white" />
                 </div>
               </div>
             </div>

@@ -50,32 +50,32 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
-      <div className="bg-white rounded-3xl w-full max-w-3xl max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden animate-in zoom-in-95 duration-200">
+      <div className="bg-white rounded-lg w-full max-w-3xl max-h-[90vh] flex flex-col shadow-card-hover border border-[#E5E2D9] overflow-hidden animate-in zoom-in-95 duration-200">
         {/* Header */}
-        <div className="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <div className="p-5 border-b border-[#E5E2D9] flex items-center justify-between bg-[#FAF9F7]">
           <div className="flex items-center gap-3">
             <img
               src={currentUser?.avatar}
               alt={currentUser?.name}
-              className="w-12 h-12 rounded-2xl object-cover border border-slate-300"
+              className="w-12 h-12 rounded-md object-cover border border-[#E5E2D9]"
             />
             <div>
-              <h2 className="font-black text-slate-900 text-lg leading-tight">{currentUser?.name}</h2>
-              <p className="text-xs text-slate-500">{currentUser?.email} • {currentUser?.phone}</p>
+              <h2 className="font-semibold text-[#252725] text-lg leading-tight">{currentUser?.name}</h2>
+              <p className="text-xs text-[#777B78]">{currentUser?.email} • {currentUser?.phone}</p>
             </div>
           </div>
 
-          <button onClick={onClose} className="p-1.5 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-200">
+          <button onClick={onClose} className="p-1.5 text-[#777B78] hover:text-[#252725] rounded hover:bg-[#EFEEE8]">
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Tab navigation */}
-        <div className="flex items-center gap-2 px-5 pt-3 border-b border-slate-100 text-xs sm:text-sm font-bold overflow-x-auto">
+        <div className="flex items-center gap-2 px-5 pt-3 border-b border-[#E5E2D9] text-xs sm:text-sm font-medium overflow-x-auto">
           <button
             onClick={() => setActiveTab('saved')}
             className={`pb-3 px-2 transition border-b-2 whitespace-nowrap flex items-center gap-1.5 ${
-              activeTab === 'saved' ? 'border-emerald-600 text-emerald-700' : 'border-transparent text-slate-400 hover:text-slate-600'
+              activeTab === 'saved' ? 'border-[#23483D] text-[#23483D] font-semibold' : 'border-transparent text-[#777B78] hover:text-[#252725]'
             }`}
           >
             <Heart className="w-4 h-4 text-rose-500" />
@@ -85,30 +85,30 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           <button
             onClick={() => setActiveTab('appointments')}
             className={`pb-3 px-2 transition border-b-2 whitespace-nowrap flex items-center gap-1.5 ${
-              activeTab === 'appointments' ? 'border-emerald-600 text-emerald-700' : 'border-transparent text-slate-400 hover:text-slate-600'
+              activeTab === 'appointments' ? 'border-[#23483D] text-[#23483D] font-semibold' : 'border-transparent text-[#777B78] hover:text-[#252725]'
             }`}
           >
-            <Calendar className="w-4 h-4 text-blue-500" />
+            <Calendar className="w-4 h-4 text-[#23483D]" />
             <span>Lịch hẹn xem ({myAppointments.length})</span>
           </button>
 
           <button
             onClick={() => setActiveTab('history')}
             className={`pb-3 px-2 transition border-b-2 whitespace-nowrap flex items-center gap-1.5 ${
-              activeTab === 'history' ? 'border-emerald-600 text-emerald-700' : 'border-transparent text-slate-400 hover:text-slate-600'
+              activeTab === 'history' ? 'border-[#23483D] text-[#23483D] font-semibold' : 'border-transparent text-[#777B78] hover:text-[#252725]'
             }`}
           >
-            <Clock className="w-4 h-4 text-amber-500" />
+            <Clock className="w-4 h-4 text-[#777B78]" />
             <span>Lịch sử xem</span>
           </button>
 
           <button
             onClick={() => setActiveTab('profile')}
             className={`pb-3 px-2 transition border-b-2 whitespace-nowrap flex items-center gap-1.5 ${
-              activeTab === 'profile' ? 'border-emerald-600 text-emerald-700' : 'border-transparent text-slate-400 hover:text-slate-600'
+              activeTab === 'profile' ? 'border-[#23483D] text-[#23483D] font-semibold' : 'border-transparent text-[#777B78] hover:text-[#252725]'
             }`}
           >
-            <UserIcon className="w-4 h-4 text-slate-500" />
+            <UserIcon className="w-4 h-4 text-[#777B78]" />
             <span>Thông tin cá nhân</span>
           </button>
         </div>
@@ -119,8 +119,8 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           {activeTab === 'saved' && (
             <div>
               {savedRoomsList.length === 0 ? (
-                <div className="text-center py-12 text-slate-400 text-sm">
-                  <Heart className="w-12 h-12 text-slate-300 mx-auto mb-2" />
+                <div className="text-center py-12 text-[#777B78] text-sm">
+                  <Heart className="w-12 h-12 text-[#D5D5D5] mx-auto mb-2" />
                   <span>Bạn chưa lưu phòng trọ nào vào danh sách yêu thích.</span>
                 </div>
               ) : (
@@ -128,16 +128,16 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                   {savedRoomsList.map((room) => (
                     <div
                       key={room.id}
-                      className="flex items-center justify-between gap-3 p-3 rounded-2xl border border-slate-200 hover:border-emerald-300 bg-slate-50/50 hover:bg-white transition"
+                      className="flex items-center justify-between gap-3 p-3 rounded-md border border-[#E5E2D9] hover:border-[#23483D] bg-[#FAF9F7] hover:bg-white transition"
                     >
                       <div className="flex items-center gap-3">
-                        <img src={room.images[0]} alt="" className="w-16 h-16 rounded-xl object-cover shrink-0" />
+                        <img src={room.images[0]} alt="" className="w-16 h-16 rounded object-cover shrink-0" />
                         <div>
-                          <div className="font-bold text-slate-900 text-sm line-clamp-1">{room.title}</div>
-                          <div className="text-xs text-emerald-700 font-bold mt-0.5">
+                          <div className="font-semibold text-[#252725] text-sm line-clamp-1">{room.title}</div>
+                          <div className="text-xs text-[#23483D] font-semibold mt-0.5">
                             {formatCurrency(room.costs.rent, true)} • {room.area}m²
                           </div>
-                          <div className="text-[11px] text-slate-400">{room.location.address}</div>
+                          <div className="text-[11px] text-[#777B78]">{room.location.address}</div>
                         </div>
                       </div>
 
@@ -147,14 +147,14 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                             onClose();
                             onSelectRoom(room.id);
                           }}
-                          className="px-3 py-1.5 bg-emerald-600 text-white font-bold text-xs rounded-xl flex items-center gap-1"
+                          className="px-3.5 py-1.5 bg-[#23483D] hover:bg-[#1A372E] text-white font-medium text-xs rounded-md flex items-center gap-1 shadow-whisper"
                         >
                           <span>Xem phòng</span>
                           <ArrowRight className="w-3.5 h-3.5" />
                         </button>
                         <button
                           onClick={() => toggleFavorite(room.id)}
-                          className="p-1.5 text-slate-400 hover:text-rose-600 rounded-lg"
+                          className="p-1.5 text-[#777B78] hover:text-rose-600 rounded"
                           title="Bỏ lưu"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -171,22 +171,22 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           {activeTab === 'appointments' && (
             <div className="space-y-3">
               {myAppointments.length === 0 ? (
-                <div className="text-center py-12 text-slate-400 text-sm">
-                  <Calendar className="w-12 h-12 text-slate-300 mx-auto mb-2" />
+                <div className="text-center py-12 text-[#777B78] text-sm">
+                  <Calendar className="w-12 h-12 text-[#D5D5D5] mx-auto mb-2" />
                   <span>Chưa có lịch hẹn xem phòng nào.</span>
                 </div>
               ) : (
                 myAppointments.map((app) => (
-                  <div key={app.id} className="p-4 rounded-2xl border border-slate-200 bg-slate-50/70 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div key={app.id} className="p-4 rounded-md border border-[#E5E2D9] bg-[#FAF9F7] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
-                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full inline-block mb-1 ${
-                        app.status === 'confirmed' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
+                      <span className={`text-[10px] font-semibold px-2.5 py-0.5 rounded-full inline-block mb-1 ${
+                        app.status === 'confirmed' ? 'bg-[#E8EEE9] text-[#23483D] border border-[#C9DCD3]' : 'bg-[#EFEEE8] text-[#777B78]'
                       }`}>
                         {app.status === 'confirmed' ? 'Đã xác nhận' : 'Chờ chủ nhà xác nhận'}
                       </span>
-                      <div className="font-bold text-slate-900 text-sm">{app.roomTitle}</div>
-                      <div className="text-xs text-slate-600 mt-1 flex items-center gap-3">
-                        <span className="font-semibold text-emerald-700">Ngày: {app.date}</span>
+                      <div className="font-semibold text-[#252725] text-sm">{app.roomTitle}</div>
+                      <div className="text-xs text-[#777B78] mt-1 flex items-center gap-3">
+                        <span className="font-semibold text-[#23483D]">Ngày: {app.date}</span>
                         <span>Giờ: {app.timeSlot}</span>
                       </div>
                     </div>
@@ -194,7 +194,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                     {app.status !== 'cancelled' && (
                       <button
                         onClick={() => cancelAppointment(app.id)}
-                        className="text-xs text-rose-600 hover:text-rose-700 font-semibold border border-rose-200 px-3 py-1.5 rounded-xl hover:bg-rose-50 self-end sm:self-center"
+                        className="text-xs text-rose-600 hover:text-rose-700 font-medium border border-rose-200 px-3 py-1.5 rounded-md hover:bg-rose-50 self-end sm:self-center"
                       >
                         Hủy lịch hẹn
                       </button>
@@ -215,16 +215,16 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                     onClose();
                     onSelectRoom(room.id);
                   }}
-                  className="p-3 rounded-2xl border border-slate-200 hover:border-emerald-300 bg-slate-50/50 hover:bg-white transition cursor-pointer flex items-center justify-between"
+                  className="p-3 rounded-md border border-[#E5E2D9] hover:border-[#23483D] bg-[#FAF9F7] hover:bg-white transition cursor-pointer flex items-center justify-between"
                 >
                   <div className="flex items-center gap-3">
-                    <img src={room.images[0]} alt="" className="w-12 h-12 rounded-xl object-cover" />
+                    <img src={room.images[0]} alt="" className="w-12 h-12 rounded object-cover" />
                     <div>
-                      <div className="font-bold text-slate-900 text-sm line-clamp-1">{room.title}</div>
-                      <div className="text-xs text-emerald-700 font-bold">{formatCurrency(room.costs.rent, true)}</div>
+                      <div className="font-semibold text-[#252725] text-sm line-clamp-1">{room.title}</div>
+                      <div className="text-xs text-[#23483D] font-semibold">{formatCurrency(room.costs.rent, true)}</div>
                     </div>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-slate-400" />
+                  <ArrowRight className="w-4 h-4 text-[#777B78]" />
                 </div>
               ))}
             </div>
@@ -234,30 +234,30 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           {activeTab === 'profile' && (
             <form onSubmit={handleSaveProfile} className="space-y-4 max-w-md">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Họ và tên:</label>
+                <label className="block text-xs font-semibold text-[#252725] mb-1">Họ và tên:</label>
                 <input
                   type="text"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm"
+                  className="w-full px-3 py-2 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-sm text-[#252725] focus:outline-none focus:border-[#23483D]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Số điện thoại:</label>
+                <label className="block text-xs font-semibold text-[#252725] mb-1">Số điện thoại:</label>
                 <input
                   type="tel"
                   required
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm"
+                  className="w-full px-3 py-2 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-sm text-[#252725] focus:outline-none focus:border-[#23483D]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Vai trò hiện tại:</label>
-                <div className="text-sm font-bold text-emerald-800 bg-emerald-50 p-2.5 rounded-xl border border-emerald-200">
+                <label className="block text-xs font-semibold text-[#252725] mb-1">Vai trò hiện tại:</label>
+                <div className="text-sm font-semibold text-[#23483D] bg-[#E8EEE9] p-2.5 rounded-md border border-[#C9DCD3]">
                   {currentUser?.role === 'admin' ? '🛡️ Quản trị viên hệ thống' : currentUser?.role === 'landlord' ? '🏡 Chủ nhà trọ' : '🎓 Sinh viên / Người thuê'}
                 </div>
               </div>
@@ -265,7 +265,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
               <div className="pt-2 flex items-center gap-3">
                 <button
                   type="submit"
-                  className="px-5 py-2.5 bg-emerald-600 text-white font-bold text-xs rounded-xl shadow-xs"
+                  className="px-5 py-2.5 bg-[#23483D] hover:bg-[#1A372E] text-white font-medium text-xs rounded-md shadow-whisper"
                 >
                   Lưu thay đổi
                 </button>
@@ -275,7 +275,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                     logout();
                     onClose();
                   }}
-                  className="px-4 py-2 text-rose-600 hover:bg-rose-50 font-semibold text-xs rounded-xl"
+                  className="px-4 py-2 text-rose-600 hover:bg-rose-50 font-medium text-xs rounded-md"
                 >
                   Đăng xuất
                 </button>

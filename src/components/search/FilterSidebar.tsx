@@ -35,12 +35,12 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
   };
 
   return (
-    <div className="bg-white rounded-md border border-[#E6E4DE] shadow-whisper p-5 space-y-5">
+    <div className="bg-white rounded-lg border border-[#E5E2D9] shadow-whisper p-5 space-y-5">
       {/* Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-[#E6E4DE]">
+      <div className="flex items-center justify-between pb-3.5 border-b border-[#E5E2D9]">
         <div className="flex items-center gap-2">
-          <Filter className="w-4 h-4 text-brand-700" />
-          <h3 className="font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-charcoal-900">
+          <Filter className="w-4 h-4 text-[#23483D]" />
+          <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-[#252725]">
             Bộ Lọc Tìm Kiếm
           </h3>
         </div>
@@ -48,7 +48,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
         <div className="flex items-center gap-2">
           <button
             onClick={resetFilters}
-            className="text-xs font-semibold text-charcoal-500 hover:text-charcoal-900 flex items-center gap-1 transition"
+            className="text-xs font-medium text-[#777B78] hover:text-[#252725] flex items-center gap-1 transition"
             title="Đặt lại bộ lọc"
           >
             <RotateCcw className="w-3.5 h-3.5" />
@@ -58,7 +58,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
           {onCloseMobile && (
             <button
               onClick={onCloseMobile}
-              className="md:hidden p-1 text-charcoal-500 hover:text-charcoal-900 rounded"
+              className="md:hidden p-1 text-[#777B78] hover:text-[#252725] rounded"
             >
               <X className="w-4 h-4" />
             </button>
@@ -68,31 +68,31 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
 
       {/* Keyword */}
       <div>
-        <label className="block text-[10px] font-mono font-bold text-charcoal-600 uppercase tracking-wider mb-1.5">
+        <label className="block text-[11px] font-semibold text-[#777B78] uppercase tracking-wider mb-1.5">
           Từ khóa tìm kiếm
         </label>
         <div className="relative">
-          <Search className="w-3.5 h-3.5 text-charcoal-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-3.5 h-3.5 text-[#777B78] absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={filters.keyword}
             onChange={(e) => updateFilters({ keyword: e.target.value })}
             placeholder="Tên đường, địa chỉ, tên trọ..."
-            className="w-full pl-8 pr-3 py-2 bg-[#F7F6F2] border border-[#E6E4DE] rounded-sm text-xs font-bold text-charcoal-900 placeholder-stone-400 focus:outline-none focus:ring-1 focus:ring-brand-700 focus:bg-white transition"
+            className="w-full pl-8 pr-3 py-2 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-xs font-medium text-[#252725] placeholder-[#B0B2AF] focus:outline-none focus:border-[#23483D] focus:bg-white transition"
           />
         </div>
       </div>
 
       {/* Ward / Area */}
       <div>
-        <label className="block text-[10px] font-mono font-bold text-charcoal-600 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-          <MapPin className="w-3.5 h-3.5 text-brand-700" />
+        <label className="block text-[11px] font-semibold text-[#777B78] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+          <MapPin className="w-3.5 h-3.5 text-[#23483D]" />
           <span>Khu vực Phường / Xã</span>
         </label>
         <select
           value={filters.ward}
           onChange={(e) => updateFilters({ ward: e.target.value })}
-          className="w-full px-3 py-2 bg-[#F7F6F2] border border-[#E6E4DE] rounded-sm text-xs font-bold text-charcoal-900 focus:outline-none focus:ring-1 focus:ring-brand-700 focus:bg-white transition cursor-pointer"
+          className="w-full px-3 py-2 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-xs font-medium text-[#252725] focus:outline-none focus:border-[#23483D] focus:bg-white transition cursor-pointer"
         >
           {wards.map((w) => (
             <option key={w} value={w}>{w}</option>
@@ -102,14 +102,14 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
 
       {/* University */}
       <div>
-        <label className="block text-[10px] font-mono font-bold text-charcoal-600 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-          <GraduationCap className="w-3.5 h-3.5 text-brand-700" />
+        <label className="block text-[11px] font-semibold text-[#777B78] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+          <GraduationCap className="w-3.5 h-3.5 text-[#23483D]" />
           <span>Trường Đại Học / KCN</span>
         </label>
         <select
           value={filters.university}
           onChange={(e) => updateFilters({ university: e.target.value })}
-          className="w-full px-3 py-2 bg-[#F7F6F2] border border-[#E6E4DE] rounded-sm text-xs font-bold text-charcoal-900 focus:outline-none focus:ring-1 focus:ring-brand-700 focus:bg-white transition cursor-pointer"
+          className="w-full px-3 py-2 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-xs font-medium text-[#252725] focus:outline-none focus:border-[#23483D] focus:bg-white transition cursor-pointer"
         >
           <option value="Tất cả">Tất cả trường & KCN</option>
           {THAI_NGUYEN_UNIVERSITIES.map((u) => (
@@ -120,7 +120,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
 
       {/* Room Type */}
       <div>
-        <label className="block text-[10px] font-mono font-bold text-charcoal-600 uppercase tracking-wider mb-1.5">
+        <label className="block text-[11px] font-semibold text-[#777B78] uppercase tracking-wider mb-1.5">
           Loại hình không gian
         </label>
         <div className="grid grid-cols-2 gap-1.5 text-xs">
@@ -136,10 +136,10 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
               key={item.id}
               type="button"
               onClick={() => updateFilters({ roomType: item.id })}
-              className={`py-2 px-2 rounded-sm text-center border font-bold transition ${
+              className={`py-2 px-2 rounded-md text-center border font-medium transition ${
                 filters.roomType === item.id
                   ? 'bg-[#23483D] border-[#23483D] text-white'
-                  : 'bg-[#F7F6F2] border-[#E6E4DE] text-charcoal-800 hover:bg-stone-200'
+                  : 'bg-[#FAF9F7] border-[#E5E2D9] text-[#252725] hover:bg-[#E8EEE9]'
               }`}
             >
               {item.label}
@@ -151,11 +151,11 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
       {/* Price Presets */}
       <div>
         <div className="flex items-center justify-between mb-1.5">
-          <label className="text-[10px] font-mono font-bold text-charcoal-600 uppercase tracking-wider flex items-center gap-1.5">
-            <DollarSign className="w-3.5 h-3.5 text-brand-700" />
+          <label className="text-[11px] font-semibold text-[#777B78] uppercase tracking-wider flex items-center gap-1.5">
+            <DollarSign className="w-3.5 h-3.5 text-[#23483D]" />
             <span>Mức giá</span>
           </label>
-          <span className="text-xs font-extrabold text-brand-800">
+          <span className="text-xs font-semibold text-[#23483D]">
             {formatCurrency(filters.minPrice, true)} - {filters.maxPrice >= 10000000 ? 'Tất cả' : formatCurrency(filters.maxPrice, true)}
           </span>
         </div>
@@ -172,10 +172,10 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
               key={idx}
               type="button"
               onClick={() => updateFilters({ minPrice: preset.min, maxPrice: preset.max })}
-              className={`w-full text-left px-3 py-2 rounded-sm text-xs transition flex items-center justify-between border ${
+              className={`w-full text-left px-3 py-2 rounded-md text-xs transition flex items-center justify-between border ${
                 filters.minPrice === preset.min && filters.maxPrice === preset.max
-                  ? 'bg-[#23483D] border-[#23483D] text-white font-bold'
-                  : 'bg-white border-transparent text-charcoal-800 font-medium hover:bg-[#F7F6F2]'
+                  ? 'bg-[#23483D] border-[#23483D] text-white font-medium'
+                  : 'bg-white border-transparent text-[#252725] font-normal hover:bg-[#FAF9F7]'
               }`}
             >
               <span>{preset.label}</span>
@@ -189,8 +189,8 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
 
       {/* Area Presets */}
       <div>
-        <label className="block text-[10px] font-mono font-bold text-charcoal-600 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-          <Layers className="w-3.5 h-3.5 text-brand-700" />
+        <label className="block text-[11px] font-semibold text-[#777B78] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+          <Layers className="w-3.5 h-3.5 text-[#23483D]" />
           <span>Diện tích</span>
         </label>
         <div className="grid grid-cols-2 gap-1.5 text-xs">
@@ -204,10 +204,10 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
               key={idx}
               type="button"
               onClick={() => updateFilters({ minArea: a.min, maxArea: a.max })}
-              className={`py-2 px-2 rounded-sm text-center border font-bold transition ${
+              className={`py-2 px-2 rounded-md text-center border font-medium transition ${
                 filters.minArea === a.min && filters.maxArea === a.max
                   ? 'bg-[#23483D] border-[#23483D] text-white'
-                  : 'bg-[#F7F6F2] border-[#E6E4DE] text-charcoal-800 hover:bg-stone-200'
+                  : 'bg-[#FAF9F7] border-[#E5E2D9] text-[#252725] hover:bg-[#E8EEE9]'
               }`}
             >
               {a.label}
@@ -218,7 +218,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
 
       {/* Amenities Multi-check */}
       <div>
-        <label className="block text-[10px] font-mono font-bold text-charcoal-600 uppercase tracking-wider mb-1.5">
+        <label className="block text-[11px] font-semibold text-[#777B78] uppercase tracking-wider mb-1.5">
           Tiện nghi & Dịch vụ ({filters.amenities.length})
         </label>
         <div className="space-y-1 max-h-48 overflow-y-auto pr-1">
@@ -228,14 +228,14 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
               <label
                 key={amenity.id}
                 onClick={() => handleAmenityToggle(amenity.id)}
-                className={`flex items-center gap-2 p-2 rounded-sm text-xs cursor-pointer transition ${
-                  isChecked ? 'bg-[#F7F6F2] text-brand-900 font-bold border border-[#E6E4DE]' : 'hover:bg-[#F7F6F2] text-charcoal-800 font-medium'
+                className={`flex items-center gap-2 p-2 rounded-md text-xs cursor-pointer transition ${
+                  isChecked ? 'bg-[#E8EEE9] text-[#23483D] font-medium border border-[#C9DCD3]' : 'hover:bg-[#FAF9F7] text-[#252725] font-normal'
                 }`}
               >
                 {isChecked ? (
-                  <CheckSquare className="w-4 h-4 text-brand-800 shrink-0" />
+                  <CheckSquare className="w-4 h-4 text-[#23483D] shrink-0" />
                 ) : (
-                  <Square className="w-4 h-4 text-charcoal-400 shrink-0" />
+                  <Square className="w-4 h-4 text-[#B0B2AF] shrink-0" />
                 )}
                 <span className="truncate">{amenity.name}</span>
               </label>
@@ -246,17 +246,17 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
 
       {/* Status Filter */}
       <div>
-        <label className="block text-[10px] font-mono font-bold text-charcoal-600 uppercase tracking-wider mb-1.5">
+        <label className="block text-[11px] font-semibold text-[#777B78] uppercase tracking-wider mb-1.5">
           Tình trạng phòng
         </label>
         <div className="flex items-center gap-1.5 text-xs">
           <button
             type="button"
             onClick={() => updateFilters({ status: 'all' })}
-            className={`flex-1 py-2 rounded-sm border font-bold transition ${
+            className={`flex-1 py-2 rounded-md border font-medium transition ${
               filters.status === 'all'
                 ? 'bg-[#23483D] border-[#23483D] text-white'
-                : 'bg-[#F7F6F2] border-[#E6E4DE] text-charcoal-800 hover:bg-stone-200'
+                : 'bg-[#FAF9F7] border-[#E5E2D9] text-[#252725] hover:bg-[#E8EEE9]'
             }`}
           >
             Tất cả
@@ -264,10 +264,10 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
           <button
             type="button"
             onClick={() => updateFilters({ status: 'available' })}
-            className={`flex-1 py-2 rounded-sm border font-bold transition ${
+            className={`flex-1 py-2 rounded-md border font-medium transition ${
               filters.status === 'available'
                 ? 'bg-[#23483D] border-[#23483D] text-white'
-                : 'bg-[#F7F6F2] border-[#E6E4DE] text-charcoal-800 hover:bg-stone-200'
+                : 'bg-[#FAF9F7] border-[#E5E2D9] text-[#252725] hover:bg-[#E8EEE9]'
             }`}
           >
             Còn trống

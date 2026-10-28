@@ -149,29 +149,29 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
 
   return (
     <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
-      <div className="bg-white rounded-3xl w-full max-w-2xl max-h-[92vh] flex flex-col shadow-elevated border border-stone-200 overflow-hidden animate-in zoom-in-95 duration-200">
+      <div className="bg-white rounded-lg w-full max-w-2xl max-h-[92vh] flex flex-col shadow-card-hover border border-[#E5E2D9] overflow-hidden animate-in zoom-in-95 duration-200">
         {/* Header */}
-        <div className="p-4 sm:p-5 border-b border-stone-200 flex items-center justify-between bg-stone-50/80">
+        <div className="p-4 sm:p-5 border-b border-[#E5E2D9] flex items-center justify-between bg-[#FAF9F7]">
           <div>
-            <h3 className="font-display font-extrabold text-stone-900 text-base sm:text-lg">
+            <h3 className="font-semibold text-[#252725] text-base sm:text-lg">
               {initialRoom ? 'Chỉnh sửa tin phòng trọ' : 'Đăng tin phòng trọ mới'}
             </h3>
-            <p className="text-[11px] text-stone-500">Bước {step} trên 4: {
+            <p className="text-xs text-[#777B78] mt-0.5">Bước {step} trên 4: {
               step === 1 ? 'Thông tin phòng & Vị trí' :
               step === 2 ? 'Chi phí & Tiền cọc' :
               step === 3 ? 'Tiện nghi & Hình ảnh' : 'Xem trước & Xác nhận'
             }</p>
           </div>
 
-          <button onClick={onClose} className="p-1.5 text-stone-400 hover:text-stone-600 rounded-full hover:bg-stone-200">
+          <button onClick={onClose} className="p-1.5 text-[#777B78] hover:text-[#252725] rounded hover:bg-[#EFEEE8] transition">
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Progress Bar */}
-        <div className="w-full bg-stone-100 h-1">
+        <div className="w-full bg-[#EFEEE8] h-1">
           <div
-            className="bg-brand-600 h-full transition-all duration-300"
+            className="bg-[#23483D] h-full transition-all duration-300"
             style={{ width: `${(step / 4) * 100}%` }}
           />
         </div>
@@ -182,7 +182,7 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
           {step === 1 && (
             <div className="space-y-3.5 animate-in fade-in duration-200">
               <div>
-                <label className="block text-[11px] font-bold text-stone-600 mb-1">
+                <label className="block text-xs font-semibold text-[#555955] uppercase tracking-wider mb-1.5">
                   Tiêu đề bài đăng *
                 </label>
                 <input
@@ -191,17 +191,17 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="VD: Phòng trọ khép kín gác xép mới xây, cách ĐH Y Dược 300m"
-                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-brand-500"
+                  className="w-full px-3 py-2 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-sm font-medium text-[#252725] focus:outline-none focus:border-[#23483D] focus:bg-white transition"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                 <div>
-                  <label className="block text-[11px] font-bold text-stone-600 mb-1">Loại phòng</label>
+                  <label className="block text-xs font-semibold text-[#555955] uppercase tracking-wider mb-1.5">Loại phòng</label>
                   <select
                     value={roomType}
                     onChange={(e) => setRoomType(e.target.value as RoomType)}
-                    className="w-full px-2.5 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-brand-500"
+                    className="w-full px-2.5 py-2 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-xs sm:text-sm font-medium text-[#252725] focus:outline-none focus:border-[#23483D] focus:bg-white transition"
                   >
                     <option value="single">Phòng đơn</option>
                     <option value="studio">Studio</option>
@@ -212,7 +212,7 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-stone-600 mb-1">Diện tích (m²)</label>
+                  <label className="block text-xs font-semibold text-[#555955] uppercase tracking-wider mb-1.5">Diện tích (m²)</label>
                   <input
                     type="number"
                     min="10"
@@ -220,12 +220,12 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
                     required
                     value={area}
                     onChange={(e) => setArea(Number(e.target.value))}
-                    className="w-full px-2.5 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs"
+                    className="w-full px-2.5 py-2 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-xs sm:text-sm font-medium text-[#252725] focus:outline-none focus:border-[#23483D] focus:bg-white transition"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-stone-600 mb-1">Sức chứa (người)</label>
+                  <label className="block text-xs font-semibold text-[#555955] uppercase tracking-wider mb-1.5">Sức chứa (người)</label>
                   <input
                     type="number"
                     min="1"
@@ -233,30 +233,30 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
                     required
                     value={capacity}
                     onChange={(e) => setCapacity(Number(e.target.value))}
-                    className="w-full px-2.5 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs"
+                    className="w-full px-2.5 py-2 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-xs sm:text-sm font-medium text-[#252725] focus:outline-none focus:border-[#23483D] focus:bg-white transition"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 <div>
-                  <label className="block text-[11px] font-bold text-stone-600 mb-1">Địa chỉ chi tiết</label>
+                  <label className="block text-xs font-semibold text-[#555955] uppercase tracking-wider mb-1.5">Địa chỉ chi tiết</label>
                   <input
                     type="text"
                     required
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     placeholder="Số nhà, ngõ, tên đường..."
-                    className="w-full px-2.5 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs"
+                    className="w-full px-2.5 py-2 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-xs sm:text-sm font-medium text-[#252725] focus:outline-none focus:border-[#23483D] focus:bg-white transition"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-stone-600 mb-1">Phường / Xã</label>
+                  <label className="block text-xs font-semibold text-[#555955] uppercase tracking-wider mb-1.5">Phường / Xã</label>
                   <select
                     value={ward}
                     onChange={(e) => setWard(e.target.value)}
-                    className="w-full px-2.5 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs"
+                    className="w-full px-2.5 py-2 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-xs sm:text-sm font-medium text-[#252725] focus:outline-none focus:border-[#23483D] focus:bg-white transition"
                   >
                     {wards.filter((w) => w !== 'Tất cả' && w !== 'Tất cả phường/xã').map((w) => (
                       <option key={w} value={w}>{w}</option>
@@ -267,11 +267,11 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 <div>
-                  <label className="block text-[11px] font-bold text-stone-600 mb-1">Trường ĐH / KCN gần nhất</label>
+                  <label className="block text-xs font-semibold text-[#555955] uppercase tracking-wider mb-1.5">Trường ĐH / KCN gần nhất</label>
                   <select
                     value={nearestUni}
                     onChange={(e) => setNearestUni(e.target.value)}
-                    className="w-full px-2.5 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs"
+                    className="w-full px-2.5 py-2 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-xs sm:text-sm font-medium text-[#252725] focus:outline-none focus:border-[#23483D] focus:bg-white transition"
                   >
                     {THAI_NGUYEN_UNIVERSITIES.map((u) => (
                       <option key={u.id} value={u.name}>{u.name}</option>
@@ -280,7 +280,7 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-stone-600 mb-1">Khoảng cách (km)</label>
+                  <label className="block text-xs font-semibold text-[#555955] uppercase tracking-wider mb-1.5">Khoảng cách (km)</label>
                   <input
                     type="number"
                     step="0.1"
@@ -288,20 +288,20 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
                     max="15"
                     value={distanceKm}
                     onChange={(e) => setDistanceKm(Number(e.target.value))}
-                    className="w-full px-2.5 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs"
+                    className="w-full px-2.5 py-2 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-xs sm:text-sm font-medium text-[#252725] focus:outline-none focus:border-[#23483D] focus:bg-white transition"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-stone-600 mb-1">Mô tả phòng</label>
+                <label className="block text-xs font-semibold text-[#555955] uppercase tracking-wider mb-1.5">Mô tả phòng</label>
                 <textarea
                   rows={3}
                   required
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Mô tả ánh sáng, cửa sổ, ban công, an ninh..."
-                  className="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs resize-none"
+                  className="w-full p-2.5 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-xs sm:text-sm font-normal text-[#252725] focus:outline-none focus:border-[#23483D] focus:bg-white resize-none transition"
                 />
               </div>
             </div>
@@ -312,70 +312,70 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
             <div className="space-y-3.5 animate-in fade-in duration-200">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[11px] font-bold text-stone-600 mb-1">Giá thuê (VNĐ/tháng) *</label>
+                  <label className="block text-xs font-semibold text-[#555955] uppercase tracking-wider mb-1.5">Giá thuê (VNĐ/tháng) *</label>
                   <input
                     type="number"
                     step="50000"
                     required
                     value={rent}
                     onChange={(e) => setRent(Number(e.target.value))}
-                    className="w-full px-3 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-sm font-bold text-brand-700"
+                    className="w-full px-3 py-2 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-sm font-semibold text-[#23483D] focus:outline-none focus:border-[#23483D] focus:bg-white transition"
                   />
-                  <span className="text-[10px] text-stone-400 mt-0.5 block">{formatCurrency(rent)}</span>
+                  <span className="text-[11px] text-[#777B78] mt-1 block">{formatCurrency(rent)}</span>
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-stone-600 mb-1">Tiền đặt cọc (VNĐ) *</label>
+                  <label className="block text-xs font-semibold text-[#555955] uppercase tracking-wider mb-1.5">Tiền đặt cọc (VNĐ) *</label>
                   <input
                     type="number"
                     step="50000"
                     required
                     value={deposit}
                     onChange={(e) => setDeposit(Number(e.target.value))}
-                    className="w-full px-3 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-sm font-bold text-stone-800"
+                    className="w-full px-3 py-2 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-sm font-semibold text-[#252725] focus:outline-none focus:border-[#23483D] focus:bg-white transition"
                   />
-                  <span className="text-[10px] text-stone-400 mt-0.5 block">{formatCurrency(deposit)}</span>
+                  <span className="text-[11px] text-[#777B78] mt-1 block">{formatCurrency(deposit)}</span>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2.5 border-t border-stone-100">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2.5 border-t border-[#E5E2D9]">
                 <div>
-                  <label className="block text-[11px] font-bold text-stone-600 mb-1">Tiền điện (VNĐ/kWh)</label>
+                  <label className="block text-xs font-semibold text-[#555955] uppercase tracking-wider mb-1.5">Tiền điện (VNĐ/kWh)</label>
                   <input
                     type="number"
                     value={electricity}
                     onChange={(e) => setElectricity(Number(e.target.value))}
-                    className="w-full px-2.5 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs"
+                    className="w-full px-2.5 py-2 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-xs sm:text-sm font-medium text-[#252725] focus:outline-none focus:border-[#23483D] focus:bg-white transition"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-stone-600 mb-1">Tiền nước (VNĐ)</label>
+                  <label className="block text-xs font-semibold text-[#555955] uppercase tracking-wider mb-1.5">Tiền nước (VNĐ)</label>
                   <input
                     type="number"
                     value={water}
                     onChange={(e) => setWater(Number(e.target.value))}
-                    className="w-full px-2.5 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs"
+                    className="w-full px-2.5 py-2 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-xs sm:text-sm font-medium text-[#252725] focus:outline-none focus:border-[#23483D] focus:bg-white transition"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-stone-600 mb-1">Tiền Wifi (VNĐ)</label>
+                  <label className="block text-xs font-semibold text-[#555955] uppercase tracking-wider mb-1.5">Tiền Wifi (VNĐ)</label>
                   <input
                     type="number"
                     value={internet}
                     onChange={(e) => setInternet(Number(e.target.value))}
-                    className="w-full px-2.5 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs"
+                    className="w-full px-2.5 py-2 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-xs sm:text-sm font-medium text-[#252725] focus:outline-none focus:border-[#23483D] focus:bg-white transition"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-stone-600 mb-1">Phí gửi xe (VNĐ)</label>
+                  <label className="block text-xs font-semibold text-[#555955] uppercase tracking-wider mb-1.5">Phí gửi xe (VNĐ)</label>
                   <input
                     type="number"
                     value={parking}
                     onChange={(e) => setParking(Number(e.target.value))}
-                    className="w-full px-2.5 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs"
+                    className="w-full px-2.5 py-2 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-xs sm:text-sm font-medium text-[#252725] focus:outline-none focus:border-[#23483D] focus:bg-white transition"
                   />
                 </div>
               </div>
@@ -386,7 +386,7 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
           {step === 3 && (
             <div className="space-y-3.5 animate-in fade-in duration-200">
               <div>
-                <label className="block text-[11px] font-bold text-stone-600 mb-1.5">
+                <label className="block text-xs font-semibold text-[#555955] uppercase tracking-wider mb-1.5">
                   Tiện nghi có sẵn ({amenities.length} đã chọn)
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 max-h-44 overflow-y-auto pr-1">
@@ -397,14 +397,14 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
                         key={a.id}
                         type="button"
                         onClick={() => handleToggleAmenity(a.id)}
-                        className={`p-2 rounded-xl text-xs text-left border flex items-center gap-1.5 transition ${
+                        className={`p-2.5 rounded-md text-xs text-left border flex items-center gap-2 transition ${
                           isChecked
-                            ? 'bg-brand-50 border-brand-500 text-brand-900 font-semibold'
-                            : 'bg-stone-50 border-stone-200 text-stone-600 hover:bg-stone-100'
+                            ? 'bg-[#E8EEE9] border-[#23483D] text-[#23483D] font-medium'
+                            : 'bg-[#FAF9F7] border-[#E5E2D9] text-[#252725] hover:bg-[#EFEEE8]'
                         }`}
                       >
                         <div className={`w-3.5 h-3.5 rounded flex items-center justify-center shrink-0 ${
-                          isChecked ? 'bg-brand-600 text-white' : 'border border-stone-300'
+                          isChecked ? 'bg-[#23483D] text-white' : 'border border-[#E5E2D9]'
                         }`}>
                           {isChecked && <Check className="w-2.5 h-2.5" />}
                         </div>
@@ -415,8 +415,8 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
                 </div>
               </div>
 
-              <div className="pt-2.5 border-t border-stone-100">
-                <label className="block text-[11px] font-bold text-stone-600 mb-1">
+              <div className="pt-2.5 border-t border-[#E5E2D9]">
+                <label className="block text-xs font-semibold text-[#555955] uppercase tracking-wider mb-1.5">
                   Hình ảnh ({images.length} ảnh)
                 </label>
                 <div className="flex gap-2 mb-2.5">
@@ -425,12 +425,12 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
                     value={newImageUrl}
                     onChange={(e) => setNewImageUrl(e.target.value)}
                     placeholder="Dán link ảnh (https://...)"
-                    className="flex-1 px-3 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs"
+                    className="flex-1 px-3 py-2 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-xs sm:text-sm font-medium text-[#252725] focus:outline-none focus:border-[#23483D] focus:bg-white transition"
                   />
                   <button
                     type="button"
                     onClick={handleAddImage}
-                    className="px-3 py-1.5 bg-brand-600 text-white text-xs font-bold rounded-xl flex items-center gap-1 shadow-xs"
+                    className="px-3.5 py-2 bg-[#23483D] hover:bg-[#1A372E] text-white text-xs font-medium rounded-md flex items-center gap-1 shadow-whisper transition"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     <span>Thêm ảnh</span>
@@ -439,7 +439,7 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
 
                 <div className="grid grid-cols-3 gap-2">
                   {images.map((img, idx) => (
-                    <div key={idx} className="relative aspect-video rounded-lg overflow-hidden border border-stone-200 group">
+                    <div key={idx} className="relative aspect-video rounded-md overflow-hidden border border-[#E5E2D9] group">
                       <img src={img} alt="preview" className="w-full h-full object-cover" />
                       <button
                         type="button"
@@ -458,33 +458,33 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
           {/* STEP 4 */}
           {step === 4 && (
             <div className="space-y-3 animate-in fade-in duration-200">
-              <div className="bg-brand-50 rounded-xl p-3 border border-brand-200 text-xs text-brand-900 flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-brand-600 shrink-0" />
+              <div className="bg-[#E8EEE9] rounded-md p-3 border border-[#23483D]/20 text-xs text-[#23483D] flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-[#23483D] shrink-0" />
                 <span>Kiểm tra lại toàn bộ thông tin trước khi hoàn tất đăng tin.</span>
               </div>
 
-              <div className="bg-stone-50 rounded-xl p-3.5 border border-stone-200 space-y-1.5 text-xs">
+              <div className="bg-[#FAF9F7] rounded-md p-3.5 border border-[#E5E2D9] space-y-2 text-xs">
                 <div>
-                  <span className="text-stone-400 font-bold">Tiêu đề:</span>
-                  <div className="font-bold text-stone-900 text-sm">{title || 'Chưa có tiêu đề'}</div>
+                  <span className="text-[#777B78] font-medium">Tiêu đề:</span>
+                  <div className="font-semibold text-[#252725] text-sm mt-0.5">{title || 'Chưa có tiêu đề'}</div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-1.5 pt-1.5 border-t border-stone-200">
+                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#E5E2D9]">
                   <div>
-                    <span className="text-stone-400">Giá thuê:</span>
-                    <span className="font-bold text-brand-700 ml-1">{formatCurrency(rent)}</span>
+                    <span className="text-[#777B78]">Giá thuê:</span>
+                    <span className="font-semibold text-[#23483D] ml-1">{formatCurrency(rent)}</span>
                   </div>
                   <div>
-                    <span className="text-stone-400">Đặt cọc:</span>
-                    <span className="font-bold text-stone-800 ml-1">{formatCurrency(deposit)}</span>
+                    <span className="text-[#777B78]">Đặt cọc:</span>
+                    <span className="font-semibold text-[#252725] ml-1">{formatCurrency(deposit)}</span>
                   </div>
                   <div>
-                    <span className="text-stone-400">Diện tích:</span>
-                    <span className="font-bold text-stone-800 ml-1">{area} m²</span>
+                    <span className="text-[#777B78]">Diện tích:</span>
+                    <span className="font-semibold text-[#252725] ml-1">{area} m²</span>
                   </div>
                   <div>
-                    <span className="text-stone-400">Khu vực:</span>
-                    <span className="font-bold text-stone-800 ml-1">{ward}</span>
+                    <span className="text-[#777B78]">Khu vực:</span>
+                    <span className="font-semibold text-[#252725] ml-1">{ward}</span>
                   </div>
                 </div>
               </div>
@@ -492,12 +492,12 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
           )}
 
           {/* Navigation Buttons */}
-          <div className="flex items-center justify-between pt-3 border-t border-stone-200">
+          <div className="flex items-center justify-between pt-3 border-t border-[#E5E2D9]">
             {step > 1 ? (
               <button
                 type="button"
                 onClick={() => setStep((prev) => prev - 1)}
-                className="inline-flex items-center gap-1 px-3.5 py-1.5 border border-stone-200 text-stone-700 font-bold text-xs rounded-xl hover:bg-stone-100 transition"
+                className="inline-flex items-center gap-1 px-3.5 py-2 border border-[#E5E2D9] text-[#252725] font-medium text-xs rounded-md hover:bg-[#EFEEE8] transition"
               >
                 <ChevronLeft className="w-3.5 h-3.5" />
                 <span>Quay lại</span>
@@ -508,7 +508,7 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
               <button
                 type="button"
                 onClick={() => setStep((prev) => prev + 1)}
-                className="inline-flex items-center gap-1 px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition shadow-xs"
+                className="inline-flex items-center gap-1 px-4 py-2 bg-[#23483D] hover:bg-[#1A372E] text-white font-medium text-xs rounded-md transition shadow-whisper"
               >
                 <span>Tiếp tục</span>
                 <ChevronRight className="w-3.5 h-3.5" />
@@ -516,7 +516,7 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
             ) : (
               <button
                 type="submit"
-                className="inline-flex items-center gap-1.5 px-5 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition shadow"
+                className="inline-flex items-center gap-1.5 px-5 py-2 bg-[#23483D] hover:bg-[#1A372E] text-white font-medium text-xs rounded-md transition shadow-whisper"
               >
                 <Check className="w-4 h-4" />
                 <span>Xác nhận & Đăng tin</span>
