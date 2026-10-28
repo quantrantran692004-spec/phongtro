@@ -148,54 +148,54 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
   const wards = WARDS_BY_DISTRICT['TP. Thái Nguyên'] || [];
 
   return (
-    <div className="relative overflow-hidden border-b border-[#E5E2D9]">
-      {/* Modern High-End Architectural Villa - 100% Clarity, Crisp & Sunlit */}
+    <div className="relative overflow-hidden border-b border-[#E5E2D9] bg-[#F7F6F2]">
+      {/* Modern High-End Architectural Villa - Sunlit, Crystal Clear & 100% Prominent */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=2400&q=90"
+          src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=85"
           alt="Không gian sống cao cấp hiện đại Thái Nguyên"
-          className="w-full h-full object-cover object-center filter saturate-[1.08] brightness-[1.0] scale-[1.0]"
+          className="w-full h-full object-cover object-center filter saturate-[1.05] brightness-[1.02]"
         />
-        {/* Transparent Seamless Edge Fades - 100% photo clarity in center */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-white/40 pointer-events-none" />
+        {/* Luminous, Crystal Clear Vignette - 100% Photo Visibility in Center with Soft Seamless Edge Transitions */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-[#F7F6F2] pointer-events-none" />
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-16 sm:pt-20 sm:pb-24">
-        {/* Editorial Heading: Pure Modern Luxury Frosted Glass Capsule */}
-        <div className="text-center max-w-3xl mx-auto mb-9 sm:mb-12 py-7 px-6 sm:px-10 rounded-2xl bg-white/80 backdrop-blur-xl border border-white/90 shadow-[0_12px_36px_rgba(35,72,61,0.08)]">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFEEE8]/90 border border-[#E5E2D9] text-[#23483D] text-xs font-semibold uppercase tracking-[0.18em] mb-4 shadow-whisper">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#23483D]"></span>
+        {/* Confident, Architectural Editorial Heading */}
+        <div className="text-center max-w-4xl mx-auto mb-9 sm:mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-[#23483D]/20 text-[#23483D] text-xs font-bold uppercase tracking-[0.2em] mb-4 shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-[#23483D]"></span>
             <span>Bất Động Sản & Phòng Trọ Thái Nguyên</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-[56px] font-light text-[#1F2421] tracking-tight leading-[1.14] mb-3 font-sans">
+          <h1 className="text-4xl sm:text-6xl lg:text-[66px] font-bold text-[#11241E] tracking-tight leading-[1.12] mb-3.5 font-sans drop-shadow-[0_1px_4px_rgba(255,255,255,0.9)]">
             Không Gian Sống Chuẩn Mực <br className="hidden sm:inline" />
-            <span className="font-serif italic font-normal text-[#23483D]">Minh Bạch & An Tâm</span>
+            <span className="font-serif italic font-bold text-[#23483D]">Minh Bạch & An Tâm</span>
           </h1>
 
-          <p className="text-sm sm:text-base text-[#4E5450] font-medium max-w-2xl mx-auto leading-relaxed">
-            Khảo sát thực tế 100% • Hợp đồng chính chủ • Minh bạch tiền điện nước
+          <p className="text-base sm:text-lg text-[#1F2421] font-medium max-w-2xl mx-auto leading-relaxed drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)]">
+            Khảo sát thực tế 100% • Hợp đồng ký trực tiếp chủ trọ • Minh bạch điện nước
           </p>
         </div>
 
-        {/* Master Architectural Search Dock - Floating Crisp Console */}
-        <div className="bg-white/95 backdrop-blur-xl rounded-xl border border-white/90 shadow-[0_16px_40px_rgba(0,0,0,0.12)] p-4 sm:p-5 text-[#252725]">
-          {/* 1. Refined Category Segment */}
-          <div className="flex items-center gap-2 pb-3.5 border-b border-[#E5E2D9] overflow-x-auto no-scrollbar">
+        {/* Master Architectural Search Console - 100% Transparency Frosted Glass */}
+        <div className="bg-white/40 backdrop-blur-2xl rounded-2xl border border-white/70 shadow-[0_20px_60px_rgba(35,72,61,0.12)] p-5 sm:p-7 text-[#1F2421]">
+          {/* 1. Category Segmented Navigation */}
+          <div className="flex items-center gap-2 pb-4 border-b border-white/50 overflow-x-auto no-scrollbar">
             {[
               { id: 'all', label: 'Tất cả phòng' },
               { id: 'studio', label: 'Studio & Căn hộ' },
               { id: 'university', label: 'Gần trường ĐH' },
-              { id: 'samsung', label: 'KCN Samsung' },
+              { id: 'samsung', label: 'KCN Samsung Phổ Yên' },
             ].map((tab) => (
               <button
                 key={tab.id}
                 type="button"
                 onClick={() => handleCategoryTabSelect(tab.id as any)}
-                className={`px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition whitespace-nowrap ${
+                className={`px-4 sm:px-5 py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition whitespace-nowrap ${
                   activeCategoryTab === tab.id
-                    ? 'bg-[#23483D] text-white shadow-whisper'
-                    : 'bg-[#FAF9F7] text-[#555955] hover:text-[#252725] hover:bg-[#E8EEE9] border border-[#E5E2D9]'
+                    ? 'bg-[#23483D] text-white shadow-md'
+                    : 'bg-white/80 text-[#252725] hover:text-[#23483D] hover:bg-white border border-white/80 shadow-xs'
                 }`}
               >
                 {tab.label}
@@ -204,17 +204,17 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
           </div>
 
           {/* 2. Primary Search Controls */}
-          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row sm:items-center gap-2.5 pt-3.5">
+          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row sm:items-center gap-3 pt-4">
             {/* Input: Keyword */}
             <div 
               ref={suggestionRef}
-              className="flex-1 h-12 px-3.5 flex flex-col justify-center rounded-md bg-[#FAF9F7] border border-[#E5E2D9] hover:border-[#23483D] focus-within:border-[#23483D] focus-within:bg-white transition relative"
+              className="flex-1 h-14 px-4 flex flex-col justify-center rounded-xl bg-white/90 backdrop-blur-md border border-white/80 hover:border-[#23483D] focus-within:border-[#23483D] focus-within:bg-white transition relative shadow-sm"
             >
-              <label className="block text-[11px] font-semibold text-[#777B78] uppercase tracking-wider leading-none mb-1">
+              <label className="block text-[11px] font-bold text-[#1F2421] uppercase tracking-wider leading-none mb-1">
                 Từ khóa / Địa điểm
               </label>
-              <div className="flex items-center gap-2">
-                <Search className="w-4 h-4 text-[#777B78] shrink-0" />
+              <div className="flex items-center gap-2.5">
+                <Search className="w-4 h-4 text-[#23483D] shrink-0" />
                 <input
                   type="text"
                   value={keyword}
@@ -223,16 +223,16 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                     setKeyword(e.target.value);
                     setShowSuggestions(true);
                   }}
-                  placeholder="Y Dược, Sư Phạm, Tân Thịnh, Z115..."
-                  className="w-full bg-transparent text-sm font-medium text-[#252725] placeholder-[#B0B2AF] focus:outline-none leading-none"
+                  placeholder="VD: Y Dược, Sư Phạm, Tân Thịnh, Z115..."
+                  className="w-full bg-transparent text-sm sm:text-base font-semibold text-[#1F2421] placeholder-[#777B78] focus:outline-none leading-none"
                 />
                 {keyword && (
                   <button 
                     type="button" 
                     onClick={() => { setKeyword(''); setShowSuggestions(false); }}
-                    className="p-1 text-[#777B78] hover:text-[#252725]"
+                    className="p-1 text-[#777B78] hover:text-[#1F2421]"
                   >
-                    <X className="w-3.5 h-3.5" />
+                    <X className="w-4 h-4" />
                   </button>
                 )}
               </div>
@@ -241,12 +241,12 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
               <AnimatePresence>
                 {showSuggestions && suggestions.length > 0 && (
                   <motion.div
-                    initial={{ opacity: 0, y: 4 }}
+                    initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 4 }}
-                    className="absolute left-0 right-0 top-full mt-2 bg-white rounded-md shadow-card-hover border border-[#E5E2D9] overflow-hidden z-30 max-h-56 overflow-y-auto"
+                    exit={{ opacity: 0, y: 6 }}
+                    className="absolute left-0 right-0 top-full mt-2 bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-white overflow-hidden z-30 max-h-60 overflow-y-auto"
                   >
-                    <div className="p-1.5 space-y-0.5">
+                    <div className="p-2 space-y-1">
                       {suggestions.map((s, idx) => (
                         <button
                           key={idx}
@@ -256,13 +256,13 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                             if (s.ward) setWard(s.ward);
                             setShowSuggestions(false);
                           }}
-                          className="w-full text-left px-3 py-2.5 rounded hover:bg-[#E8EEE9] flex items-center justify-between text-xs transition"
+                          className="w-full text-left px-3.5 py-2.5 rounded-lg hover:bg-[#E8EEE9] flex items-center justify-between text-xs sm:text-sm transition"
                         >
                           <div className="truncate mr-2">
                             <span className="font-semibold text-[#252725]">{s.label}</span>
-                            {s.ward && <span className="text-[#777B78] ml-1.5 font-normal">({s.ward})</span>}
+                            {s.ward && <span className="text-[#777B78] ml-2 font-normal">({s.ward})</span>}
                           </div>
-                          <span className="text-[10px] bg-[#EFEEE8] text-[#23483D] font-medium px-2 py-0.5 rounded border border-[#E5E2D9]">
+                          <span className="text-[11px] bg-[#EFEEE8] text-[#23483D] font-semibold px-2.5 py-0.5 rounded border border-[#E5E2D9]">
                             {s.type}
                           </span>
                         </button>
@@ -274,16 +274,16 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
             </div>
 
             {/* Select: Ward */}
-            <div className="sm:w-56 h-12 px-3.5 flex flex-col justify-center rounded-md bg-[#FAF9F7] border border-[#E5E2D9] hover:border-[#23483D] focus-within:border-[#23483D] focus-within:bg-white transition cursor-pointer">
-              <label className="block text-[11px] font-semibold text-[#777B78] uppercase tracking-wider leading-none mb-1">
+            <div className="sm:w-64 h-14 px-4 flex flex-col justify-center rounded-xl bg-white/90 backdrop-blur-md border border-white/80 hover:border-[#23483D] focus-within:border-[#23483D] focus-within:bg-white transition cursor-pointer shadow-sm">
+              <label className="block text-[11px] font-bold text-[#1F2421] uppercase tracking-wider leading-none mb-1">
                 Khu vực Phường / Xã
               </label>
-              <div className="flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-[#23483D] shrink-0" />
+              <div className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-[#23483D] shrink-0" />
                 <select
                   value={ward}
                   onChange={(e) => setWard(e.target.value)}
-                  className="w-full bg-transparent text-sm font-medium text-[#252725] focus:outline-none cursor-pointer truncate leading-none"
+                  className="w-full bg-transparent text-sm sm:text-base font-semibold text-[#1F2421] focus:outline-none cursor-pointer truncate leading-none"
                 >
                   <option value="Tất cả">Toàn Thái Nguyên</option>
                   {wards.filter(w => w !== 'Tất cả').map((w) => (
@@ -297,16 +297,16 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
             <button
               type="button"
               onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
-              className={`h-12 px-4 flex items-center justify-center gap-2 rounded-md text-sm font-medium border transition shrink-0 ${
+              className={`h-14 px-5 flex items-center justify-center gap-2 rounded-xl text-sm font-semibold border transition shrink-0 shadow-sm ${
                 isAdvancedOpen || activeAdvancedCount > 0
                   ? 'bg-[#E8EEE9] border-[#23483D] text-[#23483D]'
-                  : 'bg-[#FAF9F7] border-[#E5E2D9] text-[#252725] hover:bg-[#EFEEE8]'
+                  : 'bg-white/90 border-white/80 text-[#1F2421] hover:bg-white hover:border-[#23483D]'
               }`}
             >
               <SlidersHorizontal className="w-4 h-4 text-[#23483D]" />
               <span>Bộ lọc</span>
               {activeAdvancedCount > 0 && (
-                <span className="w-4 h-4 rounded-full bg-[#23483D] text-white text-[10px] font-bold flex items-center justify-center">
+                <span className="w-5 h-5 rounded-full bg-[#23483D] text-white text-xs font-bold flex items-center justify-center">
                   {activeAdvancedCount}
                 </span>
               )}
@@ -315,7 +315,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
             {/* Button: Submit in signature BARNES Deep Forest Green */}
             <button
               type="submit"
-              className="h-12 px-7 bg-[#23483D] hover:bg-[#1A372E] text-white font-medium text-sm rounded-md shadow-whisper transition-all duration-200 flex items-center justify-center gap-2 shrink-0 active:scale-[0.99] tracking-wide"
+              className="h-14 px-8 bg-[#23483D] hover:bg-[#1A372E] text-white font-semibold text-sm sm:text-base rounded-xl shadow-lg shadow-[#23483D]/25 transition-all duration-200 flex items-center justify-center gap-2.5 shrink-0 active:scale-[0.99] tracking-wide"
             >
               <span>Tìm kiếm</span>
               <ArrowRight className="w-4 h-4" />

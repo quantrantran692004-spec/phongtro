@@ -35,34 +35,41 @@ export const AreaExplorer: React.FC<AreaExplorerProps> = ({ onSelectArea }) => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
           {POPULAR_AREAS.map((area, idx) => (
             <div
               key={idx}
               onClick={() => handleClickArea(area.ward)}
-              className="group relative rounded-lg overflow-hidden cursor-pointer shadow-whisper hover:shadow-card-hover transition-all duration-300 border border-[#E5E2D9] hover:border-[#23483D] aspect-[4/3] flex flex-col justify-end p-5"
+              className="group relative rounded-xl overflow-hidden cursor-pointer shadow-whisper hover:shadow-card-hover transition-all duration-500 border border-[#E5E2D9] hover:border-[#23483D] aspect-[3/4] flex flex-col justify-between p-6"
             >
               <img
                 src={area.image}
                 alt={area.name}
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/20 group-hover:from-black/90 transition-colors" />
 
-              <div className="relative z-10 text-white">
-                <span className="text-[10px] font-semibold uppercase tracking-wider bg-white/95 text-[#23483D] px-2.5 py-0.5 rounded-sm inline-block mb-2 shadow-whisper border border-[#E5E2D9]">
+              {/* Top Tag */}
+              <div className="relative z-10">
+                <span className="text-[11px] font-semibold uppercase tracking-wider bg-white/95 backdrop-blur-sm text-[#23483D] px-3 py-1 rounded-md inline-block shadow-whisper border border-[#E5E2D9]">
                   {area.tag}
                 </span>
-                <h3 className="text-lg sm:text-xl font-medium text-white group-hover:text-[#C9DCD3] transition leading-snug">
+              </div>
+
+              {/* Bottom Content Area */}
+              <div className="relative z-10 text-white">
+                <h3 className="text-xl sm:text-2xl font-light text-white group-hover:text-[#C9DCD3] transition leading-snug mb-1.5">
                   {area.name}
                 </h3>
-                <p className="text-xs text-stone-200 line-clamp-1 mt-1 font-normal opacity-90">
+                <p className="text-xs sm:text-sm text-stone-200 line-clamp-2 mb-3.5 font-normal opacity-90 leading-relaxed">
                   {area.description}
                 </p>
 
-                <div className="mt-3 flex items-center justify-between text-xs font-medium text-[#FAF9F7] pt-2 border-t border-white/20">
-                  <span>{area.count} phòng có sẵn</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-white" />
+                <div className="flex items-center justify-between text-xs font-medium text-white/95 pt-3 border-t border-white/25">
+                  <span>{area.count} không gian sẵn có</span>
+                  <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-[#23483D] transition">
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform text-white" />
+                  </div>
                 </div>
               </div>
             </div>

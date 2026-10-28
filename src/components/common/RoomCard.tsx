@@ -143,52 +143,70 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
         )}
       </div>
 
-      {/* Content Area: CALDREN-inspired Architectural Hierarchy */}
-      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+      {/* Content Area: Professional Real Estate Architectural Layout */}
+      <div className="p-5 flex-1 flex flex-col justify-between">
         <div>
-          {/* Row 1: Title & Price in balanced editorial alignment */}
-          <div className="flex items-baseline justify-between gap-3 mb-2">
-            <h3 className="text-base sm:text-[18px] font-medium text-[#252725] line-clamp-1 group-hover:text-[#23483D] transition">
-              {room.title}
-            </h3>
-            <span className="text-lg sm:text-xl font-semibold text-[#23483D] tracking-tight shrink-0">
-              {formatCurrency(room.costs.rent, true)}
-            </span>
+          {/* Price Header: Large, Confident Anchor */}
+          <div className="flex items-baseline justify-between mb-2">
+            <div className="flex items-baseline gap-1">
+              <span className="text-2xl font-bold text-[#23483D] tracking-tight">
+                {formatCurrency(room.costs.rent, true)}
+              </span>
+              <span className="text-xs text-[#777B78] font-normal">/tháng</span>
+            </div>
+
+            <div className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#E8EEE9] text-[#23483D] border border-[#C9DCD3]">
+              {formatArea(room.area)}
+            </div>
           </div>
 
-          {/* Row 2: Location & Proximity merged into a single clean line */}
-          <div className="flex items-center gap-1.5 text-xs sm:text-[13px] text-[#555955] truncate mb-3.5">
-            <MapPin className="w-3.5 h-3.5 text-[#23483D] shrink-0" />
-            <span className="truncate">{room.location.address}</span>
+          {/* Property Title: 2 full readable lines */}
+          <h3 className="text-base sm:text-lg font-medium text-[#252725] line-clamp-2 leading-snug group-hover:text-[#23483D] transition mb-3">
+            {room.title}
+          </h3>
+
+          {/* Location & Proximity Row */}
+          <div className="space-y-1.5 mb-4 text-xs">
+            <div className="flex items-center gap-1.5 text-[#555955] truncate">
+              <MapPin className="w-3.5 h-3.5 text-[#23483D] shrink-0" />
+              <span className="truncate">{room.location.address}</span>
+            </div>
+
             {nearestUni && (
-              <span className="shrink-0 text-[#777B78] font-normal hidden sm:inline">
-                • Cách {nearestUni.name.replace('Trường ', '').replace('Đại học ', 'ĐH ')} ({nearestUni.distanceKm}km)
-              </span>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-[#FAF9F7] border border-[#E5E2D9] text-[#252725] font-medium">
+                <span className="text-[#777B78]">Gần:</span>
+                <span className="text-[#23483D] font-semibold">{nearestUni.name.replace('Trường ', '').replace('Đại học ', 'ĐH ')}</span>
+                <span className="text-[#777B78]">({nearestUni.distanceKm} km)</span>
+              </div>
             )}
           </div>
         </div>
 
-        {/* Row 3: Merged Specifications & Transparent Utilities */}
-        <div className="pt-3 border-t border-[#E5E2D9] flex items-center justify-between text-xs text-[#555955]">
-          <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap">
-            <span className="font-medium text-[#252725]">{formatArea(room.area)}</span>
-            <span className="text-[#B0B2AF]">•</span>
-            <span>{room.capacity} người</span>
-            <span className="text-[#B0B2AF]">•</span>
-            <span className="flex items-center gap-1" title={`Điện: ${room.costs.electricity} đ/kWh`}>
+        {/* Structured Specifications & Footer */}
+        <div className="space-y-3 pt-3 border-t border-[#E5E2D9]">
+          {/* Micro Specs Strip */}
+          <div className="grid grid-cols-3 gap-1.5 text-xs">
+            <div className="bg-[#FAF9F7] border border-[#E5E2D9] rounded px-2 py-1 flex items-center justify-center gap-1 text-[#252725]">
+              <span className="text-[#777B78]">Ở:</span>
+              <span className="font-semibold">{room.capacity} người</span>
+            </div>
+            <div className="bg-[#FAF9F7] border border-[#E5E2D9] rounded px-2 py-1 flex items-center justify-center gap-1 text-[#252725]" title={`Điện: ${room.costs.electricity} đ/kWh`}>
               <Zap className="w-3 h-3 text-[#23483D]" />
-              <span>{room.costs.electricity ? `${room.costs.electricity / 1000}k/số` : 'Free'}</span>
-            </span>
-            <span className="text-[#B0B2AF]">•</span>
-            <span className="flex items-center gap-1" title={`Nước: ${room.costs.water} đ`}>
+              <span className="font-semibold">{room.costs.electricity ? `${room.costs.electricity / 1000}k` : 'Free'}</span>
+            </div>
+            <div className="bg-[#FAF9F7] border border-[#E5E2D9] rounded px-2 py-1 flex items-center justify-center gap-1 text-[#252725]" title={`Nước: ${room.costs.water} đ`}>
               <Droplet className="w-3 h-3 text-[#23483D]" />
-              <span>{room.costs.water ? `${room.costs.water / 1000}k` : 'Free'}</span>
-            </span>
+              <span className="font-semibold">{room.costs.water ? `${room.costs.water / 1000}k` : 'Free'}</span>
+            </div>
           </div>
 
-          <div className="flex items-center gap-1 text-[11px] text-[#777B78] shrink-0 ml-2">
-            <Clock className="w-3 h-3" />
-            <span>{formatRelativeTime(room.updatedAt)}</span>
+          {/* Time & Landlord Guarantee */}
+          <div className="flex items-center justify-between text-[11px] text-[#777B78]">
+            <span className="truncate">Chủ trọ: {room.landlord.name}</span>
+            <span className="flex items-center gap-1 shrink-0">
+              <Clock className="w-3 h-3" />
+              <span>{formatRelativeTime(room.updatedAt)}</span>
+            </span>
           </div>
         </div>
       </div>

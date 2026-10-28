@@ -56,21 +56,32 @@ export const SafeRentGuide: React.FC<SafeRentGuideProps> = ({ onOpenGuideModal }
               </button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {tips.map((tip, idx) => (
                 <div
                   key={idx}
-                  className="bg-white rounded-lg p-5 text-[#252725] shadow-whisper border border-[#E5E2D9] hover:border-[#23483D] transition duration-200"
+                  className="bg-white rounded-xl p-6 text-[#252725] shadow-whisper border border-[#E5E2D9] hover:border-[#23483D] transition-all duration-300 flex flex-col justify-between"
                 >
-                  <div className="w-10 h-10 rounded-md bg-[#E8EEE9] flex items-center justify-center mb-4">
-                    {tip.icon}
+                  <div>
+                    <div className="flex items-center justify-between mb-5">
+                      <div className="w-11 h-11 rounded-lg bg-[#E8EEE9] flex items-center justify-center">
+                        {tip.icon}
+                      </div>
+                      <span className="font-serif italic text-2xl font-normal text-[#23483D]/40">
+                        0{idx + 1}
+                      </span>
+                    </div>
+                    <h3 className="text-base sm:text-lg font-semibold text-[#252725] mb-2 leading-snug">
+                      {tip.title.replace(/^[0-9]\.\s*/, '')}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-[#555955] leading-relaxed font-normal">
+                      {tip.desc}
+                    </p>
                   </div>
-                  <h3 className="text-base font-medium text-[#252725] mb-1.5 leading-snug">
-                    {tip.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-[#777B78] leading-relaxed font-normal">
-                    {tip.desc}
-                  </p>
+
+                  <div className="mt-5 pt-3 border-t border-[#E5E2D9] text-[11px] font-semibold text-[#23483D] uppercase tracking-wider">
+                    Nguyên tắc chuẩn #{idx + 1}
+                  </div>
                 </div>
               ))}
             </div>
