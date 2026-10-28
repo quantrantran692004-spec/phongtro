@@ -8,8 +8,6 @@ import {
   X, 
   RotateCcw,
   CheckCircle2,
-  ShieldCheck,
-  Building,
   GraduationCap
 } from 'lucide-react';
 import { WARDS_BY_DISTRICT, THAI_NGUYEN_UNIVERSITIES } from '../../data/locations';
@@ -73,7 +71,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
     onSearchSubmit();
   };
 
-  const handleQuickTagClick = (tagKeyword: string, tagWard?: string, tagRoomType?: string, tagPrice?: string) => {
+  const handleQuickSelect = (tagKeyword: string, tagWard?: string, tagRoomType?: string, tagPrice?: string) => {
     setKeyword(tagKeyword);
     if (tagWard !== undefined) setWard(tagWard);
     if (tagRoomType !== undefined) setRoomType(tagRoomType);
@@ -104,12 +102,11 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
       setWard('Tất cả');
     } else if (tab === 'studio') {
       setRoomType('studio');
+      handleQuickSelect('', 'Tất cả', 'studio');
     } else if (tab === 'university') {
-      setKeyword('Y Dược');
-      setWard('P. Quang Trung');
+      handleQuickSelect('Y Dược', 'P. Quang Trung');
     } else if (tab === 'samsung') {
-      setKeyword('Samsung');
-      setWard('TX. Phổ Yên');
+      handleQuickSelect('Samsung', 'TX. Phổ Yên');
     }
   };
 
@@ -150,53 +147,52 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
   const wards = WARDS_BY_DISTRICT['TP. Thái Nguyên'] || [];
 
   return (
-    <div className="relative bg-[#161816] text-white overflow-hidden border-b border-[#E6E4DE]">
-      {/* High-Resolution Architectural Photography Canvas */}
+    <div className="relative bg-[#111827] text-white overflow-hidden border-b border-stone-300">
+      {/* Background Image with High-Contrast Dark Backdrop */}
       <div className="absolute inset-0 z-0">
         <img
           src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1920&q=85"
-          alt="Không gian sống chuẩn mực Trọ Thái Nguyên"
-          className="w-full h-full object-cover object-center transform scale-102 filter brightness-[0.78] contrast-[1.05]"
+          alt="Phòng trọ Thái Nguyên"
+          className="w-full h-full object-cover object-center filter brightness-[0.45] contrast-[1.1]"
         />
-        {/* Restrained Architectural Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#161816]/85 via-[#161816]/65 to-[#161816]/90" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#111827] via-[#111827]/70 to-[#111827]/90" />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-16 sm:pt-20 sm:pb-24">
-        {/* Editorial Heading: European Architectural Poise */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white/90 text-[10px] sm:text-[11px] font-mono tracking-[0.24em] uppercase px-4 py-1.5 rounded-sm mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-            <span>BỘ SƯU TẬP KHÔNG GIAN SỐNG AN CƯ • THÁI NGUYÊN</span>
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-12 sm:pt-14 sm:pb-16">
+        {/* Title: Big, Bold, Crisp, No Cutoff, Minimal Text */}
+        <div className="text-center max-w-2xl mx-auto mb-7 sm:mb-9">
+          <div className="inline-flex items-center gap-2 bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 text-xs font-bold px-3 py-1 rounded-full mb-3 shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Phòng Trọ Chính Chủ Thái Nguyên</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif text-white tracking-tight leading-[1.12] mb-4">
-            Nghệ Thuật An Cư & Không Gian Sống Chuẩn Mực
+          <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight mb-2 drop-shadow-sm">
+            Tìm Phòng Trọ Nhanh & Đúng Giá
           </h1>
 
-          <p className="text-sm sm:text-base text-stone-200/90 font-light leading-relaxed max-w-2xl mx-auto">
-            Tuyển chọn phòng trọ khép kín, studio và chung cư mini chính chủ tại TP. Thái Nguyên & KCN Samsung Phổ Yên. Khảo sát thực địa 100%, bảo vệ quyền lợi người thuê.
+          <p className="text-sm sm:text-base text-stone-200 font-semibold leading-relaxed">
+            Khảo sát thực tế 100% • Minh bạch giá điện nước • Không qua trung gian
           </p>
         </div>
 
-        {/* Master Architectural Search Dock */}
-        <div className="max-w-4xl mx-auto">
-          {/* Category Tabs: Architectural segment buttons */}
-          <div className="flex items-center gap-1 mb-2.5 overflow-x-auto no-scrollbar">
+        {/* Master Consolidated Search Dock (GỘP HẾT VÔ ĐÂY) */}
+        <div className="bg-white rounded-2xl border border-stone-300 shadow-xl p-3 sm:p-4 text-stone-900">
+          {/* 1. Quick Category Tabs */}
+          <div className="flex items-center gap-1.5 pb-3 border-b border-stone-200 overflow-x-auto no-scrollbar">
             {[
-              { id: 'all', label: 'Tất cả không gian' },
-              { id: 'studio', label: 'Studio & CC Mini' },
-              { id: 'university', label: 'Khu vực Làng Đại Học' },
-              { id: 'samsung', label: 'KCN Samsung Phổ Yên' },
+              { id: 'all', label: 'Tất cả phòng' },
+              { id: 'studio', label: 'Studio & Căn hộ' },
+              { id: 'university', label: 'Gần trường ĐH' },
+              { id: 'samsung', label: 'KCN Samsung' },
             ].map((tab) => (
               <button
                 key={tab.id}
                 type="button"
                 onClick={() => handleCategoryTabSelect(tab.id as any)}
-                className={`px-4 py-2 rounded-t-md text-xs font-semibold tracking-wide transition whitespace-nowrap ${
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-extrabold transition whitespace-nowrap ${
                   activeCategoryTab === tab.id
-                    ? 'bg-white text-charcoal-900 border-t-2 border-[#23483D]'
-                    : 'bg-black/40 text-stone-300 hover:text-white hover:bg-black/60 backdrop-blur-sm'
+                    ? 'bg-[#111827] text-white shadow-sm'
+                    : 'bg-stone-100 text-stone-700 hover:bg-stone-200 hover:text-stone-900'
                 }`}
               >
                 {tab.label}
@@ -204,295 +200,288 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
             ))}
           </div>
 
-          {/* Master Search Bar: Pure white surface with disciplined hairline dividers */}
-          <div className="bg-white rounded-b-md rounded-tr-md border border-[#E6E4DE] shadow-card p-2 sm:p-2.5 text-charcoal-900">
-            <form onSubmit={handleSearch} className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-0">
-              {/* Field 1: Keyword Input */}
-              <div 
-                ref={suggestionRef}
-                className="flex-1 h-12 px-4 flex flex-col justify-center rounded-sm hover:bg-[#F7F6F2] transition relative"
-              >
-                <label className="block text-[10px] font-extrabold text-charcoal-700 uppercase tracking-[0.14em] leading-none mb-1">
-                  Địa điểm / Tên trường
-                </label>
-                <div className="flex items-center gap-2">
-                  <Search className="w-4 h-4 text-brand-700 shrink-0" />
-                  <input
-                    type="text"
-                    value={keyword}
-                    onFocus={() => setShowSuggestions(true)}
-                    onChange={(e) => {
-                      setKeyword(e.target.value);
-                      setShowSuggestions(true);
-                    }}
-                    placeholder="Y Dược, Sư Phạm, Tân Thịnh, Z115..."
-                    className="w-full bg-transparent text-sm font-bold text-charcoal-900 placeholder-stone-400 focus:outline-none leading-none"
-                  />
-                  {keyword && (
-                    <button 
-                      type="button" 
-                      onClick={() => { setKeyword(''); setShowSuggestions(false); }}
-                      className="p-0.5 text-stone-400 hover:text-charcoal-900"
-                    >
-                      <X className="w-3.5 h-3.5" />
-                    </button>
-                  )}
-                </div>
-
-                {/* Suggestions Dropdown */}
-                <AnimatePresence>
-                  {showSuggestions && suggestions.length > 0 && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 4 }}
-                      className="absolute left-0 right-0 top-full mt-2 bg-white rounded-md shadow-card border border-[#E6E4DE] overflow-hidden z-30 max-h-56 overflow-y-auto"
-                    >
-                      <div className="p-1.5 space-y-0.5">
-                        {suggestions.map((s, idx) => (
-                          <button
-                            key={idx}
-                            type="button"
-                            onClick={() => {
-                              setKeyword(s.label);
-                              if (s.ward) setWard(s.ward);
-                              setShowSuggestions(false);
-                            }}
-                            className="w-full text-left px-3.5 py-2.5 rounded hover:bg-[#F7F6F2] flex items-center justify-between text-xs transition"
-                          >
-                            <div className="truncate mr-2">
-                              <span className="font-extrabold text-charcoal-900">{s.label}</span>
-                              {s.ward && <span className="text-charcoal-500 ml-1.5 font-medium">({s.ward})</span>}
-                            </div>
-                            <span className="text-[10px] bg-[#F7F6F2] text-brand-800 font-bold px-2 py-0.5 rounded border border-[#E6E4DE]">
-                              {s.type}
-                            </span>
-                          </button>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              {/* Hairline Divider */}
-              <div className="hidden sm:block h-7 w-[1px] bg-[#E6E4DE] shrink-0 my-auto" />
-
-              {/* Field 2: Ward Select */}
-              <div className="sm:w-56 h-12 px-4 flex flex-col justify-center rounded-sm hover:bg-[#F7F6F2] transition cursor-pointer">
-                <label className="block text-[10px] font-extrabold text-charcoal-700 uppercase tracking-[0.14em] leading-none mb-1">
-                  Khu vực Phường / Xã
-                </label>
-                <div className="flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-brand-700 shrink-0" />
-                  <select
-                    value={ward}
-                    onChange={(e) => setWard(e.target.value)}
-                    className="w-full bg-transparent text-sm font-bold text-charcoal-900 focus:outline-none cursor-pointer truncate leading-none"
+          {/* 2. Main Search Bar */}
+          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row sm:items-center gap-2 pt-3">
+            {/* Input: Keyword */}
+            <div 
+              ref={suggestionRef}
+              className="flex-1 h-12 px-3.5 flex flex-col justify-center rounded-xl bg-stone-50 border border-stone-200 hover:border-stone-400 focus-within:border-stone-900 transition relative"
+            >
+              <label className="block text-[11px] font-black text-stone-800 uppercase tracking-wide leading-none mb-1">
+                Tìm theo tên trường, đường, tên trọ
+              </label>
+              <div className="flex items-center gap-2">
+                <Search className="w-4 h-4 text-stone-600 shrink-0" />
+                <input
+                  type="text"
+                  value={keyword}
+                  onFocus={() => setShowSuggestions(true)}
+                  onChange={(e) => {
+                    setKeyword(e.target.value);
+                    setShowSuggestions(true);
+                  }}
+                  placeholder="Y Dược, Sư Phạm, Tân Thịnh, Z115..."
+                  className="w-full bg-transparent text-sm font-bold text-stone-900 placeholder-stone-400 focus:outline-none leading-none"
+                />
+                {keyword && (
+                  <button 
+                    type="button" 
+                    onClick={() => { setKeyword(''); setShowSuggestions(false); }}
+                    className="p-0.5 text-stone-500 hover:text-stone-900"
                   >
-                    <option value="Tất cả">Toàn Thái Nguyên</option>
-                    {wards.filter(w => w !== 'Tất cả').map((w) => (
-                      <option key={w} value={w}>{w}</option>
-                    ))}
-                  </select>
-                </div>
+                    <X className="w-4 h-4" />
+                  </button>
+                )}
               </div>
 
-              {/* Hairline Divider */}
-              <div className="hidden sm:block h-7 w-[1px] bg-[#E6E4DE] shrink-0 my-auto" />
-
-              {/* Field 3: Filter Trigger */}
-              <button
-                type="button"
-                onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
-                className={`h-12 px-4 flex items-center justify-center gap-1.5 rounded-sm text-xs font-bold transition shrink-0 ${
-                  isAdvancedOpen || activeAdvancedCount > 0
-                    ? 'bg-[#F7F6F2] text-brand-900 border border-[#E6E4DE]'
-                    : 'text-charcoal-700 hover:bg-[#F7F6F2]'
-                }`}
-              >
-                <SlidersHorizontal className="w-4 h-4 text-brand-700" />
-                <span>Bộ lọc</span>
-                {activeAdvancedCount > 0 && (
-                  <span className="w-4 h-4 rounded-full bg-[#23483D] text-white text-[10px] font-bold flex items-center justify-center">
-                    {activeAdvancedCount}
-                  </span>
+              {/* Suggestions Dropdown */}
+              <AnimatePresence>
+                {showSuggestions && suggestions.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 4 }}
+                    className="absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-2xl border border-stone-300 overflow-hidden z-30 max-h-56 overflow-y-auto"
+                  >
+                    <div className="p-1.5 space-y-0.5">
+                      {suggestions.map((s, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => {
+                            setKeyword(s.label);
+                            if (s.ward) setWard(s.ward);
+                            setShowSuggestions(false);
+                          }}
+                          className="w-full text-left px-3 py-2 rounded-lg hover:bg-stone-100 flex items-center justify-between text-xs transition"
+                        >
+                          <div className="truncate mr-2">
+                            <span className="font-extrabold text-stone-900">{s.label}</span>
+                            {s.ward && <span className="text-stone-600 ml-1.5 font-semibold">({s.ward})</span>}
+                          </div>
+                          <span className="text-[10px] bg-stone-100 text-stone-800 font-bold px-2 py-0.5 rounded border border-stone-300">
+                            {s.type}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  </motion.div>
                 )}
-              </button>
+              </AnimatePresence>
+            </div>
 
-              {/* Field 4: Search Action Button: Signature BARNES Deep Forest Green */}
-              <button
-                type="submit"
-                className="h-12 px-7 bg-[#23483D] hover:bg-[#1A372E] text-white font-bold text-xs sm:text-sm rounded-sm shadow-whisper transition flex items-center justify-center gap-2 shrink-0 active:scale-98 tracking-wider uppercase"
-              >
-                <span>TÌM KIẾM</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </form>
-
-            {/* Expandable Advanced Filters Drawer */}
-            <AnimatePresence>
-              {isAdvancedOpen && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="overflow-hidden border-t border-[#E6E4DE] mt-2 pt-3 px-2 sm:px-4"
+            {/* Select: Ward */}
+            <div className="sm:w-56 h-12 px-3.5 flex flex-col justify-center rounded-xl bg-stone-50 border border-stone-200 hover:border-stone-400 transition cursor-pointer">
+              <label className="block text-[11px] font-black text-stone-800 uppercase tracking-wide leading-none mb-1">
+                Khu vực Phường / Xã
+              </label>
+              <div className="flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-stone-600 shrink-0" />
+                <select
+                  value={ward}
+                  onChange={(e) => setWard(e.target.value)}
+                  className="w-full bg-transparent text-sm font-bold text-stone-900 focus:outline-none cursor-pointer truncate leading-none"
                 >
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pb-2">
-                    <div>
-                      <label className="block text-xs font-extrabold text-charcoal-900 mb-1.5">
-                        Khoảng giá thuê
-                      </label>
-                      <div className="grid grid-cols-2 gap-1.5 text-xs">
-                        {[
-                          { id: 'all', label: 'Tất cả giá' },
-                          { id: 'under_1_5m', label: '< 1.5 triệu' },
-                          { id: '1_5m_2_5m', label: '1.5 - 2.5 tr' },
-                          { id: 'above_2_5m', label: '> 2.5 triệu' },
-                        ].map((p) => (
+                  <option value="Tất cả">Toàn Thái Nguyên</option>
+                  {wards.filter(w => w !== 'Tất cả').map((w) => (
+                    <option key={w} value={w}>{w}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Button: Filter Trigger */}
+            <button
+              type="button"
+              onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
+              className={`h-12 px-4 flex items-center justify-center gap-1.5 rounded-xl text-xs font-extrabold border transition shrink-0 ${
+                isAdvancedOpen || activeAdvancedCount > 0
+                  ? 'bg-stone-200 border-stone-400 text-stone-900'
+                  : 'bg-stone-50 border-stone-200 text-stone-800 hover:bg-stone-100'
+              }`}
+            >
+              <SlidersHorizontal className="w-4 h-4 text-stone-700" />
+              <span>Bộ lọc</span>
+              {activeAdvancedCount > 0 && (
+                <span className="w-4 h-4 rounded-full bg-stone-900 text-white text-[10px] font-bold flex items-center justify-center">
+                  {activeAdvancedCount}
+                </span>
+              )}
+            </button>
+
+            {/* Button: Submit */}
+            <button
+              type="submit"
+              className="h-12 px-7 bg-[#111827] hover:bg-black text-white font-extrabold text-sm rounded-xl shadow-md transition flex items-center justify-center gap-2 shrink-0 active:scale-98 tracking-wide"
+            >
+              <span>Tìm phòng</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </form>
+
+          {/* 3. Expandable Advanced Filter Options */}
+          <AnimatePresence>
+            {isAdvancedOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="overflow-hidden border-t border-stone-200 mt-3 pt-3 px-1"
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pb-2 text-xs">
+                  <div>
+                    <label className="block text-xs font-black text-stone-900 mb-1.5">
+                      Mức giá thuê:
+                    </label>
+                    <div className="grid grid-cols-2 gap-1.5">
+                      {[
+                        { id: 'all', label: 'Tất cả mức giá' },
+                        { id: 'under_1_5m', label: '< 1.5 triệu' },
+                        { id: '1_5m_2_5m', label: '1.5 - 2.5 triệu' },
+                        { id: 'above_2_5m', label: '> 2.5 triệu' },
+                      ].map((p) => (
+                        <button
+                          key={p.id}
+                          type="button"
+                          onClick={() => setPriceTier(p.id)}
+                          className={`py-1.5 px-2 rounded-lg border font-bold transition text-center ${
+                            priceTier === p.id
+                              ? 'bg-stone-900 border-stone-900 text-white'
+                              : 'bg-stone-50 border-stone-300 text-stone-800 hover:bg-stone-100'
+                          }`}
+                        >
+                          {p.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-black text-stone-900 mb-1.5">
+                      Loại hình phòng:
+                    </label>
+                    <select
+                      value={roomType}
+                      onChange={(e) => setRoomType(e.target.value)}
+                      className="w-full bg-stone-50 border border-stone-300 rounded-lg p-2 text-xs font-bold text-stone-900 focus:outline-none"
+                    >
+                      <option value="all">Tất cả loại phòng</option>
+                      <option value="single">Phòng trọ khép kín</option>
+                      <option value="studio">Studio đầy đủ đồ</option>
+                      <option value="mini_apartment">Chung cư mini</option>
+                      <option value="whole_house">Nhà nguyên căn</option>
+                      <option value="dormitory">Ký túc xá / Box</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-black text-stone-900 mb-1.5">
+                      Tiện ích ưu tiên:
+                    </label>
+                    <div className="flex flex-wrap gap-1.5">
+                      {[
+                        { id: 'air_conditioner', label: 'Điều hòa' },
+                        { id: 'water_heater', label: 'Nóng lạnh' },
+                        { id: 'private_bathroom', label: 'Khép kín' },
+                        { id: 'free_hours', label: 'Giờ tự do' },
+                      ].map((am) => {
+                        const isSelected = selectedAmenities.includes(am.id);
+                        return (
                           <button
-                            key={p.id}
+                            key={am.id}
                             type="button"
-                            onClick={() => setPriceTier(p.id)}
-                            className={`py-1.5 px-2 rounded-sm border font-bold transition text-center ${
-                              priceTier === p.id
-                                ? 'bg-[#23483D] border-[#23483D] text-white'
-                                : 'bg-[#F7F6F2] border-[#E6E4DE] text-charcoal-800 hover:bg-stone-200'
+                            onClick={() => handleToggleAmenity(am.id)}
+                            className={`px-2.5 py-1 rounded-lg text-xs font-bold border transition ${
+                              isSelected
+                                ? 'bg-stone-900 border-stone-900 text-white'
+                                : 'bg-stone-50 border-stone-300 text-stone-800 hover:bg-stone-100'
                             }`}
                           >
-                            {p.label}
+                            {isSelected && '✓ '}
+                            {am.label}
                           </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-extrabold text-charcoal-900 mb-1.5">
-                        Loại hình phòng
-                      </label>
-                      <select
-                        value={roomType}
-                        onChange={(e) => setRoomType(e.target.value)}
-                        className="w-full bg-[#F7F6F2] border border-[#E6E4DE] rounded-sm p-2 text-xs font-bold text-charcoal-900 focus:outline-none"
-                      >
-                        <option value="all">Tất cả loại phòng</option>
-                        <option value="single">Phòng trọ khép kín</option>
-                        <option value="studio">Studio tiện nghi</option>
-                        <option value="mini_apartment">Chung cư mini</option>
-                        <option value="whole_house">Nhà nguyên căn</option>
-                        <option value="dormitory">Ký túc xá / Box</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-extrabold text-charcoal-900 mb-1.5">
-                        Tiện ích ưu tiên
-                      </label>
-                      <div className="flex flex-wrap gap-1.5">
-                        {[
-                          { id: 'air_conditioner', label: 'Điều hòa' },
-                          { id: 'water_heater', label: 'Nóng lạnh' },
-                          { id: 'private_bathroom', label: 'Khép kín' },
-                          { id: 'free_hours', label: 'Giờ tự do' },
-                        ].map((am) => {
-                          const isSelected = selectedAmenities.includes(am.id);
-                          return (
-                            <button
-                              key={am.id}
-                              type="button"
-                              onClick={() => handleToggleAmenity(am.id)}
-                              className={`px-2.5 py-1 rounded-sm text-xs font-bold border transition ${
-                                isSelected
-                                  ? 'bg-[#23483D] border-[#23483D] text-white'
-                                  : 'bg-[#F7F6F2] border-[#E6E4DE] text-charcoal-800 hover:bg-stone-200'
-                              }`}
-                            >
-                              {isSelected && '✓ '}
-                              {am.label}
-                            </button>
-                          );
-                        })}
-                      </div>
+                        );
+                      })}
                     </div>
                   </div>
+                </div>
 
-                  <div className="flex items-center justify-between pt-2.5 border-t border-[#E6E4DE] text-xs">
+                <div className="flex items-center justify-between pt-2 border-t border-stone-200 text-xs">
+                  <button
+                    type="button"
+                    onClick={resetAdvanced}
+                    className="text-stone-600 hover:text-stone-900 flex items-center gap-1 font-bold transition"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    <span>Đặt lại</span>
+                  </button>
+
+                  <div className="flex items-center gap-2">
                     <button
                       type="button"
-                      onClick={resetAdvanced}
-                      className="text-charcoal-500 hover:text-charcoal-900 flex items-center gap-1 font-bold transition"
+                      onClick={() => setIsAdvancedOpen(false)}
+                      className="px-3 py-1.5 text-stone-700 hover:text-stone-900 font-bold"
                     >
-                      <RotateCcw className="w-3.5 h-3.5" />
-                      <span>Đặt lại</span>
+                      Thu gọn
                     </button>
-
-                    <div className="flex items-center gap-2">
-                      <button
-                        type="button"
-                        onClick={() => setIsAdvancedOpen(false)}
-                        className="px-3 py-1.5 text-charcoal-700 hover:text-charcoal-900 font-bold"
-                      >
-                        Thu gọn
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => { setIsAdvancedOpen(false); applySearch(); }}
-                        className="px-4 py-1.5 bg-[#23483D] text-white rounded-sm font-bold shadow-whisper hover:bg-[#1A372E] tracking-wider uppercase"
-                      >
-                        Áp dụng
-                      </button>
-                    </div>
+                    <button
+                      type="button"
+                      onClick={() => { setIsAdvancedOpen(false); applySearch(); }}
+                      className="px-4 py-1.5 bg-stone-900 text-white rounded-lg font-bold shadow-sm hover:bg-black"
+                    >
+                      Áp dụng
+                    </button>
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-            {/* Quick Suggestions Line */}
-            <div className="mt-2 pt-2 border-t border-[#E6E4DE] flex items-center gap-1.5 overflow-x-auto no-scrollbar text-xs px-2 sm:px-4">
-              <span className="text-[10px] font-extrabold text-charcoal-500 uppercase tracking-wider whitespace-nowrap">
-                Gợi ý nhanh:
+          {/* 4. GỘP CỤM TRƯỜNG ĐẠI HỌC VÀ KHU VỰC TRỌNG ĐIỂM NGAY DƯỚI THANH TÌM KIẾM */}
+          <div className="mt-3 pt-3 border-t border-stone-200">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-black text-stone-900 uppercase tracking-wide flex items-center gap-1.5">
+                <GraduationCap className="w-4 h-4 text-emerald-700" />
+                <span>Trường ĐH & Khu vực trọng điểm (Chọn nhanh):</span>
               </span>
+            </div>
 
-              {[
-                { label: 'ĐH Y Dược', keyword: 'Y Dược', ward: 'P. Quang Trung' },
-                { label: 'Làng SV Tân Thịnh', keyword: '', ward: 'P. Tân Thịnh' },
-                { label: 'Samsung Phổ Yên', keyword: 'Samsung', ward: 'TX. Phổ Yên' },
-                { label: 'Dưới 1.5 triệu', keyword: '', ward: 'Tất cả', price: 'under_1_5m' },
-              ].map((tag, idx) => (
+            {/* Quick Campus Buttons Grid: To, rõ ràng, đậm nét, dễ bấm */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
+              {THAI_NGUYEN_UNIVERSITIES.slice(0, 6).map((uni) => (
                 <button
-                  key={idx}
+                  key={uni.id}
                   type="button"
-                  onClick={() => handleQuickTagClick(tag.keyword, tag.ward, undefined, tag.price)}
-                  className="px-3 py-1 rounded-sm bg-[#F7F6F2] hover:bg-white text-charcoal-900 text-xs font-bold whitespace-nowrap transition border border-[#E6E4DE] shadow-whisper"
+                  onClick={() => handleQuickSelect(uni.shortName, uni.ward)}
+                  className="px-2.5 py-2 rounded-xl bg-stone-50 hover:bg-stone-900 hover:text-white border border-stone-300 text-stone-900 transition-colors text-left flex flex-col justify-center group shadow-2xs"
                 >
-                  {tag.label}
+                  <div className="text-xs font-black truncate group-hover:text-white">
+                    {uni.shortName}
+                  </div>
+                  <div className="text-[11px] text-stone-600 group-hover:text-stone-300 truncate font-semibold">
+                    {uni.ward}
+                  </div>
                 </button>
               ))}
             </div>
           </div>
+        </div>
 
-          {/* Clean Proof Bar: Restrained European Architectural Markers */}
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs font-semibold text-stone-200/90 tracking-wide">
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span>100% Khảo sát thực địa</span>
-            </div>
+        {/* 5. Minimal, Clean Trust Strip */}
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-5 sm:gap-8 text-xs font-bold text-stone-200">
+          <div className="flex items-center gap-1.5">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <span>100% Khảo sát thực tế</span>
+          </div>
 
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              <span>Minh bạch tiền điện & nước</span>
-            </div>
+          <div className="flex items-center gap-1.5">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <span>Minh bạch tiền điện nước</span>
+          </div>
 
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              <span>0đ Phí môi giới người thuê</span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Building className="w-4 h-4 text-emerald-400" />
-              <span>Hợp đồng chuẩn pháp lý</span>
-            </div>
+          <div className="flex items-center gap-1.5">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <span>0đ Phí môi giới</span>
           </div>
         </div>
       </div>

@@ -95,7 +95,6 @@ const MainApp: React.FC = () => {
           /* Home View */
           <div>
             <HeroSearch onSearchSubmit={() => setCurrentTab('search')} />
-            <UniversityShortcuts onSelectUniversity={() => setCurrentTab('search')} />
             <FeaturedRooms
               onViewAll={() => setCurrentTab('search')}
               onSelectRoom={handleSelectRoom}

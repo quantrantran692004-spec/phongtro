@@ -129,7 +129,7 @@ export const RoomDetailView: React.FC<RoomDetailViewProps> = ({ room, onBack, on
             </span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl font-serif text-charcoal-900 tracking-tight leading-snug mb-2.5">
+          <h1 className="text-2xl sm:text-3xl font-black text-stone-900 tracking-tight leading-snug mb-2.5">
             {room.title}
           </h1>
 
@@ -381,7 +381,7 @@ export const RoomDetailView: React.FC<RoomDetailViewProps> = ({ room, onBack, on
         {/* Similar Rooms Section */}
         {similarRooms.length > 0 && (
           <div className="mt-14 pt-10 border-t border-[#E6E4DE]">
-            <h3 className="text-xl sm:text-2xl font-serif text-charcoal-900 mb-6">
+            <h3 className="text-xl sm:text-2xl font-black text-stone-900 mb-5">
               Không Gian Tương Tự Cùng Khu Vực
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

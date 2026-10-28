@@ -36,14 +36,14 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
         {/* Top Control Bar: Architectural Poise */}
         <div className="bg-white rounded-md border border-[#E6E4DE] shadow-whisper p-4 sm:p-5 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-xl sm:text-2xl font-serif text-charcoal-900 tracking-tight flex items-center gap-3">
-              <span>Danh Mục Không Gian Cho Thuê</span>
-              <span className="text-xs font-bold bg-[#F7F6F2] text-brand-900 px-2.5 py-0.5 rounded-sm border border-[#E6E4DE]">
+            <h1 className="text-xl sm:text-2xl font-black text-stone-900 tracking-tight flex items-center gap-3">
+              <span>Phòng Trọ Cho Thuê Thái Nguyên</span>
+              <span className="text-xs font-bold bg-emerald-50 text-emerald-800 px-2.5 py-0.5 rounded-full border border-emerald-200">
                 {filteredRooms.length} kết quả
               </span>
             </h1>
-            <p className="text-xs text-charcoal-600 mt-1 font-normal">
-              Thẩm định thực tế 100%, bảo đảm minh bạch điện nước và quyền lợi người thuê
+            <p className="text-xs text-stone-600 mt-1 font-semibold">
+              Khảo sát thực tế 100%, chuẩn giá từ chủ trọ và sinh viên
             </p>
           </div>
 

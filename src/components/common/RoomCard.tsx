@@ -42,35 +42,35 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
     <motion.div
       onClick={() => onSelect(room.id)}
       whileHover={{ y: -3 }}
-      transition={{ duration: 0.25, ease: "easeOut" }}
-      className="group bg-white rounded-md border border-[#E6E4DE] hover:border-charcoal-400 shadow-whisper hover:shadow-card-hover transition-all duration-300 flex flex-col overflow-hidden cursor-pointer relative"
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      className="group bg-white rounded-2xl border border-stone-200 hover:border-emerald-600 shadow-sm hover:shadow-md transition-all flex flex-col overflow-hidden cursor-pointer relative"
     >
       {/* Top Image Section */}
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#F7F6F2]">
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-stone-100">
         <motion.img
           key={currentImgIndex}
           initial={{ opacity: 0.95 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.25 }}
+          transition={{ duration: 0.2 }}
           src={room.images[currentImgIndex] || 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800'}
           alt={room.title}
-          className="w-full h-full object-cover group-hover:scale-104 transition-transform duration-700 ease-out"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
           loading="lazy"
         />
 
         {/* Ambient Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/15 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/15 pointer-events-none" />
 
         {/* Badges on Top */}
         <div className="absolute top-2.5 left-2.5 right-2.5 flex items-start justify-between pointer-events-none">
           <div className="flex flex-wrap gap-1.5 pointer-events-auto">
             {room.isVerified && (
-              <span className="inline-flex items-center gap-1 bg-white/95 backdrop-blur-xs text-brand-800 text-[10px] font-bold px-2 py-0.5 rounded-sm shadow-whisper border border-[#E6E4DE] tracking-wider uppercase">
-                <ShieldCheck className="w-3 h-3 text-brand-700" />
+              <span className="inline-flex items-center gap-1 bg-white text-emerald-800 text-[11px] font-black px-2 py-0.5 rounded shadow-sm border border-stone-200">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-700" />
                 <span>CHÍNH CHỦ</span>
               </span>
             )}
-            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-sm backdrop-blur-md bg-charcoal-900/80 text-white tracking-wide">
+            <span className="text-[11px] font-bold px-2 py-0.5 rounded backdrop-blur-md bg-stone-900/80 text-white">
               {getRoomTypeLabel(room.roomType)}
             </span>
           </div>
@@ -83,10 +83,10 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
                 e.stopPropagation();
                 toggleCompare(room.id);
               }}
-              className={`p-1.5 rounded-sm backdrop-blur-md transition shadow-whisper border ${
+              className={`p-1.5 rounded-lg backdrop-blur-md transition shadow-xs border ${
                 isCompared
-                  ? 'bg-brand-700 border-brand-700 text-white'
-                  : 'bg-white/90 hover:bg-white border-[#E6E4DE] text-charcoal-800 hover:text-brand-700'
+                  ? 'bg-emerald-700 border-emerald-700 text-white'
+                  : 'bg-white/95 hover:bg-white border-stone-200 text-stone-800 hover:text-emerald-700'
               }`}
               title={isCompared ? 'Bỏ so sánh' : 'So sánh'}
             >
@@ -100,10 +100,10 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
                 e.stopPropagation();
                 toggleFavorite(room.id);
               }}
-              className={`p-1.5 rounded-sm backdrop-blur-md transition shadow-whisper border ${
+              className={`p-1.5 rounded-lg backdrop-blur-md transition shadow-xs border ${
                 isFav
                   ? 'bg-rose-600 border-rose-600 text-white'
-                  : 'bg-white/90 hover:bg-white border-[#E6E4DE] text-charcoal-800 hover:text-rose-600'
+                  : 'bg-white/95 hover:bg-white border-stone-200 text-stone-800 hover:text-rose-600'
               }`}
               title={isFav ? 'Bỏ lưu' : 'Lưu tin'}
             >
@@ -117,13 +117,13 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
           <>
             <button
               onClick={prevImg}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/90 hover:bg-white text-charcoal-800 flex items-center justify-center opacity-0 group-hover:opacity-100 transition shadow-whisper border border-[#E6E4DE]"
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/90 hover:bg-white text-stone-800 flex items-center justify-center opacity-0 group-hover:opacity-100 transition shadow"
             >
               <ChevronLeft className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={nextImg}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/90 hover:bg-white text-charcoal-800 flex items-center justify-center opacity-0 group-hover:opacity-100 transition shadow-whisper border border-[#E6E4DE]"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/90 hover:bg-white text-stone-800 flex items-center justify-center opacity-0 group-hover:opacity-100 transition shadow"
             >
               <ChevronRight className="w-3.5 h-3.5" />
             </button>
@@ -144,7 +144,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
 
         {/* Rented Status Badge */}
         {room.status === 'rented' && (
-          <div className="absolute bottom-2 left-2.5 bg-charcoal-900/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-sm shadow-whisper tracking-wider uppercase">
+          <div className="absolute bottom-2 left-2.5 bg-stone-900 text-white text-[10px] font-black px-2 py-0.5 rounded shadow">
             ĐÃ CHO THUÊ
           </div>
         )}
@@ -155,11 +155,11 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
         <div>
           {/* Monthly Rent & Area/Capacity */}
           <div className="flex items-baseline justify-between mb-1.5">
-            <span className="font-display font-extrabold text-lg sm:text-xl text-brand-800 tracking-tight">
+            <span className="font-black text-lg sm:text-xl text-emerald-800 tracking-tight">
               {formatCurrency(room.costs.rent, true)}
             </span>
 
-            <div className="flex items-center gap-1.5 text-xs text-charcoal-600 font-semibold">
+            <div className="flex items-center gap-1.5 text-xs text-stone-700 font-extrabold">
               <span>{formatArea(room.area)}</span>
               <span>•</span>
               <span>{room.capacity} người</span>
@@ -167,41 +167,41 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
           </div>
 
           {/* Title */}
-          <h3 className="text-sm font-bold text-charcoal-900 line-clamp-2 leading-snug group-hover:text-brand-800 transition mb-2">
+          <h3 className="text-sm font-black text-stone-900 line-clamp-2 leading-snug group-hover:text-emerald-700 transition mb-2">
             {room.title}
           </h3>
 
           {/* Location */}
-          <div className="space-y-1 text-xs text-charcoal-600 mb-3 font-medium">
+          <div className="space-y-1 text-xs text-stone-700 mb-3 font-semibold">
             <div className="flex items-center gap-1 truncate">
-              <MapPin className="w-3.5 h-3.5 text-charcoal-400 shrink-0" />
+              <MapPin className="w-3.5 h-3.5 text-stone-500 shrink-0" />
               <span className="truncate">{room.location.address}</span>
             </div>
 
             {nearestUni && (
-              <div className="inline-flex items-center gap-1 text-[11px] font-bold text-brand-900 bg-[#F7F6F2] px-2 py-0.5 rounded-sm border border-[#E6E4DE]">
+              <div className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-900 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                 <span>Cách {nearestUni.name}:</span>
-                <span className="font-extrabold text-brand-800">{nearestUni.distanceKm} km</span>
+                <span className="font-black text-emerald-800">{nearestUni.distanceKm} km</span>
               </div>
             )}
           </div>
         </div>
 
         {/* Card Footer with specs */}
-        <div className="pt-2.5 border-t border-[#E6E4DE] flex items-center justify-between text-xs text-charcoal-700 font-semibold">
+        <div className="pt-2.5 border-t border-stone-200 flex items-center justify-between text-xs text-stone-800 font-bold">
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1" title={`Điện: ${room.costs.electricity} đ/kWh`}>
-              <Zap className="w-3.5 h-3.5 text-amber-700" />
+              <Zap className="w-3.5 h-3.5 text-amber-600" />
               <span>{room.costs.electricity ? `${room.costs.electricity / 1000}k/số` : 'Free'}</span>
             </span>
 
             <span className="flex items-center gap-1" title={`Nước: ${room.costs.water} đ`}>
-              <Droplet className="w-3.5 h-3.5 text-blue-700" />
+              <Droplet className="w-3.5 h-3.5 text-blue-600" />
               <span>{room.costs.water ? `${room.costs.water / 1000}k` : 'Free'}</span>
             </span>
           </div>
 
-          <div className="flex items-center gap-1 text-charcoal-500 text-[11px] font-medium">
+          <div className="flex items-center gap-1 text-stone-600 text-[11px] font-semibold">
             <Clock className="w-3 h-3" />
             <span>{formatRelativeTime(room.updatedAt)}</span>
           </div>
