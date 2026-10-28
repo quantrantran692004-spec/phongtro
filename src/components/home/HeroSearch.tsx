@@ -148,40 +148,46 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
   const wards = WARDS_BY_DISTRICT['TP. Thái Nguyên'] || [];
 
   return (
-    <div className="relative overflow-hidden border-b border-[#E5E2D9] bg-[#F7F6F2]">
-      {/* Modern High-End Architectural Villa - Sunlit, Crystal Clear & 100% Prominent */}
+    <div className="relative overflow-hidden border-b border-[#1E332B] bg-[#0E1E19]">
+      {/* Modern High-End Architectural Villa - Rich Twilight Horizon, Warm Illumination & Deep Perspective */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=85"
+          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=85"
           alt="Không gian sống cao cấp hiện đại Thái Nguyên"
-          className="w-full h-full object-cover object-center filter saturate-[1.05] brightness-[1.02]"
+          className="w-full h-full object-cover object-center filter brightness-[0.88] contrast-[1.08] saturate-[1.1] scale-[1.02] transform transition-transform duration-1000"
         />
-        {/* Luminous, Crystal Clear Vignette - 100% Photo Visibility in Center with Soft Seamless Edge Transitions */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-[#F7F6F2] pointer-events-none" />
+
+        {/* 1. Cinematic Radial Vignette: Darkens periphery, drawing eye deep into the illuminated architecture */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_rgba(11,22,18,0.72)_100%)] pointer-events-none" />
+
+        {/* 2. Vertical Atmospheric Depth Gradients: Soft top for navbar connection, illuminated center, deep grounding bottom */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0E1E19]/80 via-[#0E1E19]/35 to-[#0E1E19]/90 pointer-events-none" />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-16 sm:pt-20 sm:pb-24">
-        {/* Confident, Architectural Editorial Heading */}
-        <div className="text-center max-w-4xl mx-auto mb-9 sm:mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-[#23483D]/20 text-[#23483D] text-xs font-bold uppercase tracking-[0.2em] mb-4 shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-[#23483D]"></span>
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-18 sm:pt-22 sm:pb-26">
+        {/* Confident, Architectural Editorial Heading Floating in 3D Depth */}
+        <div className="text-center max-w-4xl mx-auto mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[#A7F3D0] text-xs font-semibold uppercase tracking-[0.2em] mb-4 shadow-[0_4px_16px_rgba(0,0,0,0.3)]">
+            <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse"></span>
             <span>Bất Động Sản & Phòng Trọ Thái Nguyên</span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl lg:text-[66px] font-bold text-[#11241E] tracking-tight leading-[1.12] mb-3.5 font-sans drop-shadow-[0_1px_4px_rgba(255,255,255,0.9)]">
+          <h1 className="text-4xl sm:text-6xl lg:text-[68px] font-light text-white tracking-tight leading-[1.12] mb-4 font-sans drop-shadow-[0_4px_24px_rgba(0,0,0,0.7)]">
             Không Gian Sống Chuẩn Mực <br className="hidden sm:inline" />
-            <span className="font-serif italic font-bold text-[#23483D]">Minh Bạch & An Tâm</span>
+            <span className="font-serif italic font-normal text-[#6EE7B7] drop-shadow-[0_2px_16px_rgba(16,185,129,0.35)]">
+              Minh Bạch & An Tâm
+            </span>
           </h1>
 
-          <p className="text-base sm:text-lg text-[#1F2421] font-medium max-w-2xl mx-auto leading-relaxed drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)]">
+          <p className="text-base sm:text-lg text-[#E2E8F0] font-normal max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
             Khảo sát thực tế 100% • Hợp đồng ký trực tiếp chủ trọ • Minh bạch điện nước
           </p>
         </div>
 
-        {/* Master Architectural Search Console - 100% Transparency Frosted Glass */}
-        <div className="bg-white/40 backdrop-blur-2xl rounded-2xl border border-white/70 shadow-[0_20px_60px_rgba(35,72,61,0.12)] p-5 sm:p-7 text-[#1F2421]">
+        {/* Master Architectural Search Console - Floating 3D Frosted Console with Ambient Depth Shadow */}
+        <div className="bg-white/95 backdrop-blur-2xl rounded-2xl border border-white/80 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.45),0_0_0_1px_rgba(255,255,255,0.2),inset_0_1px_0_rgba(255,255,255,0.9)] p-5 sm:p-7 text-[#252725]">
           {/* 1. Category Segmented Navigation */}
-          <div className="flex items-center gap-2 pb-4 border-b border-white/50 overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-2 pb-4 border-b border-[#E5E2D9] overflow-x-auto no-scrollbar">
             {[
               { id: 'all', label: 'Tất cả phòng' },
               { id: 'studio', label: 'Studio & Căn hộ' },
@@ -194,8 +200,8 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                 onClick={() => handleCategoryTabSelect(tab.id as any)}
                 className={`px-4 sm:px-5 py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition whitespace-nowrap ${
                   activeCategoryTab === tab.id
-                    ? 'bg-[#23483D] text-white shadow-md'
-                    : 'bg-white/80 text-[#252725] hover:text-[#23483D] hover:bg-white border border-white/80 shadow-xs'
+                    ? 'bg-[#23483D] text-white shadow-[0_4px_12px_rgba(35,72,61,0.25)]'
+                    : 'bg-[#FAF9F7] text-[#555955] hover:text-[#23483D] hover:bg-[#E8EEE9] border border-[#E5E2D9]'
                 }`}
               >
                 {tab.label}
@@ -208,13 +214,13 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
             {/* Input: Keyword */}
             <div 
               ref={suggestionRef}
-              className="flex-1 h-14 px-4 flex flex-col justify-center rounded-xl bg-white/90 backdrop-blur-md border border-white/80 hover:border-[#23483D] focus-within:border-[#23483D] focus-within:bg-white transition relative shadow-sm"
+              className="flex-1 h-14 px-4 flex flex-col justify-center rounded-xl bg-[#FAF9F7] border border-[#E5E2D9] hover:border-[#23483D] focus-within:border-[#23483D] focus-within:bg-white focus-within:shadow-[0_0_0_3px_rgba(35,72,61,0.08)] transition relative shadow-2xs"
             >
-              <label className="block text-[11px] font-bold text-[#1F2421] uppercase tracking-wider leading-none mb-1">
+              <label className="block text-[11px] font-bold text-[#777B78] uppercase tracking-wider leading-none mb-1">
                 Từ khóa / Địa điểm
               </label>
               <div className="flex items-center gap-2.5">
-                <Search className="w-4 h-4 text-[#23483D] shrink-0" />
+                <Search className="w-4 h-4 text-[#777B78] shrink-0" />
                 <input
                   type="text"
                   value={keyword}
@@ -224,7 +230,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                     setShowSuggestions(true);
                   }}
                   placeholder="VD: Y Dược, Sư Phạm, Tân Thịnh, Z115..."
-                  className="w-full bg-transparent text-sm sm:text-base font-semibold text-[#1F2421] placeholder-[#777B78] focus:outline-none leading-none"
+                  className="w-full bg-transparent text-sm sm:text-base font-semibold text-[#1F2421] placeholder-[#B0B2AF] focus:outline-none leading-none"
                 />
                 {keyword && (
                   <button 
@@ -244,7 +250,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                     initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 6 }}
-                    className="absolute left-0 right-0 top-full mt-2 bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-white overflow-hidden z-30 max-h-60 overflow-y-auto"
+                    className="absolute left-0 right-0 top-full mt-2 bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-[#E5E2D9] overflow-hidden z-30 max-h-60 overflow-y-auto"
                   >
                     <div className="p-2 space-y-1">
                       {suggestions.map((s, idx) => (
@@ -274,8 +280,8 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
             </div>
 
             {/* Select: Ward */}
-            <div className="sm:w-64 h-14 px-4 flex flex-col justify-center rounded-xl bg-white/90 backdrop-blur-md border border-white/80 hover:border-[#23483D] focus-within:border-[#23483D] focus-within:bg-white transition cursor-pointer shadow-sm">
-              <label className="block text-[11px] font-bold text-[#1F2421] uppercase tracking-wider leading-none mb-1">
+            <div className="sm:w-64 h-14 px-4 flex flex-col justify-center rounded-xl bg-[#FAF9F7] border border-[#E5E2D9] hover:border-[#23483D] focus-within:border-[#23483D] focus-within:bg-white focus-within:shadow-[0_0_0_3px_rgba(35,72,61,0.08)] transition cursor-pointer shadow-2xs">
+              <label className="block text-[11px] font-bold text-[#777B78] uppercase tracking-wider leading-none mb-1">
                 Khu vực Phường / Xã
               </label>
               <div className="flex items-center gap-2">
@@ -297,10 +303,10 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
             <button
               type="button"
               onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
-              className={`h-14 px-5 flex items-center justify-center gap-2 rounded-xl text-sm font-semibold border transition shrink-0 shadow-sm ${
+              className={`h-14 px-5 flex items-center justify-center gap-2 rounded-xl text-sm font-semibold border transition shrink-0 shadow-2xs ${
                 isAdvancedOpen || activeAdvancedCount > 0
                   ? 'bg-[#E8EEE9] border-[#23483D] text-[#23483D]'
-                  : 'bg-white/90 border-white/80 text-[#1F2421] hover:bg-white hover:border-[#23483D]'
+                  : 'bg-[#FAF9F7] border-[#E5E2D9] text-[#1F2421] hover:bg-[#EFEEE8]'
               }`}
             >
               <SlidersHorizontal className="w-4 h-4 text-[#23483D]" />
@@ -315,7 +321,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
             {/* Button: Submit in signature BARNES Deep Forest Green */}
             <button
               type="submit"
-              className="h-14 px-8 bg-[#23483D] hover:bg-[#1A372E] text-white font-semibold text-sm sm:text-base rounded-xl shadow-lg shadow-[#23483D]/25 transition-all duration-200 flex items-center justify-center gap-2.5 shrink-0 active:scale-[0.99] tracking-wide"
+              className="h-14 px-8 bg-[#23483D] hover:bg-[#1A372E] text-white font-semibold text-sm sm:text-base rounded-xl shadow-[0_8px_24px_rgba(35,72,61,0.35)] hover:shadow-[0_12px_32px_rgba(35,72,61,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2.5 shrink-0 tracking-wide"
             >
               <span>Tìm kiếm</span>
               <ArrowRight className="w-4 h-4" />
@@ -465,20 +471,20 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
           </div>
         </div>
 
-        {/* 5. Minimal, Understated Proof Strip */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm font-medium">
-          <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-[#E5E2D9] text-[#252725] shadow-whisper">
-            <CheckCircle2 className="w-4 h-4 text-[#23483D]" />
+        {/* 5. Minimal, Understated Proof Strip Floating with Depth */}
+        <div className="mt-9 flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm font-medium">
+          <div className="flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-white shadow-[0_8px_24px_rgba(0,0,0,0.3)] hover:bg-white/15 transition">
+            <CheckCircle2 className="w-4 h-4 text-[#6EE7B7]" />
             <span>100% Khảo sát thực tế</span>
           </div>
 
-          <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-[#E5E2D9] text-[#252725] shadow-whisper">
-            <CheckCircle2 className="w-4 h-4 text-[#23483D]" />
+          <div className="flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-white shadow-[0_8px_24px_rgba(0,0,0,0.3)] hover:bg-white/15 transition">
+            <CheckCircle2 className="w-4 h-4 text-[#6EE7B7]" />
             <span>Minh bạch tiền điện nước</span>
           </div>
 
-          <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-[#E5E2D9] text-[#252725] shadow-whisper">
-            <CheckCircle2 className="w-4 h-4 text-[#23483D]" />
+          <div className="flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-white shadow-[0_8px_24px_rgba(0,0,0,0.3)] hover:bg-white/15 transition">
+            <CheckCircle2 className="w-4 h-4 text-[#6EE7B7]" />
             <span>Ký trực tiếp chủ trọ – 0đ môi giới</span>
           </div>
         </div>
