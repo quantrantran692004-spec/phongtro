@@ -7,6 +7,7 @@
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
   }
   
   body {
@@ -15,6 +16,9 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -31,24 +35,23 @@
   font-family: 'Cormorant Garamond', Georgia, serif;
 }
 
-/* Restrained European Architectural Scrollbar - Overlay cleanly without creating a white gutter line */
+/* Invisible Modern Scrollbar - Eliminates the 10-16px white scrollbar gutter on Windows browsers */
 html {
-  scrollbar-gutter: stable;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE / Edge */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0px !important;
+  height: 0px !important;
+  display: none !important;
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.5);
-  border-radius: 9999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(100, 116, 139, 0.8);
+  width: 0px !important;
+  height: 0px !important;
+  display: none !important;
 }
 
 /* Hide scrollbar for category tabs */
