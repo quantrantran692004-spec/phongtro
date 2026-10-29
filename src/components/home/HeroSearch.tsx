@@ -161,15 +161,13 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
   return (
     <section className="relative w-full h-screen min-h-[680px] max-h-[1080px] overflow-hidden flex flex-col justify-between select-none">
       
-      {/* 1. ẢNH NỀN SẮC NÉT NGUYÊN BẢN 100% */}
+      {/* 1. ẢNH NỀN NGUYÊN BẢN SẮC NÉT 100% - KHÔNG CÓ BẤT KỲ LỚP PHỦ MỜ NÀO */}
       <div className="absolute inset-0 z-0">
         <img
           src={heroSunsetVilla}
           alt="Không gian sống đẳng cấp"
           className="w-full h-full object-cover object-center scale-[1.01]"
         />
-        {/* Hero Scrim Protection: Lớp phủ chuyển sắc bên trái w-3/5 tách biệt hoàn toàn chữ khỏi nền */}
-        <div className="absolute inset-y-0 left-0 w-full lg:w-3/5 bg-gradient-to-r from-white/95 via-white/75 to-transparent pointer-events-none" />
       </div>
 
       {/* Khoảng đệm cho Header */}
