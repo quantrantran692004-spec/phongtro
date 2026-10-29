@@ -108,51 +108,39 @@ export const Header: React.FC<HeaderProps> = ({
     <header className={headerClasses}>
       <div className="max-w-[1360px] mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
-          {/* 1. Logo Pill (Bright frosted glass pill matching center nav) */}
-          <div className="flex items-center gap-4 xl:gap-6">
+          {/* 1. Logo Brand (Clean, authentic PropTech design matching mockup) */}
+          <div className="flex items-center gap-6 xl:gap-8">
             <button
               onClick={() => onNavigate('home')}
-              className={`flex items-center gap-2.5 text-left group focus:outline-none shrink-0 transition-all duration-200 ${
-                isTransparent
-                  ? 'bg-white/80 hover:bg-white/95 backdrop-blur-xl border border-white/90 shadow-[0_8px_32px_rgba(15,23,42,0.06)] rounded-full px-4 py-2 text-slate-900'
-                  : 'hover:opacity-90'
-              }`}
+              className="flex items-center gap-3 text-left group focus:outline-none shrink-0 transition-all duration-200"
             >
-              <div className="w-8 h-8 rounded-full flex items-center justify-center transition shadow-sm bg-gradient-to-r from-teal-600 to-emerald-600 text-white shrink-0">
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <div className="w-10 h-10 rounded-2xl flex items-center justify-center transition shadow-sm bg-teal-800 text-white shrink-0">
+                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                   <path d="M12 2L2 9.5V20C2 20.5523 2.44772 21 3 21H9V14H15V21H21C21.5523 21 22 20.5523 22 20V9.5L12 2ZM10.5 7H13.5V9.5H10.5V7Z" />
                 </svg>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="font-extrabold text-base tracking-tight whitespace-nowrap text-slate-900">
+              <div className="flex flex-col">
+                <span className="font-extrabold text-lg tracking-tight text-slate-900 leading-none">
                   TRỌ THÁI NGUYÊN
                 </span>
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border whitespace-nowrap transition ${
-                  isTransparent
-                    ? 'bg-teal-50 text-teal-700 border-teal-200/80 shadow-xs'
-                    : 'bg-teal-50 text-teal-700 border-teal-200'
-                }`}>
-                  CHÍNH CHỦ
+                <span className="text-[11px] text-slate-600 font-medium tracking-normal mt-1">
+                  Sống tiện nghi - Đầu tư vững bền
                 </span>
               </div>
             </button>
 
-            {/* 2. Desktop Navigation (Bright frosted glass aesthetic when transparent) */}
+            {/* 2. Desktop Navigation (Pill container matching mockup) */}
             <nav className={`hidden lg:flex items-center gap-1 text-sm font-medium transition-all ${
               isTransparent
-                ? 'bg-white/80 hover:bg-white/95 backdrop-blur-xl border border-white/90 shadow-[0_8px_32px_rgba(15,23,42,0.06)] rounded-full px-3.5 py-1.5 duration-200'
+                ? 'bg-white/85 hover:bg-white/95 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-full px-2 py-1 duration-200'
                 : ''
             }`}>
               <button
                 onClick={() => onNavigate('home')}
                 className={`h-8 px-4 rounded-full flex items-center whitespace-nowrap transition ${
                   currentTab === 'home'
-                    ? isTransparent
-                      ? 'text-teal-700 font-bold bg-teal-50 shadow-xs'
-                      : 'text-teal-700 font-bold bg-teal-50'
-                    : isTransparent
-                      ? 'text-slate-800 hover:text-teal-700 hover:bg-white/80'
-                      : 'text-slate-700 hover:text-teal-700 hover:bg-slate-100'
+                    ? 'text-white font-bold bg-teal-700 shadow-sm'
+                    : 'text-slate-700 hover:text-teal-700 hover:bg-slate-100/70'
                 }`}
               >
                 Trang chủ
@@ -265,6 +253,14 @@ export const Header: React.FC<HeaderProps> = ({
                       ? 'rotate-180 text-teal-600'
                       : isTransparent ? 'text-slate-500' : 'text-slate-400'
                   }`} />
+                </button>
+
+                {/* Về chúng tôi (Theo mockup) */}
+                <button
+                  onClick={onOpenGuide}
+                  className="h-8 px-4 rounded-full flex items-center whitespace-nowrap transition text-slate-700 hover:text-teal-700 hover:bg-slate-100/70"
+                >
+                  Về chúng tôi
                 </button>
 
                 <AnimatePresence>
