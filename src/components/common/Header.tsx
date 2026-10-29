@@ -129,18 +129,14 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
             </button>
 
-            {/* 2. Desktop Navigation (Pill container matching mockup) */}
-            <nav className={`hidden lg:flex items-center gap-1 text-sm font-medium transition-all ${
-              isTransparent
-                ? 'bg-white/85 hover:bg-white/95 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-full px-2 py-1 duration-200'
-                : ''
-            }`}>
+            {/* 2. Desktop Navigation (Bare text links matching mockup) */}
+            <nav className="hidden lg:flex items-center gap-2 xl:gap-4 text-sm font-medium">
               <button
                 onClick={() => onNavigate('home')}
                 className={`h-8 px-4 rounded-full flex items-center whitespace-nowrap transition ${
                   currentTab === 'home'
-                    ? 'text-white font-bold bg-teal-700 shadow-sm'
-                    : 'text-slate-700 hover:text-teal-700 hover:bg-slate-100/70'
+                    ? 'text-teal-900 font-bold border-b-2 border-teal-800 rounded-none pb-0.5'
+                    : 'text-slate-700 hover:text-teal-800'
                 }`}
               >
                 Trang chủ
@@ -154,22 +150,10 @@ export const Header: React.FC<HeaderProps> = ({
               >
                 <button
                   onClick={() => onNavigate('search')}
-                  className={`h-8 px-4 rounded-full flex items-center gap-1.5 whitespace-nowrap transition ${
-                    currentTab === 'search' || exploreMenuOpen
-                      ? isTransparent
-                        ? 'text-teal-700 font-bold bg-teal-50 shadow-xs'
-                        : 'text-teal-700 font-bold bg-teal-50'
-                      : isTransparent
-                        ? 'text-slate-800 hover:text-teal-700 hover:bg-white/80'
-                        : 'text-slate-700 hover:text-teal-700 hover:bg-slate-100'
-                  }`}
+                  className="h-8 px-4 rounded-full flex items-center gap-1.5 whitespace-nowrap transition text-slate-700 hover:text-teal-800"
                 >
                   <span className="whitespace-nowrap">Khám phá phòng</span>
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 shrink-0 ${
-                    exploreMenuOpen 
-                      ? 'rotate-180 text-teal-600'
-                      : isTransparent ? 'text-slate-500' : 'text-slate-400'
-                  }`} />
+                  <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
                 </button>
 
                 <AnimatePresence>
@@ -368,10 +352,10 @@ export const Header: React.FC<HeaderProps> = ({
               )}
             </button>
 
-            {/* Post Room Primary CTA */}
+            {/* Post Room Primary CTA (Teal Pill with + icon matching mockup) */}
             <button
               onClick={onOpenPostRoom}
-              className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-xs font-bold tracking-wider uppercase whitespace-nowrap transition-all duration-200 shadow-md hover:shadow-lg active:scale-[0.99] bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white shadow-teal-600/25 hover:-translate-y-0.5"
+              className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-xs font-bold tracking-wider uppercase whitespace-nowrap transition-all duration-200 shadow-md hover:shadow-lg active:scale-[0.99] bg-teal-800 hover:bg-teal-900 text-white shadow-teal-800/25 hover:-translate-y-0.5"
             >
               <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>ĐĂNG TIN</span>
