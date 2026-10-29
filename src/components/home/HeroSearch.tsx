@@ -7,7 +7,9 @@ import {
   ArrowRight, 
   X, 
   RotateCcw,
-  GraduationCap
+  GraduationCap,
+  Sparkles,
+  Building2
 } from 'lucide-react';
 import { WARDS_BY_DISTRICT, THAI_NGUYEN_UNIVERSITIES } from '../../data/locations';
 import { useRooms } from '../../context/RoomContext';
@@ -159,114 +161,90 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
   return (
     <section className="relative w-full h-screen min-h-[680px] max-h-[1080px] overflow-hidden flex flex-col justify-between select-none">
       
-      {/* 1. ẢNH NỀN SẮC NÉT NGUYÊN BẢN 100% - ĐỘ TRONG SẮC NÉT CAO, KHÔNG PHỦ MỜ ĐỤC */}
+      {/* 1. ẢNH NỀN SẮC NÉT NGUYÊN BẢN 100% */}
       <div className="absolute inset-0 z-0">
         <img
           src={heroSunsetVilla}
           alt="Không gian sống đẳng cấp"
           className="w-full h-full object-cover object-center scale-[1.01]"
         />
+        {/* Hero Scrim Protection: Lớp phủ chuyển sắc bên trái w-3/5 tách biệt hoàn toàn chữ khỏi nền */}
+        <div className="absolute inset-y-0 left-0 w-full lg:w-3/5 bg-gradient-to-r from-white/95 via-white/75 to-transparent pointer-events-none" />
       </div>
 
       {/* Khoảng đệm cho Header */}
-      <div className="h-20 shrink-0" />
+      <div className="h-20 sm:h-24 shrink-0" />
 
-      {/* 2. NỘI DUNG CHÍNH (TYPOGRAPHY NÂNG CẤP SANG TRỌNG, GỌN GÀNG) */}
-      <div className="relative z-10 container mx-auto px-6 lg:px-12 my-auto py-2">
-        <div className="max-w-2xl relative">
+      {/* 2. NỘI DUNG CHÍNH (CHUẨN LƯỚI max-w-[1360px] mx-auto px-6 lg:px-8) */}
+      <div className="relative z-10 max-w-[1360px] mx-auto px-6 lg:px-8 w-full my-auto py-2">
+        <div className="max-w-4xl relative">
           
-          {/* Eyebrow badge inside sleek frosted glass pill */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/60 shadow-sm text-teal-800 text-[11px] font-semibold tracking-wide uppercase mb-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-teal-600 animate-pulse"></span>
-            <span>Bất động sản & Phòng trọ Thái Nguyên</span>
+          {/* Badge trên cùng: BẤT ĐỘNG SẢN & PHÒNG TRỌ THÁI NGUYÊN */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/90 shadow-sm text-emerald-800 text-xs font-bold tracking-wider uppercase mb-3">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>BẤT ĐỘNG SẢN & PHÒNG TRỌ THÁI NGUYÊN</span>
           </div>
 
-          {/* ĐẠI TIÊU ĐỀ GỌN GÀNG, SANG TRỌNG (FONT BALANCE, KHÔNG CỒNG KỀNH) */}
-          <h1 className="tracking-tight leading-[1.15] mb-3">
-            <span className="block text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-slate-900">
+          {/* ĐẠI TIÊU ĐỀ CHÍNH */}
+          <h1 className="tracking-tight leading-[1.15] mb-4">
+            <span className="block text-4xl sm:text-5xl lg:text-[56px] font-extrabold text-slate-900">
               Kiến tạo Không gian sống
             </span>
-            <span className="block text-2xl sm:text-3xl lg:text-[38px] font-bold bg-gradient-to-r from-teal-700 via-teal-600 to-emerald-600 bg-clip-text text-transparent">
+            <span className="block text-3xl sm:text-4xl lg:text-[50px] font-extrabold bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">
               Chuẩn mực & Minh bạch
             </span>
           </h1>
 
-          {/* Mô tả tinh tế, cỡ chữ vừa vặn, ngắt dòng tự nhiên */}
-          <p className="text-slate-700 text-sm sm:text-[15px] leading-relaxed max-w-lg mb-5 font-normal">
+          {/* Đoạn mô tả phụ */}
+          <p className="text-slate-700 text-base lg:text-lg font-medium leading-relaxed max-w-xl mt-4 mb-8">
             Phòng trọ cao cấp khảo sát thực tế 100%, kết nối trực tiếp chủ trọ và cam kết minh bạch tuyệt đối chi phí điện nước.
           </p>
 
-          {/* Cụm 2 nút bấm: Nút chính Teal + Nút phụ Frosted Glass */}
-          <div className="flex flex-wrap items-center gap-3 mb-5">
-            <button
-              type="button"
-              onClick={() => {
-                const el = document.getElementById('search-dock');
-                el?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="group flex items-center gap-2.5 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white px-5 py-2.5 rounded-full text-xs font-semibold tracking-wider transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 whitespace-nowrap active:scale-[0.98]"
-            >
-              <span>Khám phá ngay</span>
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
-              className="bg-white/90 hover:bg-white text-slate-800 border border-slate-200/80 shadow-sm rounded-full px-4 py-2 font-medium text-xs tracking-wide backdrop-blur-md flex items-center gap-2 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 whitespace-nowrap active:scale-[0.98]"
-            >
-              <span className="w-4 h-4 rounded-full bg-slate-100 text-teal-700 flex items-center justify-center font-bold text-[10px]">
-                ▸
-              </span>
-              <span>Bộ lọc nâng cao</span>
-              {activeAdvancedCount > 0 && (
-                <span className="w-4 h-4 rounded-full bg-teal-600 text-white text-[10px] font-bold flex items-center justify-center">
-                  {activeAdvancedCount}
-                </span>
-              )}
-            </button>
-          </div>
-
-          {/* 3. TẤT CẢ GỘP VÀO 1 THẺ CARD TÌM KIẾM DUY NHẤT */}
-          <div id="search-dock" className="w-full max-w-[840px] relative">
-            <div className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3 md:p-3.5 shadow-[0_16px_40px_rgba(15,23,42,0.12)] border border-white">
+          {/* 3. TỐI GIẢN & NÂNG CẤP THANH TÌM KIẾM (UNIFIED COMMAND SEARCH DOCK - max-w-4xl mt-8) */}
+          <div id="search-dock" className="w-full max-w-4xl relative mt-4">
+            <div className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3 md:p-4 shadow-[0_20px_50px_rgba(15,23,42,0.12)] border border-white">
               
-              {/* Category Tabs */}
-              <div className="flex flex-wrap items-center gap-1 pb-2 mb-2 border-b border-slate-100">
+              {/* Category Tabs: Kèm Icon mảnh tinh tế, tab đang chọn có shadow-emerald-600/25 */}
+              <div className="flex flex-wrap items-center gap-2 pb-3 mb-3 border-b border-slate-100">
                 {[
-                  { id: 'all', label: 'Tất cả phòng' },
-                  { id: 'studio', label: 'Studio & Căn hộ' },
-                  { id: 'university', label: 'Gần trường ĐH' },
-                  { id: 'samsung', label: 'KCN Samsung' },
-                ].map((tab) => (
-                  <button
-                    key={tab.id}
-                    type="button"
-                    onClick={() => handleCategoryTabSelect(tab.id as any)}
-                    className={`rounded-full px-3.5 py-1 text-xs font-medium whitespace-nowrap transition-all duration-200 ${
-                      activeCategoryTab === tab.id
-                        ? 'bg-teal-600 text-white shadow-sm font-semibold'
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
+                  { id: 'all', label: 'Tất cả phòng', icon: Sparkles },
+                  { id: 'studio', label: 'Studio & Căn hộ', icon: Building2 },
+                  { id: 'university', label: 'Gần trường ĐH', icon: GraduationCap },
+                  { id: 'samsung', label: 'KCN Samsung', icon: MapPin },
+                ].map((tab) => {
+                  const Icon = tab.icon;
+                  const isActive = activeCategoryTab === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      type="button"
+                      onClick={() => handleCategoryTabSelect(tab.id as any)}
+                      className={`inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
+                        isActive
+                          ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/25'
+                          : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 font-medium'
+                      }`}
+                    >
+                      <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-slate-400'}`} />
+                      <span>{tab.label}</span>
+                    </button>
+                  );
+                })}
               </div>
 
-              {/* Main Search Bar: Cân đối, không bị cụt chữ */}
+              {/* Main Search Bar: 3 Cột rộng rãi có đường kẻ dọc phân cách (divide-x divide-slate-200/80) */}
               <form
                 onSubmit={handleSearch}
-                className="grid grid-cols-1 md:grid-cols-[1.2fr_1.2fr_1.1fr_auto] items-center gap-1.5"
+                className="grid grid-cols-1 md:grid-cols-[1.4fr_1.1fr_1.1fr_auto] items-center gap-2 md:gap-0 md:divide-x md:divide-slate-200/80"
               >
                 {/* Cột 1: Từ khóa / Trường ĐH */}
                 <div 
                   ref={suggestionRef}
-                  className="flex items-center gap-2 hover:bg-slate-50/90 rounded-xl px-3 py-2 transition cursor-pointer relative min-w-0"
+                  className="flex items-center gap-2.5 hover:bg-slate-50/80 rounded-xl md:rounded-r-none px-3.5 py-2 transition cursor-pointer relative min-w-0"
                 >
                   <Search className="w-4 h-4 text-slate-400 shrink-0" />
                   <div className="w-full min-w-0">
-                    <span className="block text-[10px] font-medium text-slate-400 whitespace-nowrap">
+                    <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">
                       Từ khóa / Trường ĐH
                     </span>
                     <input
@@ -277,7 +255,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                         setKeyword(e.target.value);
                         setShowSuggestions(true);
                       }}
-                      placeholder="VD: ĐH Y Dược, CNTT..."
+                      placeholder="VD: ĐH Y Dược, KCN Samsung..."
                       className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 placeholder-slate-400 focus:outline-none"
                     />
                   </div>
@@ -327,17 +305,17 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                   </AnimatePresence>
                 </div>
 
-                {/* Cột 2: Khu vực */}
-                <div className="flex items-center gap-2 hover:bg-slate-50/90 rounded-xl px-3 py-2 transition cursor-pointer min-w-0 border-t md:border-t-0 md:border-l border-slate-200/80">
+                {/* Cột 2: Khu vực (Hiển thị trọn vẹn Toàn Thái Nguyên) */}
+                <div className="flex items-center gap-2 hover:bg-slate-50/80 rounded-xl md:rounded-none px-3.5 py-2 transition cursor-pointer min-w-0">
                   <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
                   <div className="w-full min-w-0">
-                    <span className="block text-[10px] font-medium text-slate-400 whitespace-nowrap">
+                    <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">
                       Khu vực
                     </span>
                     <select 
                       value={ward}
                       onChange={(e) => setWard(e.target.value)}
-                      className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer truncate pr-1"
+                      className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer"
                     >
                       <option value="Tất cả">Toàn Thái Nguyên</option>
                       {wards.filter(w => w !== 'Tất cả').map((w) => (
@@ -347,17 +325,17 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                   </div>
                 </div>
 
-                {/* Cột 3: Mức giá */}
-                <div className="flex items-center gap-2 hover:bg-slate-50/90 rounded-xl px-3 py-2 transition cursor-pointer min-w-0 border-t md:border-t-0 md:border-l border-slate-200/80">
+                {/* Cột 3: Mức giá (Hiển thị trọn vẹn Tất cả mức giá) */}
+                <div className="flex items-center gap-2 hover:bg-slate-50/80 rounded-xl md:rounded-none px-3.5 py-2 transition cursor-pointer min-w-0">
                   <SlidersHorizontal className="w-4 h-4 text-slate-400 shrink-0" />
                   <div className="w-full min-w-0">
-                    <span className="block text-[10px] font-medium text-slate-400 whitespace-nowrap">
+                    <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">
                       Mức giá
                     </span>
                     <select 
                       value={priceTier}
                       onChange={(e) => setPriceTier(e.target.value)}
-                      className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer truncate pr-1"
+                      className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer"
                     >
                       <option value="all">Tất cả mức giá</option>
                       <option value="under_1_5m">Dưới 1.5 triệu</option>
@@ -367,11 +345,29 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                   </div>
                 </div>
 
-                {/* Nút Tìm Kiếm CTA */}
-                <div className="p-1 shrink-0">
+                {/* Cụm nút hành động bên phải: Nút Icon Bộ lọc nâng cao + Nút Tìm Kiếm CTA */}
+                <div className="p-1 pl-2.5 flex items-center gap-2 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
+                    className={`p-3 rounded-xl transition-all duration-200 border flex items-center justify-center ${
+                      isAdvancedOpen || activeAdvancedCount > 0
+                        ? 'bg-emerald-50 border-emerald-300 text-emerald-700 shadow-sm'
+                        : 'bg-slate-100 hover:bg-slate-200 border-transparent text-slate-700'
+                    }`}
+                    title="Bộ lọc nâng cao"
+                  >
+                    <SlidersHorizontal className="w-4 h-4" />
+                    {activeAdvancedCount > 0 && (
+                      <span className="ml-1 w-4 h-4 rounded-full bg-emerald-600 text-white text-[10px] font-bold flex items-center justify-center">
+                        {activeAdvancedCount}
+                      </span>
+                    )}
+                  </button>
+
                   <button
                     type="submit"
-                    className="w-full md:w-auto bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-semibold px-5 py-2.5 rounded-xl shadow-md transition-all hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap text-xs tracking-wide"
+                    className="w-full md:w-auto bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold px-7 py-3 rounded-xl shadow-lg shadow-emerald-600/30 transition-all hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap text-xs uppercase tracking-wider"
                   >
                     Tìm kiếm →
                   </button>
@@ -407,7 +403,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                             onClick={() => setPriceTier(p.id)}
                             className={`py-1.5 px-2 rounded-lg border text-xs font-medium transition text-center ${
                               priceTier === p.id
-                                ? 'bg-teal-600 border-teal-600 text-white font-bold shadow-sm'
+                                ? 'bg-emerald-600 border-emerald-600 text-white font-bold shadow-sm'
                                 : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                             }`}
                           >
@@ -434,7 +430,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                             onClick={() => setRoomType(t.id)}
                             className={`py-1.5 px-2 rounded-lg border text-xs font-medium transition text-center ${
                               roomType === t.id
-                                ? 'bg-teal-600 border-teal-600 text-white font-bold shadow-sm'
+                                ? 'bg-emerald-600 border-emerald-600 text-white font-bold shadow-sm'
                                 : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                             }`}
                           >
@@ -457,7 +453,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                     <button
                       type="button"
                       onClick={() => { setIsAdvancedOpen(false); applySearch(); }}
-                      className="px-4 py-1.5 rounded-lg bg-teal-600 text-white font-bold hover:bg-teal-500 transition shadow-sm"
+                      className="px-4 py-1.5 rounded-lg bg-emerald-600 text-white font-bold hover:bg-emerald-500 transition shadow-sm"
                     >
                       Áp dụng bộ lọc
                     </button>
@@ -465,20 +461,41 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                 </motion.div>
               )}
             </AnimatePresence>
+
+            {/* 4. THANH TÍN NHIỆM (TRUST INDICATORS) NGAY DƯỚI KHUNG TÌM KIẾM */}
+            <div className="mt-3.5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-medium text-slate-700">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/70 backdrop-blur-md border border-white/60 shadow-xs">
+                <span className="text-emerald-600 font-bold">✓</span>
+                <span>100% Ảnh chụp thực tế</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/70 backdrop-blur-md border border-white/60 shadow-xs">
+                <span className="text-emerald-600 font-bold">✓</span>
+                <span>Kết nối trực tiếp chủ nhà</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/70 backdrop-blur-md border border-white/60 shadow-xs">
+                <span className="text-emerald-600 font-bold">✓</span>
+                <span>Minh bạch giá điện nước</span>
+              </span>
+            </div>
           </div>
 
         </div>
       </div>
 
-      {/* 4. BOTTOM AREA (CLEAN & AIRY, ZERO OBSTRUCTION) */}
-      <div className="relative z-10 container mx-auto px-6 lg:px-12 pb-6 pt-2 flex items-center justify-end text-white">
-        {/* Subtle scroll indicator */}
-        <div className="hidden md:inline-flex items-center gap-2.5 bg-slate-900/60 backdrop-blur-md border border-white/20 text-white px-4 py-2 rounded-full text-xs font-semibold tracking-wider shadow-lg">
-          <span className="w-4 h-6 rounded-full border border-white/40 flex items-start justify-center p-0.5">
-            <span className="w-1 h-1.5 bg-emerald-400 rounded-full animate-bounce" />
+      {/* 5. NÚT CUỘN XUỐNG KÍNH MỜ TRONG SUỐT GÓC DƯỚI PHẢI */}
+      <div className="relative z-10 max-w-[1360px] mx-auto px-6 lg:px-8 w-full pb-6 pt-2 flex items-center justify-end text-white">
+        <button
+          type="button"
+          onClick={() => {
+            window.scrollBy({ top: window.innerHeight * 0.85, behavior: 'smooth' });
+          }}
+          className="hidden md:inline-flex items-center gap-2.5 bg-slate-900/40 hover:bg-slate-900/60 backdrop-blur-md border border-white/25 text-white rounded-full px-4 py-2 text-xs tracking-widest uppercase transition-all duration-300 shadow-lg"
+        >
+          <span className="w-3.5 h-5 rounded-full border border-white/50 flex items-start justify-center p-0.5">
+            <span className="w-1 h-1 bg-emerald-400 rounded-full animate-bounce" />
           </span>
-          <span className="uppercase tracking-widest text-[11px]">Cuộn xuống</span>
-        </div>
+          <span>Cuộn xuống</span>
+        </button>
       </div>
 
     </section>

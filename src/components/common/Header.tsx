@@ -106,7 +106,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className={headerClasses}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1360px] mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* 1. Logo Pill (Bright frosted glass pill matching center nav) */}
           <div className="flex items-center gap-4 xl:gap-6">
@@ -114,7 +114,7 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={() => onNavigate('home')}
               className={`flex items-center gap-2.5 text-left group focus:outline-none shrink-0 transition-all duration-200 ${
                 isTransparent
-                  ? 'bg-white/85 hover:bg-white backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.06)] rounded-full px-4 py-2 text-slate-900'
+                  ? 'bg-white/80 hover:bg-white/95 backdrop-blur-xl border border-white/90 shadow-[0_8px_32px_rgba(15,23,42,0.06)] rounded-full px-4 py-2 text-slate-900'
                   : 'hover:opacity-90'
               }`}
             >
@@ -140,7 +140,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* 2. Desktop Navigation (Bright frosted glass aesthetic when transparent) */}
             <nav className={`hidden lg:flex items-center gap-1 text-sm font-medium transition-all ${
               isTransparent
-                ? 'bg-white/85 hover:bg-white backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.06)] rounded-full px-3.5 py-1.5 duration-200'
+                ? 'bg-white/80 hover:bg-white/95 backdrop-blur-xl border border-white/90 shadow-[0_8px_32px_rgba(15,23,42,0.06)] rounded-full px-3.5 py-1.5 duration-200'
                 : ''
             }`}>
               <button
@@ -342,7 +342,7 @@ export const Header: React.FC<HeaderProps> = ({
                 onClick={onOpenCompare}
                 className={`flex items-center gap-1.5 h-9 px-3.5 rounded-full border text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
                   isTransparent
-                    ? 'bg-white/85 hover:bg-white text-slate-800 border-white/80 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.06)]'
+                    ? 'bg-white/80 hover:bg-white text-slate-800 border-white/90 backdrop-blur-xl shadow-[0_8px_32px_rgba(15,23,42,0.06)]'
                     : 'bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-800'
                 }`}
               >
@@ -359,7 +359,7 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={() => onOpenProfile('saved')}
               className={`relative h-9 w-9 rounded-full flex items-center justify-center transition-all duration-200 border ${
                 isTransparent
-                  ? 'bg-white/85 hover:bg-white text-slate-700 hover:text-rose-600 border-white/80 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.06)]'
+                  ? 'bg-white/80 hover:bg-white text-slate-700 hover:text-rose-600 border-white/90 backdrop-blur-xl shadow-[0_8px_32px_rgba(15,23,42,0.06)]'
                   : 'bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-600 hover:text-rose-600'
               }`}
               title="Phòng đã lưu"
@@ -392,7 +392,7 @@ export const Header: React.FC<HeaderProps> = ({
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
                   className={`flex items-center gap-2 h-9 pl-3 pr-1.5 rounded-full border whitespace-nowrap transition-all duration-200 ${
                     isTransparent
-                      ? 'bg-white/85 hover:bg-white border-white/80 text-slate-800 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.06)]'
+                      ? 'bg-white/80 hover:bg-white border-white/90 text-slate-800 backdrop-blur-xl shadow-[0_8px_32px_rgba(15,23,42,0.06)]'
                       : 'bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-800'
                   }`}
                 >
