@@ -470,53 +470,9 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
         </div>
       </div>
 
-      {/* 4. STREAMLINED BOTTOM BAR (AIRY & CLEAN, PRESERVES WATER REFLECTION) */}
-      <div className="relative z-10 container mx-auto px-6 lg:px-12 pb-6 pt-2 flex flex-wrap items-center justify-between gap-4 text-white">
-        
-        {/* Bottom-left pagination pill */}
-        <div className="inline-flex items-center gap-2.5 bg-slate-900/60 backdrop-blur-md border border-white/20 text-white px-4 py-2 rounded-full text-xs font-semibold tracking-wider shadow-lg">
-          <span className="text-white/60">‹</span>
-          <span className="text-emerald-400 font-bold">01</span>
-          <span className="text-white/30">/</span>
-          <span className="text-white/70">04</span>
-          <span className="text-white/60">›</span>
-        </div>
-
-        {/* Floating luxury glass capsule for 3 trust metrics */}
-        <div className="bg-slate-900/65 backdrop-blur-xl border border-white/20 text-white rounded-full px-6 md:px-8 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.25)] flex items-center gap-6 md:gap-10">
-          <div className="flex items-center gap-2">
-            <span className="font-extrabold text-lg md:text-xl text-emerald-400 tabular-nums">
-              450+
-            </span>
-            <span className="text-[10px] md:text-xs text-slate-200 uppercase tracking-wider font-semibold whitespace-nowrap">
-              Phòng trọ đã khảo sát
-            </span>
-          </div>
-
-          <div className="h-4 w-px bg-white/20 hidden sm:block" />
-
-          <div className="flex items-center gap-2">
-            <span className="font-extrabold text-lg md:text-xl text-emerald-400 tabular-nums">
-              100%
-            </span>
-            <span className="text-[10px] md:text-xs text-slate-200 uppercase tracking-wider font-semibold whitespace-nowrap">
-              Hợp đồng chính chủ
-            </span>
-          </div>
-
-          <div className="h-4 w-px bg-white/20 hidden sm:block" />
-
-          <div className="flex items-center gap-2">
-            <span className="font-extrabold text-lg md:text-xl text-emerald-400 tabular-nums">
-              0đ
-            </span>
-            <span className="text-[10px] md:text-xs text-slate-200 uppercase tracking-wider font-semibold whitespace-nowrap">
-              Phí môi giới trung gian
-            </span>
-          </div>
-        </div>
-
-        {/* Bottom-right scroll indicator pill */}
+      {/* 4. BOTTOM AREA (CLEAN & AIRY, ZERO OBSTRUCTION) */}
+      <div className="relative z-10 container mx-auto px-6 lg:px-12 pb-6 pt-2 flex items-center justify-end text-white">
+        {/* Subtle scroll indicator */}
         <div className="hidden md:inline-flex items-center gap-2.5 bg-slate-900/60 backdrop-blur-md border border-white/20 text-white px-4 py-2 rounded-full text-xs font-semibold tracking-wider shadow-lg">
           <span className="w-4 h-6 rounded-full border border-white/40 flex items-start justify-center p-0.5">
             <span className="w-1 h-1.5 bg-emerald-400 rounded-full animate-bounce" />
