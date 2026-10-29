@@ -159,19 +159,15 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
   return (
     <section className="relative w-full min-h-screen overflow-hidden flex flex-col justify-between select-none">
       
-      {/* 1. ẢNH NỀN SẮC NÉT 100% - KHÔNG BỊ TRẮNG ĐỤC, SCALE 1.01 ĐỂ TRIỆT TIÊU 100% LỖI HỞ VIỀN 1PX */}
+      {/* 1. ẢNH NỀN SẮC NÉT NGUYÊN BẢN 100% - KHÔNG PHỦ TRẮNG, KHÔNG LỚP ĐỤC */}
       <div className="absolute inset-0 z-0">
         <img
           src={heroSunsetVilla}
           alt="Không gian sống đẳng cấp"
-          className="w-full h-full object-cover object-center contrast-[1.03] saturate-[1.05] scale-[1.01]"
+          className="w-full h-full object-cover object-center contrast-[1.04] saturate-[1.05] scale-[1.01]"
         />
-        {/* Subtle top & bottom ambient vignettes */}
-        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-slate-950/60 via-slate-950/20 to-transparent pointer-events-none" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-slate-950/80 via-slate-950/35 to-transparent pointer-events-none" />
-        
-        {/* PART 1 #3: Left Content Light Backdrop for crystal-clear readability over dark shrubs */}
-        <div className="absolute inset-y-0 left-0 w-full sm:w-4/5 lg:w-[58%] bg-gradient-to-r from-white/95 via-white/80 to-transparent pointer-events-none" />
+        {/* Chỉ vignette tối rất nhẹ sát mép trên cùng để Header dễ đọc */}
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-slate-950/50 via-slate-950/15 to-transparent pointer-events-none" />
       </div>
 
       {/* Khoảng đệm cho Header */}
@@ -191,16 +187,16 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
 
           {/* ĐẠI TIÊU ĐỀ IN HOA HIỆN ĐẠI (Bold Sans-Serif & Vibrant Accent) */}
           <h1 className="font-sans font-extrabold uppercase tracking-tight leading-[1.06] mb-5">
-            <span className="block text-4xl sm:text-5xl lg:text-[62px] text-slate-900 drop-shadow-[0_1px_3px_rgba(255,255,255,0.8)]">
+            <span className="block text-4xl sm:text-5xl lg:text-[62px] text-slate-900 drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)]">
               KIẾN TẠO
             </span>
-            <span className="block text-4xl sm:text-5xl lg:text-[62px] bg-gradient-to-r from-teal-600 via-teal-700 to-emerald-800 bg-clip-text text-transparent">
+            <span className="block text-4xl sm:text-5xl lg:text-[62px] bg-gradient-to-r from-teal-700 via-teal-800 to-emerald-900 bg-clip-text text-transparent drop-shadow-[0_2px_8px_rgba(255,255,255,0.7)]">
               TƯƠNG LAI SỐNG
             </span>
           </h1>
 
-          {/* Mô tả ngắn gọn, độ tương phản cao, siêu dễ đọc */}
-          <p className="text-slate-800 font-semibold text-sm sm:text-base max-w-md leading-relaxed mb-7 drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">
+          {/* Mô tả ngắn gọn, rõ nét */}
+          <p className="text-slate-800 font-bold text-sm sm:text-base max-w-md leading-relaxed mb-7 drop-shadow-[0_1px_4px_rgba(255,255,255,0.95)]">
             Những không gian sống đẳng cấp, khảo sát thực tế 100%, hợp đồng trực tiếp chủ trọ và minh bạch tuyệt đối chi phí điện nước.
           </p>
 
@@ -235,36 +231,38 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
             </button>
           </div>
 
-          {/* 3. THANH TÌM KIẾM 3 CỘT NÂNG CẤP (CÓ BỘ LỌC GIÁ, CHUẨN CRO) */}
+          {/* 3. THANH TÌM KIẾM TÍCH HỢP GỘP TAB TRONG 1 THẺ DUY NHẤT */}
           <div id="search-dock" className="max-w-2xl relative">
-            {/* Các pill chọn nhanh nhỏ gọn phía trên */}
-            <div className="flex flex-wrap items-center gap-1.5 mb-2.5">
-              {[
-                { id: 'all', label: 'Tất cả phòng' },
-                { id: 'studio', label: 'Studio & Căn hộ' },
-                { id: 'university', label: 'Gần trường ĐH' },
-                { id: 'samsung', label: 'KCN Samsung' },
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  type="button"
-                  onClick={() => handleCategoryTabSelect(tab.id as any)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all shadow-sm ${
-                    activeCategoryTab === tab.id
-                      ? 'bg-teal-600 text-white font-bold shadow-teal-600/25'
-                      : 'bg-white/90 hover:bg-white text-slate-800 backdrop-blur-md border border-white/60'
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
+            <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white p-2.5">
+              
+              {/* Hàng Tab chọn nhanh bên trong thẻ */}
+              <div className="flex flex-wrap items-center gap-1.5 pb-2.5 mb-2 border-b border-slate-200/70">
+                {[
+                  { id: 'all', label: 'Tất cả phòng' },
+                  { id: 'studio', label: 'Studio & Căn hộ' },
+                  { id: 'university', label: 'Gần trường ĐH' },
+                  { id: 'samsung', label: 'KCN Samsung' },
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => handleCategoryTabSelect(tab.id as any)}
+                    className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+                      activeCategoryTab === tab.id
+                        ? 'bg-teal-600 text-white font-bold shadow-sm'
+                        : 'bg-slate-100/80 hover:bg-slate-200/80 text-slate-700'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
 
-            {/* Thanh Input chính: 3 CỘT PHÂN TÁCH RÕ RÀNG */}
-            <form
-              onSubmit={handleSearch}
-              className="flex flex-col md:flex-row items-stretch md:items-center bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white p-2.5 gap-2"
-            >
+              {/* Thanh Form 3 Cột */}
+              <form
+                onSubmit={handleSearch}
+                className="flex flex-col md:flex-row items-stretch md:items-center gap-2"
+              >
               {/* Cột 1: Từ khóa / Trường ĐH */}
               <div 
                 ref={suggestionRef}
@@ -381,6 +379,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                 Tìm kiếm →
               </button>
             </form>
+          </div>
 
             {/* Advanced filter toggle panel */}
             <AnimatePresence>
@@ -473,44 +472,14 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
         </div>
       </div>
 
-      {/* 4. THANH THỐNG KÊ Ở ĐÁY: Grouped inside a clean floating glass pill + Geometric Sans-Serif font-extrabold */}
-      <div className="relative z-10 container mx-auto px-6 lg:px-12 pb-16 pt-2 flex flex-wrap items-center justify-between gap-4 text-white">
+      {/* 4. CHUYỂN TIẾP ĐÁY SECTION */}
+      <div className="relative z-10 container mx-auto px-6 lg:px-12 pb-10 pt-2 flex flex-wrap items-center justify-between gap-4 text-white">
         <div className="flex items-center gap-3 text-xs font-mono tracking-widest text-white/90">
           <span>‹</span>
           <span className="text-teal-300 font-bold">01</span>
           <span>/</span>
           <span>04</span>
           <span>›</span>
-        </div>
-
-        {/* Floating Glass Stats Bar */}
-        <div className="flex flex-wrap items-center gap-6 sm:gap-10 bg-slate-900/80 backdrop-blur-md border border-white/20 rounded-2xl px-6 sm:px-8 py-3 shadow-xl">
-          <div>
-            <div className="text-xl sm:text-2xl font-sans font-extrabold tabular-nums text-white">
-              450<span className="text-teal-400">+</span>
-            </div>
-            <div className="text-[10px] uppercase tracking-wider text-slate-300 font-semibold whitespace-nowrap">
-              Phòng trọ đã khảo sát
-            </div>
-          </div>
-          <div className="h-7 w-px bg-white/20 hidden sm:block" />
-          <div>
-            <div className="text-xl sm:text-2xl font-sans font-extrabold tabular-nums text-white">
-              100<span className="text-teal-400">%</span>
-            </div>
-            <div className="text-[10px] uppercase tracking-wider text-slate-300 font-semibold whitespace-nowrap">
-              Hợp đồng chính chủ
-            </div>
-          </div>
-          <div className="h-7 w-px bg-white/20 hidden sm:block" />
-          <div>
-            <div className="text-xl sm:text-2xl font-sans font-extrabold tabular-nums text-teal-300">
-              0đ
-            </div>
-            <div className="text-[10px] uppercase tracking-wider text-slate-300 font-semibold whitespace-nowrap">
-              Phí môi giới trung gian
-            </div>
-          </div>
         </div>
 
         <div className="hidden md:flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-white/90">
