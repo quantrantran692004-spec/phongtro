@@ -74,9 +74,9 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
         {/* Top-Left Badges: Verified status or Gần KCN Samsung */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10 pointer-events-none">
           {room.isVerified ? (
-            <span className="inline-flex items-center gap-1 bg-emerald-600/90 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md backdrop-blur-md border border-emerald-400/30">
+            <span className="inline-flex items-center gap-1.5 bg-emerald-600/95 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md backdrop-blur-md border border-emerald-400/40">
               <Check className="w-3.5 h-3.5 stroke-[3]" />
-              <span>✓ Đã khảo sát 100%</span>
+              <span>Đã khảo sát 100%</span>
             </span>
           ) : isNearSamsung ? (
             <span className="inline-flex items-center gap-1 bg-amber-600/90 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md backdrop-blur-md border border-amber-400/30">
@@ -90,7 +90,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
             </span>
           )}
 
-          <span className="text-[10px] font-bold px-2.5 py-1 rounded-full backdrop-blur-md bg-black/45 text-white border border-white/20">
+          <span className="text-[10px] font-semibold px-2.5 py-1 rounded-full backdrop-blur-md bg-slate-900/60 text-white border border-white/20">
             {getRoomTypeLabel(room.roomType)}
           </span>
         </div>
@@ -212,7 +212,6 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
               <span className="text-lg sm:text-xl font-extrabold text-teal-700 tracking-tight">
                 {formatCurrency(room.costs.rent, true)}
               </span>
-              <span className="text-xs font-semibold text-slate-500 ml-1">/tháng</span>
             </div>
 
             {/* Utility Transparency Badge */}

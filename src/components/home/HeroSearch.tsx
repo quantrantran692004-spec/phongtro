@@ -234,8 +234,8 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
           <div id="search-dock" className="w-full max-w-[880px] relative">
             <div className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3 md:p-3.5 shadow-[0_20px_50px_rgba(15,23,42,0.18)] border border-white">
               
-              {/* Category Tabs: Gộp nằm gọn bên trong thẻ phía trên form, w-fit */}
-              <div className="flex flex-wrap items-center gap-1.5 pb-2.5 mb-2.5 border-b border-slate-100 w-fit">
+              {/* Category Tabs: Gộp nằm gọn bên trong thẻ phía trên form, rounded-full pill design */}
+              <div className="flex flex-wrap items-center gap-1.5 pb-2.5 mb-2.5 border-b border-slate-100">
                 {[
                   { id: 'all', label: 'Tất cả phòng' },
                   { id: 'studio', label: 'Studio & Căn hộ' },
@@ -246,7 +246,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                     key={tab.id}
                     type="button"
                     onClick={() => handleCategoryTabSelect(tab.id as any)}
-                    className={`rounded-xl px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
+                    className={`rounded-full px-4 py-1.5 text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
                       activeCategoryTab === tab.id
                         ? 'bg-teal-600 text-white shadow-sm font-bold'
                         : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 font-medium'
@@ -473,11 +473,11 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
         </div>
       </div>
 
-      {/* 4. RESTORED BOTTOM TRUST RIBBON & SEAMLESS OVERLAP */}
-      <div className="relative z-10 container mx-auto px-6 lg:px-12 pb-7 pt-2 flex flex-wrap items-center justify-between gap-4 text-white">
+      {/* 4. STREAMLINED BOTTOM BAR (AIRY & CLEAN, PRESERVES WATER REFLECTION) */}
+      <div className="relative z-10 container mx-auto px-6 lg:px-12 pb-6 pt-2 flex flex-wrap items-center justify-between gap-4 text-white">
         
         {/* Bottom-left pagination pill */}
-        <div className="inline-flex items-center gap-2.5 bg-slate-900/80 backdrop-blur-md border border-white/15 text-white px-4 py-2 rounded-full text-xs font-semibold tracking-wider shadow-lg">
+        <div className="inline-flex items-center gap-2.5 bg-slate-900/60 backdrop-blur-md border border-white/20 text-white px-4 py-2 rounded-full text-xs font-semibold tracking-wider shadow-lg">
           <span className="text-white/60">‹</span>
           <span className="text-emerald-400 font-bold">01</span>
           <span className="text-white/30">/</span>
@@ -485,42 +485,42 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
           <span className="text-white/60">›</span>
         </div>
 
-        {/* Floating luxury card for 3 trust metrics */}
-        <div className="bg-slate-900/80 backdrop-blur-xl border border-white/15 text-white rounded-2xl px-6 md:px-8 py-3.5 shadow-2xl flex items-center gap-6 md:gap-12">
-          <div>
-            <div className="font-extrabold text-xl md:text-2xl text-emerald-400 tabular-nums">
+        {/* Floating luxury glass capsule for 3 trust metrics */}
+        <div className="bg-slate-900/65 backdrop-blur-xl border border-white/20 text-white rounded-full px-6 md:px-8 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.25)] flex items-center gap-6 md:gap-10">
+          <div className="flex items-center gap-2">
+            <span className="font-extrabold text-lg md:text-xl text-emerald-400 tabular-nums">
               450+
-            </div>
-            <div className="text-[10px] md:text-xs text-slate-300 uppercase tracking-wider font-semibold whitespace-nowrap">
+            </span>
+            <span className="text-[10px] md:text-xs text-slate-200 uppercase tracking-wider font-semibold whitespace-nowrap">
               Phòng trọ đã khảo sát
-            </div>
+            </span>
           </div>
 
-          <div className="h-7 w-px bg-white/15 hidden sm:block" />
+          <div className="h-4 w-px bg-white/20 hidden sm:block" />
 
-          <div>
-            <div className="font-extrabold text-xl md:text-2xl text-emerald-400 tabular-nums">
+          <div className="flex items-center gap-2">
+            <span className="font-extrabold text-lg md:text-xl text-emerald-400 tabular-nums">
               100%
-            </div>
-            <div className="text-[10px] md:text-xs text-slate-300 uppercase tracking-wider font-semibold whitespace-nowrap">
+            </span>
+            <span className="text-[10px] md:text-xs text-slate-200 uppercase tracking-wider font-semibold whitespace-nowrap">
               Hợp đồng chính chủ
-            </div>
+            </span>
           </div>
 
-          <div className="h-7 w-px bg-white/15 hidden sm:block" />
+          <div className="h-4 w-px bg-white/20 hidden sm:block" />
 
-          <div>
-            <div className="font-extrabold text-xl md:text-2xl text-emerald-400 tabular-nums">
+          <div className="flex items-center gap-2">
+            <span className="font-extrabold text-lg md:text-xl text-emerald-400 tabular-nums">
               0đ
-            </div>
-            <div className="text-[10px] md:text-xs text-slate-300 uppercase tracking-wider font-semibold whitespace-nowrap">
+            </span>
+            <span className="text-[10px] md:text-xs text-slate-200 uppercase tracking-wider font-semibold whitespace-nowrap">
               Phí môi giới trung gian
-            </div>
+            </span>
           </div>
         </div>
 
         {/* Bottom-right scroll indicator pill */}
-        <div className="hidden md:inline-flex items-center gap-2.5 bg-slate-900/80 backdrop-blur-md border border-white/15 text-white px-4 py-2 rounded-full text-xs font-semibold tracking-wider shadow-lg">
+        <div className="hidden md:inline-flex items-center gap-2.5 bg-slate-900/60 backdrop-blur-md border border-white/20 text-white px-4 py-2 rounded-full text-xs font-semibold tracking-wider shadow-lg">
           <span className="w-4 h-6 rounded-full border border-white/40 flex items-start justify-center p-0.5">
             <span className="w-1 h-1.5 bg-emerald-400 rounded-full animate-bounce" />
           </span>
