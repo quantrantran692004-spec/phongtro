@@ -157,58 +157,57 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
   const wards = WARDS_BY_DISTRICT['TP. Thái Nguyên'] || [];
 
   return (
-    <section className="relative w-full min-h-screen overflow-hidden flex flex-col justify-between select-none">
+    <section className="relative w-full h-screen min-h-[680px] max-h-[1080px] overflow-hidden flex flex-col justify-between select-none">
       
-      {/* 1. ẢNH NỀN SẮC NÉT NGUYÊN BẢN 100% - KHÔNG PHỦ TRẮNG, KHÔNG LỚP ĐỤC */}
+      {/* 1. ẢNH NỀN SẮC NÉT NGUYÊN BẢN 100% - ĐỘ TRONG SẮC NÉT CAO, KHÔNG PHỦ MỜ ĐỤC */}
       <div className="absolute inset-0 z-0">
         <img
           src={heroSunsetVilla}
           alt="Không gian sống đẳng cấp"
-          className="w-full h-full object-cover object-center contrast-[1.04] saturate-[1.05] scale-[1.01]"
+          className="w-full h-full object-cover object-center scale-[1.01]"
         />
-        {/* Chỉ vignette tối rất nhẹ sát mép trên cùng để Header dễ đọc */}
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-slate-950/50 via-slate-950/15 to-transparent pointer-events-none" />
       </div>
 
       {/* Khoảng đệm cho Header */}
-      <div className="h-24 shrink-0" />
+      <div className="h-20 shrink-0" />
 
-      {/* 2. NỘI DUNG CHÍNH (ĐẶT TRÊN NỀN BACKDROP SÁNG BÊN TRÁI - RÕ NÉT 100%) */}
-      <div className="relative z-10 container mx-auto px-6 lg:px-12 my-auto py-6">
-        <div className="max-w-2xl">
+      {/* 2. NỘI DUNG CHÍNH (GIỮ ẢNH TRONG TRẺO, TEXT SẮC NÉT) */}
+      <div className="relative z-10 container mx-auto px-6 lg:px-12 my-auto py-2">
+        <div className="max-w-3xl relative">
           
-          {/* Dòng Eyebrow nhỏ */}
-          <div className="flex items-center gap-3 mb-4">
-            <span className="w-8 h-[2px] bg-teal-600"></span>
-            <span className="text-[11px] sm:text-xs font-bold tracking-[0.25em] uppercase text-teal-800">
-              Bất động sản & Phòng trọ chuẩn mực Thái Nguyên
-            </span>
+          {/* Eyebrow badge inside sleek frosted glass pill */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-white/80 shadow-sm text-teal-800 text-xs font-bold tracking-wider uppercase mb-3">
+            <span className="w-2 h-2 rounded-full bg-teal-600 animate-pulse"></span>
+            <span>BẤT ĐỘNG SẢN & PHÒNG TRỌ CHUẨN MỰC THÁI NGUYÊN</span>
           </div>
 
-          {/* ĐẠI TIÊU ĐỀ IN HOA HIỆN ĐẠI (Bold Sans-Serif & Vibrant Accent) */}
-          <h1 className="font-sans font-extrabold uppercase tracking-tight leading-[1.06] mb-5">
-            <span className="block text-4xl sm:text-5xl lg:text-[62px] text-slate-900 drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)]">
+          {/* ĐẠI TIÊU ĐỀ IN HOA HIỆN ĐẠI (Font sans, diacritics chuẩn sắc nét) */}
+          <h1 className="font-sans font-extrabold uppercase tracking-tight leading-[1.08] mb-3.5">
+            <span className="block text-4xl sm:text-5xl lg:text-[56px] text-slate-900 drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)]">
               KIẾN TẠO
             </span>
-            <span className="block text-4xl sm:text-5xl lg:text-[62px] bg-gradient-to-r from-teal-700 via-teal-800 to-emerald-900 bg-clip-text text-transparent drop-shadow-[0_2px_8px_rgba(255,255,255,0.7)]">
+            <span className="block text-4xl sm:text-5xl lg:text-[56px] bg-gradient-to-r from-teal-700 via-teal-600 to-emerald-500 bg-clip-text text-transparent drop-shadow-[0_2px_8px_rgba(255,255,255,0.7)]">
               TƯƠNG LAI SỐNG
             </span>
           </h1>
 
-          {/* Mô tả ngắn gọn, rõ nét */}
-          <p className="text-slate-800 font-bold text-sm sm:text-base max-w-md leading-relaxed mb-7 drop-shadow-[0_1px_4px_rgba(255,255,255,0.95)]">
+          {/* Mô tả chuẩn tương phản, dễ đọc tối đa mà không cần lớp phủ làm đục ảnh */}
+          <p 
+            className="text-slate-900 font-semibold text-sm sm:text-base leading-relaxed max-w-xl mb-5"
+            style={{ textShadow: '0 1px 3px rgba(255, 255, 255, 0.95), 0 0 16px rgba(255, 255, 255, 0.85)' }}
+          >
             Những không gian sống đẳng cấp, khảo sát thực tế 100%, hợp đồng trực tiếp chủ trọ và minh bạch tuyệt đối chi phí điện nước.
           </p>
 
-          {/* Cụm 2 nút bấm: Nút chính Teal-600 + Nút phụ Frosted Pill sáng */}
-          <div className="flex flex-wrap items-center gap-4 mb-8">
+          {/* Cụm 2 nút bấm: Nút chính Teal Gradient + Nút phụ Frosted Pill sáng */}
+          <div className="flex flex-wrap items-center gap-3.5 mb-5">
             <button
               type="button"
               onClick={() => {
                 const el = document.getElementById('search-dock');
                 el?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="group flex items-center gap-3 bg-teal-600 hover:bg-teal-500 text-white px-7 py-3.5 rounded-full text-xs font-bold tracking-[0.16em] uppercase transition-all duration-300 shadow-lg shadow-teal-600/30 hover:shadow-xl hover:-translate-y-0.5 whitespace-nowrap"
+              className="group flex items-center gap-3 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white px-6 py-3 rounded-full text-xs font-bold tracking-[0.16em] uppercase transition-all duration-300 shadow-lg shadow-teal-600/30 hover:shadow-xl hover:-translate-y-0.5 whitespace-nowrap active:scale-[0.98]"
             >
               <span>Khám phá dự án</span>
               <span className="group-hover:translate-x-1 transition-transform">→</span>
@@ -217,9 +216,9 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
             <button
               type="button"
               onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
-              className="bg-white/95 hover:bg-white text-slate-900 border border-slate-200/80 shadow-md rounded-full px-5 py-2.5 font-bold text-xs uppercase tracking-wider backdrop-blur-md flex items-center gap-2.5 transition-all hover:shadow-lg whitespace-nowrap"
+              className="bg-white/95 hover:bg-white text-slate-900 border border-slate-200/80 shadow-md rounded-full px-5 py-2.5 font-bold text-xs uppercase tracking-wider backdrop-blur-md flex items-center gap-2.5 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 whitespace-nowrap active:scale-[0.98]"
             >
-              <span className="w-6 h-6 rounded-full bg-slate-100 text-teal-700 flex items-center justify-center font-bold text-xs">
+              <span className="w-5 h-5 rounded-full bg-slate-100 text-teal-700 flex items-center justify-center font-bold text-xs">
                 ▸
               </span>
               <span>Bộ lọc nâng cao</span>
@@ -231,12 +230,12 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
             </button>
           </div>
 
-          {/* 3. THANH TÌM KIẾM TÍCH HỢP GỘP TAB TRONG 1 THẺ DUY NHẤT */}
-          <div id="search-dock" className="max-w-2xl relative">
-            <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white p-2.5">
+          {/* 3. TẤT CẢ GỘP VÀO 1 THẺ CARD TÌM KIẾM DUY NHẤT (CATEGORY TABS + SEARCH INPUTS) */}
+          <div id="search-dock" className="w-full max-w-[920px] relative">
+            <div className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3 md:p-3.5 shadow-[0_20px_50px_rgba(15,23,42,0.18)] border border-white">
               
-              {/* Hàng Tab chọn nhanh bên trong thẻ */}
-              <div className="flex flex-wrap items-center gap-1.5 pb-2.5 mb-2 border-b border-slate-200/70">
+              {/* Category Tabs: Gộp nằm gọn bên trong thẻ phía trên form */}
+              <div className="flex flex-wrap items-center gap-1.5 pb-2.5 mb-2.5 border-b border-slate-100">
                 {[
                   { id: 'all', label: 'Tất cả phòng' },
                   { id: 'studio', label: 'Studio & Căn hộ' },
@@ -247,10 +246,10 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                     key={tab.id}
                     type="button"
                     onClick={() => handleCategoryTabSelect(tab.id as any)}
-                    className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+                    className={`rounded-xl px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
                       activeCategoryTab === tab.id
-                        ? 'bg-teal-600 text-white font-bold shadow-sm'
-                        : 'bg-slate-100/80 hover:bg-slate-200/80 text-slate-700'
+                        ? 'bg-teal-600 text-white shadow-sm font-bold'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 font-medium'
                     }`}
                   >
                     {tab.label}
@@ -258,128 +257,130 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                 ))}
               </div>
 
-              {/* Thanh Form 3 Cột */}
+              {/* Main Search Bar: 3 Cột Input + Nút Tìm kiếm */}
               <form
                 onSubmit={handleSearch}
-                className="flex flex-col md:flex-row items-stretch md:items-center gap-2"
+                className="flex flex-col md:flex-row md:items-center gap-1 divide-y md:divide-y-0 md:divide-x divide-slate-200/80"
               >
-              {/* Cột 1: Từ khóa / Trường ĐH */}
-              <div 
-                ref={suggestionRef}
-                className="flex-1 flex items-center gap-2.5 px-3 py-1.5 border-b md:border-b-0 md:border-r border-slate-200 relative min-w-0"
-              >
-                <Search className="w-4 h-4 text-slate-400 shrink-0" />
-                <div className="w-full min-w-0">
-                  <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">
-                    Từ khóa / Trường ĐH
-                  </span>
-                  <input
-                    type="text"
-                    value={keyword}
-                    onFocus={() => setShowSuggestions(true)}
-                    onChange={(e) => {
-                      setKeyword(e.target.value);
-                      setShowSuggestions(true);
-                    }}
-                    placeholder="VD: ĐH Y Dược, CNTT..."
-                    className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 placeholder-slate-400 focus:outline-none truncate"
-                  />
-                </div>
-                {keyword && (
-                  <button 
-                    type="button" 
-                    onClick={() => { setKeyword(''); setShowSuggestions(false); }}
-                    className="p-1 text-slate-400 hover:text-slate-700 shrink-0"
-                  >
-                    <X className="w-3.5 h-3.5" />
-                  </button>
-                )}
-
-                {/* Suggestions Dropdown */}
-                <AnimatePresence>
-                  {showSuggestions && suggestions.length > 0 && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 6 }}
-                      className="absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-float border border-slate-200 overflow-hidden z-30 max-h-60 overflow-y-auto"
+                {/* Cột 1: Từ khóa / Trường ĐH */}
+                <div 
+                  ref={suggestionRef}
+                  className="flex-[1.2] flex items-center gap-2.5 hover:bg-slate-50/90 rounded-xl px-3 py-2 transition cursor-pointer relative min-w-0"
+                >
+                  <Search className="w-4 h-4 text-slate-400 shrink-0" />
+                  <div className="w-full min-w-0">
+                    <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">
+                      Từ khóa / Trường ĐH
+                    </span>
+                    <input
+                      type="text"
+                      value={keyword}
+                      onFocus={() => setShowSuggestions(true)}
+                      onChange={(e) => {
+                        setKeyword(e.target.value);
+                        setShowSuggestions(true);
+                      }}
+                      placeholder="VD: ĐH Y Dược, CNTT..."
+                      className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 placeholder-slate-400 focus:outline-none"
+                    />
+                  </div>
+                  {keyword && (
+                    <button 
+                      type="button" 
+                      onClick={() => { setKeyword(''); setShowSuggestions(false); }}
+                      className="p-1 text-slate-400 hover:text-slate-700 shrink-0"
                     >
-                      <div className="p-2 space-y-1">
-                        {suggestions.map((s, idx) => (
-                          <button
-                            key={idx}
-                            type="button"
-                            onClick={() => {
-                              setKeyword(s.label);
-                              if (s.ward) setWard(s.ward);
-                              setShowSuggestions(false);
-                            }}
-                            className="w-full text-left px-3.5 py-2.5 rounded-lg hover:bg-slate-50 flex items-center justify-between text-xs sm:text-sm transition"
-                          >
-                            <div className="truncate mr-2">
-                              <span className="font-semibold text-slate-900">{s.label}</span>
-                              {s.ward && <span className="text-slate-500 ml-2 font-normal">({s.ward})</span>}
-                            </div>
-                            <span className="text-[11px] bg-slate-100 text-slate-700 font-semibold px-2.5 py-0.5 rounded-full border border-slate-200 shrink-0">
-                              {s.type}
-                            </span>
-                          </button>
-                        ))}
-                      </div>
-                    </motion.div>
+                      <X className="w-3.5 h-3.5" />
+                    </button>
                   )}
-                </AnimatePresence>
-              </div>
 
-              {/* Cột 2: Khu vực */}
-              <div className="w-full md:w-44 flex items-center gap-2 px-3 py-1.5 border-b md:border-b-0 md:border-r border-slate-200 shrink-0">
-                <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
-                <div className="w-full min-w-0">
-                  <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">
-                    Khu vực
-                  </span>
-                  <select 
-                    value={ward}
-                    onChange={(e) => setWard(e.target.value)}
-                    className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer truncate"
-                  >
-                    <option value="Tất cả">Toàn Thái Nguyên</option>
-                    {wards.filter(w => w !== 'Tất cả').map((w) => (
-                      <option key={w} value={w}>{w}</option>
-                    ))}
-                  </select>
+                  {/* Suggestions Dropdown */}
+                  <AnimatePresence>
+                    {showSuggestions && suggestions.length > 0 && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 6 }}
+                        className="absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-float border border-slate-200 overflow-hidden z-30 max-h-60 overflow-y-auto"
+                      >
+                        <div className="p-2 space-y-1">
+                          {suggestions.map((s, idx) => (
+                            <button
+                              key={idx}
+                              type="button"
+                              onClick={() => {
+                                setKeyword(s.label);
+                                if (s.ward) setWard(s.ward);
+                                setShowSuggestions(false);
+                              }}
+                              className="w-full text-left px-3.5 py-2.5 rounded-lg hover:bg-slate-50 flex items-center justify-between text-xs sm:text-sm transition"
+                            >
+                              <div className="truncate mr-2">
+                                <span className="font-semibold text-slate-900">{s.label}</span>
+                                {s.ward && <span className="text-slate-500 ml-2 font-normal">({s.ward})</span>}
+                              </div>
+                              <span className="text-[11px] bg-slate-100 text-slate-700 font-semibold px-2.5 py-0.5 rounded-full border border-slate-200 shrink-0">
+                                {s.type}
+                              </span>
+                            </button>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
-              </div>
 
-              {/* Cột 3: Mức giá (NEW REQUIRED FIELD) */}
-              <div className="w-full md:w-40 flex items-center gap-2 px-3 py-1.5 shrink-0">
-                <SlidersHorizontal className="w-4 h-4 text-slate-400 shrink-0" />
-                <div className="w-full min-w-0">
-                  <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">
-                    Mức giá
-                  </span>
-                  <select 
-                    value={priceTier}
-                    onChange={(e) => setPriceTier(e.target.value)}
-                    className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer truncate"
-                  >
-                    <option value="all">Tất cả mức giá</option>
-                    <option value="under_1_5m">Dưới 1.5 triệu</option>
-                    <option value="1_5m_3m">1.5 - 3 triệu</option>
-                    <option value="above_3m">Trên 3 triệu</option>
-                  </select>
+                {/* Cột 2: Khu vực */}
+                <div className="flex-1 flex items-center gap-2 hover:bg-slate-50/90 rounded-xl px-3 py-2 transition cursor-pointer min-w-0">
+                  <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
+                  <div className="w-full min-w-0">
+                    <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">
+                      Khu vực
+                    </span>
+                    <select 
+                      value={ward}
+                      onChange={(e) => setWard(e.target.value)}
+                      className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer"
+                    >
+                      <option value="Tất cả">Toàn Thái Nguyên</option>
+                      {wards.filter(w => w !== 'Tất cả').map((w) => (
+                        <option key={w} value={w}>{w}</option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
-              </div>
 
-              {/* Nút Tìm Kiếm CTA */}
-              <button
-                type="submit"
-                className="w-full md:w-auto bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold uppercase tracking-wider px-6 py-3.5 rounded-xl transition-all shrink-0 shadow-md shadow-teal-600/30 whitespace-nowrap"
-              >
-                Tìm kiếm →
-              </button>
-            </form>
-          </div>
+                {/* Cột 3: Mức giá */}
+                <div className="flex-1 flex items-center gap-2 hover:bg-slate-50/90 rounded-xl px-3 py-2 transition cursor-pointer min-w-0">
+                  <SlidersHorizontal className="w-4 h-4 text-slate-400 shrink-0" />
+                  <div className="w-full min-w-0">
+                    <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">
+                      Mức giá
+                    </span>
+                    <select 
+                      value={priceTier}
+                      onChange={(e) => setPriceTier(e.target.value)}
+                      className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer"
+                    >
+                      <option value="all">Tất cả mức giá</option>
+                      <option value="under_1_5m">Dưới 1.5 triệu</option>
+                      <option value="1_5m_3m">1.5 - 3 triệu</option>
+                      <option value="above_3m">Trên 3 triệu</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Nút Tìm Kiếm CTA */}
+                <div className="p-1 shrink-0">
+                  <button
+                    type="submit"
+                    className="w-full md:w-auto bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-bold px-6 py-3 rounded-xl shadow-lg shadow-teal-600/30 transition-all hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap text-xs uppercase tracking-wider"
+                  >
+                    Tìm kiếm →
+                  </button>
+                </div>
+              </form>
+            </div>
 
             {/* Advanced filter toggle panel */}
             <AnimatePresence>
@@ -472,26 +473,18 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
         </div>
       </div>
 
-      {/* 4. CHUYỂN TIẾP ĐÁY SECTION */}
-      <div className="relative z-10 container mx-auto px-6 lg:px-12 pb-10 pt-2 flex flex-wrap items-center justify-between gap-4 text-white">
-        <div className="flex items-center gap-3 text-xs font-mono tracking-widest text-white/90">
-          <span>‹</span>
-          <span className="text-teal-300 font-bold">01</span>
-          <span>/</span>
-          <span>04</span>
-          <span>›</span>
+      {/* 4. ĐÁY HERO: THOÁNG ĐÃNG, ĐÃ ẨN THANH STATS ĐEN THEO YÊU CẦU */}
+      <div className="relative z-10 container mx-auto px-6 lg:px-12 pb-6 pt-2 flex items-center justify-between text-white/80">
+        <div className="inline-flex items-center gap-2 bg-black/25 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-medium">
+          <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span>450+ phòng trọ chính chủ tại Thái Nguyên</span>
         </div>
 
-        <div className="hidden md:flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-white/90">
-          <span className="w-5 h-8 rounded-full border border-white/40 flex items-start justify-center p-1">
-            <span className="w-1 h-2 bg-teal-400 rounded-full animate-bounce" />
-          </span>
-          <span className="font-semibold">Cuộn xuống</span>
+        <div className="hidden sm:inline-flex items-center gap-2 text-xs font-medium text-slate-700 drop-shadow-[0_1px_3px_rgba(255,255,255,0.9)]">
+          <span>Cuộn để khám phá danh sách</span>
+          <ArrowRight className="w-3.5 h-3.5 rotate-90" />
         </div>
       </div>
-
-      {/* Part 2 #4: Subtle bottom gradient fade to seamlessly transition into next section without harsh cut */}
-      <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-900/50 to-transparent pointer-events-none z-10" />
 
     </section>
   );
