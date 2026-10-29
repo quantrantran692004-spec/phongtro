@@ -171,31 +171,28 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
       {/* Khoảng đệm cho Header */}
       <div className="h-20 shrink-0" />
 
-      {/* 2. NỘI DUNG CHÍNH (ĐẶT TRÊN NỀN AMBIENT LIGHT MƯỢT MÀ BÊN TRÁI) */}
+      {/* 2. NỘI DUNG CHÍNH */}
       <div className="relative z-10 container mx-auto px-6 lg:px-12 my-auto py-2">
         <div className="max-w-3xl relative">
           
-          {/* AMBIENT LIGHT BACKDROP (Soft ambient white radial/linear glow behind left text for 100% effortless readability) */}
-          <div className="absolute -inset-y-10 -left-10 w-[680px] bg-gradient-to-r from-white/90 via-white/75 to-transparent blur-xl pointer-events-none -z-10" />
-
           {/* Eyebrow badge inside sleek frosted glass pill */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-white/80 shadow-sm text-teal-800 text-xs font-bold tracking-wider uppercase mb-3">
             <span className="w-2 h-2 rounded-full bg-teal-600 animate-pulse"></span>
             <span>BẤT ĐỘNG SẢN & PHÒNG TRỌ CHUẨN MỰC THÁI NGUYÊN</span>
           </div>
 
-          {/* ĐẠI TIÊU ĐỀ IN HOA HIỆN ĐẠI (Font sans, diacritics chuẩn sắc nét) */}
+          {/* ĐẠI TIÊU ĐỀ IN HOA HIỆN ĐẠI */}
           <h1 className="font-sans font-extrabold uppercase tracking-tight leading-[1.08] mb-3.5">
-            <span className="block text-4xl sm:text-5xl lg:text-[56px] text-slate-900 drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)]">
+            <span className="block text-4xl sm:text-5xl lg:text-[56px] text-slate-900">
               KIẾN TẠO
             </span>
-            <span className="block text-4xl sm:text-5xl lg:text-[56px] bg-gradient-to-r from-teal-700 via-teal-600 to-emerald-500 bg-clip-text text-transparent drop-shadow-[0_2px_8px_rgba(255,255,255,0.7)]">
+            <span className="block text-4xl sm:text-5xl lg:text-[56px] bg-gradient-to-r from-teal-700 via-teal-600 to-emerald-500 bg-clip-text text-transparent">
               TƯƠNG LAI SỐNG
             </span>
           </h1>
 
-          {/* Mô tả chuẩn tương phản, dễ đọc tối đa */}
-          <p className="text-slate-800 font-semibold text-sm sm:text-base leading-relaxed max-w-xl mb-5 drop-shadow-[0_1px_3px_rgba(255,255,255,0.95)]">
+          {/* Mô tả chữ đậm rõ ràng, tự nhiên trên nền ảnh */}
+          <p className="text-slate-900 font-semibold text-sm sm:text-base leading-relaxed max-w-xl mb-5">
             Những không gian sống đẳng cấp, khảo sát thực tế 100%, hợp đồng trực tiếp chủ trọ và minh bạch tuyệt đối chi phí điện nước.
           </p>
 
