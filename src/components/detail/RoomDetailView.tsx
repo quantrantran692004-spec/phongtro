@@ -130,13 +130,13 @@ export const RoomDetailView: React.FC<RoomDetailViewProps> = ({ room, onBack, on
             </span>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-semibold text-slate-900 tracking-tight leading-snug mb-3.5">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug mb-3.5">
             {room.title}
           </h1>
 
           <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-500">
             <span className="flex items-center gap-1.5 font-medium text-slate-800">
-              <MapPin className="w-4 h-4 text-amber-600 shrink-0" />
+              <MapPin className="w-4 h-4 text-teal-600 shrink-0" />
               <span>{room.location.address}</span>
             </span>
             <span>•</span>
@@ -200,7 +200,7 @@ export const RoomDetailView: React.FC<RoomDetailViewProps> = ({ room, onBack, on
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
               <div className="p-3 border-r border-slate-100 last:border-0">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Giá thuê</span>
-                <div className="text-xl sm:text-2xl font-bold text-slate-900 mt-1">
+                <div className="text-xl sm:text-2xl font-extrabold text-teal-700 mt-1">
                   {formatCurrency(room.costs.rent, true)}
                 </div>
               </div>
@@ -208,7 +208,7 @@ export const RoomDetailView: React.FC<RoomDetailViewProps> = ({ room, onBack, on
               <div className="p-3 border-r border-slate-100 last:border-0">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Diện tích</span>
                 <div className="text-base font-bold text-slate-900 mt-1 flex items-center gap-1.5">
-                  <Maximize2 className="w-4 h-4 text-amber-600" />
+                  <Maximize2 className="w-4 h-4 text-teal-600" />
                   <span>{formatArea(room.area)}</span>
                 </div>
               </div>
@@ -260,7 +260,7 @@ export const RoomDetailView: React.FC<RoomDetailViewProps> = ({ room, onBack, on
                       }`}
                     >
                       <div className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 ${
-                        hasIt ? 'bg-amber-500 text-white shadow-xs' : 'bg-slate-100 text-slate-300'
+                        hasIt ? 'bg-teal-600 text-white shadow-xs' : 'bg-slate-100 text-slate-300'
                       }`}>
                         {hasIt ? <Check className="w-3.5 h-3.5" /> : '×'}
                       </div>
@@ -295,7 +295,7 @@ export const RoomDetailView: React.FC<RoomDetailViewProps> = ({ room, onBack, on
                 {room.location.nearUniversities.map((uni, idx) => (
                   <div key={idx} className="flex items-center justify-between p-3.5 bg-slate-50/80 rounded-2xl border border-slate-200/80 text-xs">
                     <span className="font-semibold text-slate-800">{uni.name}</span>
-                    <span className="font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
+                    <span className="font-bold text-teal-800 bg-teal-50 px-2.5 py-1 rounded-full border border-teal-200">
                       {uni.distanceKm} km
                     </span>
                   </div>

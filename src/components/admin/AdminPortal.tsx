@@ -137,39 +137,42 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onSelectRoom }) => {
   };
 
   return (
-    <div className="bg-[#F7F6F2] min-h-screen py-8 sm:py-12">
+    <div className="bg-[#F8FAFC] min-h-screen py-8 sm:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#23483D] bg-[#E8EEE9] px-3 py-1 rounded-full mb-2 border border-[#C9DCD3]">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#23483D]" />
-              <span>Cổng Quản Trị Hệ Thống (Admin)</span>
+            <div className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-800 bg-teal-50 px-3.5 py-1.5 rounded-full mb-2 border border-teal-200/80 shadow-2xs">
+              <ShieldCheck className="w-3.5 h-3.5 text-teal-600" />
+              <span>Cổng Quản Trị Hệ Thống (Admin Portal)</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-light text-[#252725] tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
               Bảng Điều Khiển Vận Hành Trọ Thái Nguyên
             </h1>
+            <p className="text-xs sm:text-sm text-slate-500 mt-1 font-medium">
+              Kiểm duyệt tin đăng, giám sát xác thực CCCD/Sổ đỏ chính chủ và xử lý báo cáo vi phạm
+            </p>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               onClick={handleExportCsv}
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-[#FAF9F7] border border-[#E5E2D9] hover:border-[#23483D] text-[#252725] rounded-md text-xs font-medium transition shadow-whisper"
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 rounded-xl text-xs font-bold transition shadow-sm"
             >
-              <Download className="w-3.5 h-3.5 text-[#23483D]" />
+              <Download className="w-3.5 h-3.5 text-teal-600" />
               <span>Xuất dữ liệu CSV</span>
             </button>
           </div>
         </div>
 
         {/* Tab Buttons */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-2 mb-6 border-b border-[#E5E2D9] text-xs sm:text-sm font-medium">
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-2 mb-6 border-b border-slate-200 text-xs sm:text-sm font-semibold">
           <button
             onClick={() => setActiveTab('overview')}
-            className={`px-4 py-2 rounded-md transition whitespace-nowrap flex items-center gap-1.5 ${
+            className={`px-4 py-2 rounded-xl transition whitespace-nowrap flex items-center gap-1.5 ${
               activeTab === 'overview'
-                ? 'bg-[#23483D] text-white shadow-whisper font-semibold'
-                : 'text-[#777B78] hover:text-[#252725] hover:bg-[#E8EEE9]'
+                ? 'bg-teal-600 text-white shadow-sm font-bold'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
             <BarChart3 className="w-4 h-4" />
@@ -178,16 +181,16 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onSelectRoom }) => {
 
           <button
             onClick={() => setActiveTab('approval')}
-            className={`px-4 py-2 rounded-md transition whitespace-nowrap flex items-center gap-1.5 relative ${
+            className={`px-4 py-2 rounded-xl transition whitespace-nowrap flex items-center gap-1.5 relative ${
               activeTab === 'approval'
-                ? 'bg-[#23483D] text-white shadow-whisper font-semibold'
-                : 'text-[#777B78] hover:text-[#252725] hover:bg-[#E8EEE9]'
+                ? 'bg-teal-600 text-white shadow-sm font-bold'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
             <FileText className="w-4 h-4" />
             <span>Duyệt tin đăng</span>
             {pendingRooms.length > 0 && (
-              <span className="bg-[#23483D] text-white text-[10px] px-1.5 py-0.2 rounded-full font-bold ml-1">
+              <span className="bg-rose-500 text-white text-[10px] px-1.5 py-0.2 rounded-full font-bold ml-1">
                 {pendingRooms.length}
               </span>
             )}
@@ -195,10 +198,10 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onSelectRoom }) => {
 
           <button
             onClick={() => setActiveTab('reports')}
-            className={`px-4 py-2 rounded-md transition whitespace-nowrap flex items-center gap-1.5 ${
+            className={`px-4 py-2 rounded-xl transition whitespace-nowrap flex items-center gap-1.5 ${
               activeTab === 'reports'
-                ? 'bg-[#23483D] text-white shadow-whisper font-semibold'
-                : 'text-[#777B78] hover:text-[#252725] hover:bg-[#E8EEE9]'
+                ? 'bg-teal-600 text-white shadow-sm font-bold'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
             <AlertTriangle className="w-4 h-4" />
@@ -212,43 +215,43 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onSelectRoom }) => {
 
           <button
             onClick={() => setActiveTab('import')}
-            className={`px-4 py-2 rounded-md transition whitespace-nowrap flex items-center gap-1.5 ${
+            className={`px-4 py-2 rounded-xl transition whitespace-nowrap flex items-center gap-1.5 ${
               activeTab === 'import'
-                ? 'bg-[#23483D] text-white shadow-whisper font-semibold'
-                : 'text-[#777B78] hover:text-[#252725] hover:bg-[#E8EEE9]'
+                ? 'bg-teal-600 text-white shadow-sm font-bold'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
             <Upload className="w-4 h-4" />
-            <span>Nhập dữ liệu hàng loạt (CSV)</span>
+            <span>Nhập CSV hàng loạt</span>
           </button>
         </div>
 
         {/* TAB 1: OVERVIEW */}
         {activeTab === 'overview' && (
           <div className="space-y-6">
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <div className="bg-white p-4 sm:p-5 rounded-2xl border border-stone-200/80 shadow-subtle">
-                <span className="text-[11px] font-bold text-stone-400 uppercase">Tổng số phòng</span>
-                <div className="font-display text-2xl sm:text-3xl font-extrabold text-stone-900 mt-1">{totalRooms}</div>
-                <span className="text-xs text-brand-700 font-semibold">{approvedRooms} phòng đã duyệt</span>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Tổng số phòng</span>
+                <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1 tabular-nums">{totalRooms}</div>
+                <span className="text-xs text-teal-700 font-semibold mt-1 block">{approvedRooms} phòng đã duyệt</span>
               </div>
 
-              <div className="bg-white p-4 sm:p-5 rounded-2xl border border-stone-200/80 shadow-subtle">
-                <span className="text-[11px] font-bold text-stone-400 uppercase">Chờ duyệt tin</span>
-                <div className="font-display text-2xl sm:text-3xl font-extrabold text-amber-600 mt-1">{pendingRooms.length}</div>
-                <span className="text-xs text-stone-400">Cần xử lý kịp thời</span>
+              <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Chờ duyệt tin</span>
+                <div className="text-2xl sm:text-3xl font-extrabold text-amber-600 mt-1 tabular-nums">{pendingRooms.length}</div>
+                <span className="text-xs text-slate-400 mt-1 block">Cần xử lý kịp thời</span>
               </div>
 
-              <div className="bg-white p-4 sm:p-5 rounded-2xl border border-stone-200/80 shadow-subtle">
-                <span className="text-[11px] font-bold text-stone-400 uppercase">Đã xác minh</span>
-                <div className="font-display text-2xl sm:text-3xl font-extrabold text-brand-700 mt-1">{verifiedRooms}</div>
-                <span className="text-xs text-stone-400">Có tích xanh thực địa</span>
+              <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Đã xác minh</span>
+                <div className="text-2xl sm:text-3xl font-extrabold text-emerald-600 mt-1 tabular-nums">{verifiedRooms}</div>
+                <span className="text-xs text-slate-400 mt-1 block">Có tích xanh chính chủ</span>
               </div>
 
-              <div className="bg-white p-4 sm:p-5 rounded-2xl border border-stone-200/80 shadow-subtle">
-                <span className="text-[11px] font-bold text-stone-400 uppercase">Báo cáo vi phạm</span>
-                <div className="font-display text-2xl sm:text-3xl font-extrabold text-rose-600 mt-1">{pendingReports.length}</div>
-                <span className="text-xs text-stone-400">Chờ xem xét</span>
+              <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Báo cáo vi phạm</span>
+                <div className="text-2xl sm:text-3xl font-extrabold text-rose-600 mt-1 tabular-nums">{pendingReports.length}</div>
+                <span className="text-xs text-slate-400 mt-1 block">Chờ xem xét giải quyết</span>
               </div>
             </div>
 

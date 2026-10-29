@@ -69,7 +69,7 @@ const MainApp: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F7F6F2] text-[#252725] antialiased">
+    <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-slate-900 antialiased">
       {/* Header */}
       <Header
         currentTab={currentTab}
@@ -95,6 +95,7 @@ const MainApp: React.FC = () => {
           /* Home View */
           <div>
             <HeroSearch onSearchSubmit={() => setCurrentTab('search')} />
+            <UniversityShortcuts onSelectUniversity={() => setCurrentTab('search')} />
             <FeaturedRooms
               onViewAll={() => setCurrentTab('search')}
               onSelectRoom={handleSelectRoom}

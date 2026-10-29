@@ -171,10 +171,13 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
       {/* Khoảng đệm cho Header */}
       <div className="h-20 shrink-0" />
 
-      {/* 2. NỘI DUNG CHÍNH (GIỮ ẢNH TRONG TRẺO, TEXT SẮC NÉT) */}
+      {/* 2. NỘI DUNG CHÍNH (ĐẶT TRÊN NỀN AMBIENT LIGHT MƯỢT MÀ BÊN TRÁI) */}
       <div className="relative z-10 container mx-auto px-6 lg:px-12 my-auto py-2">
         <div className="max-w-3xl relative">
           
+          {/* AMBIENT LIGHT BACKDROP (Soft ambient white radial/linear glow behind left text for 100% effortless readability) */}
+          <div className="absolute -inset-y-10 -left-10 w-[680px] bg-gradient-to-r from-white/90 via-white/75 to-transparent blur-xl pointer-events-none -z-10" />
+
           {/* Eyebrow badge inside sleek frosted glass pill */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-white/80 shadow-sm text-teal-800 text-xs font-bold tracking-wider uppercase mb-3">
             <span className="w-2 h-2 rounded-full bg-teal-600 animate-pulse"></span>
@@ -191,11 +194,8 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
             </span>
           </h1>
 
-          {/* Mô tả chuẩn tương phản, dễ đọc tối đa mà không cần lớp phủ làm đục ảnh */}
-          <p 
-            className="text-slate-900 font-semibold text-sm sm:text-base leading-relaxed max-w-xl mb-5"
-            style={{ textShadow: '0 1px 3px rgba(255, 255, 255, 0.95), 0 0 16px rgba(255, 255, 255, 0.85)' }}
-          >
+          {/* Mô tả chuẩn tương phản, dễ đọc tối đa */}
+          <p className="text-slate-800 font-semibold text-sm sm:text-base leading-relaxed max-w-xl mb-5 drop-shadow-[0_1px_3px_rgba(255,255,255,0.95)]">
             Những không gian sống đẳng cấp, khảo sát thực tế 100%, hợp đồng trực tiếp chủ trọ và minh bạch tuyệt đối chi phí điện nước.
           </p>
 
@@ -231,11 +231,11 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
           </div>
 
           {/* 3. TẤT CẢ GỘP VÀO 1 THẺ CARD TÌM KIẾM DUY NHẤT (CATEGORY TABS + SEARCH INPUTS) */}
-          <div id="search-dock" className="w-full max-w-[920px] relative">
+          <div id="search-dock" className="w-full max-w-[880px] relative">
             <div className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3 md:p-3.5 shadow-[0_20px_50px_rgba(15,23,42,0.18)] border border-white">
               
-              {/* Category Tabs: Gộp nằm gọn bên trong thẻ phía trên form */}
-              <div className="flex flex-wrap items-center gap-1.5 pb-2.5 mb-2.5 border-b border-slate-100">
+              {/* Category Tabs: Gộp nằm gọn bên trong thẻ phía trên form, w-fit */}
+              <div className="flex flex-wrap items-center gap-1.5 pb-2.5 mb-2.5 border-b border-slate-100 w-fit">
                 {[
                   { id: 'all', label: 'Tất cả phòng' },
                   { id: 'studio', label: 'Studio & Căn hộ' },
@@ -260,12 +260,12 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
               {/* Main Search Bar: 3 Cột Input + Nút Tìm kiếm */}
               <form
                 onSubmit={handleSearch}
-                className="flex flex-col md:flex-row md:items-center gap-1 divide-y md:divide-y-0 md:divide-x divide-slate-200/80"
+                className="grid grid-cols-1 md:grid-cols-[1.4fr_1.1fr_1.1fr_auto] items-center gap-1.5"
               >
                 {/* Cột 1: Từ khóa / Trường ĐH */}
                 <div 
                   ref={suggestionRef}
-                  className="flex-[1.2] flex items-center gap-2.5 hover:bg-slate-50/90 rounded-xl px-3 py-2 transition cursor-pointer relative min-w-0"
+                  className="flex items-center gap-2.5 hover:bg-slate-50/90 rounded-xl px-3 py-2 transition cursor-pointer relative min-w-0"
                 >
                   <Search className="w-4 h-4 text-slate-400 shrink-0" />
                   <div className="w-full min-w-0">
@@ -331,7 +331,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                 </div>
 
                 {/* Cột 2: Khu vực */}
-                <div className="flex-1 flex items-center gap-2 hover:bg-slate-50/90 rounded-xl px-3 py-2 transition cursor-pointer min-w-0">
+                <div className="flex items-center gap-2 hover:bg-slate-50/90 rounded-xl px-3 py-2 transition cursor-pointer min-w-0 border-t md:border-t-0 md:border-l border-slate-200/80">
                   <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
                   <div className="w-full min-w-0">
                     <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">
@@ -351,7 +351,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                 </div>
 
                 {/* Cột 3: Mức giá */}
-                <div className="flex-1 flex items-center gap-2 hover:bg-slate-50/90 rounded-xl px-3 py-2 transition cursor-pointer min-w-0">
+                <div className="flex items-center gap-2 hover:bg-slate-50/90 rounded-xl px-3 py-2 transition cursor-pointer min-w-0 border-t md:border-t-0 md:border-l border-slate-200/80">
                   <SlidersHorizontal className="w-4 h-4 text-slate-400 shrink-0" />
                   <div className="w-full min-w-0">
                     <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">
@@ -473,16 +473,58 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
         </div>
       </div>
 
-      {/* 4. ĐÁY HERO: THOÁNG ĐÃNG, ĐÃ ẨN THANH STATS ĐEN THEO YÊU CẦU */}
-      <div className="relative z-10 container mx-auto px-6 lg:px-12 pb-6 pt-2 flex items-center justify-between text-white/80">
-        <div className="inline-flex items-center gap-2 bg-black/25 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-medium">
-          <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-          <span>450+ phòng trọ chính chủ tại Thái Nguyên</span>
+      {/* 4. RESTORED BOTTOM TRUST RIBBON & SEAMLESS OVERLAP */}
+      <div className="relative z-10 container mx-auto px-6 lg:px-12 pb-7 pt-2 flex flex-wrap items-center justify-between gap-4 text-white">
+        
+        {/* Bottom-left pagination pill */}
+        <div className="inline-flex items-center gap-2.5 bg-slate-900/80 backdrop-blur-md border border-white/15 text-white px-4 py-2 rounded-full text-xs font-semibold tracking-wider shadow-lg">
+          <span className="text-white/60">‹</span>
+          <span className="text-emerald-400 font-bold">01</span>
+          <span className="text-white/30">/</span>
+          <span className="text-white/70">04</span>
+          <span className="text-white/60">›</span>
         </div>
 
-        <div className="hidden sm:inline-flex items-center gap-2 text-xs font-medium text-slate-700 drop-shadow-[0_1px_3px_rgba(255,255,255,0.9)]">
-          <span>Cuộn để khám phá danh sách</span>
-          <ArrowRight className="w-3.5 h-3.5 rotate-90" />
+        {/* Floating luxury card for 3 trust metrics */}
+        <div className="bg-slate-900/80 backdrop-blur-xl border border-white/15 text-white rounded-2xl px-6 md:px-8 py-3.5 shadow-2xl flex items-center gap-6 md:gap-12">
+          <div>
+            <div className="font-extrabold text-xl md:text-2xl text-emerald-400 tabular-nums">
+              450+
+            </div>
+            <div className="text-[10px] md:text-xs text-slate-300 uppercase tracking-wider font-semibold whitespace-nowrap">
+              Phòng trọ đã khảo sát
+            </div>
+          </div>
+
+          <div className="h-7 w-px bg-white/15 hidden sm:block" />
+
+          <div>
+            <div className="font-extrabold text-xl md:text-2xl text-emerald-400 tabular-nums">
+              100%
+            </div>
+            <div className="text-[10px] md:text-xs text-slate-300 uppercase tracking-wider font-semibold whitespace-nowrap">
+              Hợp đồng chính chủ
+            </div>
+          </div>
+
+          <div className="h-7 w-px bg-white/15 hidden sm:block" />
+
+          <div>
+            <div className="font-extrabold text-xl md:text-2xl text-emerald-400 tabular-nums">
+              0đ
+            </div>
+            <div className="text-[10px] md:text-xs text-slate-300 uppercase tracking-wider font-semibold whitespace-nowrap">
+              Phí môi giới trung gian
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom-right scroll indicator pill */}
+        <div className="hidden md:inline-flex items-center gap-2.5 bg-slate-900/80 backdrop-blur-md border border-white/15 text-white px-4 py-2 rounded-full text-xs font-semibold tracking-wider shadow-lg">
+          <span className="w-4 h-6 rounded-full border border-white/40 flex items-start justify-center p-0.5">
+            <span className="w-1 h-1.5 bg-emerald-400 rounded-full animate-bounce" />
+          </span>
+          <span className="uppercase tracking-widest text-[11px]">Cuộn xuống</span>
         </div>
       </div>
 

@@ -27,12 +27,34 @@
 
   /* Custom range accent matching BARNES forest green */
   input[type="range"] {
-    accent-color: #23483D;
+    accent-color: #0D9488;
   }
 }
 
 .font-luxury {
   font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+/* Reusable Design System Tokens (Toss Cleanliness + Airbnb Warmth + Emerald Trust) */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+}
+
+.card-elevated {
+  background: #FFFFFF;
+  border-radius: 1rem;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-elevated:hover {
+  box-shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.12);
+  transform: translateY(-2px);
 }
 
 /* Invisible Modern Scrollbar - Eliminates the 10-16px white scrollbar gutter on Windows browsers */
