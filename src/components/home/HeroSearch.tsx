@@ -213,12 +213,12 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
             <button
               type="button"
               onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
-              className="group flex items-center gap-3 text-slate-800 hover:text-[#8C6239] text-xs font-bold tracking-[0.15em] uppercase transition-colors"
+              className="group flex items-center gap-3 text-slate-900 hover:text-[#8C6239] text-xs font-bold tracking-[0.15em] uppercase transition-colors"
             >
-              <span className="w-10 h-10 rounded-full border border-slate-700/40 bg-white/50 backdrop-blur-md flex items-center justify-center group-hover:scale-105 group-hover:bg-white transition-all shadow-sm">
+              <span className="w-10 h-10 rounded-full border border-slate-700/40 bg-white/80 backdrop-blur-md flex items-center justify-center group-hover:scale-105 group-hover:bg-white transition-all shadow-sm text-slate-900 font-bold">
                 ▸
               </span>
-              <span>Bộ lọc nâng cao</span>
+              <span className="drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">Bộ lọc nâng cao</span>
               {activeAdvancedCount > 0 && (
                 <span className="w-4 h-4 rounded-full bg-amber-600 text-white text-[10px] font-bold flex items-center justify-center">
                   {activeAdvancedCount}

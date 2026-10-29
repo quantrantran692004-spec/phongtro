@@ -31,20 +31,24 @@
   font-family: 'Cormorant Garamond', Georgia, serif;
 }
 
-/* Restrained European Architectural Scrollbar */
+/* Restrained European Architectural Scrollbar - Overlay cleanly without creating a white gutter line */
+html {
+  scrollbar-gutter: stable;
+}
+
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F7F6F2;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #DAD8D0;
+  background: rgba(148, 163, 184, 0.5);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #9A9C97;
+  background: rgba(100, 116, 139, 0.8);
 }
 
 /* Hide scrollbar for category tabs */
