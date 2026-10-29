@@ -171,51 +171,51 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
       {/* Khoảng đệm cho Header */}
       <div className="h-20 shrink-0" />
 
-      {/* 2. NỘI DUNG CHÍNH */}
+      {/* 2. NỘI DUNG CHÍNH (TYPOGRAPHY NÂNG CẤP SANG TRỌNG, GỌN GÀNG) */}
       <div className="relative z-10 container mx-auto px-6 lg:px-12 my-auto py-2">
-        <div className="max-w-3xl relative">
+        <div className="max-w-2xl relative">
           
           {/* Eyebrow badge inside sleek frosted glass pill */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-white/80 shadow-sm text-teal-800 text-xs font-bold tracking-wider uppercase mb-3">
-            <span className="w-2 h-2 rounded-full bg-teal-600 animate-pulse"></span>
-            <span>BẤT ĐỘNG SẢN & PHÒNG TRỌ CHUẨN MỰC THÁI NGUYÊN</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/60 shadow-sm text-teal-800 text-[11px] font-semibold tracking-wide uppercase mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-teal-600 animate-pulse"></span>
+            <span>Bất động sản & Phòng trọ Thái Nguyên</span>
           </div>
 
-          {/* ĐẠI TIÊU ĐỀ IN HOA HIỆN ĐẠI */}
-          <h1 className="font-sans font-extrabold uppercase tracking-tight leading-[1.08] mb-3.5">
-            <span className="block text-4xl sm:text-5xl lg:text-[56px] text-slate-900">
-              KIẾN TẠO
+          {/* ĐẠI TIÊU ĐỀ GỌN GÀNG, SANG TRỌNG (FONT BALANCE, KHÔNG CỒNG KỀNH) */}
+          <h1 className="tracking-tight leading-[1.15] mb-3">
+            <span className="block text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-slate-900">
+              Kiến tạo Không gian sống
             </span>
-            <span className="block text-4xl sm:text-5xl lg:text-[56px] bg-gradient-to-r from-teal-700 via-teal-600 to-emerald-500 bg-clip-text text-transparent">
-              TƯƠNG LAI SỐNG
+            <span className="block text-2xl sm:text-3xl lg:text-[38px] font-bold bg-gradient-to-r from-teal-700 via-teal-600 to-emerald-600 bg-clip-text text-transparent">
+              Chuẩn mực & Minh bạch
             </span>
           </h1>
 
-          {/* Mô tả chữ đậm rõ ràng, tự nhiên trên nền ảnh */}
-          <p className="text-slate-900 font-semibold text-sm sm:text-base leading-relaxed max-w-xl mb-5">
-            Những không gian sống đẳng cấp, khảo sát thực tế 100%, hợp đồng trực tiếp chủ trọ và minh bạch tuyệt đối chi phí điện nước.
+          {/* Mô tả tinh tế, cỡ chữ vừa vặn, ngắt dòng tự nhiên */}
+          <p className="text-slate-700 text-sm sm:text-[15px] leading-relaxed max-w-lg mb-5 font-normal">
+            Phòng trọ cao cấp khảo sát thực tế 100%, kết nối trực tiếp chủ trọ và cam kết minh bạch tuyệt đối chi phí điện nước.
           </p>
 
-          {/* Cụm 2 nút bấm: Nút chính Teal Gradient + Nút phụ Frosted Pill sáng */}
-          <div className="flex flex-wrap items-center gap-3.5 mb-5">
+          {/* Cụm 2 nút bấm: Nút chính Teal + Nút phụ Frosted Glass */}
+          <div className="flex flex-wrap items-center gap-3 mb-5">
             <button
               type="button"
               onClick={() => {
                 const el = document.getElementById('search-dock');
                 el?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="group flex items-center gap-3 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white px-6 py-3 rounded-full text-xs font-bold tracking-[0.16em] uppercase transition-all duration-300 shadow-lg shadow-teal-600/30 hover:shadow-xl hover:-translate-y-0.5 whitespace-nowrap active:scale-[0.98]"
+              className="group flex items-center gap-2.5 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white px-5 py-2.5 rounded-full text-xs font-semibold tracking-wider transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 whitespace-nowrap active:scale-[0.98]"
             >
-              <span>Khám phá dự án</span>
+              <span>Khám phá ngay</span>
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </button>
 
             <button
               type="button"
               onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
-              className="bg-white/95 hover:bg-white text-slate-900 border border-slate-200/80 shadow-md rounded-full px-5 py-2.5 font-bold text-xs uppercase tracking-wider backdrop-blur-md flex items-center gap-2.5 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 whitespace-nowrap active:scale-[0.98]"
+              className="bg-white/90 hover:bg-white text-slate-800 border border-slate-200/80 shadow-sm rounded-full px-4 py-2 font-medium text-xs tracking-wide backdrop-blur-md flex items-center gap-2 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 whitespace-nowrap active:scale-[0.98]"
             >
-              <span className="w-5 h-5 rounded-full bg-slate-100 text-teal-700 flex items-center justify-center font-bold text-xs">
+              <span className="w-4 h-4 rounded-full bg-slate-100 text-teal-700 flex items-center justify-center font-bold text-[10px]">
                 ▸
               </span>
               <span>Bộ lọc nâng cao</span>
@@ -227,12 +227,12 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
             </button>
           </div>
 
-          {/* 3. TẤT CẢ GỘP VÀO 1 THẺ CARD TÌM KIẾM DUY NHẤT (CATEGORY TABS + SEARCH INPUTS) */}
-          <div id="search-dock" className="w-full max-w-[880px] relative">
-            <div className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3 md:p-3.5 shadow-[0_20px_50px_rgba(15,23,42,0.18)] border border-white">
+          {/* 3. TẤT CẢ GỘP VÀO 1 THẺ CARD TÌM KIẾM DUY NHẤT */}
+          <div id="search-dock" className="w-full max-w-[840px] relative">
+            <div className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3 md:p-3.5 shadow-[0_16px_40px_rgba(15,23,42,0.12)] border border-white">
               
-              {/* Category Tabs: Gộp nằm gọn bên trong thẻ phía trên form, rounded-full pill design */}
-              <div className="flex flex-wrap items-center gap-1.5 pb-2.5 mb-2.5 border-b border-slate-100">
+              {/* Category Tabs */}
+              <div className="flex flex-wrap items-center gap-1 pb-2 mb-2 border-b border-slate-100">
                 {[
                   { id: 'all', label: 'Tất cả phòng' },
                   { id: 'studio', label: 'Studio & Căn hộ' },
@@ -243,10 +243,10 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                     key={tab.id}
                     type="button"
                     onClick={() => handleCategoryTabSelect(tab.id as any)}
-                    className={`rounded-full px-4 py-1.5 text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
+                    className={`rounded-full px-3.5 py-1 text-xs font-medium whitespace-nowrap transition-all duration-200 ${
                       activeCategoryTab === tab.id
-                        ? 'bg-teal-600 text-white shadow-sm font-bold'
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 font-medium'
+                        ? 'bg-teal-600 text-white shadow-sm font-semibold'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
                     }`}
                   >
                     {tab.label}
@@ -254,19 +254,19 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                 ))}
               </div>
 
-              {/* Main Search Bar: 3 Cột Input + Nút Tìm kiếm */}
+              {/* Main Search Bar: Cân đối, không bị cụt chữ */}
               <form
                 onSubmit={handleSearch}
-                className="grid grid-cols-1 md:grid-cols-[1.4fr_1.1fr_1.1fr_auto] items-center gap-1.5"
+                className="grid grid-cols-1 md:grid-cols-[1.2fr_1.2fr_1.1fr_auto] items-center gap-1.5"
               >
                 {/* Cột 1: Từ khóa / Trường ĐH */}
                 <div 
                   ref={suggestionRef}
-                  className="flex items-center gap-2.5 hover:bg-slate-50/90 rounded-xl px-3 py-2 transition cursor-pointer relative min-w-0"
+                  className="flex items-center gap-2 hover:bg-slate-50/90 rounded-xl px-3 py-2 transition cursor-pointer relative min-w-0"
                 >
                   <Search className="w-4 h-4 text-slate-400 shrink-0" />
                   <div className="w-full min-w-0">
-                    <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">
+                    <span className="block text-[10px] font-medium text-slate-400 whitespace-nowrap">
                       Từ khóa / Trường ĐH
                     </span>
                     <input
@@ -331,13 +331,13 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                 <div className="flex items-center gap-2 hover:bg-slate-50/90 rounded-xl px-3 py-2 transition cursor-pointer min-w-0 border-t md:border-t-0 md:border-l border-slate-200/80">
                   <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
                   <div className="w-full min-w-0">
-                    <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">
+                    <span className="block text-[10px] font-medium text-slate-400 whitespace-nowrap">
                       Khu vực
                     </span>
                     <select 
                       value={ward}
                       onChange={(e) => setWard(e.target.value)}
-                      className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer"
+                      className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer truncate pr-1"
                     >
                       <option value="Tất cả">Toàn Thái Nguyên</option>
                       {wards.filter(w => w !== 'Tất cả').map((w) => (
@@ -351,13 +351,13 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                 <div className="flex items-center gap-2 hover:bg-slate-50/90 rounded-xl px-3 py-2 transition cursor-pointer min-w-0 border-t md:border-t-0 md:border-l border-slate-200/80">
                   <SlidersHorizontal className="w-4 h-4 text-slate-400 shrink-0" />
                   <div className="w-full min-w-0">
-                    <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">
+                    <span className="block text-[10px] font-medium text-slate-400 whitespace-nowrap">
                       Mức giá
                     </span>
                     <select 
                       value={priceTier}
                       onChange={(e) => setPriceTier(e.target.value)}
-                      className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer"
+                      className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer truncate pr-1"
                     >
                       <option value="all">Tất cả mức giá</option>
                       <option value="under_1_5m">Dưới 1.5 triệu</option>
@@ -371,7 +371,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                 <div className="p-1 shrink-0">
                   <button
                     type="submit"
-                    className="w-full md:w-auto bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-bold px-6 py-3 rounded-xl shadow-lg shadow-teal-600/30 transition-all hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap text-xs uppercase tracking-wider"
+                    className="w-full md:w-auto bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-semibold px-5 py-2.5 rounded-xl shadow-md transition-all hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap text-xs tracking-wide"
                   >
                     Tìm kiếm →
                   </button>
