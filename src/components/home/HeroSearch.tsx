@@ -170,7 +170,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
     <section className="relative w-full bg-slate-100 select-none overflow-hidden">
       
       {/* 1. CONTAINER CHUẨN TỶ LỆ 16:9 NGUYÊN BẢN CỦA ANHMOI.PNG - KHÔNG CROP, KHÔNG BÓP MÉO */}
-      <div className="relative w-full aspect-[1672/941] min-h-[640px] md:min-h-0">
+      <div className="relative w-full aspect-[1672/941] min-h-[660px] md:min-h-0">
         <img
           src={heroBackground}
           alt="Không gian sống đẳng cấp"
@@ -179,10 +179,10 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
         />
 
         {/* 2. LỚP OVERLAY GIAO DIỆN RIÊNG BIỆT (TÁCH BIỆT HTML/CSS 100%) */}
-        <div className="absolute inset-0 flex flex-col justify-between pt-24 sm:pt-28 pb-4 sm:pb-6 px-4 sm:px-8 max-w-[1360px] mx-auto pointer-events-auto">
+        <div className="absolute inset-0 flex flex-col justify-between pt-24 sm:pt-28 pb-4 sm:pb-6 px-4 sm:px-8 lg:px-[11.5%] pointer-events-auto">
           
           {/* NỘI DUNG CHÍNH TRÊN HERO */}
-          <div className="w-full max-w-3xl my-auto">
+          <div className="w-full my-auto">
             
             {/* Eyebrow Label with subtle dash */}
             <div className="flex items-center gap-2 mb-2 sm:mb-2.5">
@@ -192,24 +192,24 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
               </span>
             </div>
 
-            {/* ĐẠI TIÊU ĐỀ CHUẨN SERIF LUXURY PROPTECH */}
-            <h1 className="mb-2 sm:mb-3 tracking-tight">
-              <span className="block font-serif text-3xl sm:text-4xl lg:text-[48px] font-bold text-slate-900 leading-[1.12] drop-shadow-xs">
+            {/* ĐẠI TIÊU ĐỀ: Giới hạn chiều rộng 620px, chia đúng 2 dòng như ảnh mẫu */}
+            <h1 className="max-w-[620px] mb-2 sm:mb-3 tracking-tight">
+              <span className="block font-serif text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold text-slate-900 leading-[1.14]">
                 Kiến tạo không gian sống
               </span>
-              <span className="block font-serif text-3xl sm:text-4xl lg:text-[48px] font-bold text-teal-800 leading-[1.12]">
+              <span className="block font-serif text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold text-teal-800 leading-[1.14]">
                 Chuẩn mực & Minh bạch
               </span>
             </h1>
 
-            {/* Đoạn mô tả phụ */}
-            <p className="text-slate-800 text-xs sm:text-sm lg:text-[15px] font-medium leading-relaxed max-w-xl mb-3 sm:mb-4 drop-shadow-xs">
+            {/* Đoạn mô tả: Rộng 450–480px, tối đa 2 dòng, cỡ chữ 16–18px, line-height 1.5 */}
+            <p className="max-w-[480px] text-slate-800 text-[15px] sm:text-[16px] lg:text-[17px] font-normal leading-[1.5] mb-4 sm:mb-5 line-clamp-2">
               Phòng trọ cao cấp, khép kín, sạch sẽ, đầy đủ tiện nghi, an ninh 24/7. Tạo nên trải nghiệm sống tốt hơn cho mọi người.
             </p>
 
-            {/* 4 Feature Badges có Icon */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 max-w-xl mb-4 sm:mb-6">
-              <div className="flex items-center gap-1.5 text-slate-900">
+            {/* 4 Feature Badges có Icon: Căn thành hàng gọn gàng, khoảng cách đều */}
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 max-w-[620px] mb-5 sm:mb-7">
+              <div className="flex items-center gap-2 text-slate-900">
                 <CheckCircle2 className="w-4 h-4 text-teal-800 shrink-0" />
                 <div className="text-[11px] leading-tight">
                   <span className="font-bold block text-slate-900">100%</span>
@@ -217,7 +217,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-1.5 text-slate-900">
+              <div className="flex items-center gap-2 text-slate-900">
                 <CheckCircle2 className="w-4 h-4 text-teal-800 shrink-0" />
                 <div className="text-[11px] leading-tight">
                   <span className="font-bold block text-slate-900">Xác thực</span>
@@ -225,7 +225,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-1.5 text-slate-900">
+              <div className="flex items-center gap-2 text-slate-900">
                 <Compass className="w-4 h-4 text-teal-800 shrink-0" />
                 <div className="text-[11px] leading-tight">
                   <span className="font-bold block text-slate-900">Vị trí đẹp</span>
@@ -233,7 +233,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-1.5 text-slate-900">
+              <div className="flex items-center gap-2 text-slate-900">
                 <Headphones className="w-4 h-4 text-teal-800 shrink-0" />
                 <div className="text-[11px] leading-tight">
                   <span className="font-bold block text-slate-900">Hỗ trợ 24/7</span>
@@ -242,8 +242,8 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
               </div>
             </div>
 
-            {/* 3. THANH TÌM KIẾM COMMAND DOCK (RESPONSIVE: XẾP DỌC TRÊN MOBILE, HÀNG NGANG TRÊN DESKTOP) */}
-            <div id="search-dock" className="w-full max-w-[880px] relative">
+            {/* 3. THANH TÌM KIẾM COMMAND DOCK: Rộng 900–1020px trên màn hình desktop */}
+            <div id="search-dock" className="w-full max-w-[980px] relative">
               <div className="bg-white/95 backdrop-blur-2xl rounded-2xl sm:rounded-3xl p-3 sm:p-4 shadow-[0_20px_50px_rgba(15,23,42,0.15)] border border-white">
                 
                 {/* Category Tabs: Kèm Icon */}
@@ -274,15 +274,15 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                   })}
                 </div>
 
-                {/* Main Search Bar: CÁC TRƯỜNG CÓ ĐỦ CHIỀU RỘNG, KHÔNG BỊ CẮT CHỮ */}
+                {/* Main Search Bar: CÁC TRƯỜNG CHIA ĐỀU, CHỮ KHÔNG BỊ CẮT, NÚT TÌM KIẾM KHÔNG BỊ ÉP */}
                 <form
                   onSubmit={handleSearch}
                   className="flex flex-col md:flex-row md:items-center gap-2 md:gap-0 md:divide-x md:divide-slate-200/80"
                 >
-                  {/* Cột 1: Từ khóa / Trường ĐH (flex-1 min-w-0) */}
+                  {/* Cột 1: Từ khóa / Trường ĐH (flex-[1.4] min-w-0) */}
                   <div 
                     ref={suggestionRef}
-                    className="flex-1 min-w-0 flex items-center gap-2.5 hover:bg-slate-50/80 rounded-xl md:rounded-r-none px-3.5 py-2 transition cursor-pointer relative"
+                    className="flex-[1.4] min-w-0 flex items-center gap-2.5 hover:bg-slate-50/80 rounded-xl md:rounded-r-none px-3.5 py-2 transition cursor-pointer relative"
                   >
                     <Search className="w-4 h-4 text-slate-400 shrink-0" />
                     <div className="w-full min-w-0">
@@ -298,7 +298,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                           setShowSuggestions(true);
                         }}
                         placeholder="VD: ĐH Y Dược, KCN Samsung..."
-                        className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 placeholder-slate-400 focus:outline-none truncate"
+                        className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 placeholder-slate-400 focus:outline-none"
                       />
                     </div>
                     {keyword && (
@@ -347,8 +347,8 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                     </AnimatePresence>
                   </div>
 
-                  {/* Cột 2: Khu vực (flex-initial md:w-48 lg:w-56 min-w-0 để hiện trọn Toàn Thái Nguyên) */}
-                  <div className="flex-initial md:w-44 lg:w-52 min-w-0 flex items-center gap-2 hover:bg-slate-50/80 rounded-xl md:rounded-none px-3.5 py-2 transition cursor-pointer">
+                  {/* Cột 2: Khu vực (flex-1 min-w-0 để hiện trọn Toàn Thái Nguyên) */}
+                  <div className="flex-1 min-w-0 flex items-center gap-2 hover:bg-slate-50/80 rounded-xl md:rounded-none px-3.5 py-2 transition cursor-pointer">
                     <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
                     <div className="w-full min-w-0">
                       <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">
@@ -357,7 +357,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                       <select 
                         value={ward}
                         onChange={(e) => setWard(e.target.value)}
-                        className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer pr-1"
+                        className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer"
                       >
                         <option value="Tất cả">Toàn Thái Nguyên</option>
                         {wards.filter(w => w !== 'Tất cả').map((w) => (
@@ -367,8 +367,8 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                     </div>
                   </div>
 
-                  {/* Cột 3: Mức giá (flex-initial md:w-40 lg:w-48 min-w-0 để hiện trọn Tất cả mức giá) */}
-                  <div className="flex-initial md:w-40 lg:w-48 min-w-0 flex items-center gap-2 hover:bg-slate-50/80 rounded-xl md:rounded-none px-3.5 py-2 transition cursor-pointer">
+                  {/* Cột 3: Mức giá (flex-1 min-w-0 để hiện trọn Tất cả mức giá) */}
+                  <div className="flex-1 min-w-0 flex items-center gap-2 hover:bg-slate-50/80 rounded-xl md:rounded-none px-3.5 py-2 transition cursor-pointer">
                     <SlidersHorizontal className="w-4 h-4 text-slate-400 shrink-0" />
                     <div className="w-full min-w-0">
                       <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">
@@ -377,7 +377,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                       <select 
                         value={priceTier}
                         onChange={(e) => setPriceTier(e.target.value)}
-                        className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer pr-1"
+                        className="w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer"
                       >
                         <option value="all">Tất cả mức giá</option>
                         <option value="under_1_5m">Dưới 1.5 triệu</option>
@@ -388,7 +388,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
                   </div>
 
                   {/* Cụm nút hành động bên phải: Nút Icon Bộ lọc nâng cao + Nút Tìm Kiếm CTA */}
-                  <div className="p-1 md:pl-2 flex items-center gap-2 shrink-0">
+                  <div className="p-1 md:pl-2.5 flex items-center gap-2 shrink-0">
                     <button
                       type="button"
                       onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
@@ -409,7 +409,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
 
                     <button
                       type="submit"
-                      className="flex-1 md:flex-initial bg-teal-800 hover:bg-teal-900 text-white font-semibold px-5 sm:px-7 py-2.5 sm:py-3 rounded-2xl shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap text-xs uppercase tracking-wider flex items-center justify-center gap-2"
+                      className="flex-1 md:flex-initial bg-teal-800 hover:bg-teal-900 text-white font-semibold px-6 sm:px-7 py-2.5 sm:py-3 rounded-2xl shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap text-xs uppercase tracking-wider flex items-center justify-center gap-2"
                     >
                       <Search className="w-3.5 h-3.5" />
                       <span>Tìm kiếm →</span>
@@ -528,7 +528,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearchSubmit }) => {
 
           </div>
 
-          {/* 5. BOTTOM BAR TOÀN BỘ THEO MẪU MOCKUP (QUOTE BÊN TRÁI + 4 STATS + CHAT NGAY BÊN PHẢI) */}
+          {/* 5. BOTTOM BAR: Căn thành hàng gọn gàng, không kéo dài tràn mép */}
           <div className="w-full pt-2 flex flex-wrap items-center justify-between gap-3 text-white">
             
             {/* Left Quote */}

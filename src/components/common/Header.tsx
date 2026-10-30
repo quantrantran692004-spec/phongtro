@@ -101,296 +101,265 @@ export const Header: React.FC<HeaderProps> = ({
   const headerClasses = isHomeTransparent
     ? isScrolled
       ? 'fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-white/95 backdrop-blur-xl border-b border-slate-200/80 py-3 shadow-sm'
-      : 'fixed top-0 inset-x-0 z-50 transition-all duration-300 py-4'
+      : 'fixed top-0 inset-x-0 z-50 transition-all duration-300 py-3 sm:py-4'
     : 'sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm py-3 transition-all duration-300';
 
   return (
     <header className={headerClasses}>
-      <div className="max-w-[1360px] mx-auto px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-20">
-          {/* 1. Logo Brand (Clean, authentic PropTech design matching mockup) */}
-          <div className="flex items-center gap-6 xl:gap-8">
+      <div className="w-full px-4 sm:px-8 lg:px-[11.5%] flex items-center justify-between">
+        {/* 1. Logo Brand bên trái */}
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => onNavigate('home')}
+            className="flex items-center gap-3 text-left group focus:outline-none shrink-0 transition-all duration-200"
+          >
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center transition shadow-sm bg-teal-800 text-white shrink-0">
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M12 2L2 9.5V20C2 20.5523 2.44772 21 3 21H9V14H15V21H21C21.5523 21 22 20.5523 22 20V9.5L12 2ZM10.5 7H13.5V9.5H10.5V7Z" />
+              </svg>
+            </div>
+            <div className="flex flex-col">
+              <span className="font-extrabold text-base sm:text-lg tracking-tight text-slate-900 leading-none">
+                TRỌ THÁI NGUYÊN
+              </span>
+              <span className="text-[10px] sm:text-[11px] text-slate-600 font-medium tracking-normal mt-1">
+                Sống tiện nghi - Đầu tư vững bền
+              </span>
+            </div>
+          </button>
+        </div>
+
+        {/* 2. Desktop Navigation ở giữa */}
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium">
+          <button
+            onClick={() => onNavigate('home')}
+            className={`py-1 flex items-center whitespace-nowrap transition ${
+              currentTab === 'home'
+                ? 'text-teal-900 font-bold border-b-2 border-teal-800'
+                : 'text-slate-700 hover:text-teal-800'
+            }`}
+          >
+            Trang chủ
+          </button>
+
+          {/* Khám phá Dropdown */}
+          <div 
+            className="relative"
+            onMouseEnter={handleExploreEnter}
+            onMouseLeave={handleExploreLeave}
+          >
             <button
-              onClick={() => onNavigate('home')}
-              className="flex items-center gap-3 text-left group focus:outline-none shrink-0 transition-all duration-200"
+              onClick={() => onNavigate('search')}
+              className="py-1 flex items-center gap-1 whitespace-nowrap transition text-slate-700 hover:text-teal-800"
             >
-              <div className="w-10 h-10 rounded-2xl flex items-center justify-center transition shadow-sm bg-teal-800 text-white shrink-0">
-                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                  <path d="M12 2L2 9.5V20C2 20.5523 2.44772 21 3 21H9V14H15V21H21C21.5523 21 22 20.5523 22 20V9.5L12 2ZM10.5 7H13.5V9.5H10.5V7Z" />
-                </svg>
-              </div>
-              <div className="flex flex-col">
-                <span className="font-extrabold text-lg tracking-tight text-slate-900 leading-none">
-                  TRỌ THÁI NGUYÊN
-                </span>
-                <span className="text-[11px] text-slate-600 font-medium tracking-normal mt-1">
-                  Sống tiện nghi - Đầu tư vững bền
-                </span>
-              </div>
+              <span>Khám phá phòng</span>
+              <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
             </button>
 
-            {/* 2. Desktop Navigation (Bare text links matching mockup) */}
-            <nav className="hidden lg:flex items-center gap-2 xl:gap-4 text-sm font-medium">
-              <button
-                onClick={() => onNavigate('home')}
-                className={`h-8 px-4 rounded-full flex items-center whitespace-nowrap transition ${
-                  currentTab === 'home'
-                    ? 'text-teal-900 font-bold border-b-2 border-teal-800 rounded-none pb-0.5'
-                    : 'text-slate-700 hover:text-teal-800'
-                }`}
-              >
-                Trang chủ
-              </button>
-
-              {/* Khám phá Dropdown */}
-              <div 
-                className="relative"
-                onMouseEnter={handleExploreEnter}
-                onMouseLeave={handleExploreLeave}
-              >
-                <button
-                  onClick={() => onNavigate('search')}
-                  className="h-8 px-4 rounded-full flex items-center gap-1.5 whitespace-nowrap transition text-slate-700 hover:text-teal-800"
+            <AnimatePresence>
+              {exploreMenuOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 6 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute left-0 top-full mt-2 w-64 bg-white rounded-2xl shadow-float border border-slate-200/80 p-2 z-50 text-xs"
                 >
-                  <span className="whitespace-nowrap">Khám phá phòng</span>
-                  <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
-                </button>
+                  <button
+                    onClick={() => { onNavigate('search'); setExploreMenuOpen(false); }}
+                    className="w-full text-left px-3 py-2.5 rounded-xl hover:bg-slate-50 flex items-center gap-2.5 text-slate-800 font-medium transition"
+                  >
+                    <Search className="w-4 h-4 text-teal-600" />
+                    <div>
+                      <div className="font-semibold text-slate-900 whitespace-nowrap">Tất cả phòng trọ</div>
+                      <div className="text-[11px] text-slate-500 font-normal">Hơn 450+ phòng đã xác thực</div>
+                    </div>
+                  </button>
 
-                <AnimatePresence>
-                  {exploreMenuOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 6 }}
-                      transition={{ duration: 0.15 }}
-                      className="absolute left-0 top-full mt-2 w-64 bg-white rounded-2xl shadow-float border border-slate-200/80 p-2 z-50 text-xs"
-                    >
-                      <button
-                        onClick={() => { onNavigate('search'); setExploreMenuOpen(false); }}
-                        className="w-full text-left px-3 py-2.5 rounded-xl hover:bg-slate-50 flex items-center gap-2.5 text-slate-800 font-medium transition"
-                      >
-                        <Search className="w-4 h-4 text-teal-600" />
-                        <div>
-                          <div className="font-semibold text-slate-900 whitespace-nowrap">Tất cả phòng trọ</div>
-                          <div className="text-[11px] text-slate-500 font-normal">Hơn 450+ phòng đã xác thực</div>
-                        </div>
-                      </button>
+                  <button
+                    onClick={() => handleSelectArea('P. Tân Thịnh')}
+                    className="w-full text-left px-3 py-2.5 rounded-xl hover:bg-slate-50 flex items-center gap-2.5 text-slate-800 font-medium transition"
+                  >
+                    <GraduationCap className="w-4 h-4 text-teal-600" />
+                    <div>
+                      <div className="font-semibold text-slate-900 whitespace-nowrap">Làng ĐH Tân Thịnh</div>
+                      <div className="text-[11px] text-slate-500 font-normal">ĐH CNTT, Sư Phạm, Kinh Tế</div>
+                    </div>
+                  </button>
 
-                      <button
-                        onClick={() => handleSelectArea('P. Tân Thịnh')}
-                        className="w-full text-left px-3 py-2.5 rounded-xl hover:bg-slate-50 flex items-center gap-2.5 text-slate-800 font-medium transition"
-                      >
-                        <GraduationCap className="w-4 h-4 text-teal-600" />
-                        <div>
-                          <div className="font-semibold text-slate-900 whitespace-nowrap">Làng ĐH Tân Thịnh</div>
-                          <div className="text-[11px] text-slate-500 font-normal">ĐH CNTT, Sư Phạm, Kinh Tế</div>
-                        </div>
-                      </button>
+                  <button
+                    onClick={() => handleSelectArea('P. Quang Trung', 'Y Dược')}
+                    className="w-full text-left px-3 py-2.5 rounded-xl hover:bg-slate-50 flex items-center gap-2.5 text-slate-800 font-medium transition"
+                  >
+                    <MapPin className="w-4 h-4 text-teal-600" />
+                    <div>
+                      <div className="font-semibold text-slate-900 whitespace-nowrap">Khu vực ĐH Y Dược</div>
+                      <div className="text-[11px] text-slate-500 font-normal">Đường Lương Ngọc Quyến</div>
+                    </div>
+                  </button>
 
-                      <button
-                        onClick={() => handleSelectArea('P. Quang Trung', 'Y Dược')}
-                        className="w-full text-left px-3 py-2.5 rounded-xl hover:bg-slate-50 flex items-center gap-2.5 text-slate-800 font-medium transition"
-                      >
-                        <MapPin className="w-4 h-4 text-teal-600" />
-                        <div>
-                          <div className="font-semibold text-slate-900 whitespace-nowrap">Khu vực ĐH Y Dược</div>
-                          <div className="text-[11px] text-slate-500 font-normal">Đường Lương Ngọc Quyến</div>
-                        </div>
-                      </button>
-
-                      <button
-                        onClick={() => handleSelectArea('TX. Phổ Yên', 'Samsung')}
-                        className="w-full text-left px-3 py-2.5 rounded-xl hover:bg-slate-50 flex items-center gap-2.5 text-slate-800 font-medium transition"
-                      >
-                        <Building2 className="w-4 h-4 text-teal-600" />
-                        <div>
-                          <div className="font-semibold text-slate-900 whitespace-nowrap">KCN Samsung Phổ Yên</div>
-                          <div className="text-[11px] text-slate-500 font-normal">Khu công nghệ cao SEVT</div>
-                        </div>
-                      </button>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              {/* Cẩm nang Dropdown */}
-              <div 
-                className="relative"
-                onMouseEnter={handleGuideEnter}
-                onMouseLeave={handleGuideLeave}
-              >
-                <button
-                  onClick={onOpenGuide}
-                  className={`h-8 px-4 rounded-full flex items-center gap-1.5 whitespace-nowrap transition ${
-                    guideMenuOpen
-                      ? isTransparent
-                        ? 'text-teal-700 font-bold bg-teal-50 shadow-xs'
-                        : 'text-teal-700 font-bold bg-teal-50'
-                      : isTransparent
-                        ? 'text-slate-800 hover:text-teal-700 hover:bg-white/80'
-                        : 'text-slate-700 hover:text-teal-700 hover:bg-slate-100'
-                  }`}
-                >
-                  <span className="whitespace-nowrap">Cẩm nang</span>
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 shrink-0 ${
-                    guideMenuOpen 
-                      ? 'rotate-180 text-teal-600'
-                      : isTransparent ? 'text-slate-500' : 'text-slate-400'
-                  }`} />
-                </button>
-
-                {/* Về chúng tôi (Theo mockup) */}
-                <button
-                  onClick={onOpenGuide}
-                  className="h-8 px-4 rounded-full flex items-center whitespace-nowrap transition text-slate-700 hover:text-teal-700 hover:bg-slate-100/70"
-                >
-                  Về chúng tôi
-                </button>
-
-                <AnimatePresence>
-                  {guideMenuOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 6 }}
-                      transition={{ duration: 0.15 }}
-                      className="absolute left-0 top-full mt-2 w-60 bg-white rounded-2xl shadow-float border border-slate-200/80 p-2 z-50 text-xs text-slate-800"
-                    >
-                      <button
-                        onClick={() => { onOpenGuide(); setGuideMenuOpen(false); }}
-                        className="w-full text-left px-3 py-2.5 rounded-xl hover:bg-slate-50 flex items-center gap-2.5 text-slate-800 font-medium transition"
-                      >
-                        <FileText className="w-4 h-4 text-teal-600" />
-                        <span className="whitespace-nowrap">Kinh nghiệm tránh lừa cọc</span>
-                      </button>
-
-                      <button
-                        onClick={() => { onOpenGuide(); setGuideMenuOpen(false); }}
-                        className="w-full text-left px-3 py-2.5 rounded-xl hover:bg-slate-50 flex items-center gap-2.5 text-slate-800 font-medium transition"
-                      >
-                        <ShieldCheck className="w-4 h-4 text-teal-600" />
-                        <span className="whitespace-nowrap">Mẫu hợp đồng thuê phòng</span>
-                      </button>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              {isLandlord && (
-                <button
-                  onClick={() => onNavigate('landlord')}
-                  className={`h-8 px-4 rounded-full flex items-center gap-1.5 whitespace-nowrap transition ${
-                    currentTab === 'landlord'
-                      ? isTransparent
-                        ? 'text-teal-700 font-bold bg-teal-50 shadow-xs'
-                        : 'text-teal-700 font-bold bg-teal-50'
-                      : isTransparent
-                        ? 'text-slate-800 hover:text-teal-700 hover:bg-white/80'
-                        : 'text-slate-700 hover:text-teal-700 hover:bg-slate-100'
-                  }`}
-                >
-                  <Building2 className="w-3.5 h-3.5 text-teal-600" />
-                  <span className="whitespace-nowrap">Kênh Chủ Trọ</span>
-                </button>
+                  <button
+                    onClick={() => handleSelectArea('TX. Phổ Yên', 'Samsung')}
+                    className="w-full text-left px-3 py-2.5 rounded-xl hover:bg-slate-50 flex items-center gap-2.5 text-slate-800 font-medium transition"
+                  >
+                    <Building2 className="w-4 h-4 text-teal-600" />
+                    <div>
+                      <div className="font-semibold text-slate-900 whitespace-nowrap">KCN Samsung Phổ Yên</div>
+                      <div className="text-[11px] text-slate-500 font-normal">Khu công nghệ cao SEVT</div>
+                    </div>
+                  </button>
+                </motion.div>
               )}
-
-              {isAdmin && (
-                <button
-                  onClick={() => onNavigate('admin')}
-                  className={`h-8 px-4 rounded-full flex items-center gap-1.5 whitespace-nowrap transition ${
-                    currentTab === 'admin'
-                      ? isTransparent
-                        ? 'text-teal-700 font-bold bg-teal-50 shadow-xs'
-                        : 'text-teal-700 font-bold bg-teal-50'
-                      : isTransparent
-                        ? 'text-slate-800 hover:text-teal-700 hover:bg-white/80'
-                        : 'text-slate-700 hover:text-teal-700 hover:bg-slate-100'
-                  }`}
-                >
-                  <ShieldCheck className="w-3.5 h-3.5 text-teal-600" />
-                  <span className="whitespace-nowrap">Quản trị (Admin)</span>
-                </button>
-              )}
-            </nav>
+            </AnimatePresence>
           </div>
 
-          {/* 3. Right Action Items */}
-          <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
-            {/* Compare Tool: only when active */}
-            {compareList.length > 0 && (
+          {/* Cẩm nang Dropdown */}
+          <div 
+            className="relative"
+            onMouseEnter={handleGuideEnter}
+            onMouseLeave={handleGuideLeave}
+          >
+            <button
+              onClick={onOpenGuide}
+              className="py-1 flex items-center gap-1 whitespace-nowrap transition text-slate-700 hover:text-teal-800"
+            >
+              <span>Cẩm nang</span>
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 shrink-0 ${
+                guideMenuOpen ? 'rotate-180 text-teal-600' : 'text-slate-500'
+              }`} />
+            </button>
+
+            <AnimatePresence>
+              {guideMenuOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 6 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute left-0 top-full mt-2 w-60 bg-white rounded-2xl shadow-float border border-slate-200/80 p-2 z-50 text-xs text-slate-800"
+                >
+                  <button
+                    onClick={() => { onOpenGuide(); setGuideMenuOpen(false); }}
+                    className="w-full text-left px-3 py-2.5 rounded-xl hover:bg-slate-50 flex items-center gap-2.5 text-slate-800 font-medium transition"
+                  >
+                    <FileText className="w-4 h-4 text-teal-600" />
+                    <span className="whitespace-nowrap">Kinh nghiệm tránh lừa cọc</span>
+                  </button>
+
+                  <button
+                    onClick={() => { onOpenGuide(); setGuideMenuOpen(false); }}
+                    className="w-full text-left px-3 py-2.5 rounded-xl hover:bg-slate-50 flex items-center gap-2.5 text-slate-800 font-medium transition"
+                  >
+                    <ShieldCheck className="w-4 h-4 text-teal-600" />
+                    <span className="whitespace-nowrap">Mẫu hợp đồng thuê phòng</span>
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Về chúng tôi */}
+          <button
+            onClick={onOpenGuide}
+            className="py-1 flex items-center whitespace-nowrap transition text-slate-700 hover:text-teal-800"
+          >
+            Về chúng tôi
+          </button>
+
+          {isLandlord && (
+            <button
+              onClick={() => onNavigate('landlord')}
+              className={`py-1 flex items-center gap-1.5 whitespace-nowrap transition ${
+                currentTab === 'landlord'
+                  ? 'text-teal-800 font-bold border-b-2 border-teal-800'
+                  : 'text-slate-700 hover:text-teal-800'
+              }`}
+            >
+              <Building2 className="w-3.5 h-3.5 text-teal-600" />
+              <span>Kênh Chủ Trọ</span>
+            </button>
+          )}
+
+          {isAdmin && (
+            <button
+              onClick={() => onNavigate('admin')}
+              className={`py-1 flex items-center gap-1.5 whitespace-nowrap transition ${
+                currentTab === 'admin'
+                  ? 'text-teal-800 font-bold border-b-2 border-teal-800'
+                  : 'text-slate-700 hover:text-teal-800'
+              }`}
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-teal-600" />
+              <span>Quản trị (Admin)</span>
+            </button>
+          )}
+        </nav>
+
+        {/* 3. Nút đăng tin và tài khoản bên phải */}
+        <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+          {/* Compare Tool */}
+          {compareList.length > 0 && (
+            <button
+              onClick={onOpenCompare}
+              className="flex items-center gap-1.5 h-9 px-3 rounded-full border text-xs font-semibold whitespace-nowrap bg-white/80 hover:bg-white text-slate-800 border-slate-200 shadow-sm transition"
+            >
+              <Scale className="w-3.5 h-3.5 text-teal-600" />
+              <span className="hidden sm:inline">So sánh</span>
+              <span className="w-4 h-4 rounded-full bg-teal-800 text-white text-[10px] font-bold flex items-center justify-center">
+                {compareList.length}
+              </span>
+            </button>
+          )}
+
+          {/* Favorites Button với badge đỏ chuẩn mockup */}
+          <button
+            onClick={() => onOpenProfile('saved')}
+            className="relative h-9 w-9 rounded-full flex items-center justify-center transition border bg-white/80 hover:bg-white text-slate-700 hover:text-rose-600 border-white/90 shadow-sm"
+            title="Phòng đã lưu"
+          >
+            <Heart className="w-4 h-4" />
+            {favorites.length > 0 && (
+              <span className="absolute -top-1 -right-1 bg-rose-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                {favorites.length}
+              </span>
+            )}
+          </button>
+
+          {/* Nút + ĐĂNG TIN chuẩn màu Teal sẫm bo tròn theo mockup */}
+          <button
+            onClick={onOpenPostRoom}
+            className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-xs font-bold tracking-wider uppercase whitespace-nowrap transition shadow-sm hover:shadow active:scale-[0.99] bg-teal-800 hover:bg-teal-900 text-white"
+          >
+            <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
+            <span>ĐĂNG TIN</span>
+          </button>
+
+          {/* User Profile Capsule */}
+          {isAuthenticated ? (
+            <div 
+              className="relative"
+              onMouseEnter={handleUserEnter}
+              onMouseLeave={handleUserLeave}
+            >
               <button
-                onClick={onOpenCompare}
-                className={`flex items-center gap-1.5 h-9 px-3.5 rounded-full border text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
-                  isTransparent
-                    ? 'bg-white/80 hover:bg-white text-slate-800 border-white/90 backdrop-blur-xl shadow-[0_8px_32px_rgba(15,23,42,0.06)]'
-                    : 'bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-800'
-                }`}
+                onClick={() => setUserMenuOpen(!userMenuOpen)}
+                className="flex items-center gap-2 h-9 pl-1 pr-2.5 rounded-full border whitespace-nowrap transition bg-white/80 hover:bg-white border-white/90 text-slate-800 shadow-sm"
               >
-                <Scale className="w-3.5 h-3.5 text-teal-600" />
-                <span className="hidden sm:inline">So sánh</span>
-                <span className="w-4 h-4 rounded-full bg-teal-600 text-white text-[10px] font-bold flex items-center justify-center">
-                  {compareList.length}
+                <img
+                  src={currentUser?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80'}
+                  alt={currentUser?.name}
+                  className="w-7 h-7 rounded-full object-cover shrink-0 ring-1 ring-slate-200"
+                />
+                <span className="text-xs font-semibold max-w-[90px] truncate text-slate-800">
+                  {currentUser?.name}
+                </span>
+                <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full border hidden sm:inline bg-teal-50 border-teal-200 text-teal-700">
+                  {currentUser?.role === 'admin' ? 'Admin' : currentUser?.role === 'landlord' ? 'Chủ trọ' : 'SV'}
                 </span>
               </button>
-            )}
 
-            {/* Favorites Button */}
-            <button
-              onClick={() => onOpenProfile('saved')}
-              className={`relative h-9 w-9 rounded-full flex items-center justify-center transition-all duration-200 border ${
-                isTransparent
-                  ? 'bg-white/80 hover:bg-white text-slate-700 hover:text-rose-600 border-white/90 backdrop-blur-xl shadow-[0_8px_32px_rgba(15,23,42,0.06)]'
-                  : 'bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-600 hover:text-rose-600'
-              }`}
-              title="Phòng đã lưu"
-            >
-              <Heart className="w-4 h-4" />
-              {favorites.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-rose-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
-                  {favorites.length}
-                </span>
-              )}
-            </button>
-
-            {/* Post Room Primary CTA (Teal Pill with + icon matching mockup) */}
-            <button
-              onClick={onOpenPostRoom}
-              className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-xs font-bold tracking-wider uppercase whitespace-nowrap transition-all duration-200 shadow-md hover:shadow-lg active:scale-[0.99] bg-teal-800 hover:bg-teal-900 text-white shadow-teal-800/25 hover:-translate-y-0.5"
-            >
-              <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
-              <span>ĐĂNG TIN</span>
-            </button>
-
-            {/* Unified User & Role Capsule */}
-            {isAuthenticated ? (
-              <div 
-                className="relative"
-                onMouseEnter={handleUserEnter}
-                onMouseLeave={handleUserLeave}
-              >
-                <button
-                  onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className={`flex items-center gap-2 h-9 pl-3 pr-1.5 rounded-full border whitespace-nowrap transition-all duration-200 ${
-                    isTransparent
-                      ? 'bg-white/80 hover:bg-white border-white/90 text-slate-800 backdrop-blur-xl shadow-[0_8px_32px_rgba(15,23,42,0.06)]'
-                      : 'bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-800'
-                  }`}
-                >
-                  <span className="text-xs font-semibold max-w-[100px] truncate text-slate-800">
-                    {currentUser?.name}
-                  </span>
-                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full border hidden sm:inline bg-teal-50 border-teal-200 text-teal-700">
-                    {currentUser?.role === 'admin' ? 'Admin' : currentUser?.role === 'landlord' ? 'Chủ trọ' : 'SV'}
-                  </span>
-                  <img
-                    src={currentUser?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80'}
-                    alt={currentUser?.name}
-                    className="w-6 h-6 rounded-full object-cover shrink-0 ring-1 ring-slate-200"
-                  />
-                </button>
-
-                <AnimatePresence>
-                  {userMenuOpen && (
+              <AnimatePresence>
+                {userMenuOpen && (
                     <motion.div
                       initial={{ opacity: 0, y: 6 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -497,7 +466,6 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           </div>
         </div>
-      </div>
 
       {/* Mobile Drawer */}
       <AnimatePresence>
