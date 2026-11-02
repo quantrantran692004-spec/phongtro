@@ -106,31 +106,33 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className={headerClasses}>
-      <div className="w-full px-4 sm:px-8 lg:px-[11.5%] flex items-center justify-between">
+      <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* 1. Logo Brand bên trái */}
         <div className="flex items-center gap-3">
           <button
             onClick={() => onNavigate('home')}
+            aria-label="Trang chủ Trọ Thái Nguyên"
             className="flex items-center gap-3 text-left group focus:outline-none shrink-0 transition-all duration-200"
           >
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center transition shadow-sm bg-teal-800 text-white shrink-0">
-              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path d="M12 2L2 9.5V20C2 20.5523 2.44772 21 3 21H9V14H15V21H21C21.5523 21 22 20.5523 22 20V9.5L12 2ZM10.5 7H13.5V9.5H10.5V7Z" />
-              </svg>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-extrabold text-base sm:text-lg tracking-tight text-slate-900 leading-none">
-                TRỌ THÁI NGUYÊN
-              </span>
-              <span className="text-[10px] sm:text-[11px] text-slate-600 font-medium tracking-normal mt-1">
-                Sống tiện nghi - Đầu tư vững bền
-              </span>
+            <div className="flex flex-col items-center">
+              <img
+                src="/images/logo1-wordmark.png"
+                alt="HUONGMUOI"
+                className="h-5 w-auto max-w-[175px] object-contain drop-shadow-[0_1px_1px_rgba(255,255,255,0.55)] transition-transform duration-300 group-hover:scale-[1.02] sm:h-[22px] sm:max-w-[190px]"
+              />
+              <div className="mt-0.5 flex items-center gap-1.5">
+                <span className="h-px w-3 bg-amber-700/55" />
+                <span className="whitespace-nowrap text-[7px] font-medium tracking-[0.16em] text-slate-600 sm:text-[8px]">
+                  NGHỈ DƯỠNG ĐỂ CẢM NHẬN
+                </span>
+                <span className="h-px w-3 bg-amber-700/55" />
+              </div>
             </div>
           </button>
         </div>
 
         {/* 2. Desktop Navigation ở giữa */}
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium">
+        <nav className="hidden xl:flex items-center gap-5 2xl:gap-7 text-sm font-medium">
           <button
             onClick={() => onNavigate('home')}
             className={`py-1 flex items-center whitespace-nowrap transition ${
@@ -314,7 +316,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Favorites Button với badge đỏ chuẩn mockup */}
           <button
             onClick={() => onOpenProfile('saved')}
-            className="relative h-9 w-9 rounded-full flex items-center justify-center transition border bg-white/80 hover:bg-white text-slate-700 hover:text-rose-600 border-white/90 shadow-sm"
+            className="relative hidden sm:flex h-9 w-9 rounded-full items-center justify-center transition border bg-white/80 hover:bg-white text-slate-700 hover:text-rose-600 border-white/90 shadow-sm"
             title="Phòng đã lưu"
           >
             <Heart className="w-4 h-4" />
@@ -331,7 +333,7 @@ export const Header: React.FC<HeaderProps> = ({
             className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-xs font-bold tracking-wider uppercase whitespace-nowrap transition shadow-sm hover:shadow active:scale-[0.99] bg-teal-800 hover:bg-teal-900 text-white"
           >
             <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
-            <span>ĐĂNG TIN</span>
+            <span className="hidden sm:inline">ĐĂNG TIN</span>
           </button>
 
           {/* User Profile Capsule */}
@@ -350,7 +352,7 @@ export const Header: React.FC<HeaderProps> = ({
                   alt={currentUser?.name}
                   className="w-7 h-7 rounded-full object-cover shrink-0 ring-1 ring-slate-200"
                 />
-                <span className="text-xs font-semibold max-w-[90px] truncate text-slate-800">
+                <span className="hidden sm:block text-xs font-semibold max-w-[90px] truncate text-slate-800">
                   {currentUser?.name}
                 </span>
                 <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full border hidden sm:inline bg-teal-50 border-teal-200 text-teal-700">
@@ -456,7 +458,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Mobile Hamburger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`lg:hidden h-9 w-9 flex items-center justify-center rounded-full transition ${
+              className={`xl:hidden h-9 w-9 flex items-center justify-center rounded-full transition ${
                 isTransparent 
                   ? 'text-white hover:bg-white/15' 
                   : 'text-slate-800 hover:bg-slate-100'
@@ -475,7 +477,7 @@ export const Header: React.FC<HeaderProps> = ({
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="lg:hidden border-t border-slate-200 bg-white/98 backdrop-blur-xl px-4 pt-3 pb-6 space-y-3 overflow-hidden text-xs shadow-xl"
+            className="xl:hidden border-t border-slate-200 bg-white/98 backdrop-blur-xl px-4 pt-3 pb-6 space-y-3 overflow-hidden text-xs shadow-xl"
           >
             <div className="grid grid-cols-2 gap-2 font-medium">
               <button

@@ -3,6 +3,7 @@ import {
   Heart, 
   Scale, 
   MapPin, 
+  GraduationCap,
   ShieldCheck, 
   Zap, 
   Droplet, 
@@ -42,21 +43,20 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
   const isNearSamsung = room.location.ward === 'Phổ Yên' || room.location.address.toLowerCase().includes('samsung');
 
   // Utility transparency badge string
-  const elecText = room.costs.electricity 
-    ? (room.costs.electricity <= 3500 ? `⚡ Điện ${room.costs.electricity / 1000}k` : `⚡ Điện ${room.costs.electricity / 1000}k`) 
-    : '⚡ Điện free';
+  const elecText = room.costs.electricity
+    ? `Điện ${room.costs.electricity / 1000}k`
+    : 'Điện miễn phí';
   const waterText = room.costs.waterType === 'person'
     ? `Nước ${room.costs.water ? `${room.costs.water / 1000}k/người` : 'dân'}`
     : room.costs.waterType === 'counter'
     ? `Nước ${room.costs.water ? `${room.costs.water / 1000}k/khối` : 'dân'}`
     : 'Nước giá dân';
 
-  const utilityBadge = `${elecText} • ${waterText}`;
-
   return (
     <div
+      data-scroll-reveal="up"
       onClick={() => onSelect(room.id)}
-      className="group bg-white rounded-2xl border border-slate-200/80 shadow-[0_4px_20px_-2px_rgba(15,23,42,0.05)] hover:shadow-[0_20px_40px_-12px_rgba(15,23,42,0.12)] hover:-translate-y-1.5 transition-all duration-300 ease-out flex flex-col overflow-hidden cursor-pointer relative"
+      className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_4px_20px_-2px_rgba(15,23,42,0.05)] transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1 hover:border-teal-300 hover:shadow-[0_20px_38px_-10px_rgba(15,23,42,0.32),0_8px_18px_-8px_rgba(13,148,136,0.18)]"
     >
       {/* 1. Image Area with Airbnb-Plus 4:3 Aspect Ratio */}
       <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 rounded-t-2xl">
@@ -64,7 +64,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
           key={currentImgIndex}
           src={room.images[currentImgIndex] || 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800'}
           alt={room.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+          className="h-full w-full object-cover"
           loading="lazy"
         />
 
@@ -176,13 +176,13 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
       <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
         <div>
           {/* Address & Proximity */}
-          <div className="flex items-center justify-between gap-2 mb-1.5">
-            <div className="flex items-center gap-1 text-slate-500 text-xs truncate">
+          <div className="flex items-center justify-between gap-2 mb-2">
+            <div className="flex items-center gap-1 text-slate-500 text-[12px] truncate">
               <MapPin className="w-3.5 h-3.5 text-teal-600 shrink-0" />
               <span className="truncate font-medium">{room.location.ward}, {room.location.district}</span>
             </div>
 
-            <div className="text-xs font-bold px-2.5 py-0.5 rounded-md bg-slate-100 text-slate-700 shrink-0">
+            <div className="text-xs font-semibold text-slate-500 shrink-0">
               {formatArea(room.area)}
             </div>
           </div>
@@ -194,35 +194,40 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
 
           {/* Nearest University Badge */}
           {nearestUni && (
-            <div className="mb-3">
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-teal-50/80 border border-teal-100 text-teal-800 text-[11px] font-semibold">
-                <span className="text-teal-600 font-normal">Gần:</span>
-                <span>{nearestUni.name.replace('Trường ', '').replace('Đại học ', 'ĐH ')}</span>
-                <span className="text-teal-600 font-bold">({nearestUni.distanceKm} km)</span>
+            <div className="mb-3 flex items-center gap-1.5 text-xs leading-5 text-slate-500">
+              <GraduationCap className="h-4 w-4 shrink-0 text-teal-700" />
+              <span className="min-w-0 truncate">
+                <strong className="font-semibold text-teal-800">{nearestUni.distanceKm} km</strong>
+                <span> đến {nearestUni.name.replace('Trường ', '').replace('Đại học ', 'ĐH ')}</span>
               </span>
             </div>
           )}
         </div>
 
         {/* 3. Transparency Price Footer (Core tenant pain-point solver) */}
-        <div className="pt-3 border-t border-slate-100 space-y-2 mt-auto">
-          {/* Base Rent + Transparent Utility Badge */}
+        <div className="pt-3 border-t border-slate-100 mt-auto">
           <div className="flex items-baseline justify-between gap-2">
             <div>
               <span className="text-lg sm:text-xl font-extrabold text-teal-700 tracking-tight">
                 {formatCurrency(room.costs.rent, true)}
               </span>
             </div>
+          </div>
 
-            {/* Utility Transparency Badge */}
-            <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200/70 px-2.5 py-1 rounded-full whitespace-nowrap">
-              {utilityBadge}
+          <div className="mt-1.5 flex items-center gap-2 text-[11px] font-medium text-slate-500">
+            <span className="inline-flex min-w-0 items-center gap-1 truncate">
+              <Zap className="h-3 w-3 shrink-0 text-amber-600" />
+              <span className="truncate">{elecText}</span>
+            </span>
+            <span className="h-3 w-px shrink-0 bg-slate-200" />
+            <span className="inline-flex min-w-0 items-center gap-1 truncate">
+              <Droplet className="h-3 w-3 shrink-0 text-sky-600" />
+              <span className="truncate">{waterText}</span>
             </span>
           </div>
 
-          {/* Landlord Contact & Update Time */}
-          <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1.5 border-t border-slate-100/80">
-            <span className="truncate font-medium text-slate-500">
+          <div className="mt-2.5 flex items-center justify-between gap-2 text-xs text-slate-500">
+            <span className="truncate font-medium">
               Chủ trọ: <strong className="text-slate-700 font-semibold">{room.landlord.name}</strong>
             </span>
             <span className="flex items-center gap-1 shrink-0 font-medium text-slate-400">
@@ -233,6 +238,10 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
         </div>
 
       </div>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-30 rounded-2xl bg-slate-900/0 transition-colors duration-300 group-hover:bg-slate-900/[0.08]"
+      />
     </div>
   );
 };

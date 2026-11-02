@@ -31,7 +31,7 @@ export const AreaExplorer: React.FC<AreaExplorerProps> = ({ onSelectArea }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+        <div data-scroll-reveal="text" className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
           <div className="inline-flex items-center gap-2 bg-teal-50 text-teal-800 text-xs font-bold uppercase tracking-widest px-3.5 py-1.5 rounded-full mb-3 border border-teal-200/80 shadow-2xs">
             <span className="w-1.5 h-1.5 rounded-full bg-teal-600 animate-pulse"></span>
             <span>Khu Vực Trọng Điểm Thái Nguyên</span>
@@ -48,7 +48,7 @@ export const AreaExplorer: React.FC<AreaExplorerProps> = ({ onSelectArea }) => {
         </div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        <div data-scroll-stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           {POPULAR_AREAS.map((area, idx) => {
             const isLarge = idx === 0;
             const liveCount = getAreaLiveCount(area.ward, area.count);
@@ -56,6 +56,7 @@ export const AreaExplorer: React.FC<AreaExplorerProps> = ({ onSelectArea }) => {
             return (
               <div
                 key={area.ward || idx}
+                data-scroll-reveal="image"
                 onClick={() => handleClickArea(area.ward)}
                 className={`group relative overflow-hidden rounded-3xl cursor-pointer shadow-sm hover:shadow-[0_20px_45px_rgba(15,23,42,0.14)] hover:-translate-y-1 transition-all duration-300 ${
                   isLarge

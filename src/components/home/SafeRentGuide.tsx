@@ -40,7 +40,7 @@ export const SafeRentGuide: React.FC<SafeRentGuideProps> = ({ onOpenGuideModal }
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
+        <div data-scroll-reveal="up" className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-50 border border-teal-200/80 text-teal-800 text-xs font-bold uppercase tracking-wider mb-3">
               <ShieldCheck className="w-4 h-4 text-teal-600" />
@@ -67,12 +67,13 @@ export const SafeRentGuide: React.FC<SafeRentGuideProps> = ({ onOpenGuideModal }
         </div>
 
         {/* 3-Step Interactive Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div data-scroll-stagger className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
           {steps.map((s, idx) => {
             const isActive = activeStep === idx;
             return (
               <div
                 key={s.step}
+                data-scroll-reveal="up"
                 onMouseEnter={() => setActiveStep(idx)}
                 className={`relative rounded-3xl p-6 sm:p-8 border transition-all duration-300 flex flex-col justify-between ${
                   isActive

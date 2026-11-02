@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { ToastProvider } from './context/ToastContext';
-import { AuthProvider, useAuth } from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 import { RoomProvider, useRooms } from './context/RoomContext';
 import { Header } from './components/common/Header';
 import { Footer } from './components/common/Footer';
 import { CompareFloatingBar } from './components/common/CompareFloatingBar';
-import { HeroSearch } from './components/home/HeroSearch';
-import { UniversityShortcuts } from './components/home/UniversityShortcuts';
+import { HomeLanding } from './components/home/HomeLanding';
 import { FeaturedRooms } from './components/home/FeaturedRooms';
+import { UniversityShortcuts } from './components/home/UniversityShortcuts';
 import { AreaExplorer } from './components/home/AreaExplorer';
 import { SafeRentGuide } from './components/home/SafeRentGuide';
 import { LandlordCta } from './components/home/LandlordCta';
@@ -45,6 +45,68 @@ const MainApp: React.FC = () => {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  React.useEffect(() => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (reduceMotion.matches || !('IntersectionObserver' in window)) return;
+
+    const root = document.documentElement;
+    const observed = new WeakSet<HTMLElement>();
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const element = entry.target as HTMLElement;
+        element.classList.add('is-scroll-revealed');
+        observer.unobserve(element);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -48px 0px' });
+
+    const observeElement = (element: HTMLElement) => {
+      if (observed.has(element)) return;
+      observed.add(element);
+      const staggerContainer = element.parentElement?.closest('[data-scroll-stagger]');
+      if (staggerContainer) {
+        const siblings = Array.from(staggerContainer.children).filter((child): child is HTMLElement => (
+          child instanceof HTMLElement && child.hasAttribute('data-scroll-reveal')
+        ));
+        const index = Math.max(0, siblings.indexOf(element));
+        element.style.setProperty('--scroll-reveal-delay', `${Math.min(index, 4) * 75}ms`);
+      }
+      observer.observe(element);
+    };
+
+    const observeTree = (node: Node) => {
+      if (!(node instanceof HTMLElement)) return;
+      if (node.hasAttribute('data-scroll-reveal')) observeElement(node);
+      node.querySelectorAll<HTMLElement>('[data-scroll-reveal]').forEach(observeElement);
+    };
+
+    observeTree(document.body);
+    // Only enable the hidden pre-reveal state after every current target is observed.
+    // If the browser misses the initial observer notification, fail open for anything
+    // already visible so the first screen can never remain blank.
+    root.classList.add('scroll-reveal-ready');
+    const initialRevealFallback = window.setTimeout(() => {
+      document.querySelectorAll<HTMLElement>('[data-scroll-reveal]:not(.is-scroll-revealed)').forEach((element) => {
+        const rect = element.getBoundingClientRect();
+        if (rect.bottom > 0 && rect.top < window.innerHeight) {
+          element.classList.add('is-scroll-revealed');
+          observer.unobserve(element);
+        }
+      });
+    }, 900);
+    const mutationObserver = new MutationObserver((records) => {
+      records.forEach((record) => record.addedNodes.forEach(observeTree));
+    });
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      window.clearTimeout(initialRevealFallback);
+      mutationObserver.disconnect();
+      observer.disconnect();
+      root.classList.remove('scroll-reveal-ready');
+    };
   }, []);
 
   const handleSelectRoom = (roomId: string) => {
@@ -94,13 +156,16 @@ const MainApp: React.FC = () => {
         ) : currentTab === 'home' ? (
           /* Home View */
           <div>
-            <HeroSearch onSearchSubmit={() => setCurrentTab('search')} />
-            <UniversityShortcuts onSelectUniversity={() => setCurrentTab('search')} />
+            <HomeLanding
+              onSearchSubmit={() => setCurrentTab('search')}
+              onOpenGuide={() => setGuideModalOpen(true)}
+            />
             <FeaturedRooms
-              onViewAll={() => setCurrentTab('search')}
+              onViewAll={() => handleNavigate('search')}
               onSelectRoom={handleSelectRoom}
             />
-            <AreaExplorer onSelectArea={() => setCurrentTab('search')} />
+            <UniversityShortcuts onSelectUniversity={() => handleNavigate('search')} />
+            <AreaExplorer onSelectArea={() => handleNavigate('search')} />
             <SafeRentGuide onOpenGuideModal={() => setGuideModalOpen(true)} />
             <LandlordCta onPostRoom={() => setPostRoomModalOpen(true)} />
           </div>

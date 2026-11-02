@@ -127,28 +127,40 @@ Hệ thống tích hợp sẵn nút đổi vai trò nhanh trên thanh Menu Heade
 
 ---
 
-## 🗄️ 5. Hướng dẫn kết nối Cơ sở dữ liệu thật (PostgreSQL / Supabase)
+## 🗄️ 5. Chuẩn bị kết nối Cơ sở dữ liệu (PostgreSQL / Supabase)
 
-Khi muốn đưa website vào vận hành thực tế:
+Ứng dụng hiện chạy mock data trong trình duyệt. Luồng phòng đã tách qua `RoomService`; ảnh được nén ở giao diện, và khi tắt mock sẽ tải lên endpoint `/upload` rồi lưu URL ảnh cùng tin phòng qua API. Dự án hiện **chưa kèm backend/API server**, nên chỉ tạo database hoặc đổi cờ môi trường chưa làm dữ liệu đi vào DB.
 
 ### Bước 1: Khởi tạo Database
-1. Tạo một cơ sở dữ liệu PostgreSQL (hoặc tạo project mới trên [Supabase](https://supabase.com)).
-2. Mở trình SQL Editor và chạy tệp:
-   `database/schema.sql`
-3. Chạy tiếp tệp dữ liệu mẫu khởi tạo:
-   `database/seeds/001_thai_nguyen_seed.sql`
+1. Tạo PostgreSQL hoặc project Supabase.
+2. Chạy `database/schema.sql`; dữ liệu mẫu trong `database/seeds/001_thai_nguyen_seed.sql` là tùy chọn.
+3. Backend cần ghi các trường phòng và chi phí, tiện nghi, ảnh (`room_images`), nội quy, địa điểm lân cận theo schema. File ảnh nên được lưu ở object storage; database chỉ lưu URL.
 
-### Bước 2: Cấu hình biến môi trường
-Mở file `.env` và cập nhật:
+### Bước 2: Cung cấp REST API cho giao diện
+
+Backend cần triển khai các endpoint:
+
+| Method | Endpoint | Chức năng |
+|---|---|---|
+| `GET` | `/rooms` | Trả danh sách phòng theo cấu trúc `Room` của giao diện |
+| `POST` | `/rooms` | Tạo tin và trả phòng đã lưu |
+| `PUT` | `/rooms/:id` | Cập nhật phòng, gồm trạng thái và duyệt tin |
+| `DELETE` | `/rooms/:id` | Xóa phòng và dữ liệu liên quan |
+| `POST` | `/upload` | Nhận `multipart/form-data`, lưu ảnh và trả `{ url, filename, size }` |
+| `POST` | `/rooms/batch-import` | Nhập danh sách phòng |
+
+API trả dữ liệu trực tiếp hoặc theo dạng `{ "success": true, "data": ... }`. Backend phải xác thực chủ phòng/quản trị và giữ khóa database hoặc Supabase service-role ở phía máy chủ; không đưa khóa bí mật vào biến `VITE_*`.
+
+### Bước 3: Bật API mode khi backend sẵn sàng
+
+Trong `.env`:
+
 ```env
 VITE_USE_MOCK_DATA=false
 VITE_API_BASE_URL=https://your-api-domain.com/api/v1
-# Hoặc nếu dùng Supabase:
-VITE_SUPABASE_URL=https://your-project.supabase.co
-VITE_SUPABASE_ANON_KEY=your-anon-public-key
 ```
 
-Chạy lại ứng dụng, giao diện sẽ tự động kết nối và gọi API thật mà không cần sửa bất kỳ dòng mã nguồn UI nào!
+Hiện tại `.env` vẫn để mock mode. Khi có API server, đổi cấu hình và khởi động lại Vite để luồng phòng/ảnh dùng máy chủ thay cho `localStorage`.
 
 ---
 

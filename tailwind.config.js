@@ -92,6 +92,7 @@ export default {
         display: ['"Be Vietnam Pro"', '"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
         serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
         luxury: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        script: ['"Allura"', 'cursive'],
       },
       boxShadow: {
         'card': '0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.03)',

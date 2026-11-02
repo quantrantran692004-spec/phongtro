@@ -97,7 +97,7 @@ export const UniversityShortcuts: React.FC<UniversityShortcutsProps> = ({ onSele
         
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-10">
-          <div>
+          <div data-scroll-reveal="up">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-50 border border-teal-200/80 text-teal-800 text-xs font-bold uppercase tracking-wider mb-3">
               <GraduationCap className="w-4 h-4 text-teal-600" />
               <span>Campus & Zones Industrielles • Cụm Trọ Trọng Điểm</span>
@@ -114,6 +114,7 @@ export const UniversityShortcuts: React.FC<UniversityShortcutsProps> = ({ onSele
           </div>
 
           <button
+            data-scroll-reveal="up"
             onClick={() => {
               updateFilters({ university: 'Tất cả', ward: 'Tất cả', keyword: '' });
               onSelectUniversity();
@@ -126,7 +127,7 @@ export const UniversityShortcuts: React.FC<UniversityShortcutsProps> = ({ onSele
         </div>
 
         {/* Toss-Style Bento Grid Hotspots */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div data-scroll-stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {hotspots.map((h, idx) => {
             const { count, minRent } = getHotspotStats(h);
             const isFeatured = idx === 0 || idx === 3;
@@ -134,6 +135,7 @@ export const UniversityShortcuts: React.FC<UniversityShortcutsProps> = ({ onSele
             return (
               <div
                 key={h.id}
+                data-scroll-reveal="up"
                 onClick={() => handleSelect(h.name, h.ward)}
                 className={`group relative rounded-2xl p-5 border transition-all duration-300 cursor-pointer flex flex-col justify-between overflow-hidden ${
                   isFeatured
@@ -183,7 +185,7 @@ export const UniversityShortcuts: React.FC<UniversityShortcutsProps> = ({ onSele
         </div>
 
         {/* Quick Filter Dock (Horizontal Pills for all remaining universities) */}
-        <div className="mt-6 pt-5 border-t border-slate-100 flex items-center gap-2 overflow-x-auto no-scrollbar">
+        <div data-scroll-reveal="up" className="mt-6 pt-5 border-t border-slate-100 flex items-center gap-2 overflow-x-auto no-scrollbar">
           <span className="text-xs font-bold text-slate-500 uppercase tracking-wider shrink-0 flex items-center gap-1 mr-2">
             <Building className="w-3.5 h-3.5 text-teal-600" />
             <span>Xem thêm trường:</span>

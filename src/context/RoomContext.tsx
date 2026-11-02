@@ -4,6 +4,8 @@ import { SEED_ROOMS } from '../data/seedRooms';
 import { INITIAL_APPOINTMENTS, INITIAL_REPORTS } from '../data/initialData';
 import { useToast } from './ToastContext';
 import { useAuth } from './AuthContext';
+import { apiClient } from '../services/apiClient';
+import { roomService } from '../services/roomService';
 
 export const DEFAULT_FILTERS: FilterState = {
   keyword: '',
@@ -62,15 +64,15 @@ interface RoomContextType {
   dismissReport: (reportId: string) => void;
 
   // Room CRUD (Landlord & Admin)
-  createRoom: (room: Omit<Room, 'id' | 'slug' | 'views' | 'createdAt' | 'updatedAt' | 'approvalStatus'>) => void;
-  updateRoom: (roomId: string, data: Partial<Room>) => void;
-  deleteRoom: (roomId: string) => void;
-  toggleRoomStatus: (roomId: string) => void;
+  createRoom: (room: Omit<Room, 'id' | 'slug' | 'views' | 'createdAt' | 'updatedAt' | 'approvalStatus'>) => Promise<void>;
+  updateRoom: (roomId: string, data: Partial<Room>) => Promise<void>;
+  deleteRoom: (roomId: string) => Promise<void>;
+  toggleRoomStatus: (roomId: string) => Promise<void>;
 
   // Admin Specific
-  approveRoom: (roomId: string) => void;
-  rejectRoom: (roomId: string, reason: string) => void;
-  toggleVerifyRoom: (roomId: string) => void;
+  approveRoom: (roomId: string) => Promise<void>;
+  rejectRoom: (roomId: string, reason: string) => Promise<void>;
+  toggleVerifyRoom: (roomId: string) => Promise<void>;
   importRoomsFromData: (imported: Partial<Room>[]) => number;
 }
 
@@ -87,6 +89,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Rooms list
   const [rooms, setRooms] = useState<Room[]>(() => {
+    if (!apiClient.isMockEnabled) return [];
     try {
       const saved = localStorage.getItem(ROOMS_STORAGE_KEY);
       if (saved) return JSON.parse(saved);
@@ -95,6 +98,19 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
     return SEED_ROOMS;
   });
+
+  useEffect(() => {
+    if (apiClient.isMockEnabled) return;
+    let active = true;
+    roomService.getRooms()
+      .then((remoteRooms) => {
+        if (active) setRooms(remoteRooms);
+      })
+      .catch((error) => {
+        if (active) showToast(error instanceof Error ? error.message : 'Không tải được dữ liệu phòng từ máy chủ.', 'error');
+      });
+    return () => { active = false; };
+  }, [showToast]);
 
   // Filters
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
@@ -143,6 +159,7 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Sync to storage
   useEffect(() => {
+    if (!apiClient.isMockEnabled) return;
     localStorage.setItem(ROOMS_STORAGE_KEY, JSON.stringify(rooms));
   }, [rooms]);
 
@@ -371,8 +388,21 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     showToast('Đã bác bỏ báo cáo vi phạm', 'info');
   };
 
+  // Room persistence is local in demo mode and API-backed when mock mode is disabled.
+  const persistRoomPatch = async (roomId: string, data: Partial<Room>) => {
+    if (apiClient.isMockEnabled) {
+      setRooms((prev) => prev.map((room) => (
+        room.id === roomId ? { ...room, ...data, updatedAt: new Date().toISOString() } : room
+      )));
+      return;
+    }
+
+    const savedRoom = await roomService.updateRoom(roomId, data);
+    setRooms((prev) => prev.map((room) => room.id === roomId ? savedRoom : room));
+  };
+
   // CRUD
-  const createRoom = (data: Omit<Room, 'id' | 'slug' | 'views' | 'createdAt' | 'updatedAt' | 'approvalStatus'>) => {
+  const createRoom = async (data: Omit<Room, 'id' | 'slug' | 'views' | 'createdAt' | 'updatedAt' | 'approvalStatus'>) => {
     const newRoom: Room = {
       ...data,
       id: 'room-' + Date.now(),
@@ -382,7 +412,23 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
       updatedAt: new Date().toISOString(),
       approvalStatus: isAdmin ? 'approved' : 'pending',
     };
-    setRooms((prev) => [newRoom, ...prev]);
+
+    if (apiClient.isMockEnabled) {
+      setRooms((prev) => [newRoom, ...prev]);
+    } else {
+      try {
+        const savedRoom = await roomService.createRoom({
+          ...data,
+          slug: newRoom.slug,
+          approvalStatus: newRoom.approvalStatus,
+        });
+        setRooms((prev) => [savedRoom, ...prev]);
+      } catch (error) {
+        showToast(error instanceof Error ? error.message : 'Không thể lưu tin phòng lên máy chủ.', 'error');
+        throw error;
+      }
+    }
+
     if (isAdmin) {
       showToast('Đăng tin phòng thành công và đã hiển thị ngay!', 'success');
     } else {
@@ -390,64 +436,69 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const updateRoom = (roomId: string, data: Partial<Room>) => {
-    setRooms((prev) =>
-      prev.map((r) => (r.id === roomId ? { ...r, ...data, updatedAt: new Date().toISOString() } : r))
-    );
-    showToast('Cập nhật thông tin phòng thành công!', 'success');
+  const updateRoom = async (roomId: string, data: Partial<Room>) => {
+    try {
+      await persistRoomPatch(roomId, data);
+      showToast('Cập nhật thông tin phòng thành công!', 'success');
+    } catch (error) {
+      showToast(error instanceof Error ? error.message : 'Không thể cập nhật phòng trên máy chủ.', 'error');
+      throw error;
+    }
   };
 
-  const deleteRoom = (roomId: string) => {
-    setRooms((prev) => prev.filter((r) => r.id !== roomId));
-    setCompareList((prev) => prev.filter((id) => id !== roomId));
-    setFavorites((prev) => prev.filter((id) => id !== roomId));
-    showToast('Đã xóa phòng trọ khỏi hệ thống', 'info');
+  const deleteRoom = async (roomId: string) => {
+    try {
+      if (!apiClient.isMockEnabled) await roomService.deleteRoom(roomId);
+      setRooms((prev) => prev.filter((room) => room.id !== roomId));
+      setCompareList((prev) => prev.filter((id) => id !== roomId));
+      setFavorites((prev) => prev.filter((id) => id !== roomId));
+      showToast('Đã xóa phòng trọ khỏi hệ thống', 'info');
+    } catch (error) {
+      showToast(error instanceof Error ? error.message : 'Không thể xóa phòng trên máy chủ.', 'error');
+    }
   };
 
-  const toggleRoomStatus = (roomId: string) => {
-    setRooms((prev) =>
-      prev.map((r) => {
-        if (r.id === roomId) {
-          const nextStatus = r.status === 'available' ? 'rented' : 'available';
-          const msg = nextStatus === 'rented' ? 'Đã đổi trạng thái sang: ĐÃ CHO THUÊ' : 'Đã đổi trạng thái sang: CÒN TRỐNG';
-          showToast(msg, 'success');
-          return { ...r, status: nextStatus, updatedAt: new Date().toISOString() };
-        }
-        return r;
-      })
-    );
+  const toggleRoomStatus = async (roomId: string) => {
+    const room = rooms.find((item) => item.id === roomId);
+    if (!room) return;
+    const status = room.status === 'available' ? 'rented' : 'available';
+    try {
+      await persistRoomPatch(roomId, { status });
+      showToast(status === 'rented' ? 'Đã đổi trạng thái sang: ĐÃ CHO THUÊ' : 'Đã đổi trạng thái sang: CÒN TRỐNG', 'success');
+    } catch (error) {
+      showToast(error instanceof Error ? error.message : 'Không thể đổi trạng thái phòng.', 'error');
+    }
   };
 
   // Admin Actions
-  const approveRoom = (roomId: string) => {
-    setRooms((prev) =>
-      prev.map((r) => (r.id === roomId ? { ...r, approvalStatus: 'approved', updatedAt: new Date().toISOString() } : r))
-    );
-    showToast('Đã duyệt tin đăng phòng thành công!', 'success');
+  const approveRoom = async (roomId: string) => {
+    try {
+      await persistRoomPatch(roomId, { approvalStatus: 'approved' });
+      showToast('Đã duyệt tin đăng phòng thành công!', 'success');
+    } catch (error) {
+      showToast(error instanceof Error ? error.message : 'Không thể duyệt tin phòng.', 'error');
+    }
   };
 
-  const rejectRoom = (roomId: string, reason: string) => {
-    setRooms((prev) =>
-      prev.map((r) =>
-        r.id === roomId
-          ? { ...r, approvalStatus: 'rejected', rejectionReason: reason, updatedAt: new Date().toISOString() }
-          : r
-      )
-    );
-    showToast('Đã từ chối tin đăng kèm lý do', 'info');
+  const rejectRoom = async (roomId: string, reason: string) => {
+    try {
+      await persistRoomPatch(roomId, { approvalStatus: 'rejected', rejectionReason: reason });
+      showToast('Đã từ chối tin đăng kèm lý do', 'info');
+    } catch (error) {
+      showToast(error instanceof Error ? error.message : 'Không thể từ chối tin phòng.', 'error');
+    }
   };
 
-  const toggleVerifyRoom = (roomId: string) => {
-    setRooms((prev) =>
-      prev.map((r) => {
-        if (r.id === roomId) {
-          const nextVerified = !r.isVerified;
-          showToast(nextVerified ? 'Đã cấp tích xanh [ĐÃ XÁC MINH] cho phòng!' : 'Đã gỡ tích xanh xác minh.', 'success');
-          return { ...r, isVerified: nextVerified };
-        }
-        return r;
-      })
-    );
+  const toggleVerifyRoom = async (roomId: string) => {
+    const room = rooms.find((item) => item.id === roomId);
+    if (!room) return;
+    const isVerified = !room.isVerified;
+    try {
+      await persistRoomPatch(roomId, { isVerified });
+      showToast(isVerified ? 'Đã cấp tích xanh [ĐÃ XÁC MINH] cho phòng!' : 'Đã gỡ tích xanh xác minh.', 'success');
+    } catch (error) {
+      showToast(error instanceof Error ? error.message : 'Không thể cập nhật xác minh phòng.', 'error');
+    }
   };
 
   const importRoomsFromData = (imported: Partial<Room>[]): number => {
@@ -511,8 +562,19 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
 
     if (count > 0) {
-      setRooms((prev) => [...newItems, ...prev]);
-      showToast(`Đã nhập thành công ${count} phòng trọ vào hệ thống!`, 'success');
+      if (apiClient.isMockEnabled) {
+        setRooms((prev) => [...newItems, ...prev]);
+        showToast(`Đã nhập thành công ${count} phòng trọ vào hệ thống!`, 'success');
+      } else {
+        roomService.importRooms(newItems)
+          .then((savedRooms) => {
+            setRooms((prev) => [...savedRooms, ...prev]);
+            showToast(`Đã nhập thành công ${savedRooms.length} phòng trọ vào cơ sở dữ liệu!`, 'success');
+          })
+          .catch((error) => {
+            showToast(error instanceof Error ? error.message : 'Không thể nhập phòng lên máy chủ.', 'error');
+          });
+      }
     }
     return count;
   };

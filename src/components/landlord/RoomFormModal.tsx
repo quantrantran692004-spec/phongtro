@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { 
   X, 
   Check, 
@@ -6,7 +6,9 @@ import {
   ChevronLeft, 
   Plus, 
   Trash2,
-  Sparkles
+  Sparkles,
+  ImagePlus,
+  LoaderCircle,
 } from 'lucide-react';
 import { Room, RoomType } from '../../types';
 import { ALL_AMENITIES } from '../../data/amenities';
@@ -14,6 +16,53 @@ import { WARDS_BY_DISTRICT, THAI_NGUYEN_UNIVERSITIES } from '../../data/location
 import { useRooms } from '../../context/RoomContext';
 import { useAuth } from '../../context/AuthContext';
 import { formatCurrency } from '../../utils/formatters';
+import { apiClient } from '../../services/apiClient';
+import { uploadService } from '../../services/uploadService';
+
+const MAX_ROOM_IMAGES = 8;
+const MAX_PERSISTED_IMAGE_CHARS = 1_400_000;
+const MAX_UPLOAD_FILE_SIZE = 15 * 1024 * 1024;
+
+const compressRoomImage = (file: File): Promise<string> => new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.onerror = () => reject(new Error(`Không đọc được ảnh ${file.name}.`));
+  reader.onload = () => {
+    const image = new Image();
+    image.onerror = () => reject(new Error(`Ảnh ${file.name} không hợp lệ.`));
+    image.onload = () => {
+      const maxDimension = 1280;
+      const scale = Math.min(1, maxDimension / Math.max(image.naturalWidth, image.naturalHeight));
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
+      canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
+      const context = canvas.getContext('2d');
+      if (!context) {
+        reject(new Error('Trình duyệt không thể xử lý ảnh này.'));
+        return;
+      }
+
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      let compressed = canvas.toDataURL('image/webp', 0.72);
+      if (!compressed.startsWith('data:image/webp')) {
+        compressed = canvas.toDataURL('image/jpeg', 0.72);
+      }
+      resolve(compressed);
+    };
+    image.src = String(reader.result);
+  };
+  reader.readAsDataURL(file);
+});
+
+const uploadCompressedImage = async (dataUrl: string, originalName: string): Promise<string> => {
+  if (apiClient.isMockEnabled) return dataUrl;
+  const blob = await fetch(dataUrl).then((response) => response.blob());
+  const baseName = originalName.replace(/\.[^.]+$/, '').replace(/[^a-zA-Z0-9_-]/g, '-');
+  const extension = blob.type === 'image/jpeg' ? 'jpg' : 'webp';
+  const safeName = `${baseName}.${extension}`;
+  const file = new File([blob], safeName, { type: blob.type || 'image/webp' });
+  const uploaded = await uploadService.uploadImage(file);
+  return uploaded.url;
+};
 
 interface RoomFormModalProps {
   initialRoom?: Room | null;
@@ -60,6 +109,11 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
     ]
   );
   const [newImageUrl, setNewImageUrl] = useState('');
+  const [imageError, setImageError] = useState('');
+  const [isUploadingImages, setIsUploadingImages] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveError, setSaveError] = useState('');
+  const imageInputRef = useRef<HTMLInputElement>(null);
 
   // Rules
   const [rules, setRules] = useState<string[]>(
@@ -75,18 +129,93 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
   };
 
   const handleAddImage = () => {
-    if (newImageUrl.trim()) {
-      setImages((prev) => [...prev, newImageUrl.trim()]);
-      setNewImageUrl('');
+    const imageUrl = newImageUrl.trim();
+    if (!imageUrl) return;
+    if (images.length >= MAX_ROOM_IMAGES) {
+      setImageError(`Mỗi tin đăng tối đa ${MAX_ROOM_IMAGES} ảnh.`);
+      return;
+    }
+    try {
+      const parsedUrl = new URL(imageUrl);
+      if (!['http:', 'https:'].includes(parsedUrl.protocol)) throw new Error('invalid protocol');
+    } catch {
+      setImageError('Vui lòng nhập đường dẫn ảnh hợp lệ bắt đầu bằng http:// hoặc https://.');
+      return;
+    }
+    setImages((prev) => [...prev, imageUrl]);
+    setNewImageUrl('');
+    setImageError('');
+  };
+
+  const handleUploadImages = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files || []);
+    event.target.value = '';
+    if (!files.length) return;
+
+    const availableSlots = MAX_ROOM_IMAGES - images.length;
+    if (availableSlots <= 0) {
+      setImageError(`Mỗi tin đăng tối đa ${MAX_ROOM_IMAGES} ảnh.`);
+      return;
+    }
+
+    const filesToUpload = files.slice(0, availableSlots);
+    const errors: string[] = files.length > availableSlots
+      ? [`Chỉ có thể thêm tối đa ${MAX_ROOM_IMAGES} ảnh cho mỗi tin.`]
+      : [];
+    const compressedImages: string[] = [];
+    let storedImageChars = images.reduce((total, image) => (
+      total + (image.startsWith('data:image/') ? image.length : 0)
+    ), 0);
+
+    setIsUploadingImages(true);
+    setImageError('');
+    try {
+      for (const file of filesToUpload) {
+        if (!file.type.startsWith('image/')) {
+          errors.push(`${file.name} không phải tệp ảnh.`);
+          continue;
+        }
+        if (file.size > MAX_UPLOAD_FILE_SIZE) {
+          errors.push(`${file.name} vượt quá giới hạn 15 MB.`);
+          continue;
+        }
+
+        try {
+          const compressed = await compressRoomImage(file);
+          if (apiClient.isMockEnabled && storedImageChars + compressed.length > MAX_PERSISTED_IMAGE_CHARS) {
+            errors.push('Dung lượng ảnh đã gần giới hạn lưu trên trình duyệt. Hãy chọn ảnh nhỏ hơn hoặc xóa bớt ảnh.');
+            break;
+          }
+          const imageUrl = await uploadCompressedImage(compressed, file.name);
+          compressedImages.push(imageUrl);
+          if (imageUrl.startsWith('data:image/')) storedImageChars += imageUrl.length;
+        } catch (error) {
+          errors.push(error instanceof Error ? error.message : `Không thể xử lý ${file.name}.`);
+        }
+      }
+
+      if (compressedImages.length) {
+        setImages((prev) => [...prev, ...compressedImages]);
+      }
+      setImageError(errors[0] || '');
+    } finally {
+      setIsUploadingImages(false);
     }
   };
 
   const handleRemoveImage = (index: number) => {
     setImages((prev) => prev.filter((_, idx) => idx !== index));
+    setImageError('');
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (images.length === 0) {
+      setStep(3);
+      setImageError('Vui lòng thêm ít nhất một ảnh phòng trước khi đăng tin.');
+      return;
+    }
 
     const roomPayload = {
       title,
@@ -138,13 +267,20 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
       isFeatured: false,
     };
 
-    if (initialRoom) {
-      updateRoom(initialRoom.id, roomPayload);
-    } else {
-      createRoom(roomPayload);
+    setIsSaving(true);
+    setSaveError('');
+    try {
+      if (initialRoom) {
+        await updateRoom(initialRoom.id, roomPayload);
+      } else {
+        await createRoom(roomPayload);
+      }
+      onClose();
+    } catch (error) {
+      setSaveError(error instanceof Error ? error.message : 'Không lưu được tin phòng. Vui lòng thử lại.');
+    } finally {
+      setIsSaving(false);
     }
-
-    onClose();
   };
 
   return (
@@ -417,25 +553,51 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
 
               <div className="pt-2.5 border-t border-[#E5E2D9]">
                 <label className="block text-xs font-semibold text-[#555955] uppercase tracking-wider mb-1.5">
-                  Hình ảnh ({images.length} ảnh)
+                  Hình ảnh ({images.length}/{MAX_ROOM_IMAGES})
                 </label>
+                <input
+                  ref={imageInputRef}
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  className="hidden"
+                  onChange={handleUploadImages}
+                />
+                <div className="mb-2.5 flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => imageInputRef.current?.click()}
+                    disabled={isUploadingImages || images.length >= MAX_ROOM_IMAGES}
+                    className="inline-flex items-center gap-1.5 rounded-md border border-[#23483D]/25 bg-[#E8EEE9] px-3 py-2 text-xs font-semibold text-[#23483D] transition hover:bg-[#DDE9E0] disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {isUploadingImages
+                      ? <LoaderCircle className="h-3.5 w-3.5 animate-spin" />
+                      : <ImagePlus className="h-3.5 w-3.5" />}
+                    {isUploadingImages ? 'Đang xử lý ảnh...' : 'Chọn ảnh từ máy'}
+                  </button>
+                  <span className="text-[10px] text-[#777B78]">JPG, PNG, WebP · tối đa 15 MB/ảnh</span>
+                </div>
                 <div className="flex gap-2 mb-2.5">
                   <input
                     type="url"
                     value={newImageUrl}
                     onChange={(e) => setNewImageUrl(e.target.value)}
+                    disabled={isUploadingImages || images.length >= MAX_ROOM_IMAGES}
                     placeholder="Dán link ảnh (https://...)"
                     className="flex-1 px-3 py-2 bg-[#FAF9F7] border border-[#E5E2D9] rounded-md text-xs sm:text-sm font-medium text-[#252725] focus:outline-none focus:border-[#23483D] focus:bg-white transition"
                   />
                   <button
                     type="button"
                     onClick={handleAddImage}
-                    className="px-3.5 py-2 bg-[#23483D] hover:bg-[#1A372E] text-white text-xs font-medium rounded-md flex items-center gap-1 shadow-whisper transition"
+                    disabled={isUploadingImages || images.length >= MAX_ROOM_IMAGES}
+                    className="px-3.5 py-2 bg-[#23483D] hover:bg-[#1A372E] text-white text-xs font-medium rounded-md flex items-center gap-1 shadow-whisper transition disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     <span>Thêm ảnh</span>
                   </button>
                 </div>
+
+                {imageError && <p role="alert" className="mb-2.5 text-[11px] font-medium text-rose-700">{imageError}</p>}
 
                 <div className="grid grid-cols-3 gap-2">
                   {images.map((img, idx) => (
@@ -444,6 +606,7 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
                       <button
                         type="button"
                         onClick={() => handleRemoveImage(idx)}
+                        aria-label={`Xóa ảnh ${idx + 1}`}
                         className="absolute top-1 right-1 bg-rose-600 text-white p-1 rounded-full opacity-80 group-hover:opacity-100 transition shadow"
                       >
                         <Trash2 className="w-3 h-3" />
@@ -516,13 +679,15 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
             ) : (
               <button
                 type="submit"
+                disabled={isSaving || isUploadingImages}
                 className="inline-flex items-center gap-1.5 px-5 py-2 bg-[#23483D] hover:bg-[#1A372E] text-white font-medium text-xs rounded-md transition shadow-whisper"
               >
-                <Check className="w-4 h-4" />
-                <span>Xác nhận & Đăng tin</span>
+                {isSaving ? <LoaderCircle className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
+                <span>{isSaving ? 'Đang lưu...' : 'Xác nhận & Đăng tin'}</span>
               </button>
             )}
           </div>
+          {saveError && <p role="alert" className="text-xs font-medium text-rose-700">{saveError}</p>}
         </form>
       </div>
     </div>

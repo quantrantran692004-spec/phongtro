@@ -35,6 +35,123 @@
   font-family: 'Cormorant Garamond', Georgia, serif;
 }
 
+.font-script {
+  font-family: 'Allura', 'Segoe Script', 'Brush Script MT', cursive;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.hero-atmosphere-layer::before,
+.hero-atmosphere-layer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Separate atmospheric overlays: the source photo itself remains completely still. */
+.hero-atmosphere-layer::before {
+  opacity: 0.34;
+  background-image:
+    radial-gradient(ellipse 17% 3.2% at 12% 39%, rgba(255, 255, 255, 0.55), transparent 78%),
+    radial-gradient(ellipse 13% 2.6% at 29% 36%, rgba(255, 247, 233, 0.48), transparent 78%),
+    radial-gradient(ellipse 19% 3.5% at 51% 40%, rgba(255, 255, 255, 0.52), transparent 80%),
+    radial-gradient(ellipse 15% 2.7% at 72% 37%, rgba(255, 245, 226, 0.42), transparent 79%),
+    radial-gradient(ellipse 13% 2.8% at 91% 41%, rgba(255, 255, 255, 0.44), transparent 80%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 28%, #000 34%, #000 46%, transparent 51%);
+  mask-image: linear-gradient(to bottom, transparent 28%, #000 34%, #000 46%, transparent 51%);
+  animation: hero-cloud-drift 3.33s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Moving reflections are confined to the pool; no zoom or movement of the source image. */
+.hero-atmosphere-layer::after {
+  opacity: 0.17;
+  background-image:
+    radial-gradient(ellipse 12% 3.5% at 14% 68%, rgba(225, 250, 255, 0.4), transparent 82%),
+    radial-gradient(ellipse 17% 2.8% at 39% 82%, rgba(210, 245, 252, 0.32), transparent 84%),
+    radial-gradient(ellipse 11% 3.2% at 63% 65%, rgba(255, 255, 255, 0.3), transparent 82%),
+    radial-gradient(ellipse 16% 3% at 84% 78%, rgba(205, 243, 250, 0.32), transparent 84%);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 48%, #000 58%, #000 91%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 48%, #000 58%, #000 91%, transparent 100%);
+  animation: hero-water-light 1.33s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes hero-cloud-drift {
+  from { transform: translate3d(-2.2%, 0, 0); }
+  to { transform: translate3d(2.2%, 0.12%, 0); }
+}
+
+@keyframes hero-water-light {
+  from { transform: translate3d(-0.22%, 0, 0); }
+  to { transform: translate3d(0.22%, 0.08%, 0); }
+}
+
+.chat-status-light {
+  animation: chat-status-glow 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes chat-status-glow {
+  from { opacity: 0.78; box-shadow: 0 0 4px 1px rgba(52, 211, 153, 0.55); }
+  to { opacity: 1; box-shadow: 0 0 8px 2px rgba(52, 211, 153, 0.9); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-atmosphere-layer::before,
+  .hero-atmosphere-layer::after {
+    animation: none;
+    opacity: 0;
+    will-change: auto;
+  }
+
+  .chat-status-light {
+    animation: none;
+    will-change: auto;
+  }
+}
+
+html.scroll-reveal-ready [data-scroll-reveal="up"],
+html.scroll-reveal-ready [data-scroll-reveal="text"],
+html.scroll-reveal-ready [data-scroll-reveal="image"] {
+  opacity: 0;
+  translate: 0 12px;
+  transition-delay: var(--scroll-reveal-delay, 0ms);
+  transition-duration: 560ms;
+  transition-timing-function: cubic-bezier(0.2, 0.7, 0.25, 1);
+  transition-property: opacity, translate, clip-path;
+}
+
+html.scroll-reveal-ready [data-scroll-reveal="text"] {
+  translate: 0 8px;
+}
+
+html.scroll-reveal-ready [data-scroll-reveal="image"] {
+  translate: 0 8px;
+  clip-path: inset(5% 0 0 0 round 1.5rem);
+  transition-duration: 680ms;
+}
+
+html.scroll-reveal-ready [data-scroll-reveal].is-scroll-revealed {
+  opacity: 1;
+  translate: 0 0;
+}
+
+html.scroll-reveal-ready [data-scroll-reveal="image"].is-scroll-revealed {
+  clip-path: inset(0 round 1.5rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.scroll-reveal-ready [data-scroll-reveal] {
+    opacity: 1;
+    translate: none;
+    clip-path: none;
+    transition: none;
+  }
+}
+
 /* Reusable Design System Tokens (Toss Cleanliness + Airbnb Warmth + Emerald Trust) */
 .glass-nav {
   background: rgba(255, 255, 255, 0.85);

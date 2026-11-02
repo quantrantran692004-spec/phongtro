@@ -48,7 +48,7 @@ export class RoomService {
       if (res.success && res.data) {
         return res.data;
       }
-      console.warn('API getRooms failed, falling back to local data:', res.error);
+      throw new Error(res.error || 'Không thể tải danh sách phòng từ máy chủ.');
     }
 
     // Mock fallback / Local store

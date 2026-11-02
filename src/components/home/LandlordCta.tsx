@@ -15,10 +15,10 @@ export const LandlordCta: React.FC<LandlordCtaProps> = ({ onPostRoom }) => {
           <div className="absolute top-0 right-0 w-96 h-96 bg-teal-500/15 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center relative z-10">
+          <div data-scroll-stagger className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center relative z-10">
             
             {/* Left Column (7 cols): Heading, Features & CTA */}
-            <div className="lg:col-span-7">
+            <div data-scroll-reveal="up" className="lg:col-span-7">
               <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider bg-teal-500/20 text-teal-300 border border-teal-400/30 px-3.5 py-1.5 rounded-full mb-4 backdrop-blur-md">
                 <Sparkles className="w-3.5 h-3.5 text-teal-400" />
                 <span>Dành Cho Chủ Nhà Trọ Thái Nguyên</span>
@@ -78,7 +78,7 @@ export const LandlordCta: React.FC<LandlordCtaProps> = ({ onPostRoom }) => {
             </div>
 
             {/* Right Column (5 cols): Modern Dashboard Preview Mockup */}
-            <div className="lg:col-span-5">
+            <div data-scroll-reveal="up" className="lg:col-span-5">
               <div className="bg-slate-900/90 backdrop-blur-xl border border-white/15 rounded-3xl p-6 sm:p-7 shadow-2xl relative space-y-5">
                 
                 {/* Header Mockup */}
