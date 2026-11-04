@@ -315,3 +315,26 @@ body::-webkit-scrollbar {
   box-shadow: 0 4px 10px rgba(37, 39, 37, 0.08);
   background: #FFFFFF;
 }
+
+/* Touch-only: synthetic hover must not lift cards or animate their image layer.
+   Fine-pointer desktop styles above remain unchanged. */
+@media (hover: none) and (pointer: coarse) {
+  [data-motion-tilt] {
+    transform: none !important;
+    transition-property: box-shadow, border-color;
+  }
+
+  [data-motion-tilt] .motion-tilt-image {
+    transform: none;
+    transition: none;
+  }
+
+  [data-motion-tilt] .motion-pointer-light {
+    display: none;
+  }
+
+  [data-motion-tilt]:hover .motion-area-title {
+    transform: none;
+    clip-path: none;
+  }
+}

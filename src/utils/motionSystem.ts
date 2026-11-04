@@ -56,6 +56,7 @@ export const initializeMotionSystem = () => {
   const splitInstances = new Map<HTMLElement, SplitText>();
   const pointerMotionCleanup = new Map<HTMLElement, () => void>();
   const canHoverQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const touchMotionQuery = window.matchMedia('(hover: none) and (pointer: coarse)');
 
   let mutationObserver: MutationObserver | null = null;
   let lenisTicker: ((time: number) => void) | null = null;
@@ -173,7 +174,8 @@ export const initializeMotionSystem = () => {
       scrollTrigger: {
         trigger: root,
         start: config.start,
-        toggleActions: config.toggleActions,
+        toggleActions: touchMotionQuery.matches ? 'play none none none' : config.toggleActions,
+        once: touchMotionQuery.matches,
         invalidateOnRefresh: true,
       },
     });
@@ -225,6 +227,9 @@ export const initializeMotionSystem = () => {
       if (kind === 'stagger' || kind === 'grid' || kind === 'image-grid') {
         const targets = Array.from(step.children).filter((child): child is HTMLElement => child instanceof HTMLElement);
         if (!targets.length) return;
+        // Touch cards stay visible: avoid GSAP writing transforms/opacity on
+        // the same nodes Framer Motion measures for layout and shared images.
+        if (touchMotionQuery.matches) return;
         const imageGrid = kind === 'image-grid';
         timeline.fromTo(
           targets,
@@ -286,6 +291,7 @@ export const initializeMotionSystem = () => {
 
   const revealElement = (element: HTMLElement) => {
     if (initialized.has(element) || reduceMotionQuery.matches) return;
+    if (touchMotionQuery.matches && element.matches('[data-motion-tilt]')) return;
     const choreographyRoot = element.closest<HTMLElement>(sequenceSelector);
     if (choreographyRoot && !element.hasAttribute('data-motion-split') && element.closest('[data-motion-step]')) return;
     initialized.add(element);
@@ -622,11 +628,13 @@ export const initializeMotionSystem = () => {
   syncMotionPreference();
   reduceMotionQuery.addEventListener('change', syncMotionPreference);
   canHoverQuery.addEventListener('change', syncMotionPreference);
+  touchMotionQuery.addEventListener('change', syncMotionPreference);
 
   return () => {
     disposed = true;
     reduceMotionQuery.removeEventListener('change', syncMotionPreference);
     canHoverQuery.removeEventListener('change', syncMotionPreference);
+    touchMotionQuery.removeEventListener('change', syncMotionPreference);
     clearReveals();
     stopSmoothScroll();
   };

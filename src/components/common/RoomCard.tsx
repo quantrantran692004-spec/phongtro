@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useSyncExternalStore } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { 
   Heart, 
@@ -19,12 +19,22 @@ import { Room } from '../../types';
 import { formatCurrency, formatArea, getRoomTypeLabel, formatRelativeTime } from '../../utils/formatters';
 import { useRooms } from '../../context/RoomContext';
 
+const touchCardQuery = '(hover: none) and (pointer: coarse)';
+const subscribeTouchCards = (onChange: () => void) => {
+  const query = window.matchMedia(touchCardQuery);
+  query.addEventListener('change', onChange);
+  return () => query.removeEventListener('change', onChange);
+};
+const getTouchCards = () => window.matchMedia(touchCardQuery).matches;
+const getServerTouchCards = () => false;
+
 interface RoomCardProps {
   room: Room;
   onSelect: (roomId: string) => void;
 }
 
 export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
+  const touchCards = useSyncExternalStore(subscribeTouchCards, getTouchCards, getServerTouchCards);
   const { toggleFavorite, isFavorite, toggleCompare, compareList } = useRooms();
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
   const isFav = isFavorite(room.id);
@@ -55,7 +65,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
 
   return (
     <motion.div
-      layout="position"
+      layout={touchCards ? false : "position"}
       transition={{ layout: { duration: 0.24, ease: [0.22, 1, 0.36, 1] } }}
       data-scroll-reveal="up"
       data-motion-tilt
