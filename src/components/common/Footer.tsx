@@ -8,11 +8,11 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onNavigateSearch, onOpenGuide }) => {
   return (
-    <footer className="relative isolate overflow-hidden border-t border-[#D1DCD6] bg-gradient-to-br from-[#E9EFEB] via-[#E4EBE7] to-[#DDE6E1] pt-16 pb-10 text-slate-800 shadow-[0_-12px_36px_rgba(15,23,42,0.035)] before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:h-36 before:bg-gradient-to-b before:from-white/40 before:to-transparent before:content-[''] after:pointer-events-none after:absolute after:-right-28 after:top-8 after:h-72 after:w-72 after:rounded-full after:bg-teal-400/10 after:blur-3xl after:content-['']">
+    <footer data-motion-sequence="footer" className="relative isolate overflow-hidden border-t border-[#D1DCD6] bg-gradient-to-br from-[#E9EFEB] via-[#E4EBE7] to-[#DDE6E1] pt-16 pb-10 text-slate-800 shadow-[0_-12px_36px_rgba(15,23,42,0.035)] before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:h-36 before:bg-gradient-to-b before:from-white/40 before:to-transparent before:content-[''] after:pointer-events-none after:absolute after:-right-28 after:top-8 after:h-72 after:w-72 after:rounded-full after:bg-teal-400/10 after:blur-3xl after:content-['']">
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div data-scroll-stagger className="grid grid-cols-1 gap-8 border-b border-[#CFD9D3] pb-12 text-xs md:grid-cols-2 lg:grid-cols-5">
+        <div data-motion-step="grid" className="grid grid-cols-1 gap-8 border-b border-[#CFD9D3] pb-12 text-xs md:grid-cols-2 lg:grid-cols-5">
           {/* Brand Info (2 cols) */}
-          <div data-scroll-reveal="up" className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-2.5">
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-teal-800 shadow-sm ring-1 ring-slate-200/80 transition duration-300 hover:-translate-y-0.5 hover:shadow-md">
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -46,7 +46,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateSearch, onOpenGuide })
           </div>
 
           {/* Khu vực sinh viên */}
-          <div data-scroll-reveal="up">
+          <div>
             <h4 className="mb-3.5 text-xs font-bold uppercase tracking-wider text-slate-900">
               Khu Vực Trọng Điểm
             </h4>
@@ -80,7 +80,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateSearch, onOpenGuide })
           </div>
 
           {/* Loại phòng */}
-          <div data-scroll-reveal="up">
+          <div>
             <h4 className="mb-3.5 text-xs font-bold uppercase tracking-wider text-slate-900">
               Loại Hình Phòng
             </h4>
@@ -114,7 +114,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateSearch, onOpenGuide })
           </div>
 
           {/* An toàn */}
-          <div data-scroll-reveal="up">
+          <div>
             <h4 className="mb-3.5 text-xs font-bold uppercase tracking-wider text-slate-900">
               An Toàn & Pháp Lý
             </h4>
@@ -144,7 +144,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateSearch, onOpenGuide })
         </div>
 
         {/* Copyright */}
-        <div data-scroll-reveal="up" className="flex flex-col items-center justify-between gap-3 pt-6 text-xs font-normal text-slate-500 sm:flex-row">
+        <div data-motion-step="copy" className="flex flex-col items-center justify-between gap-3 pt-6 text-xs font-normal text-slate-500 sm:flex-row">
           <div>
             © {new Date().getFullYear()} <strong className="font-semibold text-slate-800">Trọ Thái Nguyên</strong>. Nền tảng tìm kiếm phòng trọ chính chủ tại Thái Nguyên.
           </div>

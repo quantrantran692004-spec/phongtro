@@ -116,7 +116,7 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <div className="flex flex-col items-center">
               <img
-                src="/images/logo1-wordmark.png"
+                src={`${import.meta.env.BASE_URL}images/logo1-wordmark.png`}
                 alt="HUONGMUOI"
                 className="h-5 w-auto max-w-[175px] object-contain drop-shadow-[0_1px_1px_rgba(255,255,255,0.55)] transition-transform duration-300 group-hover:scale-[1.02] sm:h-[22px] sm:max-w-[190px]"
               />

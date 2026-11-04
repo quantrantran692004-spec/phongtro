@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
+import { AnimatePresence, LayoutGroup, MotionConfig, motion } from 'framer-motion';
 import { ToastProvider } from './context/ToastContext';
 import { AuthProvider } from './context/AuthContext';
 import { RoomProvider, useRooms } from './context/RoomContext';
@@ -11,16 +12,17 @@ import { UniversityShortcuts } from './components/home/UniversityShortcuts';
 import { AreaExplorer } from './components/home/AreaExplorer';
 import { SafeRentGuide } from './components/home/SafeRentGuide';
 import { LandlordCta } from './components/home/LandlordCta';
-import { SearchPage } from './components/search/SearchPage';
-import { RoomDetailView } from './components/detail/RoomDetailView';
+const SearchPage = lazy(() => import('./components/search/SearchPage').then((module) => ({ default: module.SearchPage })));
+const RoomDetailView = lazy(() => import('./components/detail/RoomDetailView').then((module) => ({ default: module.RoomDetailView })));
 import { ComparisonModal } from './components/compare/ComparisonModal';
-import { LandlordPortal } from './components/landlord/LandlordPortal';
+const LandlordPortal = lazy(() => import('./components/landlord/LandlordPortal').then((module) => ({ default: module.LandlordPortal })));
 import { RoomFormModal } from './components/landlord/RoomFormModal';
-import { AdminPortal } from './components/admin/AdminPortal';
+const AdminPortal = lazy(() => import('./components/admin/AdminPortal').then((module) => ({ default: module.AdminPortal })));
 import { AuthModal } from './components/user/AuthModal';
 import { UserProfileModal } from './components/user/UserProfileModal';
 import { GuideModal } from './components/info/GuideModal';
 import { CommandPalette } from './components/common/CommandPalette';
+import { MOTION_DURATION, MOTION_EASE } from './utils/motionTokens';
 
 const MainApp: React.FC = () => {
   const [currentTab, setCurrentTab] = useState<'home' | 'search' | 'landlord' | 'admin'>('home');
@@ -48,81 +50,67 @@ const MainApp: React.FC = () => {
   }, []);
 
   React.useEffect(() => {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (reduceMotion.matches || !('IntersectionObserver' in window)) return;
+    let active = true;
+    let dispose: (() => void) | undefined;
 
-    const root = document.documentElement;
-    const observed = new WeakSet<HTMLElement>();
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const element = entry.target as HTMLElement;
-        element.classList.add('is-scroll-revealed');
-        observer.unobserve(element);
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -48px 0px' });
-
-    const observeElement = (element: HTMLElement) => {
-      if (observed.has(element)) return;
-      observed.add(element);
-      const staggerContainer = element.parentElement?.closest('[data-scroll-stagger]');
-      if (staggerContainer) {
-        const siblings = Array.from(staggerContainer.children).filter((child): child is HTMLElement => (
-          child instanceof HTMLElement && child.hasAttribute('data-scroll-reveal')
-        ));
-        const index = Math.max(0, siblings.indexOf(element));
-        element.style.setProperty('--scroll-reveal-delay', `${Math.min(index, 4) * 75}ms`);
-      }
-      observer.observe(element);
-    };
-
-    const observeTree = (node: Node) => {
-      if (!(node instanceof HTMLElement)) return;
-      if (node.hasAttribute('data-scroll-reveal')) observeElement(node);
-      node.querySelectorAll<HTMLElement>('[data-scroll-reveal]').forEach(observeElement);
-    };
-
-    observeTree(document.body);
-    // Only enable the hidden pre-reveal state after every current target is observed.
-    // If the browser misses the initial observer notification, fail open for anything
-    // already visible so the first screen can never remain blank.
-    root.classList.add('scroll-reveal-ready');
-    const initialRevealFallback = window.setTimeout(() => {
-      document.querySelectorAll<HTMLElement>('[data-scroll-reveal]:not(.is-scroll-revealed)').forEach((element) => {
-        const rect = element.getBoundingClientRect();
-        if (rect.bottom > 0 && rect.top < window.innerHeight) {
-          element.classList.add('is-scroll-revealed');
-          observer.unobserve(element);
-        }
-      });
-    }, 900);
-    const mutationObserver = new MutationObserver((records) => {
-      records.forEach((record) => record.addedNodes.forEach(observeTree));
+    import('./utils/motionSystem').then(({ initializeMotionSystem }) => {
+      if (active) dispose = initializeMotionSystem();
     });
-    mutationObserver.observe(document.body, { childList: true, subtree: true });
 
     return () => {
-      window.clearTimeout(initialRevealFallback);
-      mutationObserver.disconnect();
-      observer.disconnect();
-      root.classList.remove('scroll-reveal-ready');
+      active = false;
+      dispose?.();
     };
   }, []);
 
+  React.useEffect(() => {
+    const syncFromHistory = () => {
+      const route = window.history.state as { motionRoute?: string; roomId?: string; tab?: 'home' | 'search' | 'landlord' | 'admin' } | null;
+      if (route?.motionRoute === 'room' && route.roomId) {
+        setSelectedRoomId(route.roomId);
+        return;
+      }
+      setSelectedRoomId(null);
+      if (route?.motionRoute === 'tab' && route.tab) setCurrentTab(route.tab);
+      else setCurrentTab(new URLSearchParams(window.location.search).get('view') as typeof currentTab || 'home');
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const initialRoomId = params.get('room');
+    const initialTab = params.get('view');
+    if (initialRoomId) {
+      setSelectedRoomId(initialRoomId);
+      window.history.replaceState({ motionRoute: 'room', roomId: initialRoomId }, '', window.location.href);
+    } else {
+      const tab = initialTab && ['home', 'search', 'landlord', 'admin'].includes(initialTab) ? initialTab : currentTab;
+      setCurrentTab(tab as typeof currentTab);
+      window.history.replaceState({ motionRoute: 'tab', tab }, '', window.location.href);
+    }
+
+    window.addEventListener('popstate', syncFromHistory);
+    return () => window.removeEventListener('popstate', syncFromHistory);
+  }, [setSelectedRoomId]);
+
   const handleSelectRoom = (roomId: string) => {
     addToHistory(roomId);
+    window.history.pushState({ motionRoute: 'room', roomId }, '', `?room=${encodeURIComponent(roomId)}`);
     setSelectedRoomId(roomId);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'auto' });
   };
 
   const handleBackFromDetail = () => {
+    if ((window.history.state as { motionRoute?: string } | null)?.motionRoute === 'room') {
+      window.history.back();
+      return;
+    }
     setSelectedRoomId(null);
   };
 
   const handleNavigate = (tab: 'home' | 'search' | 'landlord' | 'admin') => {
+    window.history.pushState({ motionRoute: 'tab', tab }, '', `?view=${tab}`);
     setSelectedRoomId(null);
     setCurrentTab(tab);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'auto' });
   };
 
   const handleOpenProfile = (tab: 'saved' | 'appointments' | 'profile' = 'profile') => {
@@ -146,39 +134,48 @@ const MainApp: React.FC = () => {
 
       {/* Main Body */}
       <main className="flex-1">
-        {selectedRoom ? (
-          /* Room Detail View */
-          <RoomDetailView
-            room={selectedRoom}
-            onBack={handleBackFromDetail}
-            onSelectSimilarRoom={handleSelectRoom}
-          />
-        ) : currentTab === 'home' ? (
-          /* Home View */
-          <div>
-            <HomeLanding
-              onSearchSubmit={() => setCurrentTab('search')}
-              onOpenGuide={() => setGuideModalOpen(true)}
-            />
-            <FeaturedRooms
-              onViewAll={() => handleNavigate('search')}
-              onSelectRoom={handleSelectRoom}
-            />
-            <UniversityShortcuts onSelectUniversity={() => handleNavigate('search')} />
-            <AreaExplorer onSelectArea={() => handleNavigate('search')} />
-            <SafeRentGuide onOpenGuideModal={() => setGuideModalOpen(true)} />
-            <LandlordCta onPostRoom={() => setPostRoomModalOpen(true)} />
-          </div>
-        ) : currentTab === 'search' ? (
-          /* Search & Filter View */
-          <SearchPage onSelectRoom={handleSelectRoom} />
-        ) : currentTab === 'landlord' ? (
-          /* Landlord Portal */
-          <LandlordPortal onSelectRoom={handleSelectRoom} />
-        ) : (
-          /* Admin Portal */
-          <AdminPortal onSelectRoom={handleSelectRoom} />
-        )}
+        <LayoutGroup id="room-detail-transition">
+        <AnimatePresence mode="sync" initial={false}>
+          <motion.div
+            key={selectedRoom ? `room-${selectedRoom.id}` : currentTab}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: MOTION_DURATION.page, ease: MOTION_EASE }}
+          >
+            <Suspense fallback={<div className="min-h-[35vh] px-4 py-10 text-center text-sm text-slate-500" role="status">Đang mở khu vực…</div>}>
+            {selectedRoom ? (
+              <RoomDetailView
+                room={selectedRoom}
+                onBack={handleBackFromDetail}
+                onSelectSimilarRoom={handleSelectRoom}
+              />
+            ) : currentTab === 'home' ? (
+              <div>
+                <HomeLanding
+                  onSearchSubmit={() => handleNavigate('search')}
+                  onOpenGuide={() => setGuideModalOpen(true)}
+                />
+                <FeaturedRooms
+                  onViewAll={() => handleNavigate('search')}
+                  onSelectRoom={handleSelectRoom}
+                />
+                <UniversityShortcuts onSelectUniversity={() => handleNavigate('search')} />
+                <AreaExplorer onSelectArea={() => handleNavigate('search')} />
+                <SafeRentGuide onOpenGuideModal={() => setGuideModalOpen(true)} />
+                <LandlordCta onPostRoom={() => setPostRoomModalOpen(true)} />
+              </div>
+            ) : currentTab === 'search' ? (
+              <SearchPage onSelectRoom={handleSelectRoom} />
+            ) : currentTab === 'landlord' ? (
+              <LandlordPortal onSelectRoom={handleSelectRoom} />
+            ) : (
+              <AdminPortal onSelectRoom={handleSelectRoom} />
+            )}
+            </Suspense>
+          </motion.div>
+        </AnimatePresence>
+        </LayoutGroup>
       </main>
 
       {/* Floating Compare Bar */}
@@ -191,32 +188,36 @@ const MainApp: React.FC = () => {
       />
 
       {/* Modals */}
-      {compareModalOpen && (
-        <ComparisonModal
-          onClose={() => setCompareModalOpen(false)}
-          onSelectRoom={handleSelectRoom}
-        />
-      )}
+      <AnimatePresence initial={false}>
+        {compareModalOpen && (
+          <ComparisonModal
+            key="comparison-modal"
+            onClose={() => setCompareModalOpen(false)}
+            onSelectRoom={handleSelectRoom}
+          />
+        )}
 
-      {authModalOpen && (
-        <AuthModal onClose={() => setAuthModalOpen(false)} />
-      )}
+        {authModalOpen && (
+          <AuthModal key="auth-modal" onClose={() => setAuthModalOpen(false)} />
+        )}
 
-      {profileModalOpen && (
-        <UserProfileModal
-          initialTab={profileInitialTab}
-          onClose={() => setProfileModalOpen(false)}
-          onSelectRoom={handleSelectRoom}
-        />
-      )}
+        {profileModalOpen && (
+          <UserProfileModal
+            key="profile-modal"
+            initialTab={profileInitialTab}
+            onClose={() => setProfileModalOpen(false)}
+            onSelectRoom={handleSelectRoom}
+          />
+        )}
 
-      {postRoomModalOpen && (
-        <RoomFormModal onClose={() => setPostRoomModalOpen(false)} />
-      )}
+        {postRoomModalOpen && (
+          <RoomFormModal key="room-form-modal" onClose={() => setPostRoomModalOpen(false)} />
+        )}
 
-      {guideModalOpen && (
-        <GuideModal onClose={() => setGuideModalOpen(false)} />
-      )}
+        {guideModalOpen && (
+          <GuideModal key="guide-modal" onClose={() => setGuideModalOpen(false)} />
+        )}
+      </AnimatePresence>
 
       {/* Global Command Palette */}
       <CommandPalette
@@ -234,13 +235,18 @@ const MainApp: React.FC = () => {
 
 export function App() {
   return (
-    <ToastProvider>
-      <AuthProvider>
-        <RoomProvider>
-          <MainApp />
-        </RoomProvider>
-      </AuthProvider>
-    </ToastProvider>
+    <MotionConfig
+      reducedMotion="user"
+      transition={{ type: 'tween', duration: MOTION_DURATION.standard, ease: MOTION_EASE }}
+    >
+      <ToastProvider>
+        <AuthProvider>
+          <RoomProvider>
+            <MainApp />
+          </RoomProvider>
+        </AuthProvider>
+      </ToastProvider>
+    </MotionConfig>
   );
 }
 

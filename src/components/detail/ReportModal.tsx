@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { ShieldAlert, X, CheckCircle2 } from 'lucide-react';
 import { Room } from '../../types';
 import { useRooms } from '../../context/RoomContext';
@@ -37,7 +38,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ room, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} data-lenis-prevent className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
       <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-[0_24px_48px_rgba(0,0,0,0.2)] border border-slate-200 relative animate-in fade-in zoom-in-95 duration-200">
         <button
           onClick={onClose}
@@ -135,6 +136,6 @@ export const ReportModal: React.FC<ReportModalProps> = ({ room, onClose }) => {
           </>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };

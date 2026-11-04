@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "project": {
+    "name": "tro-thai-nguyen",
+    "productType": "local room discovery marketplace",
+    "stack": [
+      "react",
+      "tailwind-v3",
+      "vite"
+    ]
+  },
+  "sources": {
+    "tokens": [
+      "src/index.css"
+    ],
+    "components": [],
+    "assets": [
+      "public/images",
+      "src/assets"
+    ],
+    "instructions": [
+      "PRODUCT.md",
+      "AGENTS.md"
+    ]
+  },
+  "design": {
+    "colorMode": "light",
+    "colors": {
+      "paper": "#ffffff",
+      "surface": "#f8fafc",
+      "ink": "#0f172a",
+      "teal": "#0f766e",
+      "tealHover": "#115e59",
+      "line": "#e2e8f0"
+    },
+    "typography": {
+      "display": "Be Vietnam Pro",
+      "body": "Be Vietnam Pro"
+    },
+    "spacing": { "section": "64px", "content-gutter": "20px" },
+    "radius": { "small": "8px", "card": "16px" },
+    "shadows": { "card": "0 1px 3px rgba(15, 23, 42, .04)" },
+    "motion": { "controls": "150–250ms; disabled for reduced motion" },
+    "density": "comfortable"
+  },
+  "components": {
+    "installed": [],
+    "preferredPrimitives": [],
+    "patterns": []
+  },
+  "constraints": {
+    "must": [
+      "Keep the HUONGMUOI wordmark visible and label the service Trọ Thái Nguyên.",
+      "Show rental amounts, availability and local areas from actual room data.",
+      "Keep renter, landlord, map, comparison, booking, account and admin workflows working.",
+      "Provide the contact name Trần Minh Quân and telephone 0357041593."
+    ],
+    "avoid": [
+      "Invented room counts, prices, ratings, testimonials, performance claims, address, email or verification claims.",
+      "Generic map contours, hotel/resort imagery, oversized centered hero templates and decorative motion without purpose."
+    ]
+  },
+  "decisions": [
+    {
+      "name": "HUONGMUOI local rental discovery",
+      "summary": "Use a clean white/slate canvas, teal actions, sans typography and a search-first hierarchy. Make local Thái Nguyên context and truthful room information the visual signature. Use only room records for counts, prices, status and nearby distances; clearly mark demo data.",
+      "files": [
+        "index.html",
+        "src/App.tsx",
+        "src/components/common/Header.tsx",
+        "src/components/common/Footer.tsx",
+        "src/components/common/RoomCard.tsx",
+        "src/components/home/HomeLanding.tsx",
+        "src/components/home/FeaturedRooms.tsx",
+        "src/components/home/UniversityShortcuts.tsx",
+        "src/components/home/AreaExplorer.tsx",
+        "src/components/home/SafeRentGuide.tsx",
+        "src/components/home/LandlordCta.tsx",
+        "src/index.css"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "fact": "design.tokens",
+      "source": "src/index.css"
+    },
+    {
+      "fact": "project.instructions",
+      "source": "AGENTS.md"
+    },
+    {
+      "fact": "project.instructions",
+      "source": "PRODUCT.md"
+    },
+    {
+      "fact": "project.stack:react",
+      "source": "package.json"
+    },
+    {
+      "fact": "project.stack:tailwind-v3",
+      "source": "package.json"
+    },
+    {
+      "fact": "project.stack:vite",
+      "source": "package.json"
+    }
+  ],
+  "generatedAt": "2026-11-04T03:20:11.580Z"
+}

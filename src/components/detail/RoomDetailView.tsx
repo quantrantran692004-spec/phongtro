@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { 
   ArrowLeft, 
   Heart, 
@@ -60,7 +61,7 @@ export const RoomDetailView: React.FC<RoomDetailViewProps> = ({ room, onBack, on
     <div className="bg-[#F8FAFC] min-h-screen py-8 sm:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation & Action Bar */}
-        <div className="flex items-center justify-between gap-4 mb-6">
+        <div data-motion-sequence="detail-header" data-motion-step="controls" className="flex items-center justify-between gap-4 mb-6">
           <button
             onClick={onBack}
             className="inline-flex items-center gap-2 text-xs font-semibold text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200 px-5 py-2.5 rounded-full transition shadow-xs"
@@ -113,7 +114,7 @@ export const RoomDetailView: React.FC<RoomDetailViewProps> = ({ room, onBack, on
         </div>
 
         {/* Room Header Info */}
-        <div className="bg-white rounded-3xl border border-slate-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.04)] p-6 sm:p-8 mb-6">
+        <div data-motion-sequence="detail-header" data-motion-step="copy" className="bg-white rounded-3xl border border-slate-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.04)] p-6 sm:p-8 mb-6">
           <div className="flex flex-wrap items-center gap-2.5 mb-3.5">
             {room.isVerified && (
               <span className="inline-flex items-center gap-1.5 bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-xs">
@@ -130,7 +131,7 @@ export const RoomDetailView: React.FC<RoomDetailViewProps> = ({ room, onBack, on
             </span>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug mb-3.5">
+          <h1 data-motion-split className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug mb-3.5">
             {room.title}
           </h1>
 
@@ -145,23 +146,50 @@ export const RoomDetailView: React.FC<RoomDetailViewProps> = ({ room, onBack, on
         </div>
 
         {/* Gallery Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-8">
+        <div data-motion-sequence="gallery" className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-8">
           {/* Main Large Image */}
-          <div className="lg:col-span-8 relative aspect-[16/10] rounded-3xl overflow-hidden bg-slate-900 shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-slate-200">
-            <img
+          <div
+            data-motion-step="visual"
+            className="lg:col-span-8 relative aspect-[16/10] rounded-3xl overflow-hidden bg-slate-900 shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-slate-200"
+            tabIndex={room.images.length > 1 ? 0 : -1}
+            aria-label={`Ảnh phòng ${activeImgIndex + 1} trên ${room.images.length}. Dùng phím mũi tên để đổi ảnh.`}
+            onKeyDown={(event) => {
+              if (event.key === 'ArrowRight') setActiveImgIndex((prev) => (prev + 1) % room.images.length);
+              if (event.key === 'ArrowLeft') setActiveImgIndex((prev) => (prev - 1 + room.images.length) % room.images.length);
+            }}
+          >
+            <AnimatePresence initial={false}>
+            <motion.img
+              key={activeImgIndex}
+              layoutId={activeImgIndex === 0 ? `room-photo-${room.id}` : undefined}
               src={room.images[activeImgIndex] || room.images[0]}
               alt={room.title}
-              className="w-full h-full object-cover"
+              initial={{ opacity: 0, scale: 1.018 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.012 }}
+              transition={{ opacity: { duration: 0.24 }, scale: { duration: 0.42, ease: [0.16, 1, 0.3, 1] }, layout: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } }}
+              drag={room.images.length > 1 ? 'x' : false}
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.14}
+              dragMomentum={false}
+              onDragEnd={(_, info) => {
+                if (info.offset.x < -64) setActiveImgIndex((prev) => (prev + 1) % room.images.length);
+                if (info.offset.x > 64) setActiveImgIndex((prev) => (prev - 1 + room.images.length) % room.images.length);
+              }}
+              className="absolute inset-0 h-full w-full cursor-grab object-cover active:cursor-grabbing"
             />
+            </AnimatePresence>
             {room.images.length > 1 && (
               <>
                 <button
+                  aria-label="Ảnh trước"
                   onClick={() => setActiveImgIndex((prev) => (prev - 1 + room.images.length) % room.images.length)}
                   className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center transition border border-white/20 shadow-md backdrop-blur-sm"
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </button>
                 <button
+                  aria-label="Ảnh sau"
                   onClick={() => setActiveImgIndex((prev) => (prev + 1) % room.images.length)}
                   className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center transition border border-white/20 shadow-md backdrop-blur-sm"
                 >
@@ -175,27 +203,30 @@ export const RoomDetailView: React.FC<RoomDetailViewProps> = ({ room, onBack, on
           </div>
 
           {/* Thumbnails Column */}
-          <div className="lg:col-span-4 grid grid-cols-4 lg:grid-cols-2 gap-3">
+          <div data-motion-step="controls" className="lg:col-span-4 grid grid-cols-4 lg:grid-cols-2 gap-3">
             {room.images.map((img, idx) => (
-              <div
+              <button
                 key={idx}
+                type="button"
                 onClick={() => setActiveImgIndex(idx)}
-                className={`relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer border-2 transition-all duration-200 ${
+                aria-label={`Xem ảnh ${idx + 1}`}
+                aria-pressed={idx === activeImgIndex}
+                className={`relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer border-2 transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700 ${
                   idx === activeImgIndex 
                     ? 'border-amber-500 shadow-md scale-[1.02]' 
                     : 'border-transparent opacity-75 hover:opacity-100 hover:scale-[1.01]'
                 }`}
               >
-                <img src={img} alt="thumbnail" className="w-full h-full object-cover" />
-              </div>
+                <img src={img} alt="" className="w-full h-full object-cover" />
+              </button>
             ))}
           </div>
         </div>
 
         {/* Content & Sidebar Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div data-motion-sequence="detail-content" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Main Column (8 cols) */}
-          <div className="lg:col-span-8 space-y-6">
+          <div data-motion-step="grid" className="lg:col-span-8 space-y-6">
             {/* Quick Specs Cards */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
               <div className="p-3 border-r border-slate-100 last:border-0">
@@ -305,7 +336,7 @@ export const RoomDetailView: React.FC<RoomDetailViewProps> = ({ room, onBack, on
           </div>
 
           {/* Sticky Sidebar (4 cols) */}
-          <div className="lg:col-span-4 sticky top-24 space-y-4">
+          <div data-motion-step="visual" className="lg:col-span-4 sticky top-24 space-y-4">
             {/* Host Card */}
             <div className="bg-white rounded-3xl border border-slate-200/80 shadow-[0_8px_32px_rgba(0,0,0,0.06)] p-6 sm:p-7">
               <div className="flex items-center gap-4 pb-5 border-b border-slate-100">
@@ -383,11 +414,11 @@ export const RoomDetailView: React.FC<RoomDetailViewProps> = ({ room, onBack, on
 
         {/* Similar Rooms Section */}
         {similarRooms.length > 0 && (
-          <div className="mt-16 pt-10 border-t border-slate-200">
-            <h3 className="text-2xl sm:text-3xl font-serif font-semibold text-slate-900 tracking-tight mb-7">
+          <div data-motion-sequence="related" className="mt-16 pt-10 border-t border-slate-200">
+            <h3 data-motion-step="copy" className="text-2xl sm:text-3xl font-serif font-semibold text-slate-900 tracking-tight mb-7">
               Không Gian Tương Tự Cùng Khu Vực
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div data-motion-step="grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {similarRooms.map((r) => (
                 <RoomCard key={r.id} room={r} onSelect={onSelectSimilarRoom} />
               ))}
@@ -397,12 +428,14 @@ export const RoomDetailView: React.FC<RoomDetailViewProps> = ({ room, onBack, on
       </div>
 
       {/* Modals */}
-      {bookingModalOpen && (
-        <BookingModal room={room} onClose={() => setBookingModalOpen(false)} />
-      )}
-      {reportModalOpen && (
-        <ReportModal room={room} onClose={() => setReportModalOpen(false)} />
-      )}
+      <AnimatePresence initial={false}>
+        {bookingModalOpen && (
+          <BookingModal key="booking-modal" room={room} onClose={() => setBookingModalOpen(false)} />
+        )}
+        {reportModalOpen && (
+          <ReportModal key="report-modal" room={room} onClose={() => setReportModalOpen(false)} />
+        )}
+      </AnimatePresence>
     </div>
   );
 };

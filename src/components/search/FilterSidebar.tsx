@@ -261,7 +261,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ onCloseMobile }) =
             </span>
           )}
         </div>
-        <div className="flex flex-wrap gap-1.5 max-h-48 overflow-y-auto pr-1">
+        <div data-lenis-prevent className="flex flex-wrap gap-1.5 max-h-48 overflow-y-auto pr-1">
           {ALL_AMENITIES.map((amenity) => {
             const isChecked = filters.amenities.includes(amenity.id);
             return (

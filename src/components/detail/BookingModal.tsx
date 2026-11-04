@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Calendar, Clock, User, Phone, MessageSquare, X, CheckCircle2 } from 'lucide-react';
 import { Room } from '../../types';
 import { useRooms } from '../../context/RoomContext';
@@ -46,7 +47,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ room, onClose }) => 
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} data-lenis-prevent className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
       <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-[0_24px_48px_rgba(0,0,0,0.2)] border border-slate-200 relative animate-in fade-in zoom-in-95 duration-200">
         <button
           onClick={onClose}
@@ -175,6 +176,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({ room, onClose }) => 
           </>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };

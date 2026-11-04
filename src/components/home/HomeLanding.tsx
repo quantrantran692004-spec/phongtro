@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import {
   Building2,
   ChevronDown,
@@ -58,15 +59,49 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({
   className = '',
 }) => {
   const selectedOption = options.find((option) => option.value === value) ?? options[0];
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [menuPosition, setMenuPosition] = useState<{ left: number; top: number; width: number; maxHeight: number } | null>(null);
+
+  useLayoutEffect(() => {
+    if (!open) return;
+
+    const updatePlacement = () => {
+      const trigger = dropdownRef.current?.querySelector('button');
+      if (!trigger) return;
+      const rect = trigger.getBoundingClientRect();
+      setMenuPosition({
+        left: rect.left,
+        top: rect.bottom + 8,
+        width: rect.width,
+        maxHeight: Math.min(156, Math.max(112, window.innerHeight - rect.bottom - 20)),
+      });
+    };
+
+    updatePlacement();
+    window.addEventListener('resize', updatePlacement);
+    window.addEventListener('scroll', updatePlacement, true);
+    return () => {
+      window.removeEventListener('resize', updatePlacement);
+      window.removeEventListener('scroll', updatePlacement, true);
+    };
+  }, [open]);
+
+  useLayoutEffect(() => {
+    if (!open) return;
+    const closeOnOutsidePointer = (event: PointerEvent) => {
+      const target = event.target as Node;
+      if (dropdownRef.current?.contains(target) || document.querySelector(`[data-home-dropdown="${id}"]`)?.contains(target)) return;
+      onClose(id);
+    };
+    document.addEventListener('pointerdown', closeOnOutsidePointer);
+    return () => document.removeEventListener('pointerdown', closeOnOutsidePointer);
+  }, [id, open, onClose]);
 
   return (
     <div
+      ref={dropdownRef}
       className={`group relative min-w-0 ${open ? 'z-30' : 'z-0'} ${className}`}
       onMouseEnter={() => onOpen(id)}
-      onMouseLeave={() => onClose(id)}
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) onClose(id);
-      }}
     >
       <button
         type="button"
@@ -89,12 +124,17 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({
         <ChevronDown className={`h-3.5 w-3.5 shrink-0 text-slate-500 transition-transform duration-200 ${open ? 'rotate-180 text-teal-700' : ''}`} aria-hidden="true" />
       </button>
 
-      {open && (
-        <div className="absolute inset-x-0 top-full z-50 pt-2">
-          <div
+      {open && menuPosition && createPortal(
+        <div
+            data-home-dropdown={id}
+            style={{ left: menuPosition.left, top: menuPosition.top, width: menuPosition.width, maxHeight: menuPosition.maxHeight }}
             role="listbox"
             aria-label={label}
-            className="max-h-44 overflow-y-auto overscroll-contain rounded-xl border border-slate-200/90 bg-white p-1.5 shadow-xl shadow-slate-900/15 ring-1 ring-black/5"
+            data-lenis-prevent
+            className="fixed z-[1000] overflow-y-auto overscroll-contain rounded-xl border border-slate-200/90 bg-white p-1.5 shadow-xl shadow-slate-900/15 ring-1 ring-black/5"
+            onKeyDown={(event) => {
+              if (event.key === 'Escape') onClose(id);
+            }}
           >
             {options.map((option) => (
               <button
@@ -111,8 +151,8 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({
                 {option.label}
               </button>
             ))}
-          </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
@@ -218,35 +258,40 @@ export const HomeLanding: React.FC<HomeLandingProps> = ({ onSearchSubmit, onOpen
   ];
 
   return (
-    <section aria-label="Trang chủ Trọ Thái Nguyên" className="relative isolate min-h-[clamp(860px,100vh,1040px)] overflow-hidden bg-slate-900">
-      <img
-        src={heroImage}
-        alt=""
-        aria-hidden="true"
-        className="absolute inset-0 h-full w-full object-cover object-[62%_center] saturate-[0.92] lg:object-center"
-      />
-      <div
-        className="hero-atmosphere-layer absolute inset-0 bg-gradient-to-r from-white/45 via-white/12 to-transparent sm:from-white/35 lg:from-white/20"
-        aria-hidden="true"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/35 via-transparent to-white/5" aria-hidden="true" />
+    <section
+      aria-label="Trang chủ Trọ Thái Nguyên"
+      data-motion-cinematic
+      data-motion-sequence="hero"
+      className={`relative isolate min-h-[clamp(860px,100vh,1040px)] bg-slate-900 ${openDropdown ? 'z-30' : ''}`}
+    >
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <img
+          src={heroImage}
+          data-motion-hero="image"
+          data-motion-scroll-hero
+          data-motion-cinematic-image
+          alt=""
+          className="hero-cinematic-image absolute inset-0 h-full w-full object-cover object-[62%_center] saturate-[0.92] lg:object-center"
+        />
+        <div className="hero-atmosphere-layer absolute inset-0 bg-gradient-to-r from-white/45 via-white/12 to-transparent sm:from-white/35 lg:from-white/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/35 via-transparent to-white/5" />
+      </div>
 
       <div className="relative z-10 mx-auto flex min-h-[clamp(860px,100vh,1040px)] w-full max-w-[1440px] flex-col px-4 pb-6 pt-20 sm:px-8 sm:pb-8 sm:pt-28 lg:px-12 xl:px-20">
         <div className="max-w-3xl">
-          <div data-scroll-reveal="text" className="mb-3 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.16em] text-teal-950 sm:text-xs">
+          <div data-motion-step="label" className="mb-3 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.16em] text-teal-950 sm:text-xs">
             <span className="h-px w-8 bg-teal-800" />
             <span>Nền tảng tìm phòng trọ uy tín</span>
           </div>
 
-          <h1 data-scroll-reveal="text" className="max-w-3xl font-serif text-2xl font-semibold leading-[1.08] tracking-tight text-slate-900 sm:text-[clamp(2.5rem,4vw,3.75rem)]">
+          <h1 data-motion-step="headline" data-motion-split className="max-w-3xl font-serif text-2xl font-semibold leading-[1.08] tracking-tight text-slate-900 sm:text-[clamp(2.5rem,4vw,3.75rem)]">
             Kiến tạo không gian sống
             <span className="block text-teal-700">Chuẩn mực & Minh bạch</span>
           </h1>
           <div aria-hidden="true" className="mt-3 h-12 sm:mt-4 sm:h-14" />
-          <div data-scroll-stagger className="mt-4 grid max-w-3xl grid-cols-2 items-center gap-x-3 gap-y-3 sm:mt-6 sm:flex sm:gap-0">
+          <div data-motion-step="stagger" className="mt-4 grid max-w-3xl grid-cols-2 items-center gap-x-3 gap-y-3 sm:mt-6 sm:flex sm:gap-0">
             {trustPoints.map(({ title, detail, icon: Icon }, index) => (
               <div
-                data-scroll-reveal="up"
                 className={`flex min-w-0 items-center gap-2.5 sm:flex-1 sm:py-1 ${index === 0 ? 'sm:pl-0 sm:pr-3' : 'sm:border-l sm:border-teal-950/20 sm:px-3'}`}
                 key={title}
               >
@@ -265,7 +310,7 @@ export const HomeLanding: React.FC<HomeLandingProps> = ({ onSearchSubmit, onOpen
         </div>
 
         <section aria-label="Tìm phòng trọ" className="mt-5 w-full max-w-[1080px] sm:mt-8 lg:mt-10">
-          <div data-scroll-reveal="up" className="rounded-2xl border border-white/80 bg-white/95 p-3 shadow-xl shadow-slate-950/15 backdrop-blur-xl sm:rounded-3xl sm:p-4">
+          <div data-motion-step="panel" className="rounded-2xl border border-white/80 bg-white/95 p-3 shadow-xl shadow-slate-950/15 backdrop-blur-xl sm:rounded-3xl sm:p-4">
             <div className="no-scrollbar mb-3 flex gap-1 overflow-x-auto border-b border-slate-200 pb-3 sm:gap-2">
               {quickCategories.map(({ id, label, icon: Icon }) => (
                 <button
@@ -341,6 +386,7 @@ export const HomeLanding: React.FC<HomeLandingProps> = ({ onSearchSubmit, onOpen
                 </button>
                 <button
                   type="submit"
+                  data-motion-magnetic
                   className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-full bg-teal-700 px-5 text-xs font-bold uppercase tracking-wide text-white shadow-sm shadow-teal-900/15 transition-all duration-200 hover:-translate-y-0.5 hover:bg-teal-800 hover:shadow-lg hover:shadow-teal-900/20 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700 focus-visible:ring-offset-2 md:flex-initial sm:px-7"
                 >
                   <Search className="h-4 w-4" aria-hidden="true" />
@@ -354,7 +400,7 @@ export const HomeLanding: React.FC<HomeLandingProps> = ({ onSearchSubmit, onOpen
 
         <div className="flex-1" />
 
-        <div className="mt-auto flex flex-col gap-4 pt-8 text-white lg:flex-row lg:items-center lg:justify-between lg:gap-3">
+        <div data-motion-step="footer" className="mt-auto flex flex-col gap-4 pt-8 text-white lg:flex-row lg:items-center lg:justify-between lg:gap-3">
           <div className="flex items-center lg:w-44 lg:flex-none">
             <div className="w-60">
               <svg className="h-20 w-full overflow-visible text-white drop-shadow-md" viewBox="0 0 260 80" role="img" aria-label="Không chỉ là nơi ở mà là một trải nghiệm sống">
@@ -410,6 +456,12 @@ export const HomeLanding: React.FC<HomeLandingProps> = ({ onSearchSubmit, onOpen
             </span>
           </button>
         </div>
+      </div>
+      <div data-motion-step="cue" aria-hidden="true" className="pointer-events-none absolute bottom-2 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-1 text-[9px] font-semibold uppercase tracking-[0.18em] text-white/75 lg:flex">
+        <span>Cuộn khám phá</span>
+        <span className="motion-scroll-cue relative h-4 w-px overflow-hidden bg-white/35">
+          <span className="absolute left-0 top-0 h-1.5 w-px bg-white" />
+        </span>
       </div>
     </section>
   );

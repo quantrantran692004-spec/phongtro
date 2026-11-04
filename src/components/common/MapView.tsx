@@ -152,7 +152,7 @@ export const MapView: React.FC<MapViewProps> = ({ rooms, selectedRoomId, onSelec
   }, [rooms, selectedRoomId, onSelectRoom]);
 
   return (
-    <div className="w-full h-full min-h-[500px] relative rounded-3xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.06)] border border-slate-200">
+    <div data-lenis-prevent className="w-full h-full min-h-[500px] relative rounded-3xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.06)] border border-slate-200">
       <div ref={mapContainerRef} className="w-full h-full" style={{ minHeight: '500px' }} />
       <div className="absolute top-4 left-4 z-[1000] bg-white/95 backdrop-blur-xl px-4 py-2 rounded-full shadow-md border border-slate-200 text-xs font-semibold text-slate-700 flex items-center gap-3.5">
         <span className="flex items-center gap-1.5 text-slate-900">

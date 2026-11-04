@@ -534,7 +534,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onSelectRoom }) => {
                   </button>
                 </div>
 
-                <div className="space-y-1.5 max-h-48 overflow-y-auto">
+                <div data-lenis-prevent className="space-y-1.5 max-h-48 overflow-y-auto">
                   {parsedPreview.map((item, idx) => (
                     <div key={idx} className="bg-white p-2.5 rounded-xl border border-stone-200 text-xs flex items-center justify-between">
                       <span className="font-bold text-stone-900">{item.title}</span>

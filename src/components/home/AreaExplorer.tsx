@@ -27,16 +27,16 @@ export const AreaExplorer: React.FC<AreaExplorerProps> = ({ onSelectArea }) => {
   };
 
   return (
-    <section className="py-16 sm:py-20 bg-[#F8FAFC] border-b border-slate-200/70">
+    <section data-motion-sequence="areas" className="py-16 sm:py-20 bg-[#F8FAFC] border-b border-slate-200/70">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div data-scroll-reveal="text" className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+        <div data-motion-step="copy" className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
           <div className="inline-flex items-center gap-2 bg-teal-50 text-teal-800 text-xs font-bold uppercase tracking-widest px-3.5 py-1.5 rounded-full mb-3 border border-teal-200/80 shadow-2xs">
             <span className="w-1.5 h-1.5 rounded-full bg-teal-600 animate-pulse"></span>
             <span>Khu Vực Trọng Điểm Thái Nguyên</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          <h2 data-motion-split className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
             Khu Vực Thuê Trọ{' '}
             <span className="bg-gradient-to-r from-teal-700 via-teal-600 to-emerald-500 bg-clip-text text-transparent">
               Sôi Động Nhất
@@ -48,7 +48,7 @@ export const AreaExplorer: React.FC<AreaExplorerProps> = ({ onSelectArea }) => {
         </div>
 
         {/* Bento Grid */}
-        <div data-scroll-stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        <div data-motion-step="image-grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           {POPULAR_AREAS.map((area, idx) => {
             const isLarge = idx === 0;
             const liveCount = getAreaLiveCount(area.ward, area.count);
@@ -56,9 +56,19 @@ export const AreaExplorer: React.FC<AreaExplorerProps> = ({ onSelectArea }) => {
             return (
               <div
                 key={area.ward || idx}
-                data-scroll-reveal="image"
+                data-motion-tilt
+                data-motion-light
+                role="button"
+                tabIndex={0}
                 onClick={() => handleClickArea(area.ward)}
-                className={`group relative overflow-hidden rounded-3xl cursor-pointer shadow-sm hover:shadow-[0_20px_45px_rgba(15,23,42,0.14)] hover:-translate-y-1 transition-all duration-300 ${
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  handleClickArea(area.ward);
+                }
+              }}
+              aria-label={`Tìm phòng tại ${area.name}`}
+                className={`group relative overflow-hidden rounded-3xl cursor-pointer shadow-sm hover:shadow-[0_20px_45px_rgba(15,23,42,0.14)] hover:-translate-y-1 active:scale-[0.985] transition-all duration-300 ${
                   isLarge
                     ? 'col-span-1 sm:col-span-2 row-span-2 min-h-[340px] lg:h-full'
                     : idx === 3
@@ -66,12 +76,17 @@ export const AreaExplorer: React.FC<AreaExplorerProps> = ({ onSelectArea }) => {
                     : 'col-span-1 aspect-[4/3] sm:aspect-square'
                 }`}
               >
-                <img
-                  src={area.image}
-                  alt={area.name}
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                  loading="lazy"
-                />
+                <div data-motion-tilt-target className="motion-tilt-image absolute inset-0">
+                  <div data-motion-scroll-image className="absolute inset-x-0 -inset-y-[5%]">
+                    <img
+                      src={area.image}
+                      alt=""
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div aria-hidden="true" className="motion-pointer-light pointer-events-none absolute inset-0 z-[2]" />
+                </div>
                 
                 {/* Dynamic Gradient Overlays */}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/40 to-transparent" />
@@ -86,7 +101,7 @@ export const AreaExplorer: React.FC<AreaExplorerProps> = ({ onSelectArea }) => {
                 {/* Bottom Content Area */}
                 <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6">
                   <div className="pr-12">
-                    <h3 className="text-white font-extrabold text-lg sm:text-xl leading-tight mb-1 group-hover:text-teal-200 transition-colors">
+                    <h3 className="motion-area-title text-white font-extrabold text-lg sm:text-xl leading-tight mb-1 group-hover:text-teal-200 transition-colors">
                       {area.name}
                     </h3>
                     <div className="flex items-center gap-2 text-white/80 text-xs font-medium">

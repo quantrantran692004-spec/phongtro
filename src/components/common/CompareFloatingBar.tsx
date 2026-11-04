@@ -1,6 +1,8 @@
 import React from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Scale, X, ArrowRight } from 'lucide-react';
 import { useRooms } from '../../context/RoomContext';
+import { MOTION_DURATION, MOTION_EASE } from '../../utils/motionTokens';
 
 interface CompareFloatingBarProps {
   onOpenCompare: () => void;
@@ -9,10 +11,16 @@ interface CompareFloatingBarProps {
 export const CompareFloatingBar: React.FC<CompareFloatingBarProps> = ({ onOpenCompare }) => {
   const { compareRooms, removeCompare, clearCompare } = useRooms();
 
-  if (compareRooms.length === 0) return null;
-
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 backdrop-blur-xl bg-slate-950/90 text-white rounded-full px-5 py-3 shadow-float border border-white/10 flex items-center gap-3 max-w-xl w-[92%] sm:w-auto animate-in fade-in slide-in-from-bottom-4 duration-300">
+    <AnimatePresence>
+      {compareRooms.length > 0 && (
+    <motion.div
+      initial={{ opacity: 0, x: '-50%', y: 18, scale: 0.98 }}
+      animate={{ opacity: 1, x: '-50%', y: 0, scale: 1 }}
+      exit={{ opacity: 0, x: '-50%', y: 12, scale: 0.98 }}
+      transition={{ duration: MOTION_DURATION.standard, ease: MOTION_EASE }}
+      className="fixed bottom-6 left-1/2 z-40 backdrop-blur-xl bg-slate-950/90 text-white rounded-full px-5 py-3 shadow-float border border-white/10 flex items-center gap-3 max-w-xl w-[92%] sm:w-auto"
+    >
       <div className="flex items-center gap-2.5">
         <div className="w-9 h-9 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
           <Scale className="w-4 h-4" />
@@ -62,6 +70,8 @@ export const CompareFloatingBar: React.FC<CompareFloatingBarProps> = ({ onOpenCo
           <ArrowRight className="w-3.5 h-3.5" />
         </button>
       </div>
-    </div>
+    </motion.div>
+      )}
+    </AnimatePresence>
   );
 };

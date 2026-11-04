@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import { 
   X, 
   Check, 
@@ -284,7 +285,7 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} data-lenis-prevent className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
       <div className="bg-white rounded-lg w-full max-w-2xl max-h-[92vh] flex flex-col shadow-card-hover border border-[#E5E2D9] overflow-hidden animate-in zoom-in-95 duration-200">
         {/* Header */}
         <div className="p-4 sm:p-5 border-b border-[#E5E2D9] flex items-center justify-between bg-[#FAF9F7]">
@@ -313,7 +314,7 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
         </div>
 
         {/* Form Body */}
-        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-4">
+        <form onSubmit={handleSubmit} data-lenis-prevent className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-4">
           {/* STEP 1 */}
           {step === 1 && (
             <div className="space-y-3.5 animate-in fade-in duration-200">
@@ -690,6 +691,6 @@ export const RoomFormModal: React.FC<RoomFormModalProps> = ({ initialRoom, onClo
           {saveError && <p role="alert" className="text-xs font-medium text-rose-700">{saveError}</p>}
         </form>
       </div>
-    </div>
+    </motion.div>
   );
 };

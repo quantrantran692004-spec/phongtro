@@ -294,18 +294,17 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Compare handlers
   const toggleCompare = (roomId: string) => {
-    setCompareList((prev) => {
-      if (prev.includes(roomId)) {
-        showToast('Đã bỏ phòng khỏi danh sách so sánh', 'info');
-        return prev.filter((id) => id !== roomId);
-      }
-      if (prev.length >= 4) {
-        showToast('Chỉ có thể so sánh tối đa 4 phòng cùng lúc', 'error');
-        return prev;
-      }
-      showToast('Đã thêm vào danh sách so sánh', 'success');
-      return [...prev, roomId];
-    });
+    if (compareList.includes(roomId)) {
+      setCompareList(compareList.filter((id) => id !== roomId));
+      showToast('Đã bỏ phòng khỏi danh sách so sánh', 'info');
+      return;
+    }
+    if (compareList.length >= 4) {
+      showToast('Chỉ có thể so sánh tối đa 4 phòng cùng lúc', 'error');
+      return;
+    }
+    setCompareList([...compareList, roomId]);
+    showToast('Đã thêm vào danh sách so sánh', 'success');
   };
 
   const removeCompare = (roomId: string) => {
@@ -319,14 +318,13 @@ export const RoomProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Favorite handlers
   const toggleFavorite = (roomId: string) => {
-    setFavorites((prev) => {
-      if (prev.includes(roomId)) {
-        showToast('Đã xóa phòng khỏi danh sách yêu thích', 'info');
-        return prev.filter((id) => id !== roomId);
-      }
-      showToast('Đã lưu phòng vào danh sách yêu thích ❤️', 'success');
-      return [...prev, roomId];
-    });
+    if (favorites.includes(roomId)) {
+      setFavorites(favorites.filter((id) => id !== roomId));
+      showToast('Đã xóa phòng khỏi danh sách yêu thích', 'info');
+      return;
+    }
+    setFavorites([...favorites, roomId]);
+    showToast('Đã lưu phòng vào danh sách yêu thích ❤️', 'success');
   };
 
   const isFavorite = (roomId: string) => favorites.includes(roomId);

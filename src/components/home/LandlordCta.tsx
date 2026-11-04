@@ -7,7 +7,7 @@ interface LandlordCtaProps {
 
 export const LandlordCta: React.FC<LandlordCtaProps> = ({ onPostRoom }) => {
   return (
-    <section className="py-16 sm:py-24 bg-[#F8FAFC] border-b border-slate-200/80">
+    <section data-motion-sequence="landlord" className="py-16 sm:py-24 bg-[#F8FAFC] border-b border-slate-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-teal-950 p-8 sm:p-12 lg:p-16 shadow-[0_30px_60px_rgba(15,23,42,0.25)] border border-slate-800">
           
@@ -15,16 +15,16 @@ export const LandlordCta: React.FC<LandlordCtaProps> = ({ onPostRoom }) => {
           <div className="absolute top-0 right-0 w-96 h-96 bg-teal-500/15 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div data-scroll-stagger className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center relative z-10">
             
             {/* Left Column (7 cols): Heading, Features & CTA */}
-            <div data-scroll-reveal="up" className="lg:col-span-7">
+            <div data-motion-step="copy" className="lg:col-span-7">
               <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider bg-teal-500/20 text-teal-300 border border-teal-400/30 px-3.5 py-1.5 rounded-full mb-4 backdrop-blur-md">
                 <Sparkles className="w-3.5 h-3.5 text-teal-400" />
                 <span>Dành Cho Chủ Nhà Trọ Thái Nguyên</span>
               </span>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
+              <h2 data-motion-split className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
                 Bạn Có Phòng Trọ{' '}
                 <span className="bg-gradient-to-r from-teal-400 via-emerald-300 to-teal-200 bg-clip-text text-transparent">
                   Cần Tìm Khách Nhanh?
@@ -68,6 +68,7 @@ export const LandlordCta: React.FC<LandlordCtaProps> = ({ onPostRoom }) => {
 
               {/* Action Button */}
               <button
+                data-motion-magnetic
                 onClick={onPostRoom}
                 className="group inline-flex items-center gap-3 bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-400 hover:to-emerald-400 text-slate-950 font-extrabold text-sm px-8 py-4 rounded-full shadow-[0_12px_28px_rgba(20,184,166,0.35)] hover:-translate-y-0.5 transition-all duration-200 uppercase tracking-wider"
               >
@@ -78,7 +79,7 @@ export const LandlordCta: React.FC<LandlordCtaProps> = ({ onPostRoom }) => {
             </div>
 
             {/* Right Column (5 cols): Modern Dashboard Preview Mockup */}
-            <div data-scroll-reveal="up" className="lg:col-span-5">
+            <div data-motion-step="visual" className="lg:col-span-5">
               <div className="bg-slate-900/90 backdrop-blur-xl border border-white/15 rounded-3xl p-6 sm:p-7 shadow-2xl relative space-y-5">
                 
                 {/* Header Mockup */}

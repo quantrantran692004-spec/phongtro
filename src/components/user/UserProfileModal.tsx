@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { 
   X, 
   Heart, 
@@ -49,7 +50,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-in fade-in duration-200">
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} data-lenis-prevent className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
       <div className="bg-white rounded-3xl w-full max-w-3xl max-h-[90vh] flex flex-col shadow-[0_24px_48px_rgba(0,0,0,0.2)] border border-slate-200 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         {/* Header */}
         <div className="p-5 sm:p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
@@ -105,7 +106,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
         </div>
 
         {/* Tab Content */}
-        <div className="p-6 overflow-y-auto flex-1">
+        <div data-lenis-prevent className="p-6 overflow-y-auto flex-1">
           {/* TAB: SAVED */}
           {activeTab === 'saved' && (
             <div>
@@ -275,6 +276,6 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

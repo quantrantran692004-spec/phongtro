@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { 
   Heart, 
   Scale, 
@@ -53,23 +54,37 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
     : 'Nước giá dân';
 
   return (
-    <div
+    <motion.div
+      layout="position"
+      transition={{ layout: { duration: 0.24, ease: [0.22, 1, 0.36, 1] } }}
       data-scroll-reveal="up"
+      data-motion-tilt
+      data-motion-light
       onClick={() => onSelect(room.id)}
-      className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_4px_20px_-2px_rgba(15,23,42,0.05)] transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1 hover:border-teal-300 hover:shadow-[0_20px_38px_-10px_rgba(15,23,42,0.32),0_8px_18px_-8px_rgba(13,148,136,0.18)]"
+      className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_4px_20px_-2px_rgba(15,23,42,0.05)] transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1 active:scale-[0.995] hover:border-teal-300 hover:shadow-[0_20px_38px_-10px_rgba(15,23,42,0.32),0_8px_18px_-8px_rgba(13,148,136,0.18)]"
     >
       {/* 1. Image Area with Airbnb-Plus 4:3 Aspect Ratio */}
       <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 rounded-t-2xl">
-        <img
-          key={currentImgIndex}
-          src={room.images[currentImgIndex] || 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800'}
-          alt={room.title}
-          className="h-full w-full object-cover"
-          loading="lazy"
-        />
+        <div data-motion-tilt-target className="motion-tilt-image absolute inset-0">
+          <AnimatePresence initial={false}>
+            <motion.img
+              key={currentImgIndex}
+              layoutId={currentImgIndex === 0 ? `room-photo-${room.id}` : undefined}
+              src={room.images[currentImgIndex] || 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800'}
+              alt={room.title}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-0 h-full w-full object-cover"
+              loading="lazy"
+            />
+          </AnimatePresence>
+        </div>
 
         {/* Soft Vignette Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/25 pointer-events-none" />
+        <div aria-hidden="true" className="motion-pointer-light pointer-events-none absolute inset-0 z-[2]" />
 
         {/* Top-Left Badges: Verified status or Gần KCN Samsung */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10 pointer-events-none">
@@ -242,6 +257,6 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-30 rounded-2xl bg-slate-900/0 transition-colors duration-300 group-hover:bg-slate-900/[0.08]"
       />
-    </div>
+    </motion.div>
   );
 };

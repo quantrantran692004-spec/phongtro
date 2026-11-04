@@ -1,0 +1,21 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "src/components/home/AreaExplorer.tsx",
+          "src/components/home/FeaturedRooms.tsx",
+          "src/components/home/LandlordCta.tsx",
+          "src/components/home/SafeRentGuide.tsx",
+          "src/components/home/UniversityShortcuts.tsx"
+        ],
+        "createdAt": "2026-11-04T05:10:02.366Z",
+        "reason": "Agent: preserved as part of the complete pre-redesign pool-version rollback explicitly requested by the user."
+      }
+    ]
+  }
+}

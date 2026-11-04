@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { X, BookOpen, ShieldCheck, AlertCircle, FileText, CheckCircle2, Phone } from 'lucide-react';
 
 interface GuideModalProps {
@@ -7,7 +8,7 @@ interface GuideModalProps {
 
 export const GuideModal: React.FC<GuideModalProps> = ({ onClose }) => {
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-in fade-in duration-200">
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} data-lenis-prevent className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
       <div className="bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-[0_24px_48px_rgba(0,0,0,0.2)] border border-slate-200 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         <div className="p-5 sm:p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
           <div className="flex items-center gap-3.5">
@@ -24,7 +25,7 @@ export const GuideModal: React.FC<GuideModalProps> = ({ onClose }) => {
           </button>
         </div>
 
-        <div className="p-6 overflow-y-auto space-y-6 text-sm text-slate-700 leading-relaxed">
+        <div data-lenis-prevent className="p-6 overflow-y-auto space-y-6 text-sm text-slate-700 leading-relaxed">
           {/* Section 1 */}
           <div className="bg-rose-50/60 border border-rose-200/70 p-5 rounded-2xl">
             <h3 className="font-bold text-rose-900 flex items-center gap-2 mb-2 text-base">
@@ -86,6 +87,6 @@ export const GuideModal: React.FC<GuideModalProps> = ({ onClose }) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

@@ -223,7 +223,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             </div>
 
             {/* Results List */}
-            <div className="overflow-y-auto p-2 space-y-1">
+            <div data-lenis-prevent className="overflow-y-auto p-2 space-y-1">
               {results.length === 0 ? (
                 <div className="py-12 text-center text-sm text-[#777B78] font-normal">
                   Không tìm thấy kết quả nào khớp với "{query}"

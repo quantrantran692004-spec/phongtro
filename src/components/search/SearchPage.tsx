@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { MOTION_DURATION, MOTION_EASE } from '../../utils/motionTokens';
 import { 
   Grid, 
   Map as MapIcon, 
@@ -9,10 +11,11 @@ import {
 } from 'lucide-react';
 import { useRooms } from '../../context/RoomContext';
 import { RoomCard } from '../common/RoomCard';
-import { MapView } from '../common/MapView';
 import { FilterSidebar } from './FilterSidebar';
 import { getRoomTypeLabel } from '../../utils/formatters';
 import { RoomType } from '../../types';
+
+const MapView = lazy(() => import('../common/MapView').then((module) => ({ default: module.MapView })));
 
 interface SearchPageProps {
   onSelectRoom: (roomId: string) => void;
@@ -37,9 +40,9 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
     <div className="bg-[#F8FAFC] min-h-screen py-8 sm:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Control Bar */}
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-[0_1px_3px_rgba(0,0,0,0.04)] p-5 sm:p-6 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div data-motion-sequence="search" data-motion-step="panel" className="bg-white rounded-2xl border border-slate-200 shadow-[0_1px_3px_rgba(0,0,0,0.04)] p-5 sm:p-6 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-semibold text-slate-900 tracking-tight flex items-center gap-3">
+            <h1 data-motion-split className="text-2xl sm:text-3xl font-semibold text-slate-900 tracking-tight flex items-center gap-3">
               <span>Phòng Trọ Cho Thuê <span className="font-serif italic font-normal text-slate-700">Thái Nguyên</span></span>
               <span className="text-xs font-semibold bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">
                 {filteredRooms.length} kết quả
@@ -110,7 +113,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
 
         {/* Active Filter Chips */}
         {hasActiveFilters && (
-          <div className="flex items-center gap-2 flex-wrap mb-6 bg-white p-4 rounded-2xl border border-slate-200 text-xs shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+          <div data-motion-sequence="search" data-motion-step="controls" className="flex items-center gap-2 flex-wrap mb-6 bg-white p-4 rounded-2xl border border-slate-200 text-xs shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
             <span className="font-semibold text-slate-700 mr-1">Đang lọc:</span>
 
             {filters.keyword && (
@@ -207,9 +210,9 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
             <FilterSidebar />
           </div>
 
-          <div className="flex-1 min-w-0">
+          <div data-motion-sequence="search-results" className="flex-1 min-w-0">
             {filteredRooms.length === 0 ? (
-              <div className="bg-white rounded-3xl border border-slate-200 p-16 text-center max-w-md mx-auto shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+              <div data-motion-step="visual" className="bg-white rounded-3xl border border-slate-200 p-16 text-center max-w-md mx-auto shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
                 <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-5 text-3xl">
                   🔍
                 </div>
@@ -228,7 +231,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
                 </button>
               </div>
             ) : viewMode === 'grid' ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+              <div data-motion-step="image-grid" className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
                 {filteredRooms.map((room) => (
                   <div
                     key={room.id}
@@ -240,8 +243,10 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
                 ))}
               </div>
             ) : (
-              <div className="h-[680px] w-full rounded-3xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-slate-200">
-                <MapView rooms={filteredRooms} selectedRoomId={hoveredRoomId} onSelectRoom={onSelectRoom} />
+              <div data-motion-step="visual" className="h-[680px] w-full rounded-3xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-slate-200">
+                <Suspense fallback={<div className="min-h-[500px]" role="status" aria-label="Đang tải bản đồ" />}>
+                  <MapView rooms={filteredRooms} selectedRoomId={hoveredRoomId} onSelectRoom={onSelectRoom} />
+                </Suspense>
               </div>
             )}
           </div>
@@ -249,9 +254,10 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
       </div>
 
       {/* Mobile Filter Drawer */}
-      {mobileFilterOpen && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex justify-end lg:hidden">
-          <div className="bg-[#F8FAFC] w-full max-w-sm h-full overflow-y-auto p-4 shadow-2xl flex flex-col justify-between">
+      <AnimatePresence>
+        {mobileFilterOpen && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex justify-end lg:hidden">
+          <motion.div initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ duration: MOTION_DURATION.standard, ease: MOTION_EASE }} data-lenis-prevent className="bg-[#F8FAFC] w-full max-w-sm h-full overflow-y-auto p-4 shadow-2xl flex flex-col justify-between">
             <FilterSidebar onCloseMobile={() => setMobileFilterOpen(false)} />
             <div className="sticky bottom-0 pt-3 pb-2 bg-[#F8FAFC] border-t border-slate-200 mt-4">
               <button
@@ -261,9 +267,10 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onSelectRoom }) => {
                 Áp dụng bộ lọc ({filteredRooms.length} phòng)
               </button>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Scale, X, Check, ArrowRight, Trash2 } from 'lucide-react';
 import { useRooms } from '../../context/RoomContext';
 import { ALL_AMENITIES } from '../../data/amenities';
@@ -14,7 +15,7 @@ export const ComparisonModal: React.FC<ComparisonModalProps> = ({ onClose, onSel
 
   if (compareRooms.length === 0) {
     return (
-      <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
         <div className="bg-white rounded-3xl max-w-sm w-full p-8 text-center shadow-[0_24px_48px_rgba(0,0,0,0.2)] border border-slate-200 relative animate-in zoom-in-95 duration-200">
           <button onClick={onClose} className="absolute top-5 right-5 p-2 text-slate-400 hover:text-slate-900 rounded-full hover:bg-slate-100 transition">
             <X className="w-5 h-5" />
@@ -33,14 +34,14 @@ export const ComparisonModal: React.FC<ComparisonModalProps> = ({ onClose, onSel
             Quay lại tìm phòng
           </button>
         </div>
-      </div>
+      </motion.div>
     );
   }
 
   const lowestRent = Math.min(...compareRooms.map((r) => r.costs.rent));
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-in fade-in duration-200">
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} data-lenis-prevent className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
       <div className="bg-white rounded-3xl w-full max-w-6xl max-h-[92vh] flex flex-col shadow-[0_24px_48px_rgba(0,0,0,0.2)] border border-slate-200 overflow-hidden animate-in zoom-in-95 duration-200">
         {/* Header */}
         <div className="p-5 sm:p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
@@ -226,6 +227,6 @@ export const ComparisonModal: React.FC<ComparisonModalProps> = ({ onClose, onSel
           </table>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

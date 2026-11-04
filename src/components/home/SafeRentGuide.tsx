@@ -36,17 +36,17 @@ export const SafeRentGuide: React.FC<SafeRentGuideProps> = ({ onOpenGuideModal }
   ];
 
   return (
-    <section className="py-16 sm:py-24 bg-white border-b border-slate-200/80">
+    <section data-motion-sequence="guide" className="py-16 sm:py-24 bg-white border-b border-slate-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div data-scroll-reveal="up" className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
+        <div data-motion-step="copy" className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-50 border border-teal-200/80 text-teal-800 text-xs font-bold uppercase tracking-wider mb-3">
               <ShieldCheck className="w-4 h-4 text-teal-600" />
               <span>Tiêu Chuẩn Thuê Trọ An Toàn 3 Bước</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            <h2 data-motion-split className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
               3 Bước Thuê Phòng{' '}
               <span className="bg-gradient-to-r from-teal-700 via-teal-600 to-emerald-500 bg-clip-text text-transparent">
                 An Toàn & Minh Bạch
@@ -58,6 +58,7 @@ export const SafeRentGuide: React.FC<SafeRentGuideProps> = ({ onOpenGuideModal }
           </div>
 
           <button
+            data-motion-step="cta"
             onClick={onOpenGuideModal}
             className="group inline-flex items-center gap-2.5 bg-slate-100 hover:bg-slate-200/80 text-slate-800 font-bold text-xs sm:text-sm px-6 py-3 rounded-full transition self-start md:self-end"
           >
@@ -67,13 +68,12 @@ export const SafeRentGuide: React.FC<SafeRentGuideProps> = ({ onOpenGuideModal }
         </div>
 
         {/* 3-Step Interactive Cards Grid */}
-        <div data-scroll-stagger className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div data-motion-step="grid" className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
           {steps.map((s, idx) => {
             const isActive = activeStep === idx;
             return (
               <div
                 key={s.step}
-                data-scroll-reveal="up"
                 onMouseEnter={() => setActiveStep(idx)}
                 className={`relative rounded-3xl p-6 sm:p-8 border transition-all duration-300 flex flex-col justify-between ${
                   isActive

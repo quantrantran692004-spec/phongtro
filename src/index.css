@@ -3,8 +3,16 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --motion-duration-fast: 160ms;
+    --motion-duration-standard: 260ms;
+    --motion-duration-reveal: 640ms;
+    --motion-ease-standard: cubic-bezier(0.2, 0.75, 0.25, 1);
+    --motion-ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     -webkit-tap-highlight-color: transparent;
     font-family: 'Be Vietnam Pro', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
@@ -111,44 +119,130 @@
     animation: none;
     will-change: auto;
   }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-property: color, background-color, border-color, box-shadow, opacity !important;
+    transition-duration: 120ms !important;
+  }
+
+  html.motion-ready [data-scroll-reveal] {
+    opacity: 1 !important;
+    visibility: visible !important;
+    translate: none !important;
+    clip-path: none !important;
+    filter: none !important;
+  }
 }
 
-html.scroll-reveal-ready [data-scroll-reveal="up"],
-html.scroll-reveal-ready [data-scroll-reveal="text"],
-html.scroll-reveal-ready [data-scroll-reveal="image"] {
+.motion-tilt-image {
+  --motion-tilt-x: 0deg;
+  --motion-tilt-y: 0deg;
+  --motion-image-scale: 1;
+  transform: perspective(1100px) rotateX(var(--motion-tilt-x)) rotateY(var(--motion-tilt-y)) scale(var(--motion-image-scale));
+  transform-origin: center;
+  transition: transform 650ms cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+.hero-cinematic-image {
+  --hero-drift-x: 0%;
+  --hero-drift-y: 0%;
+  --hero-pointer-x: 0px;
+  --hero-pointer-y: 0px;
+  --hero-scroll-y: 0%;
+  --hero-scroll-scale: 0;
+  --hero-scale: 1;
+  transform: translate3d(
+    calc(var(--hero-drift-x) + var(--hero-pointer-x)),
+    calc(var(--hero-drift-y) + var(--hero-pointer-y) + var(--hero-scroll-y)),
+    0
+  ) scale(calc(var(--hero-scale) + var(--hero-scroll-scale)));
+  transform-origin: 54% 50%;
+  backface-visibility: hidden;
+}
+
+.motion-pointer-light {
   opacity: 0;
-  translate: 0 12px;
-  transition-delay: var(--scroll-reveal-delay, 0ms);
-  transition-duration: 560ms;
-  transition-timing-function: cubic-bezier(0.2, 0.7, 0.25, 1);
-  transition-property: opacity, translate, clip-path;
+  background: radial-gradient(
+    280px circle at var(--motion-pointer-x, 50%) var(--motion-pointer-y, 50%),
+    rgba(255, 255, 255, 0.26),
+    rgba(255, 255, 255, 0.08) 30%,
+    transparent 72%
+  );
+  transition: opacity 220ms ease-out;
 }
 
-html.scroll-reveal-ready [data-scroll-reveal="text"] {
-  translate: 0 8px;
-}
-
-html.scroll-reveal-ready [data-scroll-reveal="image"] {
-  translate: 0 8px;
-  clip-path: inset(5% 0 0 0 round 1.5rem);
-  transition-duration: 680ms;
-}
-
-html.scroll-reveal-ready [data-scroll-reveal].is-scroll-revealed {
+[data-motion-light]:hover .motion-pointer-light,
+[data-motion-light]:focus-visible .motion-pointer-light {
   opacity: 1;
-  translate: 0 0;
 }
 
-html.scroll-reveal-ready [data-scroll-reveal="image"].is-scroll-revealed {
-  clip-path: inset(0 round 1.5rem);
+.motion-area-title {
+  transition: color 220ms ease-out, transform 420ms cubic-bezier(0.16, 1, 0.3, 1), clip-path 420ms cubic-bezier(0.16, 1, 0.3, 1);
+  clip-path: inset(0 0 0 0);
+}
+
+.motion-scroll-cue > span {
+  animation: scroll-cue-travel 1.7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes scroll-cue-travel {
+  0% { transform: translateY(-100%); opacity: 0; }
+  24% { opacity: 1; }
+  76% { opacity: 1; }
+  100% { transform: translateY(300%); opacity: 0; }
+}
+
+[data-motion-tilt]:hover .motion-area-title {
+  transform: translate3d(0, -2px, 0);
+  clip-path: inset(0 0 -0.15em 0);
+}
+
+[data-motion-tilt]:hover .motion-tilt-image {
+  --motion-image-scale: 1.035;
+}
+
+[data-motion-magnetic] {
+  translate: var(--motion-magnetic-x, 0px) var(--motion-magnetic-y, 0px);
+}
+
+.motion-line {
+  overflow: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html.scroll-reveal-ready [data-scroll-reveal] {
-    opacity: 1;
-    translate: none;
-    clip-path: none;
-    transition: none;
+  .hero-cinematic-image {
+    transform: none !important;
+  }
+
+  .motion-pointer-light {
+    display: none;
+  }
+
+  .motion-area-title {
+    transform: none !important;
+    clip-path: none !important;
+  }
+
+  .motion-scroll-cue > span {
+    animation: none;
+  }
+
+  .motion-tilt-image {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  [data-motion-tilt]:hover .motion-tilt-image {
+    --motion-image-scale: 1;
+  }
+
+  [data-motion-magnetic] {
+    translate: none !important;
   }
 }
 
@@ -166,7 +260,8 @@ html.scroll-reveal-ready [data-scroll-reveal="image"].is-scroll-revealed {
   border-radius: 1rem;
   border: 1px solid rgba(226, 232, 240, 0.8);
   box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--motion-duration-standard) var(--motion-ease-enter),
+    box-shadow var(--motion-duration-standard) var(--motion-ease-enter);
 }
 
 .card-elevated:hover {
