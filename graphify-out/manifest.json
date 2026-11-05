@@ -54,9 +54,9 @@
     "semantic_hash": ""
   },
   "src/components/common/Header.tsx": {
-    "mtime": 1793769512.9149585,
-    "seen": 1793771006.1230817,
-    "ast_hash": "822d9c9f918b54fae3b7fc9793b759f3",
+    "mtime": 1793778905.779713,
+    "seen": 1793849302.535045,
+    "ast_hash": "4a0820f082e4525a3f5512ed1af6a105",
     "semantic_hash": ""
   },
   "src/components/common/MapView.tsx": {
@@ -282,10 +282,10 @@
     "semantic_hash": "c565256d01e6000166126b90bd42c90a"
   },
   "vite.config.ts": {
-    "mtime": 1793161983.4428675,
-    "seen": 1793340441.4149532,
-    "ast_hash": "b3d1f0e9b329eac10664d2e126fdb107",
-    "semantic_hash": "b3d1f0e9b329eac10664d2e126fdb107"
+    "mtime": 1793778905.7757232,
+    "seen": 1793849302.5490954,
+    "ast_hash": "be96310b63bee8c7192efe55eadb1ff4",
+    "semantic_hash": ""
   },
   ".codex/hooks.json": {
     "mtime": 1793758968.3896053,
@@ -324,9 +324,9 @@
     "semantic_hash": "6d2cfdd0a4d5eb4f2f42eff9f299f02a"
   },
   "index.html": {
-    "mtime": 1793768886.9003768,
-    "seen": 1793768901.3046465,
-    "ast_hash": "270a298f3b2191178c2e78fb9fd6aba7",
+    "mtime": 1793778905.784711,
+    "seen": 1793849302.5550969,
+    "ast_hash": "bf5e607d87ced792ab2ee3f2ee1cb4bd",
     "semantic_hash": ""
   },
   "prompts.md": {
@@ -726,9 +726,9 @@
     "semantic_hash": ""
   },
   ".21st/DESIGN.md": {
-    "mtime": 1793762411.5980363,
-    "seen": 1793768901.3041306,
-    "ast_hash": "47650ab05236a3c38db46a339c6ac289",
+    "mtime": 1793779056.9521017,
+    "seen": 1793849302.5490954,
+    "ast_hash": "d26b2af091d519d62b621b75cc4eb105",
     "semantic_hash": ""
   },
   ".agents/skills/speckit-analyze/SKILL.md": {
@@ -1296,9 +1296,9 @@
     "semantic_hash": ""
   },
   "src/utils/motionSystem.ts": {
-    "mtime": 1793778439.702812,
-    "seen": 1793778514.7858996,
-    "ast_hash": "c9e8e6b3a16bd60fea28f951ab54942f",
+    "mtime": 1793849189.1535134,
+    "seen": 1793849302.5470967,
+    "ast_hash": "1847b52b5d1daf9562fca445cef1afcd",
     "semantic_hash": ""
   },
   "motion-mobile-after.png": {
@@ -1563,6 +1563,24 @@
     "mtime": 1793778364.2843225,
     "seen": 1793778514.0931573,
     "ast_hash": "ab58ca72eb5db906abc338fc9a045bb9",
+    "semantic_hash": ""
+  },
+  ".github/workflows/deploy-pages.yml": {
+    "mtime": 1793778917.5666935,
+    "seen": 1793849302.5000236,
+    "ast_hash": "a57ecb5da74767acdf47e61ef94e8e83",
+    "semantic_hash": ""
+  },
+  ".playwright-mcp/page-2026-11-04T07-50-02-753Z.yml": {
+    "mtime": 1793778602.8099442,
+    "seen": 1793849302.527027,
+    "ast_hash": "a998d78a3eca611acfeae33af1844d6d",
+    "semantic_hash": ""
+  },
+  ".playwright-mcp/page-2026-11-05T03-27-45-990Z.yml": {
+    "mtime": 1793849265.9950814,
+    "seen": 1793849302.527027,
+    "ast_hash": "1265c2db6e56a2ad39deccff9d8eafdf",
     "semantic_hash": ""
   },
   "package-lock.json": {

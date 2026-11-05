@@ -56,7 +56,7 @@ export const initializeMotionSystem = () => {
   const splitInstances = new Map<HTMLElement, SplitText>();
   const pointerMotionCleanup = new Map<HTMLElement, () => void>();
   const canHoverQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
-  const touchMotionQuery = window.matchMedia('(hover: none) and (pointer: coarse)');
+  const touchMotionQuery = window.matchMedia('(hover: none), (pointer: coarse), (max-width: 767px)');
 
   let mutationObserver: MutationObserver | null = null;
   let lenisTicker: ((time: number) => void) | null = null;
@@ -136,7 +136,9 @@ export const initializeMotionSystem = () => {
   };
 
   const startSmoothScroll = () => {
-    if (reduceMotionQuery.matches || activeScroller || disposed) return;
+    // Touch devices already have native momentum scrolling. Keeping Lenis on
+    // the GSAP ticker there costs a frame loop without improving touch scroll.
+    if (reduceMotionQuery.matches || touchMotionQuery.matches || !canHoverQuery.matches || activeScroller || disposed) return;
 
     const lenis = new Lenis({
       autoRaf: false,
@@ -169,6 +171,34 @@ export const initializeMotionSystem = () => {
       ...Array.from(root.querySelectorAll<HTMLElement>('[data-motion-step]')),
     ];
     if (!steps.length) return;
+
+    if (touchMotionQuery.matches) {
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: root,
+          start: name === 'hero' ? 'top 95%' : config.start,
+          toggleActions: config.toggleActions,
+          invalidateOnRefresh: true,
+        },
+      });
+      steps.forEach((step, index) => {
+        timeline.fromTo(
+          step,
+          { autoAlpha: 0, y: 8 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.28,
+            ease: 'power2.out',
+            clearProps: 'transform,opacity,visibility',
+          },
+          index * 0.035,
+        );
+      });
+      sequenceTimelines.set(root, timeline);
+      if (name === 'hero' && root.getBoundingClientRect().top < window.innerHeight) timeline.play();
+      return;
+    }
 
     const timeline = gsap.timeline({
       scrollTrigger: {
@@ -298,6 +328,25 @@ export const initializeMotionSystem = () => {
     activeTargets.add(element);
 
     if (element.hasAttribute('data-motion-split')) {
+      if (touchMotionQuery.matches) {
+        gsap.set(element, { autoAlpha: 1 });
+        if (choreographyRoot) return;
+        const trigger = ScrollTrigger.create({
+          trigger: element,
+          start: 'top 95%',
+          once: true,
+          onEnter: () => {
+            const tween = gsap.fromTo(
+              element,
+              { y: 8, autoAlpha: 0 },
+              { y: 0, autoAlpha: 1, duration: 0.28, ease: 'power2.out', clearProps: 'transform,opacity,visibility' },
+            );
+            tweens.set(element, tween);
+          },
+        });
+        targetTriggers.set(element, trigger);
+        return;
+      }
       const accessibleText = element.innerText.replace(/\s+/g, ' ').trim();
       gsap.set(element, { autoAlpha: 1, clearProps: 'translate' });
       const split = SplitText.create(element, {
@@ -345,6 +394,10 @@ export const initializeMotionSystem = () => {
     }
 
     if (element.hasAttribute('data-motion-hero')) {
+      if (touchMotionQuery.matches) {
+        gsap.set(element, { '--hero-drift-x': '0%', '--hero-drift-y': '0%', '--hero-scale': 1 });
+        return;
+      }
       const sequenceRoot = element.closest<HTMLElement>('[data-motion-sequence="hero"]');
       const tween = gsap.fromTo(
         element,
@@ -394,6 +447,21 @@ export const initializeMotionSystem = () => {
       start: 'top 95%',
       once: true,
       onEnter: () => {
+        if (touchMotionQuery.matches) {
+          const tween = gsap.fromTo(
+            element,
+            { autoAlpha: 0, y: 8 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.28,
+              ease: 'power2.out',
+              clearProps: 'transform,opacity,visibility',
+            },
+          );
+          tweens.set(element, tween);
+          return;
+        }
         const tween = gsap.fromTo(
           element,
           {
@@ -519,7 +587,7 @@ export const initializeMotionSystem = () => {
   };
 
   const processScrollMotionTree = (node: Node) => {
-    if (!(node instanceof HTMLElement)) return;
+    if (!(node instanceof HTMLElement) || touchMotionQuery.matches) return;
     const attach = (element: HTMLElement) => {
       if (scrollTweens.has(element) || reduceMotionQuery.matches) return;
       if (element.hasAttribute('data-motion-scroll-hero')) {

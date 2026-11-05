@@ -1,17 +1,17 @@
-# Graph Report - phongtro  (2026-11-04)
+# Graph Report - phongtro  (2026-11-05)
 
 ## Corpus Check
-- 180 files · ~271,776 words
+- 183 files · ~278,750 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 11 file(s) not represented in the graph (top: .mdc 4, (none) 4, .example 1)
 
 ## Summary
-- 655 nodes · 1148 edges · 44 communities (39 shown, 5 thin omitted)
+- 692 nodes · 1193 edges · 43 communities (40 shown, 3 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 24 edges (avg confidence: 0.84)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `393793b9`
+- Built from commit: `03c484d1`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -54,10 +54,9 @@
 - dependencies
 - verify_ui.cjs
 - motionSystem.ts
-- index.ts
+- deploy
 - scripts
-- User
-- uploadService
+- vite
 
 ## God Nodes (most connected - your core abstractions)
 1. `useRooms()` - 39 edges
@@ -76,8 +75,8 @@
   public/images/hero-sunset-villa.jpg → src/assets/anhmoi.png
 - `Trọ Thái Nguyên homepage design reference` --semantically_similar_to--> `Sunset villa, sea and swimming pool hero background`  [INFERRED] [semantically similar]
   public/images/mauthietke.png → src/assets/anhmoi.png
-- `MapViewProps` --references--> `Room`  [EXTRACTED]
-  src/components/common/MapView.tsx → src/types/index.ts
+- `RoomFormModalProps` --references--> `Room`  [EXTRACTED]
+  src/components/landlord/RoomFormModal.tsx → src/types/index.ts
 - `Semantic HTML keyboard and screen reader accessibility` --semantically_similar_to--> `Accessible reusable UI component patterns`  [INFERRED] [semantically similar]
   prompts.md → rules.md
 - `Strict TypeScript interfaces` --semantically_similar_to--> `Strict typing prefer interfaces and avoid any`  [INFERRED] [semantically similar]
@@ -86,11 +85,11 @@
 ## Import Cycles
 - None detected.
 
-## Communities (44 total, 5 thin omitted)
+## Communities (43 total, 3 thin omitted)
 
 ### Community 0 - "App.tsx"
-Cohesion: 0.07
-Nodes (57): framer-motion, lucide-react, react, AdminPortal, App(), LandlordPortal, MainApp(), RoomDetailView (+49 more)
+Cohesion: 0.06
+Nodes (77): framer-motion, lucide-react, react, AdminPortal, App(), LandlordPortal, MainApp(), RoomDetailView (+69 more)
 
 ### Community 1 - "package.json"
 Cohesion: 0.12
@@ -108,9 +107,13 @@ Nodes (32): Atomic commits and Conventional Commits, Authentication form validat
 Cohesion: 0.10
 Nodes (24): Admin listing review and CSV import, API endpoints for room CRUD and batch import, Compare two to four rooms, Direct landlord room discovery platform, Direct room viewing appointments, Docker and Nginx deployment guidance, Trọ Thái Nguyên project README, Editorial real-estate discovery design (+16 more)
 
+### Community 5 - "apiClient"
+Cohesion: 0.16
+Nodes (4): ApiClient, UploadResult, UploadService, uploadService
+
 ### Community 6 - "RoomContext.tsx"
-Cohesion: 0.17
-Nodes (12): RoomCardProps, BookingModalProps, ReportModalProps, RoomDetailViewProps, RoomFormModalProps, RoomContextType, SEED_ROOMS, roomService (+4 more)
+Cohesion: 0.08
+Nodes (32): MapViewProps, RoomCardProps, BookingModalProps, CostCalculatorProps, ReportModalProps, RoomDetailViewProps, AuthContextType, DEFAULT_FILTERS (+24 more)
 
 ### Community 7 - "TypeScript Settings"
 Cohesion: 0.10
@@ -121,8 +124,8 @@ Cohesion: 0.12
 Nodes (16): context, dockerfile, interval, retries, start_period, test, timeout, services (+8 more)
 
 ### Community 9 - "AuthContext.tsx"
-Cohesion: 0.15
-Nodes (11): react-dom@^18.3.1, react-dom, HomeLandingProps, quickCategories, QuickCategory, SearchDropdown(), SearchDropdownId, SearchDropdownOption (+3 more)
+Cohesion: 0.20
+Nodes (9): HomeLanding(), HomeLandingProps, quickCategories, QuickCategory, SearchDropdown(), SearchDropdownId, SearchDropdownOption, SearchDropdownProps (+1 more)
 
 ### Community 10 - "common.ps1"
 Cohesion: 0.16
@@ -222,47 +225,47 @@ Nodes (4): [Category 1], [Category 2], [CHECKLIST TYPE] Checklist: [FEATURE NAME
 
 ### Community 37 - "dependencies"
 Cohesion: 0.17
-Nodes (12): dependencies, clsx@^2.1.1, framer-motion@^14.6.0, gsap@^3.15.1, leaflet@^1.9.4, lucide-react@^0.460.0, react@^18.3.1, tailwind-merge@^2.5.4 (+4 more)
+Nodes (12): dependencies, clsx@^2.1.1, framer-motion@^14.6.0, leaflet@^1.9.4, lucide-react@^0.460.0, react@^18.3.1, react-dom@^18.3.1, tailwind-merge@^2.5.4 (+4 more)
 
 ### Community 38 - "verify_ui.cjs"
-Cohesion: 0.17
-Nodes (8): puppeteer-core@^24.43.1, vite@^5.4.10, @vitejs/plugin-react@^4.3.3, puppeteer-core, vite, @vitejs/plugin-react, path, puppeteer
+Cohesion: 0.33
+Nodes (4): puppeteer-core@^24.43.1, puppeteer-core, path, puppeteer
 
 ### Community 39 - "motionSystem.ts"
-Cohesion: 0.27
-Nodes (7): lenis@^1.3.27, lenis, MOTION_MAP, MotionSequenceConfig, MotionSequenceName, clearRevealStyles(), initializeMotionSystem()
+Cohesion: 0.17
+Nodes (12): gsap@^3.15.1, lenis@^1.3.27, gsap, lenis, CompareFloatingBarProps, MOTION_MAP, MotionSequenceConfig, MotionSequenceName (+4 more)
 
-### Community 40 - "index.ts"
-Cohesion: 0.11
-Nodes (34): CommandPaletteProps, MapView(), MapViewProps, RoomCard(), ComparisonModal(), ComparisonModalProps, BookingModal(), CostCalculator() (+26 more)
+### Community 40 - "deploy"
+Cohesion: 0.06
+Nodes (32): runs-on, steps, concurrency, cancel-in-progress, group, environment, needs, permissions (+24 more)
 
 ### Community 41 - "scripts"
 Cohesion: 0.50
 Nodes (4): scripts, build, dev, preview
 
-### Community 42 - "User"
-Cohesion: 0.26
-Nodes (7): AuthContextType, DEMO_USERS, INITIAL_APPOINTMENTS, INITIAL_REPORTS, authService, User, UserRole
+### Community 42 - "vite"
+Cohesion: 0.33
+Nodes (4): vite@^5.4.10, @vitejs/plugin-react@^4.3.3, vite, @vitejs/plugin-react
 
 ## Knowledge Gaps
 - **34 isolated node(s):** `Persistent project knowledge graph`, `Read graph report for broad architecture reviews`, `Refresh graph after source code changes`, `Use graph path and explain for relationship queries`, `Google Fonts typography bundle` (+29 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 330 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **5 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 349 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **3 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `react` connect `App.tsx` to `index.ts`, `package.json`, `dependencies`, `AuthContext.tsx`?**
-  _High betweenness centrality (0.029) - this node is a cross-community bridge._
+- **Why does `react` connect `App.tsx` to `package.json`, `dependencies`, `RoomContext.tsx`, `motionSystem.ts`, `AuthContext.tsx`?**
+  _High betweenness centrality (0.026) - this node is a cross-community bridge._
 - **What connects `Persistent project knowledge graph`, `Read graph report for broad architecture reviews`, `Refresh graph after source code changes` to the rest of the system?**
   _34 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `App.tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.07407407407407407 - nodes in this community are weakly interconnected._
-- **Why does `lucide-react` connect `App.tsx` to `index.ts`, `package.json`, `dependencies`, `AuthContext.tsx`?**
-  _High betweenness centrality (0.016) - this node is a cross-community bridge._
+  _Cohesion score 0.06472986748216106 - nodes in this community are weakly interconnected._
+- **Why does `lucide-react` connect `App.tsx` to `package.json`, `dependencies`, `AuthContext.tsx`, `motionSystem.ts`?**
+  _High betweenness centrality (0.015) - this node is a cross-community bridge._
 - **Should `package.json` be split into smaller, more focused modules?**
   _Cohesion score 0.11594202898550725 - nodes in this community are weakly interconnected._
-- **Why does `apiClient` connect `apiClient` to `App.tsx`, `User`, `RoomContext.tsx`?**
-  _High betweenness centrality (0.011) - this node is a cross-community bridge._
+- **Why does `ApiClient` connect `apiClient` to `App.tsx`, `RoomContext.tsx`?**
+  _High betweenness centrality (0.010) - this node is a cross-community bridge._
 - **Should `steps` be split into smaller, more focused modules?**
   _Cohesion score 0.06451612903225806 - nodes in this community are weakly interconnected._
