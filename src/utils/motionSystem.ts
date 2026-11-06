@@ -45,12 +45,12 @@ export const initializeMotionSystem = () => {
   const tweens = new Map<HTMLElement, gsap.core.Tween>();
   const sequenceTimelines = new Map<HTMLElement, gsap.core.Timeline>();
   const queuedSequenceBuilds = new WeakMap<HTMLElement, boolean>();
-  const targetTriggers = new Map<HTMLElement, ScrollTrigger>();
   const pointerMotionCleanup = new Map<HTMLElement, () => void>();
   const canHoverQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
   const touchMotionQuery = window.matchMedia('(hover: none), (pointer: coarse), (max-width: 767px)');
 
   let mutationObserver: MutationObserver | null = null;
+  let revealObserver: IntersectionObserver | null = null;
   let lenisTicker: ((time: number) => void) | null = null;
   let refreshTimer: number | null = null;
   let disposed = false;
@@ -60,8 +60,7 @@ export const initializeMotionSystem = () => {
     tween?.scrollTrigger?.kill();
     tween?.kill();
     tweens.delete(element);
-    targetTriggers.get(element)?.kill();
-    targetTriggers.delete(element);
+    revealObserver?.unobserve(element);
     initialized.delete(element);
     activeTargets.delete(element);
     clearRevealStyles(element);
@@ -97,6 +96,8 @@ export const initializeMotionSystem = () => {
   const clearReveals = () => {
     mutationObserver?.disconnect();
     mutationObserver = null;
+    revealObserver?.disconnect();
+    revealObserver = null;
     if (refreshTimer !== null) window.clearTimeout(refreshTimer);
     refreshTimer = null;
     activeTargets.forEach(clearTarget);
@@ -220,26 +221,7 @@ export const initializeMotionSystem = () => {
       return;
     }
 
-    const trigger = ScrollTrigger.create({
-      trigger: element,
-      start: 'top 95%',
-      once: true,
-      onEnter: () => {
-        const tween = gsap.fromTo(
-          element,
-          { autoAlpha: 0, y: 8 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.3,
-            ease: 'power2.out',
-            clearProps: 'transform,opacity,visibility',
-          },
-        );
-        tweens.set(element, tween);
-      },
-    });
-    targetTriggers.set(element, trigger);
+    revealObserver?.observe(element);
   };
 
   const attachPointerMotion = (element: HTMLElement) => {
@@ -367,6 +349,29 @@ export const initializeMotionSystem = () => {
   const startReveals = () => {
     if (reduceMotionQuery.matches || disposed) return;
 
+    // Individual reveals only need a one-time viewport crossing. Giving each
+    // room card a ScrollTrigger makes every scroll tick measure every card;
+    // IntersectionObserver avoids that per-frame work.
+    revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(({ target, isIntersecting }) => {
+        if (!isIntersecting || !(target instanceof HTMLElement)) return;
+        revealObserver?.unobserve(target);
+        if (!target.isConnected || reduceMotionQuery.matches) return;
+        const tween = gsap.fromTo(
+          target,
+          { autoAlpha: 0, y: 8 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.3,
+            ease: 'power2.out',
+            clearProps: 'transform,opacity,visibility',
+          },
+        );
+        tweens.set(target, tween);
+      });
+    }, { rootMargin: '0px 0px 5% 0px', threshold: 0 });
+
     const root = document.documentElement;
     root.classList.add('motion-ready');
     processTree(document.body);
@@ -376,8 +381,8 @@ export const initializeMotionSystem = () => {
     mutationObserver = new MutationObserver((records) => {
       let refreshRequired = false;
       const containsMotionGeometry = (node: Node) => node instanceof HTMLElement && (
-        node.matches(`${revealSelector}, ${sequenceSelector}`)
-        || Boolean(node.querySelector(`${revealSelector}, ${sequenceSelector}`))
+        node.matches(sequenceSelector)
+        || Boolean(node.querySelector(sequenceSelector))
       );
 
       records.forEach((record) => {
@@ -393,7 +398,7 @@ export const initializeMotionSystem = () => {
         });
       });
       // Image swaps, modals and other leaf mutations do not change motion
-      // trigger geometry. Refresh only when sections/reveal targets are added
+      // trigger geometry. Refresh only when choreographed sections are added
       // or removed, so common UI updates do not repeatedly measure the page.
       if (!refreshRequired) return;
       if (refreshTimer !== null) window.clearTimeout(refreshTimer);

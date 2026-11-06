@@ -78,11 +78,15 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({
     };
 
     updatePlacement();
+    const closeOnScroll = () => onClose(id);
     window.addEventListener('resize', updatePlacement);
-    window.addEventListener('scroll', updatePlacement, true);
+    // A fixed dropdown should not force a layout read and React render on every
+    // scroll tick. Dismiss it when the page moves; users can reopen it at the
+    // new trigger position.
+    window.addEventListener('scroll', closeOnScroll, { capture: true, passive: true });
     return () => {
       window.removeEventListener('resize', updatePlacement);
-      window.removeEventListener('scroll', updatePlacement, true);
+      window.removeEventListener('scroll', closeOnScroll, true);
     };
   }, [open]);
 
@@ -270,6 +274,7 @@ export const HomeLanding: React.FC<HomeLandingProps> = ({ onSearchSubmit, onOpen
           data-motion-hero="image"
           data-motion-cinematic-image
           alt=""
+          decoding="async"
           className="hero-cinematic-image absolute inset-0 h-full w-full object-cover object-[62%_center] saturate-[0.92] lg:object-center"
         />
         <div className="hero-atmosphere-layer absolute inset-0 bg-gradient-to-r from-white/45 via-white/12 to-transparent sm:from-white/35 lg:from-white/20" />

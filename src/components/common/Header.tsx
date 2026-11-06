@@ -100,9 +100,9 @@ export const Header: React.FC<HeaderProps> = ({
 
   const headerClasses = isHomeTransparent
     ? isScrolled
-      ? 'fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-white/95 backdrop-blur-xl border-b border-slate-200/80 py-3 shadow-sm'
+      ? 'fixed top-0 inset-x-0 z-50 transition-[background-color,border-color,box-shadow,padding] duration-300 bg-white/95 border-b border-slate-200/80 py-3 shadow-sm'
       : 'fixed top-0 inset-x-0 z-50 transition-all duration-300 py-3 sm:py-4'
-    : 'sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm py-3 transition-all duration-300';
+    : 'sticky top-0 z-50 bg-white/95 border-b border-slate-200 shadow-sm py-3 transition-[background-color,border-color,box-shadow,padding] duration-300';
 
   return (
     <header className={headerClasses}>

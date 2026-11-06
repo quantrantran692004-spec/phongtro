@@ -1,4 +1,4 @@
-import React, { useState, useSyncExternalStore } from 'react';
+import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { 
   Heart, 
@@ -19,22 +19,12 @@ import { Room } from '../../types';
 import { formatCurrency, formatArea, getRoomTypeLabel, formatRelativeTime } from '../../utils/formatters';
 import { useRooms } from '../../context/RoomContext';
 
-const touchCardQuery = '(hover: none) and (pointer: coarse)';
-const subscribeTouchCards = (onChange: () => void) => {
-  const query = window.matchMedia(touchCardQuery);
-  query.addEventListener('change', onChange);
-  return () => query.removeEventListener('change', onChange);
-};
-const getTouchCards = () => window.matchMedia(touchCardQuery).matches;
-const getServerTouchCards = () => false;
-
 interface RoomCardProps {
   room: Room;
   onSelect: (roomId: string) => void;
 }
 
 export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
-  const touchCards = useSyncExternalStore(subscribeTouchCards, getTouchCards, getServerTouchCards);
   const { toggleFavorite, isFavorite, toggleCompare, compareList } = useRooms();
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
   const isFav = isFavorite(room.id);
@@ -65,8 +55,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
 
   return (
     <motion.div
-      layout={touchCards ? false : "position"}
-      transition={{ layout: { duration: 0.24, ease: [0.22, 1, 0.36, 1] } }}
+      layout={false}
       data-scroll-reveal="up"
       data-motion-tilt
       data-motion-light
@@ -88,6 +77,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
               transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
               className="absolute inset-0 h-full w-full object-cover"
               loading="lazy"
+              decoding="async"
             />
           </AnimatePresence>
         </div>
@@ -99,23 +89,23 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
         {/* Top-Left Badges: Verified status or Gần KCN Samsung */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10 pointer-events-none">
           {room.isVerified ? (
-            <span className="inline-flex items-center gap-1.5 bg-emerald-600/95 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md backdrop-blur-md border border-emerald-400/40">
+            <span className="inline-flex items-center gap-1.5 bg-emerald-600/95 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md border border-emerald-400/40">
               <Check className="w-3.5 h-3.5 stroke-[3]" />
               <span>Đã khảo sát 100%</span>
             </span>
           ) : isNearSamsung ? (
-            <span className="inline-flex items-center gap-1 bg-amber-600/90 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md backdrop-blur-md border border-amber-400/30">
+            <span className="inline-flex items-center gap-1 bg-amber-600/95 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md border border-amber-400/30">
               <Flame className="w-3.5 h-3.5 fill-current" />
               <span>🔥 Gần KCN Samsung</span>
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1 bg-teal-700/85 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-md backdrop-blur-md border border-white/20">
+            <span className="inline-flex items-center gap-1 bg-teal-700/95 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-md border border-white/20">
               <Sparkles className="w-3 h-3" />
               <span>Chính chủ</span>
             </span>
           )}
 
-          <span className="text-[10px] font-semibold px-2.5 py-1 rounded-full backdrop-blur-md bg-slate-900/60 text-white border border-white/20">
+          <span className="text-[10px] font-semibold px-2.5 py-1 rounded-full bg-slate-900/75 text-white border border-white/20">
             {getRoomTypeLabel(room.roomType)}
           </span>
         </div>
@@ -131,7 +121,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
             className={`p-2 rounded-full border shadow-md transition-all duration-200 active:scale-95 ${
               isCompared
                 ? 'bg-teal-600 border-teal-500 text-white'
-                : 'bg-white/85 backdrop-blur-md border-white/80 text-slate-700 hover:bg-white hover:text-teal-700'
+                : 'bg-white/95 border-white/80 text-slate-700 hover:bg-white hover:text-teal-700'
             }`}
             title={isCompared ? 'Bỏ so sánh' : 'Thêm vào so sánh'}
           >
@@ -147,7 +137,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
             className={`p-2 rounded-full border shadow-md transition-all duration-200 active:scale-95 ${
               isFav
                 ? 'bg-rose-500 border-rose-500 text-white'
-                : 'bg-white/85 backdrop-blur-md border-white/80 text-slate-700 hover:bg-white hover:text-rose-500'
+                : 'bg-white/95 border-white/80 text-slate-700 hover:bg-white hover:text-rose-500'
             }`}
             title={isFav ? 'Bỏ lưu' : 'Lưu tin phòng'}
           >
@@ -160,14 +150,14 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
           <>
             <button
               onClick={prevImg}
-              className="absolute left-2.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/90 backdrop-blur-md hover:bg-white text-slate-900 shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 z-10"
+              className="absolute left-2.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/95 hover:bg-white text-slate-900 shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 z-10"
               aria-label="Ảnh trước"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={nextImg}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/90 backdrop-blur-md hover:bg-white text-slate-900 shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 z-10"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/95 hover:bg-white text-slate-900 shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 z-10"
               aria-label="Ảnh sau"
             >
               <ChevronRight className="w-4 h-4" />
@@ -189,7 +179,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onSelect }) => {
 
         {/* ĐÃ CHO THUÊ Overlay */}
         {room.status === 'rented' && (
-          <div className="absolute inset-0 bg-slate-950/70 backdrop-blur-[2px] flex items-center justify-center z-20 pointer-events-none">
+          <div className="absolute inset-0 bg-slate-950/75 flex items-center justify-center z-20 pointer-events-none">
             <span className="text-white font-extrabold text-xs tracking-widest uppercase bg-rose-600/90 px-3.5 py-1.5 rounded-full shadow-lg">
               ĐÃ CHO THUÊ
             </span>
