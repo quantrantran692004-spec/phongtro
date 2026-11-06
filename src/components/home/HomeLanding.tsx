@@ -268,7 +268,6 @@ export const HomeLanding: React.FC<HomeLandingProps> = ({ onSearchSubmit, onOpen
         <img
           src={heroImage}
           data-motion-hero="image"
-          data-motion-scroll-hero
           data-motion-cinematic-image
           alt=""
           className="hero-cinematic-image absolute inset-0 h-full w-full object-cover object-[62%_center] saturate-[0.92] lg:object-center"

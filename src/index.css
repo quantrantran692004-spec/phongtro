@@ -68,8 +68,7 @@
     radial-gradient(ellipse 13% 2.8% at 91% 41%, rgba(255, 255, 255, 0.44), transparent 80%);
   -webkit-mask-image: linear-gradient(to bottom, transparent 28%, #000 34%, #000 46%, transparent 51%);
   mask-image: linear-gradient(to bottom, transparent 28%, #000 34%, #000 46%, transparent 51%);
-  animation: hero-cloud-drift 3.33s ease-in-out infinite alternate;
-  will-change: transform;
+  transform: none;
 }
 
 /* Moving reflections are confined to the pool; no zoom or movement of the source image. */
@@ -84,42 +83,15 @@
   background-repeat: no-repeat;
   -webkit-mask-image: linear-gradient(to bottom, transparent 48%, #000 58%, #000 91%, transparent 100%);
   mask-image: linear-gradient(to bottom, transparent 48%, #000 58%, #000 91%, transparent 100%);
-  animation: hero-water-light 1.33s ease-in-out infinite alternate;
-  will-change: transform;
-}
-
-@keyframes hero-cloud-drift {
-  from { transform: translate3d(-2.2%, 0, 0); }
-  to { transform: translate3d(2.2%, 0.12%, 0); }
-}
-
-@keyframes hero-water-light {
-  from { transform: translate3d(-0.22%, 0, 0); }
-  to { transform: translate3d(0.22%, 0.08%, 0); }
+  transform: none;
 }
 
 .chat-status-light {
-  animation: chat-status-glow 1.4s ease-in-out infinite alternate;
-}
-
-@keyframes chat-status-glow {
-  from { opacity: 0.78; box-shadow: 0 0 4px 1px rgba(52, 211, 153, 0.55); }
-  to { opacity: 1; box-shadow: 0 0 8px 2px rgba(52, 211, 153, 0.9); }
+  opacity: 0.9;
+  box-shadow: 0 0 6px 1px rgba(52, 211, 153, 0.72);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-atmosphere-layer::before,
-  .hero-atmosphere-layer::after {
-    animation: none;
-    opacity: 0;
-    will-change: auto;
-  }
-
-  .chat-status-light {
-    animation: none;
-    will-change: auto;
-  }
-
   *,
   *::before,
   *::after {
@@ -153,14 +125,12 @@
   --hero-drift-y: 0%;
   --hero-pointer-x: 0px;
   --hero-pointer-y: 0px;
-  --hero-scroll-y: 0%;
-  --hero-scroll-scale: 0;
   --hero-scale: 1;
   transform: translate3d(
     calc(var(--hero-drift-x) + var(--hero-pointer-x)),
-    calc(var(--hero-drift-y) + var(--hero-pointer-y) + var(--hero-scroll-y)),
+    calc(var(--hero-drift-y) + var(--hero-pointer-y)),
     0
-  ) scale(calc(var(--hero-scale) + var(--hero-scroll-scale)));
+  ) scale(var(--hero-scale));
   transform-origin: 54% 50%;
   backface-visibility: hidden;
 }
@@ -187,14 +157,7 @@
 }
 
 .motion-scroll-cue > span {
-  animation: scroll-cue-travel 1.7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-
-@keyframes scroll-cue-travel {
-  0% { transform: translateY(-100%); opacity: 0; }
-  24% { opacity: 1; }
-  76% { opacity: 1; }
-  100% { transform: translateY(300%); opacity: 0; }
+  opacity: 0.7;
 }
 
 [data-motion-tilt]:hover .motion-area-title {
@@ -226,10 +189,6 @@
   .motion-area-title {
     transform: none !important;
     clip-path: none !important;
-  }
-
-  .motion-scroll-cue > span {
-    animation: none;
   }
 
   .motion-tilt-image {

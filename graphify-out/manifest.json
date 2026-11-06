@@ -66,9 +66,9 @@
     "semantic_hash": ""
   },
   "src/components/common/RoomCard.tsx": {
-    "mtime": 1793775942.085257,
-    "seen": 1793776220.8139317,
-    "ast_hash": "5fb7e3fa4f10ec270ffaadd20f2fca16",
+    "mtime": 1793849414.029858,
+    "seen": 1793928734.3539433,
+    "ast_hash": "4a729d19a31401221f960de5fc77cbac",
     "semantic_hash": ""
   },
   "src/components/compare/ComparisonModal.tsx": {
@@ -102,9 +102,9 @@
     "semantic_hash": ""
   },
   "src/components/home/AreaExplorer.tsx": {
-    "mtime": 1793777248.3655238,
-    "seen": 1793778010.5791366,
-    "ast_hash": "323e006921610dd65ea1828f68a12c00",
+    "mtime": 1793928526.0873659,
+    "seen": 1793928734.3549428,
+    "ast_hash": "67b3857dbeb354e6f98a1cfed4487178",
     "semantic_hash": ""
   },
   "src/components/home/FeaturedRooms.tsx": {
@@ -114,9 +114,9 @@
     "semantic_hash": ""
   },
   "src/components/home/HomeLanding.tsx": {
-    "mtime": 1793777166.3171425,
-    "seen": 1793778010.5791366,
-    "ast_hash": "f86f7a6c90bccc25b0b0b5ee6a693dce",
+    "mtime": 1793928526.085365,
+    "seen": 1793928734.3549428,
+    "ast_hash": "85eaabc4e01883bc074227d20d477daa",
     "semantic_hash": ""
   },
   "src/components/home/LandlordCta.tsx": {
@@ -1296,9 +1296,9 @@
     "semantic_hash": ""
   },
   "src/utils/motionSystem.ts": {
-    "mtime": 1793849189.1535134,
-    "seen": 1793849302.5470967,
-    "ast_hash": "1847b52b5d1daf9562fca445cef1afcd",
+    "mtime": 1793928526.0893612,
+    "seen": 1793928734.3609426,
+    "ast_hash": "3dc431a9c5da2da94731676a0e556a6a",
     "semantic_hash": ""
   },
   "motion-mobile-after.png": {
@@ -1581,6 +1581,42 @@
     "mtime": 1793849265.9950814,
     "seen": 1793849302.527027,
     "ast_hash": "1265c2db6e56a2ad39deccff9d8eafdf",
+    "semantic_hash": ""
+  },
+  ".playwright-mcp/page-2026-11-05T03-32-59-794Z.yml": {
+    "mtime": 1793849579.799195,
+    "seen": 1793928734.3479462,
+    "ast_hash": "a742650e88e4f3fb66d550ce8661d77f",
+    "semantic_hash": ""
+  },
+  ".playwright-mcp/page-2026-11-06T01-19-50-182Z.yml": {
+    "mtime": 1793927990.1889386,
+    "seen": 1793928734.3479462,
+    "ast_hash": "d1407be5b62a837f831f0da43a9832eb",
+    "semantic_hash": ""
+  },
+  ".playwright-mcp/page-2026-11-06T01-29-44-219Z.yml": {
+    "mtime": 1793928584.2225418,
+    "seen": 1793928734.3479462,
+    "ast_hash": "7ecdde6db7ce6733a8f9661e97bcbea6",
+    "semantic_hash": ""
+  },
+  ".playwright-mcp/page-2026-11-05T03-28-53-498Z.png": {
+    "mtime": 1793849333.5046966,
+    "seen": 1793928734.3719442,
+    "ast_hash": "b242195cd5cf9188c12315fbf17920df",
+    "semantic_hash": ""
+  },
+  ".playwright-mcp/page-2026-11-06T01-31-39-895Z.png": {
+    "mtime": 1793928699.9032588,
+    "seen": 1793928734.3719442,
+    "ast_hash": "9970dc1156e970ca009443a5a9b12421",
+    "semantic_hash": ""
+  },
+  ".playwright-mcp/page-2026-11-06T01-31-51-438Z.png": {
+    "mtime": 1793928711.442562,
+    "seen": 1793928734.3719442,
+    "ast_hash": "17ecacf056dc07cb9893f45ba1cecf73",
     "semantic_hash": ""
   },
   "package-lock.json": {

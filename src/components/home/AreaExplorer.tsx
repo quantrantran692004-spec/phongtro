@@ -77,7 +77,7 @@ export const AreaExplorer: React.FC<AreaExplorerProps> = ({ onSelectArea }) => {
                 }`}
               >
                 <div data-motion-tilt-target className="motion-tilt-image absolute inset-0">
-                  <div data-motion-scroll-image className="absolute inset-x-0 -inset-y-[5%]">
+                  <div className="absolute inset-x-0 -inset-y-[5%]">
                     <img
                       src={area.image}
                       alt=""
